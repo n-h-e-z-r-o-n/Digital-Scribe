@@ -1,0 +1,74 @@
+{
+  "builder_name": "csv",
+  "citation": "",
+  "config_name": "default",
+  "dataset_name": "counsel-chat",
+  "dataset_size": 4212643,
+  "description": "",
+  "download_checksums": {
+    "hf://datasets/nbertagnolli/counsel-chat@17501f72697cf8018aaf496162e9dc1408a64e67/20220401_counsel_chat.csv": {
+      "num_bytes": 4129977,
+      "checksum": null
+    }
+  },
+  "download_size": 4129977,
+  "features": {
+    "questionID": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "questionTitle": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "questionText": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "questionLink": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "topic": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "therapistInfo": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "therapistURL": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "answerText": {
+      "dtype": "string",
+      "_type": "Value"
+    },
+    "upvotes": {
+      "dtype": "int64",
+      "_type": "Value"
+    },
+    "views": {
+      "dtype": "int64",
+      "_type": "Value"
+    }
+  },
+  "homepage": "",
+  "license": "",
+  "size_in_bytes": 8342620,
+  "splits": {
+    "train": {
+      "name": "train",
+      "num_bytes": 4212643,
+      "num_examples": 2775,
+      "dataset_name": "counsel-chat"
+    }
+  },
+  "version": {
+    "version_str": "0.0.0",
+    "major": 0,
+    "minor": 0,
+    "patch": 0
+  }
+}

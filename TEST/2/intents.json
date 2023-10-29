@@ -1,0 +1,89 @@
+
+{
+    "intents": [
+        {
+            "tag": "greeting",
+            "patterns": ["Hi", "Hey", "Is anyone there?", "Hello", "Hay"],
+            "responses": ["Hello", "Hi", "Hi there"]
+        },
+        {
+            "tag": "goodbye",
+            "patterns": ["Bye", "See you later", "Goodbye"],
+            "responses": ["See you later", "Have a nice day", "Bye! Come back again"]
+        },
+        {
+            "tag": "thanks",
+            "patterns": ["Thanks", "Thank you", "That's helpful", "Thanks for the help"],
+            "responses": ["Happy to help!", "Any time!", "My pleasure", "You're most welcome!"]
+        },
+        {
+            "tag": "about",
+            "patterns": ["Who are you?", "What are you?", "Who you are?"],
+            "responses": ["I'm Joana, your bot assistant", "I'm Joana, an Artificial Intelligent bot"]
+        },
+        {
+            "tag": "name",
+            "patterns": ["What is your name", "What should I call you", "What's your name?"],
+            "responses": ["You can call me Joana.", "I'm Joana!", "Just call me as Joana"]
+        },
+        {
+            "tag": "help",
+            "patterns": [
+                "Could you help me?",
+                "Give me a hand please",
+                "Can you help?",
+                "What can you do for me?",
+                "I need support",
+                "I need help",
+                "Support me please"
+            ],
+            "responses": ["Tell me how I can assist you", "Tell me your problem to assist you", "Yes Sure, how can I support you"]
+        },
+        {
+            "tag": "createaccount",
+            "patterns": [
+                "I need to create a new account",
+                "How to open a new account",
+                "I want to create an account",
+                "Can you create an account for me",
+                "How to open a new account"
+            ],
+            "responses": [
+                "You can easily create a new account from our website",
+                "Just go to our website and follow the guidelines to create a new account"
+            ]
+        },
+        {
+            "tag": "complaint",
+            "patterns": [
+                "Have a complaint",
+                "I want to raise a complaint",
+                "There is a complaint about a service"
+            ],
+            "responses": [
+                "Please provide us your complaint in order to assist you",
+                "Please mention your complaint, and we will reach you. Sorry for any inconvenience caused."
+            ]
+        },
+        {
+            "tag": "therapy",
+            "patterns": [
+                "I need someone to talk to",
+                "I'm feeling down",
+                "I'm stressed",
+                "I'm going through a tough time",
+                "Can we talk about my feelings?"
+            ],
+            "responses": [
+                "I'm here to listen. Please feel free to share your thoughts and feelings.",
+                "I'm not a licensed therapist, but I'm here to lend an understanding ear. What's on your mind?",
+                "It's important to talk about your emotions. I'm here to chat with you."
+            ]
+        },
+        {
+             "tag": "goodbye",
+             "patterns": ["Goodbye", "See you later", "I have to go now"],
+             "responses": ["Take care of yourself. Feel free to return whenever you need to talk.", "Goodbye. Remember, I'm here whenever you want to talk.", "I'm here if you ever want to continue our conversation. Goodbye for now."]
+        }
+    ]
+}
