@@ -38,6 +38,7 @@ def Login_function(Email, password):
 
 clients_connection_list = []
 clients_id_list = []
+
 def server_program():
     # get the hostname
     host = '127.0.0.1'
@@ -82,9 +83,6 @@ def server_program():
                 break
             else:
                 pass
-
-
-
 
 
 if __name__ == '__main__':
