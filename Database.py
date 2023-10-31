@@ -22,6 +22,8 @@ myresult = mycursor.fetchall()
 
 print(myresult)
 
+mycursor.execute('UPDATE menta_application_schema.users_type2 SET user_image = %s WHERE user_id = %s', [file,user_id])
+mydb.commit()
 
 
 #mycursor.execute("INSERT INTO menta_application_schema.users_type2 (First_Name, Second_Name, Last_Name, Email, Username, Password) VALUES (%s, %s, %s, %s, %s, %s)", ('Maureen', 'Wamboi', 'Lucy ', 'm@gmail', 'mauerrn', encryp('12maureen12')))
