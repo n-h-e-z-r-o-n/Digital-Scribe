@@ -192,34 +192,35 @@ def sign_out(wig, user_id):
     else:
       pass
 
-def Login_Section(widget, root_widget):
+def login_Request(email, passw, root_widget):
+    global client_socket, server_IP4v_address, Server_listening_port
+    if (len(email) and len(passw)) > 3:
+        print('login test')
+        print(email)
+        print(passw)
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+        client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
+        login_credentials = f'login_Request~{email}~{passw}'
+        client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
+        status = client_socket.recv(1024).decode("utf-8", errors="ignore")
+        if status == 'User_Error':
+            print('User_Error')
+            client_socket.close()
+        else:
+            root_widget.destroy()
+            user_id = status
+            print('User_id: ', user_id)
+            User_Home_page(root, user_id)
+
+    #root_widget.destroy()
+    #User_Home_page(root, 344)
+
+def Login_Section_widget(widget, root_widget):
     global screen_width, screen_height
     nav_bar_color = "white"
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
 
-    def login_Request(email, passw):
-        global client_socket, server_IP4v_address, Server_listening_port
-        if (len(email) and len(passw)) > 3:
-            print('login test')
-            print(email)
-            print(passw)
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
-            client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
-            login_credentials = f'login_Request~{email}~{passw}'
-            client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
-            status = client_socket.recv(1024).decode("utf-8", errors="ignore")
-            if status == 'User_Error':
-                print('User_Error')
-                client_socket.close()
-            else:
-                root_widget.destroy()
-                user_id = status
-                print('User_id: ', user_id)
-                User_Home_page(root, user_id)
-
-        #root_widget.destroy()
-        #User_Home_page(root, 344)
 
     def Forgot_pass():
         def back(widg):
@@ -269,7 +270,7 @@ def Login_Section(widget, root_widget):
     Forgot_password_login_link.place(relheight=0.03, relwidth=0.1, rely=0.41, relx=0.05)
     change_fg_OnHover(Forgot_password_login_link, '#00AB66', '#A8E4A0')
 
-    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get()))
+    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
     login_btn.place(relheight=0.06, relwidth=0.2, rely=0.5, relx=0.05)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
 
@@ -291,10 +292,6 @@ def Login_Section(widget, root_widget):
 
 
 def User_Home_page(widget, user_id):
-
-
-
-
 
     user_page_widget, user_page_root = attach_scroll(widget)
     Home_page_frame = tk.Frame(user_page_widget, bg='blue', width=screen_width, height=screen_height)
@@ -343,7 +340,7 @@ def Welcome_Page(wiget):
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Log in ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color, Login_Section(welcome_page_frame, welcome_page_root))
+    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color, Login_Section_widget(welcome_page_frame, welcome_page_root))
 
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Get started', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
