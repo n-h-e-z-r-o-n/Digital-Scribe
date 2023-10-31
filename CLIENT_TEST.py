@@ -1,26 +1,30 @@
 import socket
-import cv2
-import numpy as np
-user_ide = '123fv'
 
-def run_client():
-    # create a socket object
-    client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-    server_ip = "127.0.0.1"  # replace with the server's IP address
-    server_port = 800  # replace with the server's port number
-    # establish connection with server
-    client.connect((server_ip, server_port))
+def client_program():
+    domain = "inspiring-frost-18221.pktriot.net"
+    ip = socket.gethostbyname(domain)
+    port = 22575  # socket server port number
+    host = ip
 
-    while True:
 
-        client.send(str('Hello from Hezron').encode("utf-8")[:1024])
+    host = "127.0.0.1"  # as both code is running on same pc
+    port = 800  # socket server port number
 
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+    client_socket = socket.socket()  # instantiate
+    client_socket.connect((host, port))  # connect to the server
 
-    # close client socket (connection to the server)
-    client.close()
-    print("Connection to server closed")
+    login_credentials = 'login_Request~m@gmail~12maureen12'
+    client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
 
-run_client()
+    data = client_socket.recv(1024).decode("utf-8", errors="ignore")  # receive response
+
+    print('Received from server: ' + data)  # show in terminal
+
+
+
+    client_socket.close()  # close the connection
+
+
+if __name__ == '__main__':
+    client_program()

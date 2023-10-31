@@ -1,8 +1,25 @@
 import time
+import socket
 import tkinter as tk
 import ctypes as ct
 import threading
 from PIL import Image, ImageTk
+
+# =============================== Server Details ============================================================================================
+"""
+server_domain_name = "inspiring-frost-18221.pktriot.net"
+server_IP4v_address = socket.gethostbyname(server_domain_name)
+Server_listening_port = 22575  # socket server port number
+#client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # instantiate
+client_socket = None
+#client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
+"""
+
+server_IP4v_address = "127.0.0.1"  # as both code is running on same pc
+Server_listening_port = 800  # socket server port number
+#client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+client_socket = None
+# client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -53,12 +70,12 @@ def attach_scroll(widget):
     canvas_FRAME_2_frame = tk.Frame(canvas_FRAME_2)  # Create a frame to hold your content of the canvers
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
-    return canvas_FRAME_2_frame
+    return canvas_FRAME_2_frame, FRAME_2
+
 
 
 def show(widg):
     widg.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
-
 
 def hide(widg):
     def enter():
@@ -163,13 +180,46 @@ def Service_Section(widget):
 
 
 # =============================== Pages Functions definition =======================================================================================
+def sign_out(wig, user_id):
+    global client_socket, server_IP4v_address, Server_listening_port
+    signout_credentials = f'Sign_out_Request~{user_id}'
+    client_socket.send(signout_credentials.encode("utf-8")[:1024])  # send message
+    status = client_socket.recv(1024).decode("utf-8", errors="ignore")
+    if status == 'signed_out_success':
+        client_socket.close()
+        wig.destroy()
+        Welcome_Page(root)
+    else:
+      pass
 
-
-def Login_Section(widget):
+def Login_Section(widget, root_widget):
     global screen_width, screen_height
     nav_bar_color = "white"
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
+
+    def login_Request(email, passw):
+        global client_socket, server_IP4v_address, Server_listening_port
+        if (len(email) and len(passw)) > 3:
+            print('login test')
+            print(email)
+            print(passw)
+            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+            client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
+            login_credentials = f'login_Request~{email}~{passw}'
+            client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
+            status = client_socket.recv(1024).decode("utf-8", errors="ignore")
+            if status == 'User_Error':
+                print('User_Error')
+                client_socket.close()
+            else:
+                root_widget.destroy()
+                user_id = status
+                print('User_id: ', user_id)
+                User_Home_page(root, user_id)
+
+        #root_widget.destroy()
+        #User_Home_page(root, 344)
 
     def Forgot_pass():
         def back(widg):
@@ -219,7 +269,7 @@ def Login_Section(widget):
     Forgot_password_login_link.place(relheight=0.03, relwidth=0.1, rely=0.41, relx=0.05)
     change_fg_OnHover(Forgot_password_login_link, '#00AB66', '#A8E4A0')
 
-    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', font=("Aptos", 15, 'bold'), borderwidth=1, border=0)
+    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get()))
     login_btn.place(relheight=0.06, relwidth=0.2, rely=0.5, relx=0.05)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
 
@@ -240,18 +290,40 @@ def Login_Section(widget):
     return Login_widget
 
 
+def User_Home_page(widget, user_id):
+
+
+
+
+
+    user_page_widget, user_page_root = attach_scroll(widget)
+    Home_page_frame = tk.Frame(user_page_widget, bg='blue', width=screen_width, height=screen_height)
+    Home_page_frame.pack(fill=tk.BOTH, expand=True)
+
+    nav_bar_color = 'white'
+    nav_bar_btn_hover_color  = '#F5F5F5'
+    nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
+    nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
+
+    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out', justify=tk.LEFT, anchor="center", font=("Calibri", 12), command=lambda: sign_out(user_page_root, user_id), borderwidth=0, border=0)
+    nav_bar_bt5_widget.place(relheight=0.8, relwidth=0.06, rely=0.1, relx=0.935)
+    change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
+
+    return Home_page_frame
+
 def Welcome_Page(wiget):
     global screen_width, screen_height
-    home_widget = attach_scroll(wiget)
+    home_widget, welcome_page_root = attach_scroll(wiget)
+
     large_frame_size = screen_height * 2
-    Home_page_frame = tk.Frame(home_widget, bg='gray', width=screen_width, height=large_frame_size)
-    Home_page_frame.pack(fill=tk.BOTH, expand=True)
+    welcome_page_frame = tk.Frame(home_widget, bg='gray', width=screen_width, height=large_frame_size)
+    welcome_page_frame.pack(fill=tk.BOTH, expand=True)
 
     App_title = "Mindful"
     nav_bar_color = "white"
     nav_bar_btn_hover_color = '#F5F5F5'
 
-    nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
+    nav_bar = tk.Frame(welcome_page_frame, bg=nav_bar_color)
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
     nav_bar_title_widget = tk.Button(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
@@ -259,22 +331,25 @@ def Welcome_Page(wiget):
 
     nav_bar_bt1_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Services ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt1_widget.place(relheight=0.6, relwidth=0.08, rely=0.2, relx=0.6)
-    change_Widget_Attribute_OnHover(nav_bar_bt1_widget, 'Services ∧', 'Services ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(Home_page_frame))
+    change_Widget_Attribute_OnHover(nav_bar_bt1_widget, 'Services ∧', 'Services ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
 
     nav_bar_bt2_widget = tk.Button(nav_bar, bg=nav_bar_color, text='For Clinicians ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt2_widget.place(relheight=0.6, relwidth=0.08, rely=0.2, relx=0.69)
-    change_Widget_Attribute_OnHover(nav_bar_bt2_widget, 'For Clinicians ∧', 'For Clinicians ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(Home_page_frame))
+    change_Widget_Attribute_OnHover(nav_bar_bt2_widget, 'For Clinicians ∧', 'For Clinicians ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
 
     nav_bar_bt3_widget = tk.Button(nav_bar, bg=nav_bar_color, text='For Business ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt3_widget.place(relheight=0.6, relwidth=0.08, rely=0.2, relx=0.78)
-    change_Widget_Attribute_OnHover(nav_bar_bt3_widget, 'For Business ∧', 'For Business ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(Home_page_frame))
+    change_Widget_Attribute_OnHover(nav_bar_bt3_widget, 'For Business ∧', 'For Business ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Log in ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color, Login_Section(Home_page_frame))
+    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color, Login_Section(welcome_page_frame, welcome_page_root))
 
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Get started', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
+
+
+
 
 
 # =============================== Main Function definition =========================================================================================
