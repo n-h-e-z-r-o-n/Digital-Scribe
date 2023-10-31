@@ -57,6 +57,7 @@ def server_program():
             data = client.recv(1024).decode("utf-8")  # receive data stream
             data = data.split('~')
             print(data)
+            
 
             if data[0] == 'login_Request':
                 email = data[1]
