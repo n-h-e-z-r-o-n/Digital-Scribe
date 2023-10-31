@@ -76,6 +76,7 @@ def server_program():
                 print(clients_id_list)
                 print(clients_id_list[index])
                 print(clients_id_list)
+                print(clients_connection_list[index])
                 del clients_id_list[index]
                 del clients_connection_list[index]
                 break

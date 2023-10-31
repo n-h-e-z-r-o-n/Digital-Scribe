@@ -221,7 +221,6 @@ def Login_Section_widget(widget, root_widget):
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
 
-
     def Forgot_pass():
         def back(widg):
             widg.place_forget()
