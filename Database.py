@@ -1,3 +1,5 @@
+import base64
+
 import mysql.connector
 import hashlib
 
@@ -15,14 +17,11 @@ def encryp(string):
     hashed = hashlib.md5(string.encode()) # Encoding the password
     return hashed.hexdigest()  # return the Hash
 
-username = ' 105 OR 1=1' #'hezron26'
-password = '105 OR 1=1'
-mycursor.execute("select * from users_type2 where Email=%s and Password=%s", ("m@gmail", encryp('12maureen12')))
-myresult = mycursor.fetchall()
 
-print(myresult)
 
-mycursor.execute('UPDATE menta_application_schema.users_type2 SET user_image = %s WHERE user_id = %s', [file,user_id])
+file = open('./13.jpeg', 'rb').read()
+file = base64.b64encode(file)
+mycursor.execute('UPDATE menta_application_schema.users_type2 SET profile_Image = %s WHERE idPatient = %s', [file, 1235])
 mydb.commit()
 
 

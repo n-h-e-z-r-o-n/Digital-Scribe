@@ -1,9 +1,12 @@
+import base64
+import hashlib
 import time
 import socket
 import tkinter as tk
 import ctypes as ct
 import threading
 from PIL import Image, ImageTk
+import shelve
 
 # =============================== Server Details ============================================================================================
 """
@@ -15,9 +18,9 @@ client_socket = None
 #client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
 """
 
-server_IP4v_address = "127.0.0.1"  # as both code is running on same pc
+server_IP4v_address = "192.168.100.9"  #"127.0.0.1"  # as both code is running on same pc
 Server_listening_port = 800  # socket server port number
-#client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+# client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
 client_socket = None
 # client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
 
@@ -25,7 +28,10 @@ client_socket = None
 root = None
 screen_width: int
 screen_height: int
-
+widget_list: list = []
+session = None
+closed = False
+user_id = None
 
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -73,9 +79,9 @@ def attach_scroll(widget):
     return canvas_FRAME_2_frame, FRAME_2
 
 
-
 def show(widg):
     widg.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
+
 
 def hide(widg):
     def enter():
@@ -105,9 +111,16 @@ def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on
     widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
 
 
+import io
+
+
 def imagen(image_path, screen_width, screen_height, widget):
     def load_image():
-        image = Image.open(image_path)
+        try:
+            image = Image.open(image_path)
+        except:
+            image = Image.open(io.BytesIO(image_path))
+
         image = image.resize((screen_width, screen_height), Image.LANCZOS)
         photo = ImageTk.PhotoImage(image)
         widget.config(image=photo)
@@ -180,27 +193,39 @@ def Service_Section(widget):
 
 
 # =============================== Pages Functions definition =======================================================================================
-def sign_out(wig, user_id):
-    global client_socket, server_IP4v_address, Server_listening_port
+def sign_out(wig):
+    global client_socket, server_IP4v_address, Server_listening_port, session, user_id
     signout_credentials = f'Sign_out_Request~{user_id}'
-    client_socket.send(signout_credentials.encode("utf-8")[:1024])  # send message
-    status = client_socket.recv(1024).decode("utf-8", errors="ignore")
-    if status == 'signed_out_success':
-        client_socket.close()
-        wig.destroy()
-        Welcome_Page(root)
-    else:
-      pass
+    try:
+        client_socket.send(signout_credentials.encode("utf-8")[:1024])  # send message
+        status = client_socket.recv(1024).decode("utf-8", errors="ignore")
+        if status == 'signed_out_success':
+            client_socket.close()
+            wig.destroy()
+            session.clear()
+            Welcome_Page(root)
+        else:
+            pass
+    except:
+        connect_to_server()
+
+
+def encrypt(string):
+    salt = "5gzbella"
+    string = string + salt  # Adding salt to the password
+    hashed = hashlib.md5(string.encode())  # Encoding the password
+    return hashed.hexdigest()  # return the Hash
+
 
 def login_Request(email, passw, root_widget):
-    global client_socket, server_IP4v_address, Server_listening_port
+    global client_socket, server_IP4v_address, Server_listening_port, session, user_id
     if (len(email) and len(passw)) > 3:
-        print('login test')
-        print(email)
-        print(passw)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
-        client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
-        login_credentials = f'login_Request~{email}~{passw}'
+        try:
+            client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
+        except:
+            print('Error: Unable to connect')
+        login_credentials = f'login_Request~{email}~{encrypt(passw)}'
         client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
         status = client_socket.recv(1024).decode("utf-8", errors="ignore")
         if status == 'User_Error':
@@ -210,15 +235,23 @@ def login_Request(email, passw, root_widget):
             root_widget.destroy()
             user_id = status
             print('User_id: ', user_id)
-            User_Home_page(root, user_id)
+            session['logged_in'] = True
+            session['__id__'] = user_id
+            User_Home_page(root)
 
-    #root_widget.destroy()
-    #User_Home_page(root, 344)
+    # root_widget.destroy()
+    # User_Home_page(root)
+
+
+def sign_up_Request(email, passw, root_widget):
+   pass
+
 
 def Login_Section_widget(widget, root_widget):
     global screen_width, screen_height
     nav_bar_color = "white"
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
+
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
 
     def Forgot_pass():
@@ -285,27 +318,255 @@ def Login_Section_widget(widget, root_widget):
 
     img = tk.Label(Login_widget, bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0)
     img.place(relheight=0.9, relwidth=0.65, rely=0.05, relx=0.3)
-    imagen('TEST/Xtest/13.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
+    imagen('./login_pic.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
 
     return Login_widget
 
 
-def User_Home_page(widget, user_id):
+def chat(widget):
+    chatbot_widget = tk.Label(widget, bg="blue", font=("Calibri", 20, "bold"), anchor='center', borderwidth=0, border=0)
+    chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    tk.Entry(chatbot_widget).pack()
+    return chatbot_widget
 
+
+def call(widget):
+
+
+    def on_entry_click(widget, event):
+        if widget.get() == "Search or start a new call" or widget.get().isspace():
+            widget.delete(0, tk.END)
+            widget.config(fg='black')  # Change text color to black
+
+    def on_focusout(widget, event):
+        if not widget.get() or widget.get().isspace():
+            widget.delete(0, tk.END)
+            widget.insert(0, "Search or start a new call")
+            widget.config(fg='gray')  # Change text color to gray
+
+    def display_contacts(widget):
+        global t1_list
+
+        def tab_widget(widget):
+            def change_1(widget):  # leave color
+                widget.config(bg=widgets_bg_color)
+                children = widget.winfo_children()
+                for child in children:
+                    child.config(bg=widgets_bg_color)
+
+            def change_2(widget):  # hover color
+                widget.config(bg="#F3DECA")
+                children = widget.winfo_children()
+                for child in children:
+                    child.config(bg="#F3DECA")
+
+            t1 = tk.Frame(widget, bg=widgets_bg_color, relief="solid", borderwidth=0, border=0)
+            t1.place(relheight=0.106, relwidth=1, rely=pos, relx=0)
+            t1.bind("<Button-1>", lambda m=t1: active(t1))
+            t1.bind("<Enter>", func=lambda e: change_2(t1))
+            t1.bind("<Leave>", func=lambda e: change_1(t1))
+            t1_list.append(t1)
+
+            t2 = tk.Label(t1, bg=widgets_bg_color, text='👤', font=("Calibri", 40, "bold"), activebackground=widgets_bg_color, borderwidth=0, border=0)
+            t2.place(relheight=0.8, relwidth=0.3, rely=0.1, relx=0.05)
+            t2.bind("<Button-1>", lambda m=t1: active(t1))
+
+            t3 = tk.Label(t1, bg=widgets_bg_color, text='Dr. Hezron Wekesa', font=("Calibri", 12, "bold"), activebackground=widgets_bg_color, anchor="w", borderwidth=0, border=0)
+            t3.place(relheight=0.3, relwidth=0.6, rely=0.1, relx=0.36)
+            t3.bind("<Button-1>", lambda m=t1: active(t1))
+
+
+        i = 0
+        pos = 0
+        t1_list = []
+        while i < 9:
+            tab_widget(widget)
+            pos += 0.106
+            i += 1
+
+    def active(widget):
+        global t1_list
+        for i in t1_list:
+            if i != widget:
+                i.config( borderwidth=0, border=0)
+            else:
+                i.config(borderwidth=0, border=2)
+
+
+
+    widgets_bg_color = '#DFDFD5'
+    call_widget = tk.Label(widget, bg="#F2F7FD", font=("Calibri", 20, "bold"), anchor='center', borderwidth=0, border=0)
+    call_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+
+    # ===========================  Display contacts ================================
+
+    display_contacts_widget = tk.Frame(call_widget, bg=widgets_bg_color, borderwidth=0, border=0)
+    display_contacts_widget.place(relheight=0.9, relwidth=0.2, rely=0.05, relx=0.05)
+
+    tk.Label(display_contacts_widget, bg=widgets_bg_color, text="🔍", font=("Courier New", 22), anchor="e" , relief="solid", borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0, relx=0)
+
+    contact_search_entry_widg = tk.Entry(display_contacts_widget, bg=widgets_bg_color, fg="gray", insertbackground="blue", font=('Georgia', 12), relief="solid", borderwidth=0, border=0)
+    contact_search_entry_widg.place(relheight=0.04, relwidth=0.79, rely=0.0, relx=0.2)
+    contact_search_entry_widg.insert(0, 'Search or start a new call')
+    contact_search_entry_widg.bind("<FocusIn>", lambda e: on_entry_click(contact_search_entry_widg, e))
+    contact_search_entry_widg.bind("<FocusOut>", lambda e: on_focusout(contact_search_entry_widg, e))
+
+    contacts_hold_widget = tk.Frame(display_contacts_widget, bg=widgets_bg_color, borderwidth=0, border=0)
+    contacts_hold_widget.place(relheight=0.959, relwidth=1, rely=0.041, relx=0)
+
+    display_contacts(contacts_hold_widget)
+
+    # ===========================  Display selected contact ================================
+
+    display_selected_contact = tk.Frame(call_widget, bg=widgets_bg_color, relief="solid", borderwidth=0, border=0)
+    display_selected_contact.place(relheight=0.9, relwidth=0.7, rely=0.05, relx=0.26)
+
+    bar = tk.Frame(display_selected_contact, bg=widgets_bg_color, relief="solid", borderwidth=0, border=0)
+    bar.place(relheight=0.05, relwidth=1, rely=0, relx=0)
+
+    tk.Label(bar, bg=widgets_bg_color, text="👤", font=("Courier New", 22),  relief="solid", borderwidth=0, border=0).place(relheight=1, relwidth=0.051, rely=0, relx=0)
+
+    tk.Label(bar, bg=widgets_bg_color, fg="gray", text="Dr. Hezron Wekesa Nangulu", anchor="w", font=("Calibri", 12),  borderwidth=0, border=0).place(relheight=0.5, relwidth=0.3, rely=0, relx=0.051)
+
+    tk.Button(bar, bg=widgets_bg_color, text="📞", font=("Courier New", 17),  borderwidth=0, border=0).place(relheight=0.6, relwidth=0.035, rely=0.2, relx=0.92)
+    tk.Button(bar, bg=widgets_bg_color, text="🎥", font=("Courier New", 17),  borderwidth=0, border=0).place(relheight=0.6, relwidth=0.035, rely=0.2, relx=0.96)
+
+
+
+
+
+
+
+    return call_widget
+
+
+def profile(widget):
+    profile_widget = tk.Label(widget, bg="brown", font=("Calibri", 20, "bold"), anchor='center', borderwidth=0, border=0)
+    profile_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    tk.Entry(profile_widget).pack()
+    return profile_widget
+
+
+def conversation(widget):
+    conversation_widget = tk.Label(widget, bg="yellow", font=("Calibri", 20, "bold"), anchor='center', borderwidth=0, border=0)
+    conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    tk.Entry(conversation_widget).pack()
+    return conversation_widget
+
+
+def settings(widget):
+    setting_widget = tk.Label(widget, bg="lightblue", font=("Calibri", 20, "bold"), anchor='center', borderwidth=0, border=0)
+    setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    return setting_widget
+
+
+def connect_to_server():
+    def connect():
+        global client_socket, server_IP4v_address, Server_listening_port, closed
+        while not closed:
+            try:
+                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+                client_socket.connect((server_IP4v_address, Server_listening_port))
+                print(" Connection Established ")
+                break
+            except:
+                pass
+    threading.Thread(target=connect).start()
+
+
+def fetch_info():
+    global client_socket, user_id
+    sign_up_credentials = f'active~{user_id}'
+    client_socket.send(sign_up_credentials.encode("utf-8")[:1024])  # send message
+
+
+
+def User_Home_page(widget):
+    global user_id
     user_page_widget, user_page_root = attach_scroll(widget)
-    Home_page_frame = tk.Frame(user_page_widget, bg='blue', width=screen_width, height=screen_height)
+    Home_page_frame = tk.Frame(user_page_widget, bg='black', width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
     nav_bar_color = 'white'
-    nav_bar_btn_hover_color  = '#F5F5F5'
+    nav_bar_btn_hover_color = '#F5F5F5'
     nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out', justify=tk.LEFT, anchor="center", font=("Calibri", 12), command=lambda: sign_out(user_page_root, user_id), borderwidth=0, border=0)
+    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out', justify=tk.LEFT, anchor="center", font=("Calibri", 12), command=lambda: sign_out(user_page_root), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.8, relwidth=0.06, rely=0.1, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
+
+    profile_widget = tk.Label(Home_page_frame, bg=nav_bar_color, text='Profile', font=("Calibri", 12), anchor='center', borderwidth=0, border=0)
+    profile_widget.place(relheight=0.055, relwidth=0.055, rely=0.022, relx=0.94)
+    #imagen(binary_data, int(screen_width * 1 * 0.055), int(screen_height * 1 * 0.055), profile_widget)
+
+    side_bar_bg = "#F5F5F5"
+    side_bar_fg = "Black"
+    side_bar_houver_color = "#FFFAFA"
+    side_bar = tk.Label(Home_page_frame, bg=side_bar_bg, font=("Calibri", 20, "bold"), anchor='center', borderwidth=0, border=0)
+    side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
+
+    def active(widget):
+        print(len(widget_list))
+        for i in widget_list:
+            if i != widget:
+                print(' not found')
+                i.config(bg=side_bar_bg)
+                change_bg_OnHover(i, side_bar_houver_color, side_bar_bg)
+            else:
+                print('found')
+                i.config(bg="#F3DECA")
+                change_bg_OnHover(i, '#F3DECA', '#F3DECA')
+
+    PROFILE_widget = profile(Home_page_frame)
+
+    CHAT_Widget = chat(Home_page_frame)
+    CONV_AI_Widget = conversation(Home_page_frame)
+    SETTINGS_Widget = settings(Home_page_frame)
+    CALL_Widget = call(Home_page_frame)
+
+    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='👤', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
+    change_bg_OnHover(profile_widget, side_bar_houver_color, side_bar_bg)
+    widget_list.append(profile_widget)
+
+    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
+    change_bg_OnHover(st1_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st1_bt)
+    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
+    change_bg_OnHover(st2_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st2_bt)
+    st3_bt = tk.Button(side_bar, bg=side_bar_bg, text='📩', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
+    st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
+    change_bg_OnHover(st3_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st3_bt)
+    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
+    st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
+    change_bg_OnHover(st4_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st4_bt)
+    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
+    st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
+    change_bg_OnHover(st5_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st5_bt)
+
+    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
+    st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
+    change_bg_OnHover(st6_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st6_bt)
+    st7_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
+    st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
+    change_bg_OnHover(st7_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st7_bt)
+    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙', font=("Calibri", 17), anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    change_bg_OnHover(st8_bt, side_bar_houver_color, side_bar_bg)
+    widget_list.append(st8_bt)
+
     return Home_page_frame
+
 
 def Welcome_Page(wiget):
     global screen_width, screen_height
@@ -315,16 +576,17 @@ def Welcome_Page(wiget):
     welcome_page_frame = tk.Frame(home_widget, bg='gray', width=screen_width, height=large_frame_size)
     welcome_page_frame.pack(fill=tk.BOTH, expand=True)
 
-    App_title = "Mindful"
+    App_title = "Digital ScriBe"
     nav_bar_color = "white"
     nav_bar_btn_hover_color = '#F5F5F5'
 
     nav_bar = tk.Frame(welcome_page_frame, bg=nav_bar_color)
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_title_widget = tk.Button(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
+    nav_bar_title_widget = tk.Label(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
     nav_bar_title_widget.place(relheight=1, relwidth=0.1, rely=0, relx=0)
 
+    """
     nav_bar_bt1_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Services ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt1_widget.place(relheight=0.6, relwidth=0.08, rely=0.2, relx=0.6)
     change_Widget_Attribute_OnHover(nav_bar_bt1_widget, 'Services ∧', 'Services ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
@@ -336,6 +598,7 @@ def Welcome_Page(wiget):
     nav_bar_bt3_widget = tk.Button(nav_bar, bg=nav_bar_color, text='For Business ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt3_widget.place(relheight=0.6, relwidth=0.08, rely=0.2, relx=0.78)
     change_Widget_Attribute_OnHover(nav_bar_bt3_widget, 'For Business ∧', 'For Business ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
+    """
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Log in ∨', justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
@@ -345,17 +608,13 @@ def Welcome_Page(wiget):
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
 
 
-
-
-
 # =============================== Main Function definition =========================================================================================
 # ==================================================================================================================================================
 
 def main():
-    global root, screen_width, screen_height
-
+    global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port, user_id
     root = tk.Tk()
-    # root.title("Mental Health")
+    root.title("Digital Scribe")
     root.state('zoomed')  # this creates a window that takes over the screen
     root.minsize(1500, 500)
     root.config(bg="green")
@@ -366,8 +625,27 @@ def main():
 
     # dark_title_bar(root)
 
-    Welcome_Page(root)
+    session = shelve.open("session.db")
+    try:
+        if session['logged_in']:
+            user_id = session['__id__']
+            User_Home_page(root)
+        else:
+            Welcome_Page(root)
+    except Exception as e:
+        session['logged_in'] = False
+        Welcome_Page(root)
 
+    connect_to_server()
+
+    def on_closing():
+        global session, client_socket, root , closed
+        closed = True
+        session.close()
+        client_socket.close()
+        root.destroy()
+
+    root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
 
