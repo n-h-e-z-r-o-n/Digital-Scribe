@@ -1,30 +1,47 @@
-import base64
+import socket
+import time
 
-import mysql.connector
-import hashlib
+server_IP4v_address = "192.168.100.9"  # "127.0.0.1"  # as both code is running on same pc
+Server_listening_port = 800  # socket server port number
+# client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
 
-mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="12hezron12",
-    database="menta_application_schema"
-)
-mycursor = mydb.cursor()
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
+client_socket.connect((server_IP4v_address, Server_listening_port))
+user_data = f"123~Hezron Maureen~phtptptpr"
 
-def encryp(string):
-    salt = "5gzbella"
-    string = string + salt  # Adding salt to the password
-    hashed = hashlib.md5(string.encode()) # Encoding the password
-    return hashed.hexdigest()  # return the Hash
+client_socket.send(f"active~{len(user_data)}".encode("utf-8"))
+client_socket.send(user_data.encode("utf-8"))
 
 
 
-file = open('./13.jpeg', 'rb').read()
-file = base64.b64encode(file)
-mycursor.execute('UPDATE menta_application_schema.users_type2 SET profile_Image = %s WHERE idPatient = %s', [file, 1235])
-mydb.commit()
 
+def fetch_info():
+    list_hold = []  # clear the list
+    global client_socket, user_id
+    print("fetching")
 
-#mycursor.execute("INSERT INTO menta_application_schema.users_type2 (First_Name, Second_Name, Last_Name, Email, Username, Password) VALUES (%s, %s, %s, %s, %s, %s)", ('Maureen', 'Wamboi', 'Lucy ', 'm@gmail', 'mauerrn', encryp('12maureen12')))
-#mydb.commit()
-#
+    client_socket.send('infoRequest'.encode("utf-8")[:1024])  # send message
+    while True:
+        print("starting")
+        buffer_size = client_socket.recv(500).decode("utf-8")
+        info = client_socket.recv(int(buffer_size)).decode("utf-8")
+        print("info")
+        if info == "end":
+            break
+        info = info.split("~")
+
+        print(info)
+        #if int(info[0]) == int(user_id):
+        #    continue
+
+        list_hold.append((info[0], info[1], info[2]))
+        break
+
+    print("finished fetching")
+
+    return list_hold
+
+m = fetch_info()
+print(m)
+
+client_socket.close()

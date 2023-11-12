@@ -1,43 +1,21 @@
+import tkinter as tk
 
-import shelve
+def on_enter_pressed(event):
+    # Event handler for the Enter key
+    entered_text = entry.get()
+    print("Text entered:", entered_text)
 
-session = shelve.open("session.db")
+# Create the main window
+root = tk.Tk()
+root.title("Enter Key Example")
 
-print(type(session))
-if session['logged_in']:
-    print(" -------------------- ")
-    x = session.get('logged_in', 'N/A')
-    print("== ", x)
-    session['logged_in'] = False
-else:
-    print(" else -------------------- ")
-    x = session.get('logged_in', 'N/A')
-    user_name = session.get('user_name', 'N/A')
-    user_age = session.get('user_age', 'N/A')
-    print("== ", x)
-    print(user_name)
-    print(user_age)
-    print(" else end-------------------- ")
+# Create an Entry widget
+entry = tk.Entry(root, width=30)
+entry.pack(pady=10)
 
+# Bind the Enter key to the on_enter_pressed function
+entry.bind('<Return>', lambda e: on_enter_pressed(e))
 
-user_name = "Hezron"
-user_age = 30
+# Run the Tkinter event loop
+root.mainloop()
 
-
-# Store data in the session
-session['user_name'] = user_name
-session['user_age'] = user_age
-session['logged_in'] = True
-
-
-user_name = session.get('user_name', 'N/A')
-user_age = session.get('user_age', 'N/A')
-x = session.get('logged_in', 'N/A')
-
-print("== :", x)
-print(user_name)
-print(user_age)
-
-# Close the session when the application is closed
-#session.clear()
-session.close()
