@@ -3,6 +3,16 @@ import json
 from vosk import Model, KaldiRecognizer
 import time
 
+from queue import Queue
+
+from threading import Thread
+
+
+
+messages = Queue()
+recordings = Queue()
+
+
 model = Model(model_name="vosk-model-en-us-0.22-lgraph")
 rec = KaldiRecognizer(model, FRAME_RATE)
 rec.SetWords(True)
