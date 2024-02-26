@@ -56,8 +56,8 @@ json_file_path = "data.json"
 
 def server_program():
     # get the hostname
-    host = '192.168.100.9'
-    port = 800
+    host = '192.168.100.22'
+    port = 8080
 
     tcp_server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # get instance
     tcp_server_socket.bind((host, port))  # bind host address and port together

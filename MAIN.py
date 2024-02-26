@@ -8,21 +8,7 @@ import threading
 from PIL import Image, ImageTk
 import shelve
 
-# =============================== Server Details ============================================================================================
-"""
-server_domain_name = "inspiring-frost-18221.pktriot.net"
-server_IP4v_address = socket.gethostbyname(server_domain_name)
-Server_listening_port = 22575  # socket server port number
-#client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # instantiate
-client_socket = None
-#client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
-"""
 
-server_IP4v_address = "192.168.100.9"  # "127.0.0.1"  # as both code is running on same pc
-Server_listening_port = 800  # socket server port number
-# client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
-client_socket = None
-# client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -158,7 +144,7 @@ def Service_Section(widget):
     t2.place(relheight=0.4, relwidth=0.3, rely=0.02, relx=0.02)
     hh = tk.Label(t2, bg=nav_bar_color)
     hh.place(relheight=1, relwidth=0.45, rely=0, relx=0.55)
-    imagen('TEST/Xtest/12.png', 259, 307, hh)
+    imagen('Xtest/12.png', 259, 307, hh)
     tk.Label(t2, bg=nav_bar_color, text='Services', font=("Bauhaus 93", 18)).place(relheight=0.15, relwidth=0.35,
                                                                                    rely=0.04, relx=0.1)
     tk.Label(t2, bg=nav_bar_color, text='Get accesses to therapy, \nMedication Management, \nPersonalized treatment.',
