@@ -7,7 +7,15 @@ from queue import Queue
 
 from threading import Thread
 
+import pyaudio
 
+p = pyaudio.PyAudio()
+
+CHANNELS = 1
+FRAME_RATE = 16000
+RECORD_SECONDS = 20
+AUDIO_FORMAT = pyaudio.paInt16
+SAMPLE_SIZE = 2
 
 messages = Queue()
 recordings = Queue()
