@@ -2,14 +2,8 @@ import subprocess
 import json
 from vosk import Model, KaldiRecognizer
 import time
-import pyaudi
-CHANNELS = 1
-FRAME_RATE = 16000
-RECORD_SECONDS = 20
-AUDIO_FORMAT = pyaudio.paInt16
-SAMPLE_SIZE = 2
 
-model = Model(model_name="vosk-model-en-us-0.22")
+model = Model(model_name="vosk-model-en-us-0.22-lgraph")
 rec = KaldiRecognizer(model, FRAME_RATE)
 rec.SetWords(True)
 
