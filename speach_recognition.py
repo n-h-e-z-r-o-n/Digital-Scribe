@@ -6,7 +6,7 @@ import assemblyai as aai
 aai.settings.api_key = "493cf0249ca34cb39d60fe1effbe307c"
 
 
-audio_url = "https://github.com/AssemblyAI-Examples/audio-examples/raw/main/20230607_me_canadian_wildfires.mp3"
+audio_url = r"C:\Users\HEZRON WEKESA\Videos\download.mp4"
 
 transcriber = aai.Transcriber()
 

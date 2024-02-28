@@ -7,14 +7,15 @@ import ctypes as ct
 import threading
 from PIL import Image, ImageTk
 import shelve
-
-
+import io
+import base64
+import  os
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
 screen_height: int
-widget_list: list = []
+
 session = None
 closed = False
 user_id = None
@@ -24,7 +25,7 @@ Second_Name = None
 Last_Name = None
 Email = None
 user_Photo = None
-
+widget_list: list = []
 active_users_data: list = []
 connection_status = False
 
@@ -93,8 +94,7 @@ def hide(widg):
     widg.bind("<Leave>", func=lambda e: leave())
 
 
-def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave,
-                                    function):  # Color change bg on Mouse Hover
+def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave, function):  # Color change bg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=colorOnHover), show(function)))
     widget.bind("<Leave>", func=lambda e: (widget.config(text=Text_On_Leave, background=colorOnLeave), hide(function)))
 
@@ -109,10 +109,7 @@ def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on
     widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
 
 
-import io
 
-import io
-import base64
 
 
 def imagen(image_path, screen_width, screen_height, widget):
@@ -424,6 +421,8 @@ def call(widget):
             widget.config(fg='gray')  # Change text color to gray
 
     def display_contacts(widget):
+        pass
+        """
         global t1_list
 
         def tab_widget(widget, pos,  info_):
@@ -493,6 +492,7 @@ def call(widget):
             #root.after(500, lambda: (tab_widget_2(widget)))
 
         tab_widget_2(widget)
+        """
 
 
 
@@ -520,7 +520,7 @@ def call(widget):
     contacts_hold_widget = tk.Frame(display_contacts_widget, bg=widgets_bg_color, borderwidth=0, border=0)
     contacts_hold_widget.place(relheight=0.959, relwidth=1, rely=0.041, relx=0)
 
-    display_contacts(contacts_hold_widget)
+    #display_contacts(contacts_hold_widget)
 
     # ===========================  Display selected contact ================================
 
@@ -574,11 +574,31 @@ def conversation(widget):
 def settings(widget):
     setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+
+    g1 = tk.Frame(setting_widget, bg="green", borderwidth=0, border=0)
+    g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
+
+    tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", font=("Calibri", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.4, rely=0, relx=0)
+    tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
+    tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
+    tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
+
+    tk.Label(g1, text="assemblyai ", font=("Calibri", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.4, rely=0.22, relx=0)
+    tk.Label(g1, text="assemblyai access key:", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.3, relx=0)
+    tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
+
+
+    os.environ['GRADIENT_ACCESS_TOKEN'] = "Fz8v1bayVU3mQ11BoCLgtvquK8OHTL68"
+    os.environ['GRADIENT_WORKSPACE_ID'] = "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace"
+
+
     return setting_widget
 
 
 def connect_to_server():
-
+    pass
+    """
     def connect():
         global connection_status
         global client_socket, server_IP4v_address, Server_listening_port, closed
@@ -600,9 +620,11 @@ def connect_to_server():
                 pass
 
     threading.Thread(target=connect).start()
-
+    """
 
 def fetch_info():
+    pass
+    """
     list_hold = []  # clear the list
     global client_socket, user_id
     print("fetching")
@@ -628,12 +650,16 @@ def fetch_info():
     print("finished fetching")
 
     return list_hold
-
+    """
 
 
 def User_Home_page(widget):
-    global user_id
+    global user_id, widget_list
     user_page_widget, user_page_root = attach_scroll(widget)
+
+
+
+
     Home_page_frame = tk.Frame(user_page_widget, bg='black', width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -642,78 +668,100 @@ def User_Home_page(widget):
     nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out',
-                                   justify=tk.LEFT, anchor="center", font=("Calibri Light", 10),
-                                   command=lambda: sign_out(user_page_root), borderwidth=0, border=0)
+    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out',justify=tk.LEFT, anchor="center", font=("Calibri Light", 10),  borderwidth=0, border=0 ) # command=lambda: sign_out(user_page_root))
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
-    side_bar_bg = "#F5F5F5"
-    side_bar_fg = "Black"
-    side_bar_houver_color = "#FFFAFA"
-    side_bar = tk.Frame(Home_page_frame, bg=side_bar_bg, borderwidth=0, border=0)
-    side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
 
-    def active(widget):
-        for i in widget_list:
-            if i != widget:
-                i.config(bg=side_bar_bg)
-                change_bg_OnHover(i, side_bar_houver_color, side_bar_bg)
-            else:
-                i.config(bg="#F3DECA")
-                change_bg_OnHover(i, '#F3DECA', '#F3DECA')
+
+
+
 
     CHAT_Widget = chat(Home_page_frame)
     CONV_AI_Widget = conversation(Home_page_frame)
-    SETTINGS_Widget = settings(Home_page_frame)
     CALL_Widget = call(Home_page_frame)
-    PROFILE_widget = profile(Home_page_frame)
+    #PROFILE_widget = profile(Home_page_frame)
+    SETTINGS_Widget = settings(Home_page_frame)
 
-    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='👤', font=("Calibri", 20), anchor='center',borderwidth=0, border=0,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
+
+    side_bar_bg = "white"
+    side_bar_fg = "green"
+    side_bar_bg_widget_houver_color = "#FFFAFA"
+    side_bar_fg_widget_houver_color = 'blue'
+    active_bg_widget_color = "brown"
+    active_fg_widget_color = side_bar_fg_widget_houver_color
+
+
+    def active(widget):
+        global widget_list
+        for i in widget_list:
+            if i != widget:
+                i.config(bg=side_bar_bg, fg=side_bar_fg)
+                change_bg_OnHover(i, side_bar_bg_widget_houver_color, side_bar_bg)
+                change_fg_OnHover(i, side_bar_fg_widget_houver_color, side_bar_fg)
+            else:
+                i.config(bg=active_bg_widget_color, fg=active_fg_widget_color)
+                change_bg_OnHover(i, active_bg_widget_color, active_bg_widget_color)
+                change_fg_OnHover(i, active_fg_widget_color, active_fg_widget_color)
+
+    side_bar = tk.Frame(Home_page_frame, bg=side_bar_bg, borderwidth=0, border=0)
+    side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
+
+
+
+    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='👤', font=("Calibri", 20), fg=side_bar_fg, anchor='center',borderwidth=0, border=0 ) #,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
-    change_bg_OnHover(profile_widget, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(profile_widget, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(profile_widget, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(profile_widget)
 
-    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
-    change_bg_OnHover(st1_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st1_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st1_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st1_bt)
-    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+
+    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
-    change_bg_OnHover(st2_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st2_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st2_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st2_bt)
-    st3_bt = tk.Button(side_bar, bg=side_bar_bg, text='📩', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
+
+    st3_bt = tk.Button(side_bar, bg=side_bar_bg, text='📩', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
-    change_bg_OnHover(st3_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st3_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st3_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st3_bt)
-    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
+
+    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
-    change_bg_OnHover(st4_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st4_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st4_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st4_bt)
-    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
+
+    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
-    change_bg_OnHover(st5_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st5_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st5_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
-    change_bg_OnHover(st6_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st6_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st6_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st6_bt)
-    st7_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
+
+    st7_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
-    change_bg_OnHover(st7_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st7_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st7_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st7_bt)
-    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙', font=("Calibri", 17), anchor='center', borderwidth=0,
-                       border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+
+    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙', font=("Calibri", 17), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
-    change_bg_OnHover(st8_bt, side_bar_houver_color, side_bar_bg)
+    change_bg_OnHover(st8_bt, side_bar_bg_widget_houver_color, side_bar_bg)
+    change_fg_OnHover(st8_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st8_bt)
 
     return Home_page_frame
@@ -779,7 +827,7 @@ def main():
     print(str(screen_width) + "\n" + str(screen_height))
 
     # dark_title_bar(root)
-
+    """
     session = shelve.open("session.db")
     try:
         if session['logged_in']:
@@ -796,14 +844,14 @@ def main():
         session['logged_in'] = False
         Welcome_Page(root)
         pass
-
+    
     connect_to_server()
+    """
+    User_Home_page(root)
 
     def on_closing():
-        global session, client_socket, root, closed
+        global session, root, closed
         closed = True
-        session.close()
-        client_socket.close()
         root.destroy()
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
