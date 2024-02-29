@@ -594,10 +594,18 @@ def conversation(widget):
 def settings(widget):
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-    def save_keys(g_access, g_workkey_Assem):
-        keys['gradient_ai_access_key'] = gradient_ai_access_key
-        keys['gradient_ai_workspace_id'] = gradient_ai_workspace_id
-        keys['assemblyai_access_key'] = assemblyai_access_key
+    def save_keys(g_access, g_workkey, Assemly_key):
+        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
+
+        gradient_ai_workspace_idassemblyai_access_key\
+        , gradient_ai_access_key
+        keys['gradient_ai_access_key'] = g_access
+        keys['gradient_ai_workspace_id'] = g_workkey
+        keys['assemblyai_access_key'] = Assemly_key
+
+        os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+        os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+
 
     setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
