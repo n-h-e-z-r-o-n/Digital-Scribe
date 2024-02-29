@@ -433,7 +433,8 @@ def chat(widget):
     fg_color = 'black'
 
     def choose_font(widget):
-        f
+        font_ = tk.Entry(widget,  fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=0)
+        font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
         pass
 
     navbar = tk.Button(chatbot_widget, bg='blue', borderwidth=0, border=0, command= lambda : choose_font(chatbot_widget))
