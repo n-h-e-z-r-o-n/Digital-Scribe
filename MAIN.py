@@ -69,7 +69,11 @@ def access_keys_info():
              gradient_ai_access_key = keys['gradient_ai_access_key']
              gradient_ai_workspace_id = keys['gradient_ai_workspace_id']
              assemblyai_access_key = keys['assemblyai_access_key']
- 
+
+             print(gradient_ai_workspace_id)
+             print(gradient_ai_access_key)
+             print(assemblyai_access_key)
+
              os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
              os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
          else:
@@ -77,6 +81,8 @@ def access_keys_info():
 
      except Exception as e:
          keys['access_keys'] = False
+         print("-----", e)
+
          pass
 
 
