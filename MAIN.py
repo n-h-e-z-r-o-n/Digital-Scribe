@@ -497,7 +497,6 @@ def chat(widget):
 
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0, height=50000)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
-
     canvas = tk.Canvas(fr, bg='black', scrollregion=(0, 0, 5000, 5000))
     vbar = tk.Scrollbar(fr, orient=tk.VERTICAL)
     vbar.pack(side=tk.RIGHT, fill=tk.Y)
