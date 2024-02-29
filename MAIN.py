@@ -591,6 +591,7 @@ def conversation(widget):
 
 
 def settings(widget):
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
     setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
