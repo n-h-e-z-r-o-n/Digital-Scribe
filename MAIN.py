@@ -645,7 +645,7 @@ def settings(widget):
     assembly_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
-    g1.bind('<Enter>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
+    g1.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
 
 
 
