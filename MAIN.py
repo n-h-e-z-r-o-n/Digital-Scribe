@@ -625,7 +625,7 @@ def settings(widget):
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
-    g1 = tk.Frame(setting_widget, bg=bg_color, borderwidth=0, border=0)
+    g1 = tk.Frame(setting_widget, bg=bg_color, borderwidth=6, border=6)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
     tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
@@ -642,7 +642,7 @@ def settings(widget):
     gradient_work_widget.place(relheight=0.07,  relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
     gradient_work_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
-    change_bg_OnHover(gradient_work_widget, 'green', 'lightgreen')
+    change_bg_OnHover(gradient_work_widget, 'lightgreen', bg_color)
 
     tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.22, relx=0)
     tk.Label(g1, text="assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.3, relx=0)
@@ -650,11 +650,11 @@ def settings(widget):
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
     assembly_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
-    change_bg_OnHover(assembly_widget, 'green', 'lightgreen')
+    change_bg_OnHover(assembly_widget, 'lightgreen', bg_color)
 
     save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), borderwidth=0, border=1, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
     save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
-    change_bg_OnHover(save, 'green', 'lightgreen')
+    change_bg_OnHover(save, 'lightgreen', bg_color)
 
     return setting_widget
 
