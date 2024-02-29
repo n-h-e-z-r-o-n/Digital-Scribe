@@ -433,7 +433,7 @@ def chat(widget):
     bg_color = 'lightgreen'
     fg_color = 'black'
 
-    navbar = tk.Button(chatbot_widget, bg='blue', borderwidth=0, border=0, command=choose_font(widget))
+    navbar = tk.Button(chatbot_widget, bg='blue', borderwidth=0, border=0, command= lambda : choose_font(widget))
     navbar.place(relheight=0.03, relwidth=1, rely=0, relx=0)
 
 
