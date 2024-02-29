@@ -10,6 +10,7 @@ import shelve
 import io
 import base64
 import  os
+import json
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -63,8 +64,16 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
 def access_keys_info():
      global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-     keys = shelve.open("keys.db", '')
      try:
+
+         with open('SessionInfo.json', 'r') as openfile:  # Reading from json file
+             json_object = json.load(openfile)
+
+         session_user_id = json_object['session_id']
+         log_id = json_object['log_id']
+
+
+
          if keys['access_keys'] == True:
              gradient_ai_access_key = keys['_GA_']
              gradient_ai_workspace_id = keys['_GW_']
