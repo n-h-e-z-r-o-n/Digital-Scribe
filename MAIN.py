@@ -603,9 +603,9 @@ def settings(widget):
     def save_keys(g_access, g_workkey, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-        gradient_ai_workspace_id = g_access
-        assemblyai_access_key = g_workkey
-        gradient_ai_access_key = Assemly_key
+        gradient_ai_workspace_id = str(g_access)
+        assemblyai_access_key = str(g_workkey
+        gradient_ai_access_key = str(Assemly_key
 
         keys['gradient_ai_access_key'] = g_access
         keys['gradient_ai_workspace_id'] = g_workkey
