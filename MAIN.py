@@ -639,7 +639,7 @@ def settings(widget):
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
     gradient_access_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
-    change_bg_OnHover(gradient_access_widget, 'green', bg_color)
+    change_bg_OnHover(gradient_access_widget, 'lightgreen', bg_color)
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
