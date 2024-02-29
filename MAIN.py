@@ -444,7 +444,7 @@ def chat(widget):
                     try:
                         widget3.config(font=(font_style, font_size))
                         defalt_font_style = font_style.strip()
-                        defalt_font_size 
+                        defalt_font_size = int(font_size)
                         print('changed')
                     except:
                         pass
