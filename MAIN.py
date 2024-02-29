@@ -28,9 +28,9 @@ user_Photo = None
 widget_list: list = []
 active_users_data: list = []
 connection_status = False
-gradient_ai_access_key = None
-gradient_ai_workspace_id = None
-assemblyai_access_key = None
+gradient_ai_access_key = tk.StringVar()
+gradient_ai_workspace_id = tk.StringVar()
+assemblyai_access_key = tk.StringVar()
 keys = None
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -75,6 +75,7 @@ def access_keys_info():
 
      except Exception as e:
          session['access_keys'] = False
+
          pass
 
 
@@ -128,9 +129,6 @@ def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: widget.config(fg=colorOnHover))
     widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
-
-
-
 
 
 def imagen(image_path, screen_width, screen_height, widget):
