@@ -65,7 +65,7 @@ def access_keys_info():
      global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
      try:
-         with open('SessionInfo.json', 'r') as openfile:  # Reading from json file
+         with open('keys.json', 'r') as openfile:  # Reading from json file
              keys = json.load(openfile)
 
              gradient_ai_access_key = keys['_GA_']
@@ -81,10 +81,6 @@ def access_keys_info():
 
      except:
          pass
-
-
-
-     #    pass
 
 
 
@@ -611,7 +607,7 @@ def settings(widget):
         dic = {'_GA_': gradient_ai_access_key, '_GW_': gradient_ai_workspace_id, '_AAI_': assemblyai_access_key}
         json_object = json.dumps(dic, indent=4)
 
-        with open("SessionInfo.json", "w") as outfile:
+        with open("keys.json", "w") as outfile:
             outfile.write(json_object)
 
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
