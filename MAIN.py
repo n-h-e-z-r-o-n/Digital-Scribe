@@ -428,7 +428,7 @@ def chat(widget):
         font_style = font_style_entry.get()
         font_size = font_size_entry.get()
 
-        
+
         pass
 
 
