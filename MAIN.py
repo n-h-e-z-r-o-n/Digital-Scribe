@@ -438,13 +438,13 @@ def chat(widget):
     font_ = tk.Frame(navbar, bg=bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_entry = tk.Entry(font_, bg='blue', fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
+    font_style_entry = tk.Entry(font_, bg='blue', fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
     font_style_entry.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
 
-    font_style_btn = tk.Button(font_,  fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
-    font_style_btn.place(relheight=0.8, relwidth=0.1, rely=0, relx=0.7)
+    font_style_btn = tk.Button(font_,  bg='blue',  fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
+    font_style_btn.place(relheight=0.8, relwidth=0.1, rely=0.1, relx=0.7)
 
-    font_size = tk.Entry(font_, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
+    font_size = tk.Entry(font_,  bg='blue', fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
     font_size.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
 
     t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color,  relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
