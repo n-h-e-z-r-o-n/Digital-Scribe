@@ -424,8 +424,7 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
 
-    def choose_font(widget):
-        pass
+
 
     chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
@@ -433,7 +432,11 @@ def chat(widget):
     bg_color = 'lightgreen'
     fg_color = 'black'
 
-    navbar = tk.Button(chatbot_widget, bg='blue', borderwidth=0, border=0, command= lambda : choose_font(widget))
+    def choose_font(widget):
+        f
+        pass
+
+    navbar = tk.Button(chatbot_widget, bg='blue', borderwidth=0, border=0, command= lambda : choose_font(chatbot_widget))
     navbar.place(relheight=0.03, relwidth=1, rely=0, relx=0)
 
 
