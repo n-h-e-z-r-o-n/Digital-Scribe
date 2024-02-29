@@ -68,12 +68,6 @@ def access_keys_info():
          with open('SessionInfo.json', 'r') as openfile:  # Reading from json file
              keys = json.load(openfile)
 
-         session_user_id = keys['session_id']
-         log_id = keys['log_id']
-
-
-
-         if keys['access_keys'] == True:
              gradient_ai_access_key = keys['_GA_']
              gradient_ai_workspace_id = keys['_GW_']
              assemblyai_access_key = keys['_AAI_']
@@ -87,6 +81,11 @@ def access_keys_info():
          else:
                  print("No access key")
      except:
+         dic = {'_GA_': user_id, '_GW_': curent_log_id, '_AAI_': user_id}
+         json_object = json.dumps(dic, indent=4)
+         with open("SessionInfo.json", "w") as outfile:
+             outfile.write(json_object)
+
          pass
 
 
