@@ -618,13 +618,17 @@ def settings(widget):
         print(gradient_ai_access_key)
         print(assemblyai_access_key)
 
-    setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
+    bg_color = "lightblue"
+    fg_color = "black"
+
+
+    setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
-    g1 = tk.Frame(setting_widget, bg="green", borderwidth=0, border=0)
+    g1 = tk.Frame(setting_widget, bg=bg_color, borderwidth=0, border=0)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
-    tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
+    tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", bg==bg_color font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
 
     tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
     gradient_access_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Courier New", 10))
