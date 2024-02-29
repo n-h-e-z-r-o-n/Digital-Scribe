@@ -628,6 +628,10 @@ def settings(widget):
     g1 = tk.Frame(setting_widget, bg=bg_color, borderwidth=6, border=6)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
+    tk.Label(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=0).place(relheight=1, relwidth=1, rely=0, relx=0)
+
+
+
     tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
 
     tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
