@@ -76,7 +76,7 @@ def access_keys_info():
              print("No access key")
 
      except Exception as e:
-         session['access_keys'] = False
+         keys['access_keys'] = False
 
          pass
 
