@@ -69,7 +69,7 @@ def access_keys_info():
              gradient_ai_access_key = keys['gradient_ai_access_key']
              gradient_ai_workspace_id = keys['gradient_ai_workspace_id']
              assemblyai_access_key = keys['assemblyai_access_key']
-
+ 
              os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
              os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
          else:
@@ -604,7 +604,7 @@ def settings(widget):
         keys['gradient_ai_access_key'] = g_access
         keys['gradient_ai_workspace_id'] = g_workkey
         keys['assemblyai_access_key'] = Assemly_key
-
+        keys['access_keys'] = True
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
