@@ -28,9 +28,9 @@ user_Photo = None
 widget_list: list = []
 active_users_data: list = []
 connection_status = False
-gradient_ai_access_key = tk.StringVar()
-gradient_ai_workspace_id = tk.StringVar()
-assemblyai_access_key = tk.StringVar()
+gradient_ai_access_key = None
+gradient_ai_workspace_id = None
+assemblyai_access_key = None
 keys = None
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -601,9 +601,9 @@ def settings(widget):
 
     tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", font=("Calibri", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.4, rely=0, relx=0)
     tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    gradient_ = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
+    gradient_access_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
     gradient_.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
-    gradient_.insert(0, 'hello')
+    gradient_.insert(0, gradient_ai_access_key)
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
@@ -842,7 +842,7 @@ def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
-    
+
     root = tk.Tk()
     root.title("Digital Scribe")
     root.state('zoomed')  # this creates a window that takes over the screen
