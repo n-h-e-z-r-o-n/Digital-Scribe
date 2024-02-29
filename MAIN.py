@@ -609,6 +609,9 @@ def settings(widget):
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
         print("saved")
+        print(gradient_ai_workspace_id)
+        print(gradient_ai_access_key)
+        print(assemblyai_access_key)
 
     setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
