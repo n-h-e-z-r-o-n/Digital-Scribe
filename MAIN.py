@@ -493,7 +493,9 @@ def chat(widget):
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
 
     entity_section = tk.Frame(chatbot_widget, bg=bg_color, relief=tk.SUNKEN, borderwidth=2, border=5)
-    t1.place(relheight=0.70, relwidth=0.21, rely=0.03, relx=0.78)
+    entity_section.place(relheight=0.70, relwidth=0.21, rely=0.03, relx=0.78)
+
+    tk.Frame(entity_section, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5).pack
 
     return chatbot_widget
 
