@@ -452,7 +452,7 @@ def chat(widget):
                         pass
                 time.sleep(5)
 
-
+        time.sleep(10)
         check()
 
 
@@ -493,7 +493,7 @@ def chat(widget):
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=2, border=5)
-    entity_section.place(relheight=0.70, relwidth=0.21, rely=0.03, relx=0.78)
+    entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
 
     tk.Button(entity_section, bg='+ Add new entity', relief=tk.SUNKEN, borderwidth=2, border=5, height=80).pack(side=tk.TOP, fill=tk.X)
 
