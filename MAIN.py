@@ -616,17 +616,22 @@ def settings(widget):
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
     tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", font=("Calibri", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.4, rely=0, relx=0)
+
     tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
     gradient_access_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
-    tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
+    gradient_work_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
+    gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
+    gradient_work_widget.insert(0, gradient_ai_workspace_id)
 
     tk.Label(g1, text="assemblyai ", font=("Calibri", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.4, rely=0.22, relx=0)
     tk.Label(g1, text="assemblyai access key:", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.3, relx=0)
-    tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
+    assembly_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
+    assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
+    assembly_widget.insert(0, assemblyai_access_key)
 
 
 
