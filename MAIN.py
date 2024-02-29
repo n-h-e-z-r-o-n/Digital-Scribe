@@ -66,7 +66,7 @@ def access_keys_info():
      keys = shelve.open("keys.db")
      try:
          if keys['access_keys'] == True:
-             gradient_ai_access_key  =  keys['gradient_ai_access_key']
+             gradient_ai_access_key = keys['gradient_ai_access_key']
              gradient_ai_workspace_id = keys['gradient_ai_workspace_id']
              assemblyai_access_key = keys['assemblyai_access_key']
 
