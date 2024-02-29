@@ -70,6 +70,8 @@ def access_keys_info():
              gradient_ai_workspace_id = keys['gradient_ai_workspace_id']
              assemblyai_access_key = keys['assemblyai_access_key']
 
+             os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
          else:
              print("No access key")
 
@@ -613,8 +615,7 @@ def settings(widget):
     tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
 
 
-    os.environ['GRADIENT_ACCESS_TOKEN'] = "Fz8v1bayVU3mQ11BoCLgtvquK8OHTL68"
-    os.environ['GRADIENT_WORKSPACE_ID'] = "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace"
+
 
 
     return setting_widget
@@ -843,6 +844,8 @@ def main():
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
+    access_keys_info()
+    
     root = tk.Tk()
     root.title("Digital Scribe")
     root.state('zoomed')  # this creates a window that takes over the screen
@@ -851,9 +854,7 @@ def main():
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
     print(str(screen_width) + "\n" + str(screen_height))
-    gradient_ai_access_key = tk.StringVar()
-    gradient_ai_workspace_id = tk.StringVar()
-    assemblyai_access_key = tk.StringVar()
+
 
     # dark_title_bar(root)
  
