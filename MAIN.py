@@ -78,15 +78,10 @@ def access_keys_info():
 
              os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
              os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-         else:
-                 print("No access key")
-     except:
-         dic = {'_GA_': user_id, '_GW_': curent_log_id, '_AAI_': user_id}
-         json_object = json.dumps(dic, indent=4)
-         with open("SessionInfo.json", "w") as outfile:
-             outfile.write(json_object)
 
+     except:
          pass
+
 
 
      #    pass
@@ -612,6 +607,13 @@ def settings(widget):
         gradient_ai_workspace_id = str(g_access).strip()
         assemblyai_access_key = str(g_workkey).strip()
         gradient_ai_access_key = str(Assemly_key).strip()
+
+        dic = {'_GA_': gradient_ai_access_key, '_GW_': gradient_ai_workspace_id, '_AAI_': assemblyai_access_key}
+        json_object = json.dumps(dic, indent=4)
+        with open("SessionInfo.json", "w") as outfile:
+            outfile.write(json_object)
+
+        pass
 
         keys['access_keys'] = True
         keys['_GA_'] = gradient_ai_access_key
