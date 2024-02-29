@@ -429,7 +429,7 @@ def chat(widget):
     bg_color = 'lightgreen'
     fg_color = 'black'
 
-    navbar = tk.Frame(chatbot_widget, bg='blue', borderwidth=0, border=0)
+    navbar = tk.Button(chatbot_widget, bg='blue', borderwidth=0, border=0)
     navbar.place(relheight=0.03, relwidth=1, rely=0, relx=0)
 
     font_ =tk.Entry(navbar, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=0)
