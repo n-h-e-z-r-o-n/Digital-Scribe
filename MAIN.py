@@ -424,12 +424,33 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
 
-    def font_change():
-        font_style = font_style_entry.get()
-        font_size = font_size_entry.get()
+    def font_change(widget1, widget2, widget3):
+        global defalt_font_style, defalt_font_size, closed
+        defalt_font_style = 'Times New Roman'
+        defalt_font_size = 13
+        def check(widget1 = widget1, widget2 = widget2, widget3 = widget3):
+            global defalt_font_style, defalt_font_size , closed
+            while True:
+                if closed:
+                    break
+
+                font_style = widget1.get()
+                font_size = widget2.get()
+                print("checking")
+                print(font_style)
+                print(font_size)
+                print(defalt_font_style)
+                if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
+                    widget3.config(font=(font_style, font_size))
+                    defalt_font_style = font_style.strip()
+                    print('changed')
+                time.sleep(5)
 
 
-        pass
+        check()
+
+
+
 
 
     chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
@@ -437,6 +458,8 @@ def chat(widget):
 
     bg_color = 'lightgreen'
     fg_color = 'black'
+    defalt_font_style = 'Times New Roman'
+    defalt_font_size = 13
 
     nav_bar_bg_color = 'lightblue'
 
@@ -446,19 +469,23 @@ def chat(widget):
     font_ = tk.Frame(navbar, bg=bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
+    font_style_entry = tk.Entry(font_, bg=nav_bar_bg_color,  fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
     font_style_entry.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
+    font_style_entry.insert(0, defalt_font_style)
 
     font_style_btn = tk.Button(font_, text='v', bg=nav_bar_bg_color, activebackground=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13, 'bold'), borderwidth=0, border=1)
     font_style_btn.place(relheight=0.8, relwidth=0.09, rely=0.1, relx=0.7)
 
-    font_size = tk.Entry(font_,  bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
-    font_size.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
-
+    font_size_entry = tk.Entry(font_,  bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
+    font_size_entry.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
+    font_size_entry.insert(0, defalt_font_size)
 
 
     t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color,  relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
     t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+
+    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
+
 
 
 
