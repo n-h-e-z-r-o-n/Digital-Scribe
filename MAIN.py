@@ -64,24 +64,24 @@ def access_keys_info():
      global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
      keys = shelve.open("keys.db")
-     #try:
-     if keys['access_keys'] == True:
-         gradient_ai_access_key = keys['_GA_']
-         gradient_ai_workspace_id = keys['_GW_']
-         assemblyai_access_key = keys['_AAI_']
+     try:
+         if keys['access_keys'] == True:
+             gradient_ai_access_key = keys['_GA_']
+             gradient_ai_workspace_id = keys['_GW_']
+             assemblyai_access_key = keys['_AAI_']
 
-         print('00 :',gradient_ai_workspace_id)
-         print('00 :',gradient_ai_access_key)
-         print('00 :',assemblyai_access_key)
+             print('00 :',gradient_ai_workspace_id)
+             print('00 :',gradient_ai_access_key)
+             print('00 :',assemblyai_access_key)
 
-         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-     else:
-             print("No access key")
+             os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+         else:
+                 print("No access key")
 
-     #except Exception as e:
-     #    keys['access_keys'] = False
-     #    print("-----", e)
+     except Exception as e:
+        keys['access_keys'] = False
+        print("-----", e)
 
      #    pass
 
@@ -603,9 +603,9 @@ def settings(widget):
     def save_keys(g_access, g_workkey, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-        gradient_ai_workspace_id = str(g_access).s
-        assemblyai_access_key = str(g_workkey)
-        gradient_ai_access_key = str(Assemly_key)
+        gradient_ai_workspace_id = str(g_access).strip()
+        assemblyai_access_key = str(g_workkey).strip()
+        gradient_ai_access_key = str(Assemly_key).strip()
 
         keys['access_keys'] = True
         keys['_GA_'] = gradient_ai_access_key
