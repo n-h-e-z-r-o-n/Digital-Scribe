@@ -498,8 +498,8 @@ def chat(widget):
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
     user_page_widget, user_page_root = attach_scroll(fr)
-    fr2 = tk.Frame(user_page_widget, bg='blue', borderwidth=0, border=0)
-    fr2.place(relheight=1, relwidth=1, rely=0, relx=0)
+    fr2 = tk.Frame(user_page_widget, bg='blue', borderwidth=0, border=0, height=1000, width=1000)
+    fr2.pack(fill=tk.BOTH, expand=True)
 
 
 
