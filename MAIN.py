@@ -845,7 +845,7 @@ def main():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
     access_keys_info()
-    
+
     root = tk.Tk()
     root.title("Digital Scribe")
     root.state('zoomed')  # this creates a window that takes over the screen
