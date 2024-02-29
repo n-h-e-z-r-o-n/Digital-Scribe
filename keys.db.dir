@@ -1,1 +1,4 @@
 'access_keys', (0, 4)
+'gradient_ai_access_key', (512, 15)
+'gradient_ai_workspace_id', (1024, 15)
+'assemblyai_access_key', (1536, 15)

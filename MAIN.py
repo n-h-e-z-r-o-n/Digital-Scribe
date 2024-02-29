@@ -608,6 +608,7 @@ def settings(widget):
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
+        print("saved")
 
     setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
@@ -632,7 +633,7 @@ def settings(widget):
     assembly_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
-
+    g1.bind('<Enter>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
 
 
 
