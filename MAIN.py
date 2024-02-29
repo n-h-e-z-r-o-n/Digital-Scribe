@@ -28,7 +28,9 @@ user_Photo = None
 widget_list: list = []
 active_users_data: list = []
 connection_status = False
-
+gradient_ai_access_key = None
+gradient_ai_workspace_id = None
+gradient_ai_workspace_id = None
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
 
@@ -56,6 +58,23 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
         widget.yview_scroll(1, "units")
     else:
         widget.yview_scroll(-1, "units")
+
+def access_keys_info():
+
+     session = shelve.open("keys.db")
+     try:
+         if session['access_keys'] == True:
+             gradient_ai_access_key  =  session['gradient_ai_access_key']
+             gradient_ai_workspace_id = session['gradient_ai_workspace_id']
+             gradient_ai_workspace_id = session['assemblyai_access_key']
+
+         else:
+             print("No access key")
+
+     except Exception as e:
+         session['access_keys'] = False
+         pass
+
 
 
 def on_frame_configure(widget, event):  # Update the canvas scrolling region when the large frame changes size
@@ -827,26 +846,7 @@ def main():
     print(str(screen_width) + "\n" + str(screen_height))
 
     # dark_title_bar(root)
-    """
-    session = shelve.open("session.db")
-    try:
-        if session['logged_in']:
-            user_id = session['__id__']
-            First_name = session.get('__FN__', 'N/A')
-            Second_Name = session['__SN__']
-            Last_Name = session['__LN__']
-            Email = session['__EM__']
-            user_Photo = session['__IMG__']
-            User_Home_page(root)
-        else:
-            Welcome_Page(root)
-    except Exception as e:
-        session['logged_in'] = False
-        Welcome_Page(root)
-        pass
-    
-    connect_to_server()
-    """
+ 
     User_Home_page(root)
 
     def on_closing():
