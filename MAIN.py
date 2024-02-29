@@ -30,7 +30,7 @@ active_users_data: list = []
 connection_status = False
 gradient_ai_access_key = None
 gradient_ai_workspace_id = None
-gradient_ai_workspace_id = None
+assemblyai_access_key = None
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
 
@@ -60,14 +60,14 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
         widget.yview_scroll(-1, "units")
 
 def access_keys_info():
-    global gradient_ai_workspace_id, gradient_ai_workspace_id, gradient_ai_access_key
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key
 
      session = shelve.open("keys.db")
      try:
          if session['access_keys'] == True:
              gradient_ai_access_key  =  session['gradient_ai_access_key']
              gradient_ai_workspace_id = session['gradient_ai_workspace_id']
-             gradient_ai_workspace_id = session['assemblyai_access_key']
+             assemblyai_access_key = session['assemblyai_access_key']
 
          else:
              print("No access key")
