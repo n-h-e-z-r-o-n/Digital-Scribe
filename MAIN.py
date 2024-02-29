@@ -506,8 +506,8 @@ def chat(widget):
     FRAME_1_screen = tk.Frame(canvas, bg='black')
     canvas.create_window((0, 0), window=FRAME_1_screen, anchor=tk.NW)
 
-    ome_frame = tk.Frame(FRAME_1_screen, bg='#1A2421', width=5000, height=5000)
-    ome_frame.pack(fill=tk.BOTH, expand=True)
+    ome_frame = tk.Frame(FRAME_1_screen, bg='#1A2421', width=5000)
+    ome_frame.place(relheight=0.1, relwidth=1, rely=0, relx=0)
 
 
 
@@ -516,7 +516,7 @@ def chat(widget):
         tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5, height=80).pack(side=tk.TOP, fill=tk.X)
 
 
-    tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda :add(fr)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda :add(ome_frame)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
