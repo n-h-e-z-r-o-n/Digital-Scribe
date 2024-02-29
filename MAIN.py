@@ -438,7 +438,8 @@ def chat(widget):
                 font_size = widget2.get()
                 print("checking")
                 print(font_style)
-        
+                if font_size == '':
+                    font_size = '1'
                 print(font_size)
                 print(defalt_font_style)
                 if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
