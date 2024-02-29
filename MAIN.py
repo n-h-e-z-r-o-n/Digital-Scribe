@@ -60,6 +60,7 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
         widget.yview_scroll(-1, "units")
 
 def access_keys_info():
+    global gradient_ai_workspace_id, gradient_ai_workspace_id, gradient_ai_access_key
 
      session = shelve.open("keys.db")
      try:
