@@ -66,8 +66,8 @@ def access_keys_info():
      keys = shelve.open("keys.db")
      #try:
      if keys['access_keys'] == True:
-         gradient_ai_access_key = keys['-GA_']
-         gradient_ai_workspace_id = keys['-GW__']
+         gradient_ai_access_key = keys['_GA_']
+         gradient_ai_workspace_id = keys['_GW_']
          assemblyai_access_key = keys['_AAI_']
 
          print('00 :',gradient_ai_workspace_id)
@@ -603,15 +603,14 @@ def settings(widget):
     def save_keys(g_access, g_workkey, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-        gradient_ai_workspace_id = str(g_access)
+        gradient_ai_workspace_id = str(g_access).s
         assemblyai_access_key = str(g_workkey)
         gradient_ai_access_key = str(Assemly_key)
 
         keys['access_keys'] = True
-        keys['gradient_ai_access_key'] = gradient_ai_workspace_id
-        keys['gradient_ai_workspace_id'] = assemblyai_access_key
-        keys['assemblyai_access_key'] = gradient_ai_access_key
-
+        keys['_GA_'] = gradient_ai_access_key
+        keys['_GW_'] =   gradient_ai_workspace_id
+        keys['_AAI_'] = assemblyai_access_key
 
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
