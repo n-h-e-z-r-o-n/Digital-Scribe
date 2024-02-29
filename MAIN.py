@@ -424,6 +424,12 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
 
+    def font_change():
+        font_style = font_style_entry.get()
+        font_size = font_size_entry.get()
+
+        
+        pass
 
 
     chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
