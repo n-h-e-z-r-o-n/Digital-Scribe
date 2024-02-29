@@ -506,7 +506,7 @@ def chat(widget):
     FRAME_1_screen = tk.Frame(canvas, bg='black')
     canvas.create_window((0, 0), window=FRAME_1_screen, anchor=tk.NW)
 
-    ome_frame = tk.Frame(FRAME_1_screen, bg='#1A2421', width=5000)
+    ome_frame = tk.Frame(FRAME_1_screen, bg='#1A2421', width=5000`)
     ome_frame.place(relheight=0.1, relwidth=1, rely=0, relx=0)
 
 
