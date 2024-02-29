@@ -592,7 +592,7 @@ def conversation(widget):
 
 def settings(widget):
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
-    
+
     setting_widget = tk.Frame(widget, bg="lightblue", borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
@@ -601,7 +601,10 @@ def settings(widget):
 
     tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", font=("Calibri", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.4, rely=0, relx=0)
     tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
+    gradient_ = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
+    gradient_.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
+    gradient_.insert(0, 'hello')
+
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
 
@@ -838,6 +841,8 @@ def Welcome_Page(wiget):
 def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
+    
     root = tk.Tk()
     root.title("Digital Scribe")
     root.state('zoomed')  # this creates a window that takes over the screen
@@ -846,6 +851,9 @@ def main():
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
     print(str(screen_width) + "\n" + str(screen_height))
+    gradient_ai_access_key = tk.StringVar()
+    gradient_ai_workspace_id = tk.StringVar()
+    assemblyai_access_key = tk.StringVar()
 
     # dark_title_bar(root)
  
