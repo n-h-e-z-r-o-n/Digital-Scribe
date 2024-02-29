@@ -628,7 +628,7 @@ def settings(widget):
     g1 = tk.Frame(setting_widget, bg=bg_color, borderwidth=6, border=6)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
-    tk.Label(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=0).place(relheight=1, relwidth=1, rely=0, relx=0)
+    tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
 
 
 
