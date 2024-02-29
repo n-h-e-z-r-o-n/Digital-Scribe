@@ -833,7 +833,7 @@ def User_Home_page(widget):
 
 
 
-    Home_page_frame = tk.Frame(user_page_widget, bg='black', width=screen_width, height=screen_height)
+    Home_page_frame = tk.Frame(widget, bg='black', width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
     nav_bar_color = 'white'
