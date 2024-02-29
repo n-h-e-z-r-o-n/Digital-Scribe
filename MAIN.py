@@ -63,7 +63,7 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
 def access_keys_info():
      global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-     keys = shelve.open("keys.db")
+     keys = shelve.open("keys.db", 'r')
      try:
          if keys['access_keys'] == True:
              gradient_ai_access_key = keys['_GA_']
