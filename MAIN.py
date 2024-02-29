@@ -64,26 +64,26 @@ def access_keys_info():
      global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
      keys = shelve.open("keys.db")
-     try:
-         if keys['access_keys'] == True:
-             gradient_ai_access_key = keys['gradient_ai_access_key']
-             gradient_ai_workspace_id = keys['gradient_ai_workspace_id']
-             assemblyai_access_key = keys['assemblyai_access_key']
+     #try:
+     if keys['access_keys'] == True:
+         gradient_ai_access_key = keys['gradient_ai_access_key']
+         gradient_ai_workspace_id = keys['gradient_ai_workspace_id']
+         assemblyai_access_key = keys['assemblyai_access_key']
 
-             print('00 :',gradient_ai_workspace_id)
-             print('00 :',gradient_ai_access_key)
-             print('00 :',assemblyai_access_key)
+         print('00 :',gradient_ai_workspace_id)
+         print('00 :',gradient_ai_access_key)
+         print('00 :',assemblyai_access_key)
 
-             os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-         else:
+         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+     else:
              print("No access key")
 
-     except Exception as e:
-         keys['access_keys'] = False
-         print("-----", e)
+     #except Exception as e:
+     #    keys['access_keys'] = False
+     #    print("-----", e)
 
-         pass
+     #    pass
 
 
 
@@ -604,13 +604,15 @@ def settings(widget):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
         gradient_ai_workspace_id = str(g_access)
-        assemblyai_access_key = str(g_workkey
-        gradient_ai_access_key = str(Assemly_key
+        assemblyai_access_key = str(g_workkey)
+        gradient_ai_access_key = str(Assemly_key)
 
-        keys['gradient_ai_access_key'] = g_access
-        keys['gradient_ai_workspace_id'] = g_workkey
-        keys['assemblyai_access_key'] = Assemly_key
         keys['access_keys'] = True
+        keys['gradient_ai_access_key'] = gradient_ai_workspace_id
+        keys['gradient_ai_workspace_id'] = assemblyai_access_key
+        keys['assemblyai_access_key'] = gradient_ai_access_key
+
+
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
