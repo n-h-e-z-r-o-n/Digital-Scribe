@@ -502,7 +502,7 @@ def chat(widget):
         tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5, height=80).pack(side=tk.TOP, fill=tk.X)
 
 
-    tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, comm).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
