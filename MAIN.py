@@ -610,15 +610,9 @@ def settings(widget):
 
         dic = {'_GA_': gradient_ai_access_key, '_GW_': gradient_ai_workspace_id, '_AAI_': assemblyai_access_key}
         json_object = json.dumps(dic, indent=4)
+
         with open("SessionInfo.json", "w") as outfile:
             outfile.write(json_object)
-
-        pass
-
-        keys['access_keys'] = True
-        keys['_GA_'] = gradient_ai_access_key
-        keys['_GW_'] =   gradient_ai_workspace_id
-        keys['_AAI_'] = assemblyai_access_key
 
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
