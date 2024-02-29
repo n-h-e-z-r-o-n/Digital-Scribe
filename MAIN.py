@@ -497,8 +497,9 @@ def chat(widget):
 
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0, height=50000)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
-
-    user_page_widget, user_page_root = attach_scroll(widget)
+    user_page_widget, user_page_root = attach_scroll(fr)
+    fr2 = tk.Frame(user_page_widget, bg='blue', borderwidth=0, border=0, height=50000)
+    fr2.place(relheight=1, relwidth=1, rely=0, relx=0)
 
 
 
@@ -506,7 +507,7 @@ def chat(widget):
         tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5, height=80).pack(side=tk.TOP, fill=tk.X)
 
 
-    tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda :add(fr)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda :add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
