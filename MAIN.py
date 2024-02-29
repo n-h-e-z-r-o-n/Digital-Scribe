@@ -444,6 +444,10 @@ def chat(widget):
     font_style_btn = tk.Button(font_,  fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
     font_style_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
 
+    font_size = tk.Entry(font_, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
+    font_size.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
+
+    
     t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color,  relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
     t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
 
