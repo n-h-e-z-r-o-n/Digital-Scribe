@@ -65,12 +65,11 @@ def access_keys_info():
      global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
      try:
-
          with open('SessionInfo.json', 'r') as openfile:  # Reading from json file
-             json_object = json.load(openfile)
+             keys = json.load(openfile)
 
-         session_user_id = json_object['session_id']
-         log_id = json_object['log_id']
+         session_user_id = keys['session_id']
+         log_id = keys['log_id']
 
 
 
@@ -87,10 +86,9 @@ def access_keys_info():
              os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
          else:
                  print("No access key")
+     except:
+         pass
 
-     except Exception as e:
-        keys['access_keys'] = False
-        print("-----", e)
 
      #    pass
 
