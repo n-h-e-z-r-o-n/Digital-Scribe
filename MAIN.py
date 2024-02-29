@@ -77,7 +77,6 @@ def access_keys_info():
 
      except Exception as e:
          keys['access_keys'] = False
-
          pass
 
 
@@ -615,7 +614,7 @@ def settings(widget):
     tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
 
 
-
+    
 
 
     return setting_widget
