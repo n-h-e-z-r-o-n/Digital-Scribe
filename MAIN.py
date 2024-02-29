@@ -495,7 +495,7 @@ def chat(widget):
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
     entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
 
-    fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
+    fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0, height=50000)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
 
     def add(widget):
