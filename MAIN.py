@@ -438,8 +438,11 @@ def chat(widget):
     font_ = tk.Frame(navbar, bg=bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style = tk.Entry(font_, bg='blue', fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
-    font_style.place(relheight=1, relwidth=0.7, rely=0, relx=0)
+    font_style_entry = tk.Entry(font_, bg='blue', fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
+    font_style_entry.place(relheight=1, relwidth=0.5, rely=0, relx=0)
+
+    font_style_btn = tk.Button(font_,  fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 8), borderwidth=0, border=1)
+    font_style_btn.place(relheight=1, relwidth=0.2, rely=0.5, relx=0)
 
     t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color,  relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
     t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
