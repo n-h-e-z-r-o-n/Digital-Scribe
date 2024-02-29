@@ -445,6 +445,8 @@ def chat(widget):
                         widget3.config(font=(font_style, font_size))
                         defalt_font_style = font_style.strip()
                         print('changed')
+                    except:
+                        pass
                 time.sleep(5)
 
 
