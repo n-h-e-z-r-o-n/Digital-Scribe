@@ -498,11 +498,29 @@ def chat(widget):
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0, height=50000)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
 
+    canvas = tk.Canvas(fr, bg='black', scrollregion=(0, 0, 5000, 5000))
+    vbar = tk.Scrollbar(fr, orient=tk.VERTICAL)
+    vbar.pack(side=tk.RIGHT, fill=tk.Y)
+    vbar.config(command=canvas.yview)
+    canvas.config(yscrollcommand=vbar.set)
+    canvas.pack(side=tk.LEFT, expand=True, fill=tk.BOTH)
+    FRAME_1_screen = tk.Frame(canvas, bg='black')
+    canvas.create_window((0, 0), window=FRAME_1_screen, anchor=tk.NW)
+
+    ome_frame = tk.Frame(FRAME_1_screen, bg='#1A2421', width=5000, height=5000)
+    ome_frame.pack(fill=tk.BOTH, expand=True)
+
+
+
+
     def add(widget):
         tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5, height=80).pack(side=tk.TOP, fill=tk.X)
 
 
     tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda :add(fr)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+
+
+
 
 
 
