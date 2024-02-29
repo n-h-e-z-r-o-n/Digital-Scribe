@@ -1,30 +1,29 @@
-import socket
+import tkinter as tk
 
+def show_popup():
+    # Create a new window for the pop-up list
+    popup_window = tk.Toplevel(root)
 
-def client_program():
-    domain = "inspiring-frost-18221.pktriot.net"
-    ip = socket.gethostbyname(domain)
-    port = 22575  # socket server port number
-    host = ip
+    # Create a list of options
+    options = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"]
 
+    # Create a variable to store the selected option
+    selected_option = tk.StringVar()
 
-    host = "127.0.0.1"  # as both code is running on same pc
-    port = 800  # socket server port number
+    # Set a default value for the variable
+    selected_option.set(options[0])
 
-    client_socket = socket.socket()  # instantiate
-    client_socket.connect((host, port))  # connect to the server
+    # Create a dropdown menu with the options
+    dropdown = tk.OptionMenu(popup_window, selected_option, *options)
+    dropdown.pack(padx=10, pady=10)
 
-    login_credentials = 'login_Request~m@gmail~12maureen12'
-    client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
+# Create the main window
+root = tk.Tk()
+root.title("Pop-up List Example")
 
-    data = client_socket.recv(1024).decode("utf-8", errors="ignore")  # receive response
+# Create a button to show the pop-up list
+popup_button = tk.Button(root, text="Show Pop-up List", command=show_popup)
+popup_button.pack(padx=20, pady=20)
 
-    print('Received from server: ' + data)  # show in terminal
-
-
-
-    client_socket.close()  # close the connection
-
-
-if __name__ == '__main__':
-    client_program()
+# Run the Tkinter event loop
+root.mainloop()

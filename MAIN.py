@@ -423,9 +423,24 @@ def Login_Section_widget(widget, root_widget):
 
 
 def chat(widget):
-    chatbot_widget = tk.Frame(widget, bg="blue", borderwidth=0, border=0)
+    chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
-    tk.Entry(chatbot_widget).pack()
+
+    bg_color = 'lightgreen'
+    fg_color = 'black'
+
+    navbar = tk.Frame(chatbot_widget, bg='blue', borderwidth=0, border=0)
+    navbar.place(relheight=0.03, relwidth=1, rely=0, relx=0)
+
+    font_ =tk.Entry(navbar, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=0)
+    font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
+
+    t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color,  relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
+    t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+
+
+
+
     return chatbot_widget
 
 
@@ -620,14 +635,15 @@ def settings(widget):
 
     bg_color = "lightblue"
     fg_color = "black"
-
+    fg_hovercolor = "blue"
+    bg_hovercolor = 'lightgreen'
 
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
     # ======================================================= Section 1 ===========================================================================================================================================
 
-    g1 = tk.Frame(setting_widget, bg=bg_color, relief=tk.GROOVE, borderwidth=0, border=1)
+    g1 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
     #tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -639,14 +655,14 @@ def settings(widget):
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
     gradient_access_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
-    change_bg_OnHover(gradient_access_widget, 'lightgreen', bg_color)
+    change_bg_OnHover(gradient_access_widget, bg_hovercolor, bg_color)
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_work_widget.place(relheight=0.07,  relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
     gradient_work_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
-    change_bg_OnHover(gradient_work_widget, 'lightgreen', bg_color)
+    change_bg_OnHover(gradient_work_widget, bg_hovercolor, bg_color)
 
     tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.22, relx=0)
     tk.Label(g1, text="assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.3, relx=0)
@@ -654,11 +670,29 @@ def settings(widget):
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
     assembly_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
-    change_bg_OnHover(assembly_widget, 'lightgreen', bg_color)
+    change_bg_OnHover(assembly_widget, bg_hovercolor, bg_color)
 
-    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), borderwidth=0, border=1, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
+    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
     save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
-    change_bg_OnHover(save, 'lightgreen', bg_color)
+    #change_bg_OnHover(save, 'lightgreen', bg_color)
+    change_fg_OnHover(save, fg_hovercolor, fg_color)
+
+    # ======================================================= Section 2 ===========================================================================================================================================
+
+    g2 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
+
+    # ======================================================= Section 3 ===========================================================================================================================================
+    g3 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g3.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
+
+    # ======================================================= Section 4 ===========================================================================================================================================
+    g4 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g4.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.5)
+    # ======================================================= Section 5 ===========================================================================================================================================
+
+
+
 
     return setting_widget
 
@@ -745,11 +779,13 @@ def User_Home_page(widget):
 
 
 
-    CHAT_Widget = chat(Home_page_frame)
+
     CONV_AI_Widget = conversation(Home_page_frame)
-    CALL_Widget = call(Home_page_frame)
+
     #PROFILE_widget = profile(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
+    CALL_Widget = call(Home_page_frame)
+    CHAT_Widget = chat(Home_page_frame)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 

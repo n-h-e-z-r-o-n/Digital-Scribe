@@ -14,10 +14,18 @@ transcript = transcriber.transcribe(audio_url)
 
 print(transcript.text)
 
+
+
+"""
+
 print(transcript.words)
 
 if transcript.status == aai.TranscriptStatus.error:
     print(f"Transcription failed: {transcript.error}")
+
+"""
+
+
 
 
 
