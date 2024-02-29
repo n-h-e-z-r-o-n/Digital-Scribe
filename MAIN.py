@@ -605,7 +605,7 @@ def settings(widget):
     tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
     gradient_access_widget = tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10))
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
-    gradient_access_widget.insert(0, gradient_ai_access_key)
+    gradient_access_widget.insert(0, placeholder=gradient_ai_access_key)
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     tk.Entry(g1, borderwidth=0, border=1, font=("Calibri", 10)).place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
