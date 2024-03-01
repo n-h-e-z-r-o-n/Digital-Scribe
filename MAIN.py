@@ -11,7 +11,7 @@ import io
 import base64
 import  os
 import json
-
+from gradientai import ExtractParamsSchemaValueType, Gradient
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
