@@ -500,13 +500,14 @@ def chat(widget):
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
     user_page_widget, user_page_root = attach_scroll(fr, bg_color)
-    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0 , height=4000, width=int(screen_width*0.9747*0.21 -40))
+    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0 , height=4000, width=int(screen_width*0.9747*0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
 
 
 
     def add(widget):
-        tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=1, height=80, width=400).pack(side=tk.BOTTOM, fill=tk.X)
+        tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=1, height=80, width=int(screen_width*0.9747*0.21 -5)).pack(side=tk.BOTTOM, fill=tk.X)
+        
         print("added")
 
 
