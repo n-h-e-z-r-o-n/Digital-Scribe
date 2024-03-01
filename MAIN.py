@@ -529,7 +529,9 @@ def chat(widget):
         tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11)).place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
         type_widget =tk.Button(new_entity, bg=bg_color, text=entity_type, font=("Times New Roman", 10, 'bold'),relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
         type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
-        tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity)).place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
+        close_widg = tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
+        close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
+        change_fg_OnHover(close_widg, 'red', 'black')
 
 
 
