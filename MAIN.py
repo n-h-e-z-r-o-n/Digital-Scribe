@@ -88,16 +88,15 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
     widget.configure(scrollregion=widget.bbox("all"))
 
 
-def attach_scroll(widget):
-    FRAME_2 = tk.Frame(widget, bg='black')
+def attach_scroll(widget,  color = 'white'):
+    FRAME_2 = tk.Frame(widget, bg=color)
     FRAME_2.place(relwidth=1, relheight=1, relx=0, rely=0)
-    canvas_FRAME_2 = tk.Canvas(FRAME_2,
-                               highlightthickness=0)  # Create a Canvas widget to hold the frame and enable scrolling
+    canvas_FRAME_2 = tk.Canvas(FRAME_2,highlightthickness=0)  # Create a Canvas widget to hold the frame and enable scrolling
     canvas_FRAME_2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     canvas_FRAME_2_scrollbar = tk.Scrollbar(widget,
                                             command=canvas_FRAME_2.yview)  # Create a Scrollbar and connect it to the Canvas
     canvas_FRAME_2.config(yscrollcommand=canvas_FRAME_2_scrollbar.set)
-    canvas_FRAME_2_frame = tk.Frame(canvas_FRAME_2)  # Create a frame to hold your content of the canvers
+    canvas_FRAME_2_frame = tk.Frame(canvas_FRAME_2, bg=color)  # Create a frame to hold your content of the canvers
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, FRAME_2
