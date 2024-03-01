@@ -508,7 +508,7 @@ def chat(widget):
     user_page_widget, user_page_canvas = attach_scroll(fr, bg_color)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
-
+    global entity_widget_lists
     entity_widget_lists = []
     def add(widget):
         global entity_type, entity_widget_lists
@@ -549,7 +549,11 @@ def chat(widget):
 
     tk.Button(entity_section, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
-    tk.Button(entity_section, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+
+    def pri():
+        print(entity_widget_lists)
+
+    tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
