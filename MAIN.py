@@ -551,7 +551,11 @@ def chat(widget):
 
 
     def pri():
-        print(entity_widget_lists)
+        global entity_widget_lists
+        for i in entity_widget_lists:
+            print(i[1].get())
+            print(i[2].cget("text"))
+
 
     tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
