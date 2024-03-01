@@ -535,7 +535,7 @@ def chat(widget):
     user_page_widget, user_page_canvas = attach_scroll(fr, bg_color)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width * 0.9747 * 0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
-    
+
     global entity_widget_lists
     entity_widget_lists = []
 
