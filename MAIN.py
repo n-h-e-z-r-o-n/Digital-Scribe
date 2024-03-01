@@ -47,6 +47,13 @@ def Entity_Extraction(document, entity_list):
     dictionary = eval(schema)
     print(dictionary)
 
+    result = mygradient.extract(
+        document=document,
+        schema_=dictionary,
+    )
+
+
+
     """
 
      {
