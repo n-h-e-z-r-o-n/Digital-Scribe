@@ -48,6 +48,7 @@ def dark_title_bar(window):
     set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
 
+
 # =============================== scroll Functions definition =======================================================================================
 def widget_scroll_bind(widget):
     def nnn (widget, event):
@@ -426,7 +427,6 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
 
-
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
         defalt_font_style = 'Times New Roman'
@@ -530,7 +530,7 @@ def chat(widget):
 
         entity_name = tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11))
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
-        type_widget =tk.Button(new_entity, bg=bg_color, text=entity_type, font=("Times New Roman", 10, 'bold'),relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
+        type_widget = tk.Button(new_entity, bg=bg_color, text=entity_type, font=("Times New Roman", 10, 'bold'),relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
         type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
         close_widg = tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
@@ -540,11 +540,9 @@ def chat(widget):
 
         entity_widget_lists.append((new_entity, entity_name, type_widget))
 
-
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
-
 
     def pri():
         global entity_widget_lists
