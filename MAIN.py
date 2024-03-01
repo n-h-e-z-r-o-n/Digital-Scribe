@@ -575,17 +575,11 @@ def chat(widget):
 
         entity_widget_lists.append((new_entity, entity_name, type_widget))
 
-    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=fg_color, borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    def pri():
-        global entity_widget_lists
-        for i in entity_widget_lists:
-            print(i[1].get(), '--', i[2].cget("text"))
-            print()
-
-    tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2)).place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
+    Extract_entities = tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2)).place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
 
     return chatbot_widget
 
