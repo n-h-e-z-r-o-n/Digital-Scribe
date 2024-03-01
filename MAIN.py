@@ -91,7 +91,7 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
 def attach_scroll(widget,  color = 'white'):
     FRAME_2 = tk.Frame(widget, bg=color)
     FRAME_2.place(relwidth=1, relheight=1, relx=0, rely=0)
-    canvas_FRAME_2 = tk.Canvas(FRAME_2,highlightthickness=0)  # Create a Canvas widget to hold the frame and enable scrolling
+    canvas_FRAME_2 = tk.Canvas(FRAME_2, highlightthickness=0, bg=color)  # Create a Canvas widget to hold the frame and enable scrolling
     canvas_FRAME_2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     canvas_FRAME_2_scrollbar = tk.Scrollbar(widget,
                                             command=canvas_FRAME_2.yview)  # Create a Scrollbar and connect it to the Canvas
@@ -496,8 +496,8 @@ def chat(widget):
 
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
-    user_page_widget, user_page_root = attach_scroll(fr)
-    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
+    user_page_widget, user_page_root = attach_scroll(fr, bg_color)
+    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21 -40))
     fr2.pack(fill=tk.BOTH, expand=True)
 
 
