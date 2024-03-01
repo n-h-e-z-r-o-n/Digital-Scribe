@@ -14,6 +14,15 @@ transcript = transcriber.transcribe(audio_url)
 
 print(transcript.text)
 
+document = (
+    "When Apple released the Apple Watch in 2015, it was business as "
+    + "usual for a company whose iPhone updates had become cultural "
+    + "touchstones. Before the watch went on sale, Apple gave early "
+    + "versions of it to celebrities like Beyoncé, featured it in fashion "
+    + "publications like Vogue and streamed a splashy event on the "
+    + "internet trumpeting its features."
+)
+
 
 
 """
