@@ -436,15 +436,10 @@ def chat(widget):
             while True:
                 if closed:
                     break
-
                 font_style = widget1.get()
                 font_size = widget2.get()
-                print("checking")
-                print(font_style)
                 if font_size == '':
                     font_size = '1'
-                print(font_size)
-                print(defalt_font_style)
                 if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
                     try:
                         widget3.config(font=(font_style, font_size))
@@ -553,11 +548,11 @@ def chat(widget):
     def pri():
         global entity_widget_lists
         for i in entity_widget_lists:
-            print(i[1].get())
-            print(i[2].cget("text"))
+            print(i[1].get() ,'--', i[2].cget("text"))
+            print()
 
 
-    tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: pri()).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
