@@ -580,7 +580,7 @@ def chat(widget):
             print(i[1].get(), '--', i[2].cget("text"))
             print()
 
-    tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists)).place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
+    tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2)).place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
 
     return chatbot_widget
 
