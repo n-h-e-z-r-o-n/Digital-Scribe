@@ -38,6 +38,7 @@ keys = None
 
 
 def Entity_Extraction(document, entity_list):
+    mygradient = Gradient() 
     schema = '{'
     for i in entity_list:
         schema +=  '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": True, }, '
