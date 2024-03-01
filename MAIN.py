@@ -540,7 +540,7 @@ def chat(widget):
 
         new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
-    tk.Button(entity_section, text='+ Add new entity', bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    tk.Button(entity_section, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
