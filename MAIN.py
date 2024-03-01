@@ -497,8 +497,13 @@ def chat(widget):
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
     entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
 
+    title = tk.Frame(entity_section, bg=bg_color, borderwidth=2, border=1)
+    title.place(relheight=0.036, relwidth=1, rely=0, relx=0)
+    tk.Label(title, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
+    tk.Label(title, text="Type", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
+
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
-    fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
+    #fr.place(relheight=0.97, relwidth=1, rely=0, relx=0)
     user_page_widget, user_page_root = attach_scroll(fr)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
@@ -535,10 +540,7 @@ def chat(widget):
 
     tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
-    title = tk.Frame(entity_section, bg=bg_color, borderwidth=2, border=1)
-    title.place(relheight=0.05, relwidth=1, rely=0, relx=0)
-    tk.Label(title, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
-    tk.Label(title, text="Type", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
+
 
 
 
