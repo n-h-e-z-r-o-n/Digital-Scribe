@@ -516,7 +516,7 @@ def chat(widget):
 
         tk.Entry(new_entity, bg='green', borderwidth=0, border=0).place(relx=0.52, rely=0.35, relwidth=0.2, relheight=0.42)
 
-        tk.Button(new_entity, bg='green', text="X", borderwidth=0, border=0).place(relx=0.9, rely=0.35, relwidth=0.1, relheight=0.42)
+        tk.Button(new_entity, bg='green', text="X", borderwidth=0, border=0, font=("Times New Roman", 11) ).place(relx=0.9, rely=0.35, relwidth=0.1, relheight=0.42)
 
 
         print("added")
