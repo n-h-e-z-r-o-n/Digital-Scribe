@@ -512,9 +512,14 @@ def chat(widget):
         def change_type(widget):
             global type
             if type == "STRING":
-                type = "NUMBER"
-            else:
+            type = "NUMBER"
+                widget.config(text=type)
+            elif type == "NUMBER":
                 type = "BOOLEAN"
+                widget.config(text=type)
+            else:
+                type = "STRING"
+                widget.config(text=type)
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width*0.9747*0.21 -5))
         new_entity.pack(side=tk.TOP, fill=tk.X)
