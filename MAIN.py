@@ -506,17 +506,17 @@ def chat(widget):
 
 
     def add(widget):
-        new_entity = tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=1, height=90, width=int(screen_width*0.9747*0.21 -5))
+        new_entity = tk.Frame(widget, bg=bg_color, relief=tk.SUNKEN, borderwidth=2, border=1, height=90, width=int(screen_width*0.9747*0.21 -5))
         new_entity.pack(side=tk.BOTTOM, fill=tk.X)
 
-        tk.Label(new_entity,  text="Field Name", bg='green', borderwidth=0, border=0).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=0.3)
-        tk.Label(new_entity, text="Type", bg='green', borderwidth=0, border=0).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=0.3)
+        tk.Label(new_entity,  text="Field Name", bg='green', borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=0.3)
+        tk.Label(new_entity, text="Type", bg='green', borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=0.3)
 
-        tk.Entry(new_entity, bg='green', borderwidth=0, border=0).place(relx=0.01, rely=0.35, relwidth=0.5, relheight=0.42)
+        tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=0).place(relx=0.01, rely=0.35, relwidth=0.5, relheight=0.42)
 
-        tk.Entry(new_entity, bg='green', borderwidth=0, border=0).place(relx=0.52, rely=0.35, relwidth=0.2, relheight=0.42)
+        tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=0).place(relx=0.52, rely=0.35, relwidth=0.2, relheight=0.42)
 
-        tk.Button(new_entity, bg='green', text="X", borderwidth=0, border=0, font=("Bauhaus 93", 11) ).place(relx=0.95, rely=0.25, relwidth=0.05, relheight=0.5)
+        tk.Button(new_entity, bg=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 11) ).place(relx=0.95, rely=0.25, relwidth=0.05, relheight=0.5)
 
 
         print("added")
