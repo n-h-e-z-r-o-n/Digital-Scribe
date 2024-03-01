@@ -102,7 +102,7 @@ def attach_scroll(widget,  color = 'white'):
     canvas_FRAME_2_frame = tk.Frame(canvas_FRAME_2, bg=color)  # Create a frame to hold your content of the canvers
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
-    return canvas_FRAME_2_frame, FRAME_2
+    return canvas_FRAME_2_frame, canvas_FRAME_2
 
 
 def show(widg):
@@ -504,7 +504,7 @@ def chat(widget):
 
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0.036, relx=0)
-    user_page_widget, user_page_root = attach_scroll(fr, bg_color)
+    user_page_widget, user_page_canvas = attach_scroll(fr, bg_color)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
 
@@ -538,8 +538,8 @@ def chat(widget):
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
         change_fg_OnHover(close_widg, 'red', 'black')
 
-        new_entity.bind("<Configure>", lambda e: on_frame_configure(user_page_widget, e))
-        new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_widget, e))
+        #new_entity.bind("<Configure>", lambda e: on_frame_configure(user_page_canvas, e))
+        #new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
 
     tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
