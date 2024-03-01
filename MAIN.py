@@ -504,7 +504,7 @@ def chat(widget):
 
     fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0.036, relx=0)
-    user_page_widget, user_page_root = attach_scroll(fr)
+    user_page_widget, user_page_root = attach_scroll(fr, bg_color)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
 
@@ -528,7 +528,7 @@ def chat(widget):
                 entity_type = "STRING"
                 widget.config(text=entity_type)
 
-        new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width*0.9747*0.21 -5))
+        new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width*0.9747*0.21 -3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
 
         tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11)).place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
