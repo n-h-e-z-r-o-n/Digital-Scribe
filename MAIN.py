@@ -50,13 +50,16 @@ def Entity_Extraction(document, entity_list):
     dictionary = eval(schema)
     print(dictionary)
 
-    result = mygradient.extract(
-        document=document,
-        schema_=dictionary,
-    )
+    try:
+        result = mygradient.extract(
+            document=document,
+            schema_=dictionary,
+        )
 
-    print(result)
-
+        print(result)
+        return result
+    except:
+        return None
 
 
 
