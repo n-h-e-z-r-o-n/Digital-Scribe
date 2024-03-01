@@ -44,7 +44,7 @@ def Entity_Extraction(document, entity_list):
         print(i[1].get(), '--', i[2].cget("text"))
     schema += '}'
     print(schema)
-    dictionary = eval(schema)
+    dictionary = dict(schema)
     print(dictionary)
 
     """
