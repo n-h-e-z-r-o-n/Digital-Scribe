@@ -535,8 +535,8 @@ def chat(widget):
 
     tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
-    title = tk.Frame(fr2, bg=bg_color, borderwidth=2, border=1, height=25, width=int(screen_width * 0.9747 * 0.21 - 5))
-    title.pack(side=tk.TOP, fill=tk.X)
+    title = tk.Frame(entity_section, bg=bg_color, borderwidth=2, border=1)
+    title.place(relheight=0.05, relwidth=1, rely=0, relx=0)
     tk.Label(title, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
     tk.Label(title, text="Type", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
 
