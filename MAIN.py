@@ -426,7 +426,7 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
 
-    entity_lists = []
+
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
         defalt_font_style = 'Times New Roman'
@@ -509,10 +509,9 @@ def chat(widget):
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
 
-
-
+    entity_widget_lists = []
     def add(widget):
-        global entity_type
+        global entity_type, entity_widget_lists
         entity_type = "STRING"
         def delet_widget(widget):
             widget.destroy()
@@ -539,7 +538,7 @@ def chat(widget):
         close_widg = tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
         change_fg_OnHover(close_widg, 'red', 'black')
-
+        entity_widget_lists.append(new_entity, entity_name, type_widget))
         new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
     tk.Button(entity_section, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
