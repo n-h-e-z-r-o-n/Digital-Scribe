@@ -779,9 +779,9 @@ def settings(widget):
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
         print("saved")
-        print(gradient_ai_workspace_id)
-        print(gradient_ai_access_key)
-        print(assemblyai_access_key)
+        print("gradient_ai_workspace_id", gradient_ai_workspace_id)
+        print("gradient_ai_access_key", gradient_ai_access_key)
+        print("assemblyai_access_key", assemblyai_access_key)
 
     bg_color = "lightblue"
     fg_color = "black"
