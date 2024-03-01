@@ -765,9 +765,9 @@ def settings(widget):
     def save_keys(g_access, g_workkey, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-        gradient_ai_workspace_id = str(g_access).strip()
-        assemblyai_access_key = str(g_workkey).strip()
-        gradient_ai_access_key = str(Assemly_key).strip()
+        gradient_ai_access_key  = str(g_access).strip()
+        gradient_ai_workspace_id  = str(g_workkey).strip()
+        assemblyai_access_key = str(Assemly_key).strip()
 
         dic = {'_GA_': gradient_ai_access_key, '_GW_': gradient_ai_workspace_id, '_AAI_': assemblyai_access_key}
         json_object = json.dumps(dic, indent=4)
@@ -779,8 +779,8 @@ def settings(widget):
         os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
         print("saved")
-        print("gradient_ai_workspace_id", gradient_ai_workspace_id)
         print("gradient_ai_access_key", gradient_ai_access_key)
+        print("gradient_ai_workspace_id", gradient_ai_workspace_id)
         print("assemblyai_access_key", assemblyai_access_key)
 
     bg_color = "lightblue"
