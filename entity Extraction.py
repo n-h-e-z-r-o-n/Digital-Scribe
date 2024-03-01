@@ -35,6 +35,8 @@ schema_ = {
         "type": ExtractParamsSchemaValueType.NUMBER,
     }
 }
+
+print(type(schema_))
 result = mygradient.extract(
     document=document,
     schema_=schema_,
