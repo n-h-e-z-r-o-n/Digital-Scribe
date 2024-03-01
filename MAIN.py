@@ -38,7 +38,7 @@ keys = None
 
 
 def Entity_Extraction(document, entity_list):
-    document = (document)
+    document = (document.strip())
     mygradient = Gradient()
     print(document)
     schema = '{'
