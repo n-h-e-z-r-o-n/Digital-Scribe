@@ -512,11 +512,11 @@ def chat(widget):
         def change_type(widget):
             global type
             if type == "STRING":
-            type = "NUMBER"
-                widget.config(text=type)
+               type = "NUMBER"
+               widget.config(text=type)
             elif type == "NUMBER":
-                type = "BOOLEAN"
-                widget.config(text=type)
+                 type = "BOOLEAN"
+                 widget.config(text=type)
             else:
                 type = "STRING"
                 widget.config(text=type)
@@ -525,7 +525,8 @@ def chat(widget):
         new_entity.pack(side=tk.TOP, fill=tk.X)
 
         tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11)).place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
-        tk.Button(new_entity, bg=bg_color, relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1).place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
+        type_widget =tk.Button(new_entity, bg=bg_color, relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda add(type_widget))
+        type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
         tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity)).place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
 
 
