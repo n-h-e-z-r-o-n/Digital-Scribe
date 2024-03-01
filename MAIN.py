@@ -506,12 +506,14 @@ def chat(widget):
 
 
     def add(widget):
+        def delet_widget(widget):
+            widget.destroy()
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width*0.9747*0.21 -5))
         new_entity.pack(side=tk.TOP, fill=tk.X)
 
         tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1).place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
         tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1).place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
-        tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 11) ).place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
+        tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 11), command=lambda :delet_widget(new_entity)).place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
 
 
 
