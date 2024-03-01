@@ -599,7 +599,7 @@ def chat(widget):
             print()
 
 
-    tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda:Entity_Extraction('', entity_widget_lists)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda:Entity_Extraction(t1.get(''), entity_widget_lists)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
 
