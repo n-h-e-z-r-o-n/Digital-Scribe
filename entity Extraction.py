@@ -33,7 +33,7 @@ schema_ = {
     },
     "year": {
         "type": ExtractParamsSchemaValueType.NUMBER,
-    },
+    }
 }
 result = mygradient.extract(
     document=document,
