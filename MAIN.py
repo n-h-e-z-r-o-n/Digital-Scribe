@@ -510,7 +510,7 @@ def chat(widget):
         new_entity.pack(side=tk.BOTTOM, fill=tk.X)
 
         tk.Label(new_entity,  text="Field Name", bg='green', borderwidth=0, border=0).place(relx=0, rely=0, relwidth=0.5, relheight=0.3)
-        tk.Label(new_entity, text="Type", bg='green', borderwidth=0, border=0).place(relx=0.5, rely=0, relwidth=0.2, relheight=0.3)
+        tk.Label(new_entity, text="Type", bg='green', borderwidth=0, border=0).place(relx=0.51, rely=0, relwidth=0.2, relheight=0.3)
 
 
 
