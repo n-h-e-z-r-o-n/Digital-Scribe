@@ -504,7 +504,7 @@ def chat(widget):
 
 
     def add(widget):
-        tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5, height=80, widith=400).pack(side=tk.TOP, fill=tk.X)
+        tk.Frame(widget, bg='blue', relief=tk.SUNKEN, borderwidth=2, border=5, height=80, width=400).pack(side=tk.BOTTOM, fill=tk.X)
         print("added")
 
 
