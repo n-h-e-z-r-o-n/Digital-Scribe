@@ -40,7 +40,7 @@ keys = None
 # =================================================================================================================================================
 
 
-def Entity_Extraction(document, entity_list):
+def Entity_Extraction(document, entity_list, widget):
     document = (document.strip())
     mygradient = Gradient()
     print(document)
@@ -58,6 +58,11 @@ def Entity_Extraction(document, entity_list):
             document=document,
             schema_=dictionary,
         )
+        widget.delete(1.0, tk.END)
+        for key, value in result["entity"].items():
+            m = key + " : " + value
+            print()
+            widget.insert(tk.END, m)
 
         print(result)
         return result
