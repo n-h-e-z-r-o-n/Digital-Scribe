@@ -425,7 +425,8 @@ def Login_Section_widget(widget, root_widget):
 
 
 def chat(widget):
-
+    entity
+    entity_lists = []
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
         defalt_font_style = 'Times New Roman'
