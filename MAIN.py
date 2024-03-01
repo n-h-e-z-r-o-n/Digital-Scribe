@@ -9,9 +9,10 @@ from PIL import Image, ImageTk
 import shelve
 import io
 import base64
-import  os
+import os
 import json
 from gradientai import ExtractParamsSchemaValueType, Gradient
+
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -33,6 +34,8 @@ gradient_ai_access_key = ''
 gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
 keys = None
+
+
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
 
@@ -43,7 +46,7 @@ def Entity_Extraction(document, entity_list):
     print(document)
     schema = '{'
     for i in entity_list:
-        schema +=  '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": False, }, '
+        schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": False, }, '
         print(i[1].get(), '--', i[2].cget("text"))
     schema += '}'
     print(schema)
@@ -62,12 +65,6 @@ def Entity_Extraction(document, entity_list):
         return None
 
 
-
-
-
-
-
-
 def dark_title_bar(window):
     window.update()
     DWMWA_USE_IMMERSIVE_DARK_MODE = 20
@@ -80,10 +77,10 @@ def dark_title_bar(window):
     set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
 
-
 # =============================== scroll Functions definition =======================================================================================
+
 def widget_scroll_bind(widget):
-    def nnn (widget, event):
+    def nnn(widget, event):
         pass
 
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
@@ -97,34 +94,33 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
     else:
         widget.yview_scroll(-1, "units")
 
+
 def access_keys_info():
-     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-     try:
-         with open('keys.json', 'r') as openfile:  # Reading from json file
-             keys = json.load(openfile)
+    try:
+        with open('keys.json', 'r') as openfile:  # Reading from json file
+            keys = json.load(openfile)
 
-             gradient_ai_access_key = keys['_GA_']
-             gradient_ai_workspace_id = keys['_GW_']
-             assemblyai_access_key = keys['_AAI_']
+            gradient_ai_access_key = keys['_GA_']
+            gradient_ai_workspace_id = keys['_GW_']
+            assemblyai_access_key = keys['_AAI_']
 
-             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
-             print('gradient_ai_access_key:', gradient_ai_access_key)
-             print('assemblyai_access_key :', assemblyai_access_key)
+            print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
+            print('gradient_ai_access_key:', gradient_ai_access_key)
+            print('assemblyai_access_key :', assemblyai_access_key)
 
-             os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-
-     except:
-         pass
-
+            os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+            os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+    except:
+        pass
 
 
 def on_frame_configure(widget, event):  # Update the canvas scrolling region when the large frame changes size
     widget.configure(scrollregion=widget.bbox("all"))
 
 
-def attach_scroll(widget,  color = 'white'):
+def attach_scroll(widget, color='white'):
     FRAME_2 = tk.Frame(widget, bg=color)
     FRAME_2.place(relwidth=1, relheight=1, relx=0, rely=0)
     canvas_FRAME_2 = tk.Canvas(FRAME_2, highlightthickness=0, bg=color)  # Create a Canvas widget to hold the frame and enable scrolling
@@ -415,19 +411,19 @@ def Login_Section_widget(widget, root_widget):
     change_bg_OnHover(Email_entry_widg, '#F5F5F5', nav_bar_color)
     Email_entry_widg.insert(0, 'm@gmail')
 
-    tk.Label(Login_widget, bg=nav_bar_color, text='password', font=("Batang", 9), anchor='w', borderwidth=1,border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
+    tk.Label(Login_widget, bg=nav_bar_color, text='password', font=("Batang", 9), anchor='w', borderwidth=1, border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
     password_entry_widg = tk.Entry(Login_widget, bg=nav_bar_color, font=("Courier New", 13), relief="solid", borderwidth=1)
     password_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.33, relx=0.05)
 
     password_entry_widg.insert(0, '12maureen12')
     change_bg_OnHover(password_entry_widg, '#F5F5F5', nav_bar_color)
 
-    Forgot_password_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#74C365', activebackground=nav_bar_color,text='Forgot password', font=("Bradley Hand ITC", 12, 'bold'), anchor='w',borderwidth=0, border=0,command=lambda: Forgot_pass().place(relheight=0.7, relwidth=0.25, rely=0.05,
-                                                                               relx=0.03))
+    Forgot_password_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#74C365', activebackground=nav_bar_color, text='Forgot password', font=("Bradley Hand ITC", 12, 'bold'), anchor='w', borderwidth=0, border=0, command=lambda: Forgot_pass().place(relheight=0.7, relwidth=0.25, rely=0.05,
+                                                                                                                                                                                                                                                                 relx=0.03))
     Forgot_password_login_link.place(relheight=0.03, relwidth=0.1, rely=0.41, relx=0.05)
     change_fg_OnHover(Forgot_password_login_link, '#00AB66', '#A8E4A0')
 
-    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN',font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
+    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
     login_btn.place(relheight=0.06, relwidth=0.2, rely=0.5, relx=0.05)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
     password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
@@ -458,13 +454,13 @@ def Login_Section_widget(widget, root_widget):
 
 
 def chat(widget):
-
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
         defalt_font_style = 'Times New Roman'
         defalt_font_size = 13
-        def check(widget1 = widget1, widget2 = widget2, widget3 = widget3):
-            global defalt_font_style, defalt_font_size , closed
+
+        def check(widget1=widget1, widget2=widget2, widget3=widget3):
+            global defalt_font_style, defalt_font_size, closed
             while True:
                 if closed:
                     break
@@ -480,13 +476,10 @@ def chat(widget):
                         print('changed')
                     except:
                         pass
-                time.sleep(5)
+                time.sleep(1)
 
         time.sleep(10)
         check()
-
-
-
 
 
     chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
@@ -504,22 +497,25 @@ def chat(widget):
     font_ = tk.Frame(navbar, bg=bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_entry = tk.Entry(font_, bg=nav_bar_bg_color,  fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
+    font_style_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
     font_style_entry.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
     font_style_entry.insert(0, defalt_font_style)
 
     font_style_btn = tk.Button(font_, text='v', bg=nav_bar_bg_color, activebackground=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13, 'bold'), borderwidth=0, border=1)
     font_style_btn.place(relheight=0.8, relwidth=0.09, rely=0.1, relx=0.7)
 
-    font_size_entry = tk.Entry(font_,  bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
+    font_size_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
     font_size_entry.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
     font_size_entry.insert(0, defalt_font_size)
 
-
-    t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color,  relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
+    t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
     t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
 
+    t2 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
+    t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
+
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
+    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
     entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
@@ -529,16 +525,18 @@ def chat(widget):
     tk.Label(title, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
     tk.Label(title, text="Type", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
 
-    fr = tk.Frame(entity_section, bg='blue',  borderwidth=0, border=0)
+    fr = tk.Frame(entity_section, bg='blue', borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0.036, relx=0)
     user_page_widget, user_page_canvas = attach_scroll(fr, bg_color)
-    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width*0.9747*0.21))
+    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width * 0.9747 * 0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
     global entity_widget_lists
     entity_widget_lists = []
+
     def add(widget):
         global entity_type, entity_widget_lists
         entity_type = "STRING"
+
         def delet_widget(widget):
             widget.destroy()
             for i in entity_widget_lists:
@@ -548,21 +546,21 @@ def chat(widget):
         def change_type(widget):
             global entity_type
             if entity_type == "STRING":
-               entity_type = "NUMBER"
-               widget.config(text=entity_type)
+                entity_type = "NUMBER"
+                widget.config(text=entity_type)
             elif entity_type == "NUMBER":
-                 entity_type = "BOOLEAN"
-                 widget.config(text=entity_type)
+                entity_type = "BOOLEAN"
+                widget.config(text=entity_type)
             else:
                 entity_type = "STRING"
                 widget.config(text=entity_type)
 
-        new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width*0.9747*0.21 -3))
+        new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
 
         entity_name = tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11))
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
-        type_widget = tk.Button(new_entity, bg=bg_color, text=entity_type, font=("Times New Roman", 10, 'bold'),relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
+        type_widget = tk.Button(new_entity, bg=bg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
         type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
         close_widg = tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
@@ -572,27 +570,17 @@ def chat(widget):
 
         entity_widget_lists.append((new_entity, entity_name, type_widget))
 
-    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='red', borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
     def pri():
         global entity_widget_lists
         for i in entity_widget_lists:
-            print(i[1].get() ,'--', i[2].cget("text"))
+            print(i[1].get(), '--', i[2].cget("text"))
             print()
 
-
-    tk.Button(chatbot_widget, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda:Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
-
-
-
-
-
-
-
-
-
+    tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists)).place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
 
     return chatbot_widget
 
@@ -685,12 +673,6 @@ def call(widget):
         tab_widget_2(widget)
         """
 
-
-
-
-
-
-
     widgets_bg_color = '#DFDFD5'
     call_widget = tk.Frame(widget, bg="#F2F7FD", borderwidth=0, border=0)
     call_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
@@ -711,7 +693,7 @@ def call(widget):
     contacts_hold_widget = tk.Frame(display_contacts_widget, bg=widgets_bg_color, borderwidth=0, border=0)
     contacts_hold_widget.place(relheight=0.959, relwidth=1, rely=0.041, relx=0)
 
-    #display_contacts(contacts_hold_widget)
+    # display_contacts(contacts_hold_widget)
 
     # ===========================  Display selected contact ================================
 
@@ -768,8 +750,8 @@ def settings(widget):
     def save_keys(g_access, g_workkey, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
-        gradient_ai_access_key  = str(g_access).strip()
-        gradient_ai_workspace_id  = str(g_workkey).strip()
+        gradient_ai_access_key = str(g_access).strip()
+        gradient_ai_workspace_id = str(g_workkey).strip()
         assemblyai_access_key = str(Assemly_key).strip()
 
         dic = {'_GA_': gradient_ai_access_key, '_GW_': gradient_ai_workspace_id, '_AAI_': assemblyai_access_key}
@@ -799,7 +781,7 @@ def settings(widget):
     g1 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
-    #tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
+    # tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
 
     tk.Label(g1, text="GRADIENT AI ACCESS KEYS ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
 
@@ -812,7 +794,7 @@ def settings(widget):
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
-    gradient_work_widget.place(relheight=0.07,  relwidth=0.74, rely=0.142, relx=0.25)
+    gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
     gradient_work_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
     change_bg_OnHover(gradient_work_widget, bg_hovercolor, bg_color)
@@ -822,12 +804,12 @@ def settings(widget):
     assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
-    assembly_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
+    assembly_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
     change_bg_OnHover(assembly_widget, bg_hovercolor, bg_color)
 
-    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()) )
+    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
     save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
-    #change_bg_OnHover(save, 'lightgreen', bg_color)
+    # change_bg_OnHover(save, 'lightgreen', bg_color)
     change_fg_OnHover(save, fg_hovercolor, fg_color)
 
     # ======================================================= Section 2 ===========================================================================================================================================
@@ -843,9 +825,6 @@ def settings(widget):
     g4 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g4.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.5)
     # ======================================================= Section 5 ===========================================================================================================================================
-
-
-
 
     return setting_widget
 
@@ -912,9 +891,6 @@ def User_Home_page(widget):
     global user_id, widget_list
     user_page_widget, user_page_root = attach_scroll(widget)
 
-
-
-
     Home_page_frame = tk.Frame(widget, bg='black', width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -923,19 +899,13 @@ def User_Home_page(widget):
     nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out',justify=tk.LEFT, anchor="center", font=("Calibri Light", 10),  borderwidth=0, border=0 ) # command=lambda: sign_out(user_page_root))
+    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out', justify=tk.LEFT, anchor="center", font=("Calibri Light", 10), borderwidth=0, border=0)  # command=lambda: sign_out(user_page_root))
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
-
-
-
-
-
-
     CONV_AI_Widget = conversation(Home_page_frame)
 
-    #PROFILE_widget = profile(Home_page_frame)
+    # PROFILE_widget = profile(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
     CALL_Widget = call(Home_page_frame)
     CHAT_Widget = chat(Home_page_frame)
@@ -948,7 +918,6 @@ def User_Home_page(widget):
     side_bar_fg_widget_houver_color = 'blue'
     active_bg_widget_color = "brown"
     active_fg_widget_color = side_bar_fg_widget_houver_color
-
 
     def active(widget):
         global widget_list
@@ -965,21 +934,19 @@ def User_Home_page(widget):
     side_bar = tk.Frame(Home_page_frame, bg=side_bar_bg, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
 
-
-
-    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='👤', font=("Calibri", 20), fg=side_bar_fg, anchor='center',borderwidth=0, border=0 ) #,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='👤', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_bg_OnHover(profile_widget, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(profile_widget, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(profile_widget)
 
-    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover(st1_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st1_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_bg_OnHover(st2_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st2_bt, side_bar_fg_widget_houver_color, side_bar_fg)
@@ -991,19 +958,19 @@ def User_Home_page(widget):
     change_fg_OnHover(st3_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_bg_OnHover(st4_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st4_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_bg_OnHover(st5_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st5_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0,border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_bg_OnHover(st6_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st6_bt, side_bar_fg_widget_houver_color, side_bar_fg)
@@ -1087,9 +1054,8 @@ def main():
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
     print(str(screen_width) + "\n" + str(screen_height))
 
-
     # dark_title_bar(root)
- 
+
     User_Home_page(root)
 
     def on_closing():
