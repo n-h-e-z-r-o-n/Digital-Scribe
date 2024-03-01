@@ -464,7 +464,6 @@ def chat(widget):
     fg_color = 'black'
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
-
     nav_bar_bg_color = 'lightblue'
 
     navbar = tk.Frame(chatbot_widget, bg=nav_bar_bg_color, borderwidth=0, border=0)
@@ -542,7 +541,9 @@ def chat(widget):
         entity_widget_lists.append((new_entity, entity_name, type_widget))
 
 
-    tk.Button(entity_section, text='+ Add new entity', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
 
     def pri():
