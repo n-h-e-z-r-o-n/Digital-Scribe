@@ -532,7 +532,8 @@ def chat(widget):
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width*0.9747*0.21 -3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
 
-        tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11)).place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
+        entity_name = tk.Entry(new_entity, bg=bg_color, borderwidth=0, border=1, font=("Times New Roman", 11))
+        entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
         type_widget =tk.Button(new_entity, bg=bg_color, text=entity_type, font=("Times New Roman", 10, 'bold'),relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
         type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
         close_widg = tk.Button(new_entity, bg=bg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
