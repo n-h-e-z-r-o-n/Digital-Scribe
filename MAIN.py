@@ -518,11 +518,10 @@ def chat(widget):
 
         print("added")
 
-    new_entity = tk.Frame(fr2, bg=bg_color, relief=tk.SUNKEN, borderwidth=2, border=1, height=90, width=int(screen_width * 0.9747 * 0.21 - 5))
+    new_entity = tk.Frame(fr2, bg=bg_color, borderwidth=2, border=1, height=25, width=int(screen_width * 0.9747 * 0.21 - 5))
     new_entity.pack(side=tk.BOTTOM, fill=tk.X)
-
-    tk.Label(new_entity, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=0.3)
-    tk.Label(new_entity, text="Type", bg='green', borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=0.3)
+    tk.Label(new_entity, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
+    tk.Label(new_entity, text="Type", bg='green', borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
 
 
     tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda :add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
