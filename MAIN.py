@@ -538,10 +538,6 @@ def chat(widget):
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
         change_fg_OnHover(close_widg, 'red', 'black')
 
-        #new_entity.bind("<Configure>", lambda e: on_frame_configure(user_page_canvas, e))
-        #new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
-
-
     tk.Button(entity_section, text='+ Add new entity', borderwidth=0, border=0, command=lambda: add(fr2)).place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
 
 
