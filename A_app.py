@@ -12,7 +12,7 @@ document = (
 )
 
 
-schema = '{ "year" : { "type": ExtractParamsSchemaValueType.NUMBER, "required": False, }, "company" : { "type": ExtractParamsSchemaValueType.STRING, "required": False, }, "publications" : { "type": ExtractParamsSchemaValueType.STRING, "required": False, }, }'
+schema = '{"campany": { "type": ExtractParamsSchemaValueType.STRING, "required": False, }, }'
 
 dictionary = eval(schema)
 print(dictionary)
