@@ -564,7 +564,7 @@ def chat(widget):
     tk.Label(title, text="Field Name", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
     tk.Label(title, text="Type", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
 
-    fr = tk.Frame(entity_section, bg='blue', borderwidth=0, border=0)
+    fr = tk.Frame(entity_section, bg=bg_color, borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0.036, relx=0)
     user_page_widget, user_page_canvas = attach_scroll(fr, bg_color)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width * 0.9747 * 0.21))
