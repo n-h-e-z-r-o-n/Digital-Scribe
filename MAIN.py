@@ -784,7 +784,7 @@ def conversation(widget):
     conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
     t1 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
-    t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+    t1.place(relheight=0.60, relwidth=0.755, rely=0.03, relx=0.0253)
 
 
 
