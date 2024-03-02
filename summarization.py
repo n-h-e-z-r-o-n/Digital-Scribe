@@ -44,8 +44,9 @@ document = (
 
 length = SummarizeParamsLength.MEDIUM
 result_from_examples = mygradient.summarize(
-    document=document,
-)
+                                document=document,
+                                length=length
+                                )
 
 
 result_from_length = mygradient.summarize(document=document, length=length)
