@@ -11,7 +11,7 @@ import io
 import base64
 import os
 import json
-from gradientai import ExtractParamsSchemaValueType, Gradient
+from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
