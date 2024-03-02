@@ -42,13 +42,12 @@ document = (
  You're welcome. It's my job to ensure your health and well-being. Let's work together to get to the bottom of these headaches and find the best course of action moving forward."""
 )
 
-
+length = SummarizeParamsLength.MEDIUM
 result_from_examples = mygradient.summarize(
     document=document,
-    # examples=examples,
 )
 
-length = SummarizeParamsLength.MEDIUM
+
 result_from_length = mygradient.summarize(document=document, length=length)
 
 print(result_from_examples['summary'])
