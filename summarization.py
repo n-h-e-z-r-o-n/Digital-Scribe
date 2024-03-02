@@ -74,4 +74,4 @@ result_from_examples = mygradient.summarize(
 length = SummarizeParamsLength.MEDIUM
 result_from_length = mygradient.summarize(document=document, length=length)
 
-print(result_from_examples)
+print(result_from_examples['summary'])
