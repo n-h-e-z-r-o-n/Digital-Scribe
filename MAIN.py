@@ -33,6 +33,8 @@ connection_status = False
 gradient_ai_access_key = ''
 gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
+gradient_ai_finetuned_id = ''
+gradient_ai_base_model_id = ''
 keys = None
 
 
@@ -70,7 +72,6 @@ def Entity_Extraction(document, entity_list, widget):
         return None
 
 
-
 def D_Summary(widget1, widget):
     document = widget1.get("1.0", "end")
     document = (document.strip())
@@ -80,7 +81,6 @@ def D_Summary(widget1, widget):
         return None
 
     gradient = Gradient()
-
 
     try:
         summary_length = SummarizeParamsLength.LONG
@@ -94,7 +94,6 @@ def D_Summary(widget1, widget):
         return result
     except:
         return None
-
 
 
 def dark_title_bar(window):
@@ -128,7 +127,7 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
 
 
 def access_keys_info():
-    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
 
     try:
         with open('keys.json', 'r') as openfile:  # Reading from json file
@@ -136,6 +135,9 @@ def access_keys_info():
 
             gradient_ai_access_key = keys['_GA_']
             gradient_ai_workspace_id = keys['_GW_']
+            gradient_ai_finetuned_id = keys['_G_FT_M_']
+            gradient_ai_base_model_id = keys['_G_B_M_']
+
             assemblyai_access_key = keys['_AAI_']
 
             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
@@ -513,7 +515,6 @@ def chat(widget):
         time.sleep(10)
         check()
 
-
     chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
@@ -778,16 +779,26 @@ def conversation(widget):
 
 
 def settings(widget):
-    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
 
-    def save_keys(g_access, g_workkey, Assemly_key):
+    def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
         gradient_ai_access_key = str(g_access).strip()
         gradient_ai_workspace_id = str(g_workkey).strip()
+        gradient_ai_finetuned_id = str(g_finetuned_id).strip()
+        gradient_ai_base_model_id = str(g_base_model_id).strip()
+
         assemblyai_access_key = str(Assemly_key).strip()
 
-        dic = {'_GA_': gradient_ai_access_key, '_GW_': gradient_ai_workspace_id, '_AAI_': assemblyai_access_key}
+        dic = {
+            '_GA_': gradient_ai_access_key,
+            '_GW_': gradient_ai_workspace_id,
+            '_G_FT_M_': gradient_ai_finetuned_id,
+            '_G_B_M_': gradient_ai_base_model_id,
+            '_AAI_': assemblyai_access_key
+            }
+
         json_object = json.dumps(dic, indent=4)
 
         with open("keys.json", "w") as outfile:
@@ -822,25 +833,40 @@ def settings(widget):
     gradient_access_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
-    gradient_access_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
+    gradient_access_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     change_bg_OnHover(gradient_access_widget, bg_hovercolor, bg_color)
 
     tk.Label(g1, text="GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
-    gradient_work_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
+    gradient_work_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     change_bg_OnHover(gradient_work_widget, bg_hovercolor, bg_color)
 
-    tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.22, relx=0)
-    tk.Label(g1, text="assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.3, relx=0)
+
+    tk.Label(g1, text="NLP_adapter_id :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
+    gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    gradient_finetuned_model_id.place(relheight=0.07, relwidth=0.74, rely=0.213, relx=0.25)
+    gradient_finetuned_model_id.insert(0, gradient_ai_finetuned_id)
+    gradient_finetuned_model_id.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
+    change_bg_OnHover(gradient_finetuned_model_id, bg_hovercolor, bg_color)
+
+    tk.Label(g1, text="Base_Model :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
+    gradient_base_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    gradient_base_model_id.place(relheight=0.07, relwidth=0.74, rely=0.284, relx=0.25)
+    gradient_base_model_id.insert(0, gradient_ai_base_model_id)
+    gradient_base_model_id.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
+    change_bg_OnHover(gradient_base_model_id, bg_hovercolor, bg_color)
+
+    tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
+    tk.Label(g1, text="assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
     assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
-    assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.3, relx=0.25)
+    assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
-    assembly_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
+    assembly_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     change_bg_OnHover(assembly_widget, bg_hovercolor, bg_color)
 
-    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), assembly_widget.get()))
+    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
     # change_bg_OnHover(save, 'lightgreen', bg_color)
     change_fg_OnHover(save, fg_hovercolor, fg_color)
@@ -939,9 +965,10 @@ def User_Home_page(widget):
     CONV_AI_Widget = conversation(Home_page_frame)
 
     # PROFILE_widget = profile(Home_page_frame)
-    SETTINGS_Widget = settings(Home_page_frame)
+
     CALL_Widget = call(Home_page_frame)
     CHAT_Widget = chat(Home_page_frame)
+    SETTINGS_Widget = settings(Home_page_frame)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
