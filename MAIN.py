@@ -968,14 +968,15 @@ def User_Home_page(widget):
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
-    CONV_AI_Widget = conversation(Home_page_frame)
+
 
     # PROFILE_widget = profile(Home_page_frame)
-
-    CALL_Widget = call(Home_page_frame)
-    CHAT_Widget = chat(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
 
+    CHAT_Widget = chat(Home_page_frame)
+    #CALL_Widget = call(Home_page_frame)
+    CONV_AI_Widget = conversation(Home_page_frame)
+    
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     side_bar_bg = "white"
