@@ -70,6 +70,38 @@ def Entity_Extraction(document, entity_list, widget):
         return None
 
 
+
+def Summariz(document, entity_list, widget):
+    document = (document.strip())
+    mygradient = Gradient()
+    print(document)
+    schema = '{'
+    for i in entity_list:
+        schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": False, }, '
+        print(i[1].get(), '--', i[2].cget("text"))
+    schema += '}'
+    print(schema)
+    dictionary = eval(schema)
+    print(dictionary)
+
+    try:
+        result = mygradient.extract(
+            document=document,
+            schema_=dictionary,
+        )
+        widget.delete(1.0, tk.END)
+        for key, value in result["entity"].items():
+            m = key + " : " + value + "\n"
+            print()
+            widget.insert(tk.END, m)
+
+        print(result)
+        return result
+    except:
+        return None
+
+
+
 def dark_title_bar(window):
     window.update()
     DWMWA_USE_IMMERSIVE_DARK_MODE = 20
