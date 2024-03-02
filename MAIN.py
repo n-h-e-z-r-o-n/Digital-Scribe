@@ -526,10 +526,12 @@ def chat(widget):
     chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
+    # ================================ Navbar ==============================================================================================================================================================
+
     navbar = tk.Frame(chatbot_widget, bg=nav_bar_bg_color, borderwidth=0, border=0)
     navbar.place(relheight=0.03, relwidth=1, rely=0, relx=0)
 
-    font_ = tk.Frame(navbar, bg=bg_color, borderwidth=2, border=0)
+    font_ = tk.Frame(navbar, bg=nav_bar_bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
     font_style_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
@@ -542,6 +544,8 @@ def chat(widget):
     font_size_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
     font_size_entry.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
     font_size_entry.insert(0, defalt_font_size)
+
+    # ======================================================================================================================================================================================================
 
     t1 = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
     t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
