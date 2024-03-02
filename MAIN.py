@@ -789,6 +789,9 @@ def conversation(widget):
     t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
     t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
 
+    t2 = tk.Entry(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
+    t2.place(relheight=0.1, relwidth=0.485, rely=0.03, relx=0.505)
+
 
 
     return conversation_widget
