@@ -78,15 +78,13 @@ def D_Summary(document, widget):
 
 
     try:
-        result = mygradient.extract(
+        summary_length = SummarizeParamsLength.LONG
+        result_from_examples = mygradient.summarize(
             document=document,
-            schema_=dictionary,
+            length=summary_length
         )
         widget.delete(1.0, tk.END)
-        for key, value in result["entity"].items():
-            m = key + " : " + value + "\n"
-            print()
-            widget.insert(tk.END, m)
+                widget.insert(tk.END, m)
 
         print(result)
         return result
