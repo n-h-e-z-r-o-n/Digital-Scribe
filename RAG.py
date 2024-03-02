@@ -85,7 +85,7 @@ generator = GradientGenerator(
 )
 
 prompt = """You are helpful assistant ment to answer questions to help in clinical documentation. Answer the query, based on the
-content in the unstructured documents. if you dont know the answer say you don't know.
+content in the documents. if you dont know the answer say you don't know.
 {{documents}}
 Query: {{query}}
 \nAnswer:
