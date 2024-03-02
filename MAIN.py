@@ -778,9 +778,17 @@ def profile(widget):
 
 
 def conversation(widget):
+    bg_color = 'lightblue'
+    fg_color = 'black'
     conversation_widget = tk.Frame(widget, bg="yellow", borderwidth=0, border=0)
     conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
-    tk.Entry(conversation_widget).pack()
+
+    t1 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=5)
+    t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+
+
+
+
     return conversation_widget
 
 
