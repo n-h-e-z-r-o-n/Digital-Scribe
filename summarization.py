@@ -42,10 +42,10 @@ document = (
  You're welcome. It's my job to ensure your health and well-being. Let's work together to get to the bottom of these headaches and find the best course of action moving forward."""
 )
 
-SummarizeParamsLength.LONG
+
 result_from_examples = mygradient.summarize(
                                 document=document,
-                               # length=length
+                                length=SummarizeParamsLength.LONG
                                 )
 
 
