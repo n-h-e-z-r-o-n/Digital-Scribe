@@ -515,14 +515,16 @@ def chat(widget):
         time.sleep(10)
         check()
 
-    chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
-    chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+
 
     bg_color = 'lightgreen'
     fg_color = 'black'
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
     nav_bar_bg_color = 'lightblue'
+
+    chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
+    chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
     navbar = tk.Frame(chatbot_widget, bg=nav_bar_bg_color, borderwidth=0, border=0)
     navbar.place(relheight=0.03, relwidth=1, rely=0, relx=0)
