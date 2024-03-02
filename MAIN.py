@@ -74,12 +74,14 @@ def Entity_Extraction(document, entity_list, widget):
 def D_Summary(widget1, widget):
     document = widget1.get("1.0", "end")
     document = (document.strip())
+    print(len(document))
     if len(document) == 0:
         widget1.config(border=10)
-        widget1.after(2000, widget1.config(border=10) )
+        widget1.after(1000, widget1.config(border=5))
+        return None
 
     gradient = Gradient()
-    print(document)
+
 
     try:
         summary_length = SummarizeParamsLength.LONG
