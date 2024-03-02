@@ -73,20 +73,18 @@ def Entity_Extraction(document, entity_list, widget):
 
 def D_Summary(document, widget):
     document = (document.strip())
-    mygradient = Gradient()
+    gradient = Gradient()
     print(document)
-
 
     try:
         summary_length = SummarizeParamsLength.LONG
-        result_from_examples = mygradient.summarize(
+        result = gradient.summarize(
             document=document,
             length=summary_length
         )
         widget.delete(1.0, tk.END)
-                widget.insert(tk.END, m)
+        widget.insert(tk.END, result['summary'])
 
-        print(result)
         return result
     except:
         return None
