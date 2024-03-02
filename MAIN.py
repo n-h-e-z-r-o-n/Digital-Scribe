@@ -77,7 +77,8 @@ def D_Summary(widget1, widget):
     print(len(document))
     if len(document) == 0:
         widget1.config(bg='red')
-        widget1.after(2000, widget1.config(bg='lightgreen'))
+        time.sleep(2)
+        widget1.config(bg='lightgreen')
         return None
 
     gradient = Gradient()
