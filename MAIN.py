@@ -797,8 +797,8 @@ def conversation(widget):
     t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
     t2.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
 
-    tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
-    t2.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
+    bng = tk.Button(conversation_widget, text="" bg=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=0, border=0)
+    bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
 
     return conversation_widget
 
