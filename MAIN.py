@@ -74,6 +74,7 @@ def Entity_Extraction(document, entity_list, widget):
 def D_Summary(document, widget):
     document = document.get("1.0", "end")
     document = (document.strip())
+    if len(document) == 0:
     gradient = Gradient()
     print(document)
 
