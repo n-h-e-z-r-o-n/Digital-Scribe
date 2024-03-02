@@ -41,30 +41,7 @@ document = (
 
  You're welcome. It's my job to ensure your health and well-being. Let's work together to get to the bottom of these headaches and find the best course of action moving forward."""
 )
-examples = [
-    {
-        "document": (
-            "Historically, Apple is unmatched in its ability to get app "
-            + "makers to keep up with its newest stuff. When it releases "
-            + "features for iPhones and iPads, a huge chunk of the App "
-            + "Store supports those features within a few weeks. But so "
-            + "far, developers appear to be taking their Vision Pro "
-            + "development slowly. Exactly why varies across the App "
-            + "Store, but there are a bunch of good reasons to choose "
-            + "from. One is just that it's a new platform with new UI "
-            + "ideas and usability concerns on a really expensive device "
-            + "few people will have access to for a while. Sure, you can "
-            + "more or less tick a box and port your iPad app to the "
-            + "Vision Pro, but that may not be up to everyone's standards."
-        ),
-        "summary": (
-            "Apple typically releases hardware first with app support "
-            + "added over a few weeks. However, fewer developers are "
-            + "supporting the Vision Pro over the first few weeks of "
-            + "its release."
-        ),
-    },
-]
+
 
 result_from_examples = mygradient.summarize(
     document=document,
