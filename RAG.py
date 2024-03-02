@@ -65,6 +65,7 @@ docs = [
     Document(content=text_data)
 ]
 
+
 indexing_pipeline = Pipeline()
 indexing_pipeline.add_component(instance=document_embedder, name="document_embedder")
 indexing_pipeline.add_component(instance=writer, name="writer")
