@@ -1,5 +1,13 @@
 from gradientai import SummarizeParamsLength
 from gradientai import ExtractParamsSchemaValueType, Gradient
+import os
+
+# # Set the environment variables for gradient.ai
+os.environ['GRADIENT_ACCESS_TOKEN'] = "Fz8v1bayVU3mQ11BoCLgtvquK8OHTL68"
+os.environ['GRADIENT_WORKSPACE_ID'] = "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace"
+
+mygradient = Gradient()
+
 document = (
     "In the days ahead of the Vision Pro's launch, Apple has heavily "
     + "promoted some of the apps destined for its spatial computing "
@@ -42,12 +50,13 @@ examples = [
     },
 ]
 
-result_from_examples = Gradient.summarize(
+"""
+result_from_examples = mygradient.summarize(
     document=document,
     examples=examples,
 )
-
+"""
 length = SummarizeParamsLength.MEDIUM
-result_from_length = Gradient.summarize(document=document, length=length)
+result_from_length = mygradient.summarize(document=document, length=length)
 
-print(result_from_examples)
+print(result_from_length)
