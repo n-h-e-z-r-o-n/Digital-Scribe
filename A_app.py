@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import filedialog
 import docx
 import PyPDF2
+import docx2txt
 
 def read_docx(file_path):
     doc = docx.Document(file_path)
