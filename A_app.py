@@ -1,27 +1,24 @@
-from gradientai import ExtractParamsSchemaValueType, Gradient
-import os
-os.environ['GRADIENT_ACCESS_TOKEN'] = "Fz8v1bayVU3mQ11BoCLgtvquK8OHTL68"
-os.environ['GRADIENT_WORKSPACE_ID'] = "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace"
+import tkinter as tk
+from tkinter import filedialog
 
-mygradient = Gradient()
+def open_file():
+    file_path = filedialog.askopenfilename()
+    if file_path:
+        with open(file_path, 'r') as file:
+            file_content = file.read()
+            text_area.delete('1.0', tk.END)  # Clear previous content
+            text_area.insert(tk.END, file_content)
 
+# Create the main application window
+root = tk.Tk()
+root.title("File Upload Example")
 
+# Create a button to open the file dialog
+open_button = tk.Button(root, text="Open File", command=open_file)
+open_button.pack(pady=10)
 
-document = (
-    "When Apple released the Apple Watch in 2015, it was business as usual for a company whose iPhone updates had become cultural touchstones. Before the watch went on sale, Apple gave early versions of it to celebrities like Beyoncé, featured it in fashion publications like Vogue and streamed a splashy event on the internet trumpeting its features."
-)
+# Create a text area to display the file content
+text_area = tk.Text(root, height=20, width=50)
+text_area.pack(fill=tk.BOTH, expand=True)
 
-
-schema = '{"campany": { "type": ExtractParamsSchemaValueType.STRING, "required": False, }, }'
-
-dictionary = eval(schema)
-print(dictionary)
-
-print(type(dictionary))
-result = mygradient.extract(
-    document=document,
-    schema_=dictionary,
-)
-print(result)
-for key, value in result["entity"].items():
-    print(key," - ", value)
+root.mainloop()
