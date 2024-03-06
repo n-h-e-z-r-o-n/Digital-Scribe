@@ -17,6 +17,18 @@ from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValue
 from tkinter import filedialog
 import docx
 
+# ------------------------------
+from gradient_haystack.embedders.gradient_document_embedder import GradientDocumentEmbedder
+from gradient_haystack.embedders.gradient_text_embedder import GradientTextEmbedder
+from gradient_haystack.generator.base import GradientGenerator
+from haystack import Document, Pipeline
+from haystack.components.writers import DocumentWriter
+from haystack.document_stores.in_memory import InMemoryDocumentStore
+from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
+from haystack.components.builders import PromptBuilder
+from haystack.components.builders.answer_builder import AnswerBuilder
+# ------------------------------
+
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -99,9 +111,13 @@ def D_Summary(widget1, widget):
     except:
         return None
 
-def rage(data, ):
+def rage(data, widget):
+    document_store = InMemoryDocumentStore()
+    writer = DocumentWriter(document_store=document_store)
 
-
+    document_embedder = GradientDocumentEmbedder(
+        access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
+        workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
 
 
 def dark_title_bar(window):
