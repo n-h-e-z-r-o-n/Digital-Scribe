@@ -176,6 +176,7 @@ def rag_chat(question, widget, widget1):
     widget1.config(text = '▫▫▫▫')
     question = question.strip()
     if question == '':
+        widget1.config(text='▶')
         return
     try:
         result = rag_pipeline.run(
@@ -187,9 +188,11 @@ def rag_chat(question, widget, widget1):
         )
         widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n')
         widget.see(tk.END)  # Scroll to the end of the text widget
-        #return result["answer_builder"]["answers"][0].data
-    except:
-        print("UPLOAD ERROR")
+
+        widget1.config(text='▶')
+        # return result["answer_builder"]["answers"][0].data
+    except Exception as e:
+        print(f"UPLOAD ERROR\n {e}")
 
 
 def Upload_file(widget, widget2):
