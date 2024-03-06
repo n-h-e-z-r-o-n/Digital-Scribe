@@ -183,6 +183,10 @@ def Upload_file(widget):
         document = docx.Document(file_path)
         data = ''
         for paragraph in document.paragraphs:
+
+            if paragraph.style.name == 'List Paragraph':
+                print('\t •', paragraph.text)
+
             #data += paragraph.text
             widget.insert(tk.END,  paragraph.text)
             widget.insert(tk.END, '\n')
