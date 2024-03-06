@@ -1075,12 +1075,10 @@ def settings(widget):
     g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
 
     tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
-    tk.Label(g1, text="GRADIENT_ACCESS_TOKEN :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    themes_chan = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
-    gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
-    gradient_access_widget.insert(0, gradient_ai_access_key)
-    gradient_access_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
-    change_bg_OnHover(gradient_access_widget, bg_hovercolor, bg_color
+    tk.Label(g1, text="Theme :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    themes_change = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    themes_change.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
+    change_bg_OnHover(themes_change, bg_hovercolor, bg_color)
     
     
     
