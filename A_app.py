@@ -11,6 +11,10 @@ def change_color(widget):
     if isinstance(widget, tk.Label):
         widget.config(bg="black",  fg='white')
 
+    if isinstance(widget, tk.Label):
+        widget.config(bg="black", fg='white')
+        
+
     children = widget.winfo_children()
     for child in children:
         change_color(child)
