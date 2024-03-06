@@ -112,19 +112,6 @@ def D_Summary(widget1, widget):
         return None
 
 
-def rag_chate(question):
-    global rag_pipeline
-    try:
-        result = rag_pipeline.run(
-            {
-                "text_embedder": {"text": question},
-                "prompt_builder": {"query": question},
-                "answer_builder": {"query": question}
-            }
-        )
-        return result["answer_builder"]["answers"][0].data
-    except:
-        print("UPLOAD ERROR")
 
 
 def rag_initialize(data, widget):
@@ -182,6 +169,25 @@ def rag_initialize(data, widget):
     rag_pipeline.connect("retriever", "prompt_builder.documents")
     rag_pipeline.connect("prompt_builder", "generator")
     widget.config(fg='green')
+
+
+def rag_chat(question):
+    global rag_pipeline
+    try:
+        result = rag_pipeline.run(
+            {
+                "text_embedder": {"text": question},
+                "prompt_builder": {"query": question},
+                "answer_builder": {"query": question}
+            }
+        )
+        return result["answer_builder"]["answers"][0].data
+    except:
+        print("UPLOAD ERROR")
+
+
+
+
 
 def dark_title_bar(window):
     window.update()
@@ -914,10 +920,10 @@ def conversation(widget):
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
 
-    t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
-    t2.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
+    t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
+    t3.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
 
-    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0)
+    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get()))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
 
     return conversation_widget
