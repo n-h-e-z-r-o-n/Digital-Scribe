@@ -338,8 +338,9 @@ def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on
 
 
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
+    global fg_color
     widget.bind("<Enter>", func=lambda e: widget.config(fg=colorOnHover))
-    widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
+    widget.bind("<Leave>", func=lambda e: widget.config(fg=fg_color))
 
 
 def imagen(image_path, screen_width, screen_height, widget):
