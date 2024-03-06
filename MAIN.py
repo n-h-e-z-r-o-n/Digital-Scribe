@@ -660,7 +660,7 @@ def change_color(widget):
             for child in children:
                 change_color(wdget = child)
 
-        thread
+        threading.Thread(target=change_all).start()
 
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
