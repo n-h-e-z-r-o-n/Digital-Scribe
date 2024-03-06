@@ -186,7 +186,29 @@ def rag_chat(question):
         print("UPLOAD ERROR")
 
 
+def Upload_file(widget, widget2):
+    widget2.config(fg='black')
+    file_path = filedialog.askopenfilename()
 
+    if file_path:
+        widget.delete(1.0, tk.END)
+        document = docx.Document(file_path)
+        data = ""
+        for paragraph in document.paragraphs:
+            data += paragraph.text + "\n"
+            if paragraph.style.name == 'List Paragraph':
+                print('\t •', paragraph.text)
+                widget.insert(tk.END, f"\t •{paragraph.text}")
+            elif paragraph.style.name == 'Normal':
+                widget.insert(tk.END, f"{paragraph.text} \n")
+
+        threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
+
+
+
+
+    else:
+        print("No file selected")
 
 
 def dark_title_bar(window):
@@ -263,29 +285,7 @@ def attach_scroll(widget, color='white'):
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-def Upload_file(widget, widget2):
-    widget2.config(fg='black')
-    file_path = filedialog.askopenfilename()
 
-    if file_path:
-        widget.delete(1.0, tk.END)
-        document = docx.Document(file_path)
-        data = ""
-        for paragraph in document.paragraphs:
-            data += paragraph.text + "\n"
-            if paragraph.style.name == 'List Paragraph':
-                print('\t •', paragraph.text)
-                widget.insert(tk.END, f"\t •{paragraph.text}")
-            elif paragraph.style.name == 'Normal':
-                widget.insert(tk.END, f"{paragraph.text} \n")
-
-        threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
-
-        print("Selected file path:", file_path)
-
-
-    else:
-        print("No file selected")
 
 
 
