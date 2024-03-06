@@ -264,15 +264,16 @@ def Upload_file(widget, widget2):
     if file_path:
         widget.delete(1.0, tk.END)
         document = docx.Document(file_path)
-        threading.Thread( Target =rag_initialize(data, widget))
+        data = ""
         for paragraph in document.paragraphs:
-
+            data += paragraph.text + "\n"
             if paragraph.style.name == 'List Paragraph':
                 print('\t •', paragraph.text)
                 widget.insert(tk.END, f"\t •{paragraph.text}")
             elif paragraph.style.name == 'Normal':
                 widget.insert(tk.END, f"{paragraph.text} \n")
 
+        threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
 
         print("Selected file path:", file_path)
 
