@@ -1,4 +1,4 @@
-# ============================================= Used libraries ================================================================================
+# ============================================= Used libraries ==========================================================================================
 
 import base64
 import hashlib
@@ -15,6 +15,8 @@ import os
 import json
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
+import docx
+
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -177,8 +179,9 @@ def Upload_file(widget):
     file_path = filedialog.askopenfilename()
 
     if file_path:
-        document = docx.Document('C:\HEZRON WEKESA\Downloads\CSC 451 - Distributed Database by Dr. Kahonge.docx')
+        document = docx.Document(file_path)
         print("Selected file path:", file_path)
+        print(document)
     else:
         print("No file selected")
 
