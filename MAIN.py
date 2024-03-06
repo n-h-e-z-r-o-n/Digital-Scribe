@@ -1295,7 +1295,8 @@ def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
-
+    global bg_color
+    print(bg_color)
     access_keys_info()
 
     root = tk.Tk()
