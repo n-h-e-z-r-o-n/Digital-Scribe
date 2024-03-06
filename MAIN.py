@@ -171,9 +171,12 @@ def rag_initialize(data, widget):
     widget.config(fg='green')
 
 
-def rag_chat(question, widget):
+def rag_chat(question, widget, widget1):
     global rag_pipeline
+    widget1.config(text = '▫▫▫▫')
     question = question.strip()
+    if question == '':
+        return
     try:
         result = rag_pipeline.run(
             {
