@@ -181,7 +181,8 @@ def rag_chat(question, widget):
                 "answer_builder": {"query": question}
             }
         )
-        return result["answer_builder"]["answers"][0].data
+        widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data} \n')
+        #return result["answer_builder"]["answers"][0].data
     except:
         print("UPLOAD ERROR")
 
@@ -923,7 +924,7 @@ def conversation(widget):
     t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
     t3.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
 
-    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get("1.0", tk.END)))
+    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get("1.0", tk.END), t2))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
 
     return conversation_widget
