@@ -1,4 +1,4 @@
-# =============================================
+# ============================================= Used libraries ================================================================================
 
 import base64
 import hashlib
@@ -172,6 +172,15 @@ def attach_scroll(widget, color='white'):
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def Upload_file(widget):
+
+
+    file_path = filedialog.askopenfilename()
+
+    if file_path:
+        document = docx.Document('C:\HEZRON WEKESA\Downloads\CSC 451 - Distributed Database by Dr. Kahonge.docx')
+        print("Selected file path:", file_path)
+    else:
+        print("No file selected")
 
 
 
