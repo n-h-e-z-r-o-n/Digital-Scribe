@@ -1,3 +1,5 @@
+# =============================================
+
 import base64
 import hashlib
 import time
@@ -12,7 +14,7 @@ import base64
 import os
 import json
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
-
+from tkinter import filedialog
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -166,6 +168,13 @@ def attach_scroll(widget, color='white'):
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, canvas_FRAME_2
+
+# -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+def Upload_file(widget):
+
+
+
 
 
 def show(widg):
@@ -796,7 +805,7 @@ def conversation(widget):
     t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
     t2.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
 
-    bng = tk.Button(conversation_widget, text=">", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=0, border=0)
+    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0)
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
 
     return conversation_widget
@@ -1067,7 +1076,7 @@ def User_Home_page(widget):
     change_fg_OnHover(st7_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙', font=("Calibri", 17), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='≣', font=("Calibri", 20, 'bold'), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_bg_OnHover(st8_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st8_bt, side_bar_fg_widget_houver_color, side_bar_fg)
@@ -1144,9 +1153,9 @@ def main():
     User_Home_page(root)
 
     def on_closing():
-        global session, root, closed
-        closed = True
-        root.destroy()
+            global session, root, closed
+            closed = True
+            root.destroy()
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
