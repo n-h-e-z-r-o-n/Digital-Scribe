@@ -10,8 +10,10 @@ import docx
 document = docx.Document(r"C:\Users\HEZRON WEKESA\Desktop\Dart.docx")
 # Do something with the document, such as printing its content
 for paragraph in document.paragraphs:
-    print(paragraph.text)
+    #print(paragraph.text)
+    pass
 
+print(   document. )
 
 
 
