@@ -1058,7 +1058,7 @@ def settings(widget):
         elif isinstance(widget, tk.Text):
             widget.config(bg=bg_icolor, fg=fg_color)
         elif isinstance(widget, tk.Entry):
-            widget.config(bg=bg_icolor, fg='white')
+            widget.config(bg=bg_icolor, fg=fg_color)
         else:
             # widget.config(bg=bg_icolor, fg='white')
             pass
