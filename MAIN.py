@@ -27,6 +27,7 @@ from haystack.document_stores.in_memory import InMemoryDocumentStore
 from haystack.components.retrievers.in_memory import InMemoryEmbeddingRetriever
 from haystack.components.builders import PromptBuilder
 from haystack.components.builders.answer_builder import AnswerBuilder
+
 # ------------------------------
 
 # =============================== Global variable decoration  ============================================================================================
@@ -58,6 +59,7 @@ bg_color = 'white'
 fg_color = 'black'
 fg_hovercolor = 'red'
 bg_hovercolor = 'ligthgreen'
+
 
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -115,8 +117,6 @@ def D_Summary(widget1, widget):
         return result
     except:
         return None
-
-
 
 
 def rag_initialize(data, widget):
@@ -178,7 +178,7 @@ def rag_initialize(data, widget):
 
 def rag_chat(question, widget, widget1):
     global rag_pipeline
-    widget1.config(text = '▫▫▫▫')
+    widget1.config(text='▫▫▫▫')
     question = question.strip()
     if question == '':
         widget1.config(text='▶')
@@ -277,7 +277,7 @@ def access_keys_info():
             fg_color = keys['fg_color']
             fg_hovercolor = keys['fg_hovercolor']
             bg_hovercolor = keys['bg_hovercolor']
-            
+
             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
             print('gradient_ai_access_key:', gradient_ai_access_key)
             print('assemblyai_access_key :', assemblyai_access_key)
@@ -305,13 +305,8 @@ def attach_scroll(widget, color='white'):
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, canvas_FRAME_2
 
+
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
 
 
 def show(widg):
@@ -470,7 +465,6 @@ def encrypt(string):
     string = string + salt  # Adding salt to the password
     hashed = hashlib.md5(string.encode())  # Encoding the password
     return hashed.hexdigest()  # return the Hash
-
 
 
 def login_Request(email, passw, root_widget):
@@ -637,6 +631,7 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
+
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
 
@@ -926,7 +921,6 @@ def profile(widget):
 def conversation(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
 
-
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
@@ -939,19 +933,17 @@ def conversation(widget):
     t2.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
     t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
 
-    tk.Button(conversation_widget, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda : Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
+    tk.Button(conversation_widget, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
 
     tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
 
     status_widg = tk.Label(conversation_widget, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
-
-    t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word",  font=("Times New Roman", 13), borderwidth=2, border=1)
+    t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
     t3.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
 
-
-    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get("1.0", tk.END), t2, bng))
+    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda: rag_chat(t3.get("1.0", tk.END), t2, bng))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
 
     return conversation_widget
@@ -961,6 +953,7 @@ def settings(widget):
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
     global root
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
+
     def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
@@ -977,7 +970,7 @@ def settings(widget):
             '_G_FT_M_': gradient_ai_finetuned_id,
             '_G_B_M_': gradient_ai_base_model_id,
             '_AAI_': assemblyai_access_key
-            }
+        }
 
         json_object = json.dumps(dic, indent=4)
 
@@ -991,7 +984,6 @@ def settings(widget):
         print("gradient_ai_access_key", gradient_ai_access_key)
         print("gradient_ai_workspace_id", gradient_ai_workspace_id)
         print("assemblyai_access_key", assemblyai_access_key)
-
 
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
@@ -1018,7 +1010,6 @@ def settings(widget):
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
     gradient_work_widget.bind('<Return>', lambda e: save_keys(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     change_bg_OnHover(gradient_work_widget, bg_hovercolor, bg_color)
-
 
     tk.Label(g1, text="NLP_adapter_id :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
     gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
@@ -1067,7 +1058,7 @@ def settings(widget):
         elif isinstance(widget, tk.Entry):
             widget.config(bg=bg_icolor, fg='white')
         else:
-            #widget.config(bg=bg_icolor, fg='white')
+            # widget.config(bg=bg_icolor, fg='white')
             pass
 
         children = widget.winfo_children()
@@ -1077,7 +1068,7 @@ def settings(widget):
     g2 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
 
-    theam_widget = tk.Button(g2, bg=bg_color, relief=tk.RAISED, borderwidth=0,  border=5, command=lambda: change_color(root))
+    theam_widget = tk.Button(g2, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5, command=lambda: change_color(root))
     theam_widget.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
     # ======================================================= Section 3 ===========================================================================================================================================
@@ -1154,7 +1145,6 @@ def User_Home_page(widget):
     global user_id, widget_list
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
 
-
     Home_page_frame = tk.Frame(widget, bg='black', width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -1167,25 +1157,14 @@ def User_Home_page(widget):
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
-
-
     # PROFILE_widget = profile(Home_page_frame)
 
-
     CHAT_Widget = chat(Home_page_frame)
-    #CALL_Widget = call(Home_page_frame)
+    # CALL_Widget = call(Home_page_frame)
     CONV_AI_Widget = conversation(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
 
-
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
-
-    bg_color = "white"
-    fg_color = "green"
-    bg_hovercolor = "#FFFAFA"
-    fg_hovercolor = 'blue'
-    active_bg_widget_color = "brown"
-    active_fg_widget_color = fg_hovercolor
 
     def active(widget):
         global widget_list
@@ -1195,9 +1174,9 @@ def User_Home_page(widget):
                 change_bg_OnHover(i, bg_hovercolor, bg_color)
                 change_fg_OnHover(i, fg_hovercolor, fg_color)
             else:
-                i.config(bg=active_bg_widget_color, fg=active_fg_widget_color)
-                change_bg_OnHover(i, active_bg_widget_color, active_bg_widget_color)
-                change_fg_OnHover(i, active_fg_widget_color, active_fg_widget_color)
+                i.config(bg=bg_color, fg=fg_color)
+                change_bg_OnHover(i, bg_color, bg_color)
+                change_fg_OnHover(i, fg_color, fg_color)
 
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
@@ -1327,9 +1306,9 @@ def main():
     User_Home_page(root)
 
     def on_closing():
-            global session, root, closed
-            closed = True
-            root.destroy()
+        global session, root, closed
+        closed = True
+        root.destroy()
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
