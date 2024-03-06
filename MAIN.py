@@ -1181,7 +1181,7 @@ def User_Home_page(widget):
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     side_bar_bg = "white"
-    side_bar_fg = "green"
+    fg_color = "green"
     side_bar_bg_widget_houver_color = "#FFFAFA"
     side_bar_fg_widget_houver_color = 'blue'
     active_bg_widget_color = "brown"
@@ -1191,9 +1191,9 @@ def User_Home_page(widget):
         global widget_list
         for i in widget_list:
             if i != widget:
-                i.config(bg=side_bar_bg, fg=side_bar_fg)
+                i.config(bg=side_bar_bg, fg=fg_color)
                 change_bg_OnHover(i, side_bar_bg_widget_houver_color, side_bar_bg)
-                change_fg_OnHover(i, side_bar_fg_widget_houver_color, side_bar_fg)
+                change_fg_OnHover(i, side_bar_fg_widget_houver_color, fg_color)
             else:
                 i.config(bg=active_bg_widget_color, fg=active_fg_widget_color)
                 change_bg_OnHover(i, active_bg_widget_color, active_bg_widget_color)
@@ -1202,58 +1202,58 @@ def User_Home_page(widget):
     side_bar = tk.Frame(Home_page_frame, bg=side_bar_bg, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
 
-    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='≣', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='≣', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_bg_OnHover(profile_widget, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(profile_widget, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(profile_widget, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(profile_widget)
 
-    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=side_bar_bg, text='📞', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover(st1_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st1_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st1_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=side_bar_bg, text='🎥', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_bg_OnHover(st2_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st2_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st2_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st2_bt)
 
-    st3_bt = tk.Button(side_bar, bg=side_bar_bg, text='📩', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
+    st3_bt = tk.Button(side_bar, bg=side_bar_bg, text='📩', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_bg_OnHover(st3_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st3_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st3_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_bg_OnHover(st4_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st4_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st4_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_bg_OnHover(st5_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st5_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st5_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_bg_OnHover(st6_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st6_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st6_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st6_bt)
 
-    st7_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=side_bar_bg, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_bg_OnHover(st7_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st7_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st7_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙ ', font=("Calibri", 20, 'bold'), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙ ', font=("Calibri", 20, 'bold'), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_bg_OnHover(st8_bt, side_bar_bg_widget_houver_color, side_bar_bg)
-    change_fg_OnHover(st8_bt, side_bar_fg_widget_houver_color, side_bar_fg)
+    change_fg_OnHover(st8_bt, side_bar_fg_widget_houver_color, fg_color)
     widget_list.append(st8_bt)
 
     return Home_page_frame
