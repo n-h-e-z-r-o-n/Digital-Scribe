@@ -5,15 +5,16 @@ def change_color(widget):
     if isinstance(widget, tk.Frame):
          widget.config(bg="black")
 
-    if isinstance(widget, tk.Button):
+    elif isinstance(widget, tk.Button):
         widget.config(bg="black", activebackground='black', fg='white', activeforeground='white')
 
-    if isinstance(widget, tk.Label):
+    elif isinstance(widget, tk.Label):
         widget.config(bg="black",  fg='white')
 
-    if isinstance(widget, tk.Label):
+    elif isinstance(widget, tk.Text):
         widget.config(bg="black", fg='white')
-        
+    else:
+        widget.config(bg="black", fg='white')
 
     children = widget.winfo_children()
     for child in children:
