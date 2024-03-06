@@ -1152,7 +1152,8 @@ def fetch_info():
 
 def User_Home_page(widget):
     global user_id, widget_list
-    user_page_widget, user_page_root = attach_scroll(widget)
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor
+
 
     Home_page_frame = tk.Frame(widget, bg='black', width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
