@@ -287,7 +287,7 @@ def access_keys_info():
 
             print(bg_color)
     except Exception as e:
-        print(e)
+        print("access_keys_info Function:", e)
         pass
 
 
