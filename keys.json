@@ -3,5 +3,9 @@
     "_GW_": "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace",
     "_G_FT_M_": "None",
     "_G_B_M_": "nous-hermes2",
-    "_AAI_": ""
+    "_AAI_": "",
+    "bg_color": "lightblue",
+    "fg_color": "black",
+    "fg_hovercolor": "blue",
+    "bg_hovercolor": = 'lightgreen',
 }
