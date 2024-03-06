@@ -12,7 +12,7 @@ document = docx.Document(r"C:\Users\HEZRON WEKESA\Desktop\Dart.docx")
 data = ''
 for paragraph in document.paragraphs:
     print(paragraph.text)
-    print(paragraph.s)
+    print(paragraph.style.name)
 
 print(data)
 
