@@ -186,6 +186,9 @@ def Upload_file(widget):
 
             if paragraph.style.name == 'List Paragraph':
                 print('\t •', paragraph.text)
+                widget.insert(tk.END, f"\t •{paragraph.text}")
+            elif paragraph.style.name == 'Normal':
+                widget.insert(tk.END, f"{paragraph.text} \n")
 
             #data += paragraph.text
             widget.insert(tk.END,  paragraph.text)
