@@ -258,13 +258,13 @@ def attach_scroll(widget, color='white'):
 
 
 def Upload_file(widget, widget2):
-  
+    widget2.config(fg='black')
     file_path = filedialog.askopenfilename()
 
     if file_path:
         widget.delete(1.0, tk.END)
         document = docx.Document(file_path)
-        data = ''
+        threading.Thread( Target =rag_initialize(data, widget))
         for paragraph in document.paragraphs:
 
             if paragraph.style.name == 'List Paragraph':
@@ -273,9 +273,7 @@ def Upload_file(widget, widget2):
             elif paragraph.style.name == 'Normal':
                 widget.insert(tk.END, f"{paragraph.text} \n")
 
-            #data += paragraph.text
-            widget.insert(tk.END,  paragraph.text)
-            widget.insert(tk.END, '\n')
+
         print("Selected file path:", file_path)
 
 
