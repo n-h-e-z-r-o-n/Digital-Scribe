@@ -284,7 +284,8 @@ def access_keys_info():
 
             os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-    except:
+    except Exception as e:
+        print(e)
         pass
 
 
