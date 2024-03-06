@@ -1043,20 +1043,20 @@ def settings(widget):
     # ======================================================= Section 2 ===========================================================================================================================================
 
     def change_color(widget):
-       
+        bg_icolor = 'gray'
         if isinstance(widget, tk.Frame):
-            widget.config(bg="black")
+            widget.config(bg=bg_icolor)
 
         elif isinstance(widget, tk.Button):
-            widget.config(bg="black", activebackground='black', fg='white', activeforeground='white')
+            widget.config(bg=bg_icolor, activebackground='black', fg='white', activeforeground='white')
 
         elif isinstance(widget, tk.Label):
-            widget.config(bg="black", fg='white')
+            widget.config(bg=bg_icolor, fg='white')
 
         elif isinstance(widget, tk.Text):
-            widget.config(bg="black", fg='white')
+            widget.config(bg=bg_icolor, fg='white')
         else:
-            widget.config(bg="black", fg='white')
+            widget.config(bg=bg_icolor, fg='white')
 
         children = widget.winfo_children()
         for child in children:
