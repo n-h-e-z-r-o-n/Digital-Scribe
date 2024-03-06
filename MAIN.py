@@ -1056,7 +1056,8 @@ def settings(widget):
         elif isinstance(widget, tk.Text):
             widget.config(bg=bg_icolor, fg='white')
         else:
-            widget.config(bg=bg_icolor, fg='white')
+            #widget.config(bg=bg_icolor, fg='white')
+            pass
 
         children = widget.winfo_children()
         for child in children:
@@ -1164,7 +1165,7 @@ def User_Home_page(widget):
     CONV_AI_Widget = conversation(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
 
-    
+
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     side_bar_bg = "white"
