@@ -1042,7 +1042,7 @@ def settings(widget):
     # ======================================================= Section 2 ===========================================================================================================================================
 
     def change_color(widget):
-        global bg_color
+        global bg_color, fg_color
         bg_color = 'gray'
         fg_color = 'white'
         bg_icolor = 'gray'
