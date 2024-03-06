@@ -633,7 +633,7 @@ def Login_Section_widget(widget, root_widget):
 
     return Login_widget
 
-def change_color(widget, ):
+def change_color(widget, button):
         global bg_color, fg_color, current_theme
         bg_color = 'gray'
         fg_color = 'white'
