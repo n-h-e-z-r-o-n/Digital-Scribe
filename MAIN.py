@@ -54,10 +54,10 @@ gradient_ai_base_model_id = ''
 keys = None
 rag_pipeline = None
 
-bg_color = None
-fg_color = None
-fg_hovercolor = None
-bg_hovercolor = None
+bg_color = 'white'
+fg_color = 'black'
+fg_hovercolor = 'red'
+bg_hovercolor = 'ligthgreen'
 
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -636,8 +636,10 @@ def Login_Section_widget(widget, root_widget):
 
 
 def chat(widget):
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
+
         defalt_font_style = 'Times New Roman'
         defalt_font_size = 13
 
@@ -663,10 +665,6 @@ def chat(widget):
         time.sleep(10)
         check()
 
-
-
-    bg_color = 'lightgreen'
-    fg_color = 'black'
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
     nav_bar_bg_color = 'lightblue'
