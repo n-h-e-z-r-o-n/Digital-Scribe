@@ -13,7 +13,7 @@ for paragraph in document.paragraphs:
     #print(paragraph.text)
     pass
 
-print(   document. )
+print(help(document))
 
 
 
