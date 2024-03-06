@@ -173,12 +173,13 @@ def attach_scroll(widget, color='white'):
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def Upload_file(widget):
 
+def Upload_file(widget):
 
     file_path = filedialog.askopenfilename()
 
     if file_path:
+        widget.delete(1.0, tk.END)
         document = docx.Document(file_path)
         print("Selected file path:", file_path)
         print(document)
