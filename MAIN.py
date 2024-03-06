@@ -111,17 +111,21 @@ def D_Summary(widget1, widget):
     except:
         return None
 
+
 def rag_chate(question):
     global rag_pipeline
-    try
-    result = rag_pipeline.run(
-        {
-            "text_embedder": {"text": question},
-            "prompt_builder": {"query": question},
-            "answer_builder": {"query": question}
-        }
-    )
-    return result["answer_builder"]["answers"][0].data
+    try:
+        result = rag_pipeline.run(
+            {
+                "text_embedder": {"text": question},
+                "prompt_builder": {"query": question},
+                "answer_builder": {"query": question}
+            }
+        )
+        return result["answer_builder"]["answers"][0].data
+    except:
+        print("UPLOAD ERROR")
+
 
 def rag_initialize(data, widget):
     global rag_pipeline
@@ -177,7 +181,7 @@ def rag_initialize(data, widget):
     rag_pipeline.connect("text_embedder", "retriever")
     rag_pipeline.connect("retriever", "prompt_builder.documents")
     rag_pipeline.connect("prompt_builder", "generator")
-
+    widget.config(fg='green')
 
 def dark_title_bar(window):
     window.update()
@@ -254,7 +258,7 @@ def attach_scroll(widget, color='white'):
 
 
 def Upload_file(widget, widget2):
-
+  
     file_path = filedialog.askopenfilename()
 
     if file_path:
