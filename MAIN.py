@@ -55,7 +55,7 @@ gradient_ai_base_model_id = ''
 keys = None
 rag_pipeline = None
 
-bg_color = 'white'
+bg_color = 'gray'
 fg_color = 'black'
 fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
