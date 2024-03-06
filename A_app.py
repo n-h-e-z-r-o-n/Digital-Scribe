@@ -4,7 +4,13 @@ def change_color(widget):
 
     if isinstance(widget, tk.Frame):
          widget.config(bg="black")
-    if
+
+    if isinstance(widget, tk.Button):
+        widget.config(bg="black", activebackground='black', fg='white', activeforeground='white')
+
+    if isinstance(widget, tk.Label):
+        widget.config(bg="black",  fg='white')
+
     children = widget.winfo_children()
     for child in children:
         change_color(child)
