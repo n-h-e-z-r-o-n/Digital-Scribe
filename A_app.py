@@ -13,7 +13,8 @@ data = ''
 for paragraph in document.paragraphs:
     print(paragraph.text)
     print(paragraph.style.name)
-
+    if paragraph.style.name == 'Normal':
+        data += paragraph.text
 print(data)
 
 
