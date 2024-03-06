@@ -183,11 +183,12 @@ def Upload_file(widget):
         document = docx.Document(file_path)
         data = ''
         for paragraph in document.paragraphs:
-            data += paragraph.text
-        widget.insert()
+            #data += paragraph.text
+            widget.insert(tk.END,  paragraph.text)
+
         print("Selected file path:", file_path)
-       
-        widget.insert(tk.END, data)
+
+
     else:
         print("No file selected")
 
