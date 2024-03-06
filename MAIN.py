@@ -1076,9 +1076,9 @@ def settings(widget):
 
     tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
     tk.Label(g2, text="Theme :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    themes_change = tk.Entry(g2, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    themes_change = tk.Button(g2, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     themes_change.place(relheight=0.07, relwidth=0.3, rely=0.071, relx=0.25)
-    change_bg_OnHover(themes_change, bg_hovercolor, bg_color)
+    change_fg_OnHover(themes_change, bg_hovercolor, bg_color)
     
     
     
