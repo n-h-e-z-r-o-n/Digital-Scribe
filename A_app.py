@@ -1,6 +1,7 @@
 import tkinter as tk
-bgd= 
+bgd= '#f0f0f0'
 def refresh_widgets():
+    global bgd = 'green'
     root.update()
 
 # Create the root window
