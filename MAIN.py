@@ -181,8 +181,13 @@ def Upload_file(widget):
     if file_path:
         widget.delete(1.0, tk.END)
         document = docx.Document(file_path)
+        data = ''
+        for paragraph in document.paragraphs:
+            data += paragraph.text
+        widget.insert()
         print("Selected file path:", file_path)
-        print(document)
+       
+        widget.insert(tk.END, data)
     else:
         print("No file selected")
 
