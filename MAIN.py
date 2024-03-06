@@ -54,10 +54,10 @@ gradient_ai_base_model_id = ''
 keys = None
 rag_pipeline = None
 
-bg_color = "lightblue"
-fg_color = "black"
-fg_hovercolor = "blue"
-bg_hovercolor = 'lightgreen'
+bg_color = None
+fg_color = None
+fg_hovercolor = None
+bg_hovercolor = None
 
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -273,6 +273,11 @@ def access_keys_info():
 
             assemblyai_access_key = keys['_AAI_']
 
+            bg_color = keys['bg_color
+            fg_color = keys['fg_color
+            fg_hovercolor = keys['fg_hovercolor
+            bg_hovercolor = keys['bg_hovercolor
+            
             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
             print('gradient_ai_access_key:', gradient_ai_access_key)
             print('assemblyai_access_key :', assemblyai_access_key)
