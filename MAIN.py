@@ -181,7 +181,8 @@ def rag_chat(question, widget):
                 "answer_builder": {"query": question}
             }
         )
-        widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data} \n')
+        widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n')
+        widget.see(tk.END)  # Scroll to the end of the text widget
         #return result["answer_builder"]["answers"][0].data
     except:
         print("UPLOAD ERROR")
