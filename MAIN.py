@@ -337,9 +337,9 @@ def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorO
 
 
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
-    global bg_hovercolor
+    global bg_color
     widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
-    widget.bind("<Leave>", func=lambda e: widget.config(background=colorOnLeave))
+    widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
 
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
@@ -1054,6 +1054,8 @@ def settings(widget):
     # ======================================================= Section 2 ===========================================================================================================================================
 
     def change_color(widget):
+        global bg_color
+        bg_color = 'gray'
         bg_icolor = 'gray'
         if isinstance(widget, tk.Frame):
             widget.config(bg=bg_icolor)
