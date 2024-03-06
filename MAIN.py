@@ -111,6 +111,7 @@ def D_Summary(widget1, widget):
     except:
         return None
 
+
 def rage(data, widget):
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
@@ -118,6 +119,52 @@ def rage(data, widget):
     document_embedder = GradientDocumentEmbedder(
         access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
         workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+    )
+
+    docs = [
+        Document(content=data)
+    ]
+
+    indexing_pipeline = Pipeline()
+    indexing_pipeline.add_component(instance=document_embedder, name="document_embedder")
+    indexing_pipeline.add_component(instance=writer, name="writer")
+    indexing_pipeline.connect("document_embedder", "writer")
+    indexing_pipeline.run({"document_embedder": {"documents": docs}})
+
+    text_embedder = GradientTextEmbedder(
+        access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
+        workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+    )
+
+    generator = GradientGenerator(
+        access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
+        workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+        # model_adapter_id=fine_tuned_Model_Id,
+        base_model_slug="nous-hermes2",
+        max_generated_token_count=350,
+    )
+
+    prompt = """You are helpful assistant ment to answer questions to help in clinical documentation. Answer the query, based on the
+    content in the documents. if you dont know the answer say you don't know.
+    {{documents}}
+    Query: {{query}}
+    \nAnswer:
+    """
+
+    retriever = InMemoryEmbeddingRetriever(document_store=document_store)
+    prompt_builder = PromptBuilder(template=prompt)
+
+    rag_pipeline = Pipeline()
+    rag_pipeline.add_component(instance=text_embedder, name="text_embedder")
+    rag_pipeline.add_component(instance=retriever, name="retriever")
+    rag_pipeline.add_component(instance=prompt_builder, name="prompt_builder")
+    rag_pipeline.add_component(instance=generator, name="generator")
+    rag_pipeline.add_component(instance=AnswerBuilder(), name="answer_builder")
+    rag_pipeline.connect("generator.replies", "answer_builder.replies")
+    rag_pipeline.connect("retriever", "answer_builder.documents")
+    rag_pipeline.connect("text_embedder", "retriever")
+    rag_pipeline.connect("retriever", "prompt_builder.documents")
+    rag_pipeline.connect("prompt_builder", "generator")
 
 
 def dark_title_bar(window):
