@@ -640,12 +640,11 @@ def change_color(widget, button):
             button.config(text='window(dark)')
             bg_color = 'gray'
             fg_color = 'white'
-            bg_icolor = 'gray'
         elif button_text == 'window(dark)':
             button.config(text='window(light)')
-            bg_color = 'gray'
-            fg_color = 'white'
-            bg_icolor = 'gray'
+            bg_color = 'white'
+            fg_color = 'black'
+
         else:
             return
 
@@ -655,18 +654,18 @@ def change_color(widget, button):
         def change_all(wdget = widget):
             global bg_color, fg_color
             if isinstance(wdget, tk.Frame):
-                wdget.config(bg=bg_icolor)
+                wdget.config(bg=bg_color)
 
             elif isinstance(wdget, tk.Button):
-                wdget.config(bg=bg_icolor, activebackground='black', fg=fg_color, activeforeground='white')
+                wdget.config(bg=bg_color, activebackground='black', fg=fg_color, activeforeground='white')
 
             elif isinstance(wdget, tk.Label):
-                wdget.config(bg=bg_icolor, fg=fg_color)
+                wdget.config(bg=bg_color, fg=fg_color)
 
             elif isinstance(wdget, tk.Text):
-                wdget.config(bg=bg_icolor, fg=fg_color)
+                wdget.config(bg=bg_color, fg=fg_color)
             elif isinstance(wdget, tk.Entry):
-                wdget.config(bg=bg_icolor, fg=fg_color)
+                wdget.config(bg=bg_color, fg=fg_color)
             else:
                 # widget.config(bg=bg_icolor, fg='white')
                 pass
