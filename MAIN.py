@@ -58,7 +58,7 @@ rag_pipeline = None
 bg_color = 'white'
 fg_color = 'black'
 fg_hovercolor = 'red'
-bg_hovercolor = 'ligthgreen'
+bg_hovercolor = 'lightgreen'
 
 
 # =============================== Functions definition ============================================================================================
