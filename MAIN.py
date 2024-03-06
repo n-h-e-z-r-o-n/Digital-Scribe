@@ -629,6 +629,31 @@ def Login_Section_widget(widget, root_widget):
 
     return Login_widget
 
+def change_color(widget):
+        global bg_color, fg_color
+        bg_color = 'gray'
+        fg_color = 'white'
+        bg_icolor = 'gray'
+        if isinstance(widget, tk.Frame):
+            widget.config(bg=bg_icolor)
+
+        elif isinstance(widget, tk.Button):
+            widget.config(bg=bg_icolor, activebackground='black', fg=fg_color, activeforeground='white')
+
+        elif isinstance(widget, tk.Label):
+            widget.config(bg=bg_icolor, fg=fg_color)
+
+        elif isinstance(widget, tk.Text):
+            widget.config(bg=bg_icolor, fg=fg_color)
+        elif isinstance(widget, tk.Entry):
+            widget.config(bg=bg_icolor, fg=fg_color)
+        else:
+            # widget.config(bg=bg_icolor, fg='white')
+            pass
+
+        children = widget.winfo_children()
+        for child in children:
+            change_color(child)
 
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
@@ -1041,13 +1066,13 @@ def settings(widget):
 
     # ======================================================= Section 2 ===========================================================================================================================================
 
- 
+
 
     g2 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
 
     theam_widget = tk.Button(g2, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
-    theam_widget.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
+    theam_widget.place(relheight=0.1, relwidth=0.41, rely=0.02, relx=0.0253)
 
     # ======================================================= Section 3 ===========================================================================================================================================
     g3 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
