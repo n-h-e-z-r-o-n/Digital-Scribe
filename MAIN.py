@@ -926,8 +926,9 @@ def profile(widget):
 
 
 def conversation(widget):
-    bg_color = 'lightblue'
-    fg_color = 'black'
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor
+
+
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
@@ -961,6 +962,7 @@ def conversation(widget):
 def settings(widget):
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
     global root
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor
     def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
@@ -992,10 +994,6 @@ def settings(widget):
         print("gradient_ai_workspace_id", gradient_ai_workspace_id)
         print("assemblyai_access_key", assemblyai_access_key)
 
-    bg_color = "lightblue"
-    fg_color = "black"
-    fg_hovercolor = "blue"
-    bg_hovercolor = 'lightgreen'
 
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
