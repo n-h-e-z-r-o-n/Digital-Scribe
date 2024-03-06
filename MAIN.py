@@ -638,7 +638,8 @@ def change_color(widget):
         bg_color = 'gray'
         fg_color = 'white'
         bg_icolor = 'gray'
-        def change_all(wdget = widget, bg_color =bg_color, fg_color = fg_color):
+        def change_all(wdget = widget):
+            
             if isinstance(wdget, tk.Frame):
                 wdget.config(bg=bg_icolor)
 
