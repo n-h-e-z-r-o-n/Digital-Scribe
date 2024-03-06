@@ -52,7 +52,7 @@ assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
 keys = None
-
+rag_pipeline = None
 
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -111,8 +111,20 @@ def D_Summary(widget1, widget):
     except:
         return None
 
+def rag_chate(question):
+    global rag_pipeline
+    try
+    result = rag_pipeline.run(
+        {
+            "text_embedder": {"text": question},
+            "prompt_builder": {"query": question},
+            "answer_builder": {"query": question}
+        }
+    )
+    return result["answer_builder"]["answers"][0].data
 
-def rage(data, widget):
+def rag_initialize(data, widget):
+    global rag_pipeline
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
 
