@@ -173,6 +173,7 @@ def rag_initialize(data, widget):
 
 def rag_chat(question, widget):
     global rag_pipeline
+    question = question.strip()
     try:
         result = rag_pipeline.run(
             {
