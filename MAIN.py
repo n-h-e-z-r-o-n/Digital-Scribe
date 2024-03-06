@@ -1165,9 +1165,9 @@ def User_Home_page(widget):
 
     # PROFILE_widget = profile(Home_page_frame)
 
-    CHAT_Widget = chat(Home_page_frame)
+    #CHAT_Widget = chat(Home_page_frame)
     # CALL_Widget = call(Home_page_frame)
-    CONV_AI_Widget = conversation(Home_page_frame)
+    #CONV_AI_Widget = conversation(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
