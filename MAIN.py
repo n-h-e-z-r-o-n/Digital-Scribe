@@ -635,7 +635,8 @@ def Login_Section_widget(widget, root_widget):
 
 def change_color(widget, button):
         global bg_color, fg_color, current_theme
-        
+        button_text = button.cget("text")
+        if 
         bg_color = 'gray'
         fg_color = 'white'
         bg_icolor = 'gray'
