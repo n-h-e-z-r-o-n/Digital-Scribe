@@ -949,7 +949,7 @@ def conversation(widget):
 
 def settings(widget):
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
-
+    global root
     def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
 
@@ -1042,8 +1042,32 @@ def settings(widget):
 
     # ======================================================= Section 2 ===========================================================================================================================================
 
+    def change_color(widget):
+
+        if isinstance(widget, tk.Frame):
+            widget.config(bg="black")
+
+        elif isinstance(widget, tk.Button):
+            widget.config(bg="black", activebackground='black', fg='white', activeforeground='white')
+
+        elif isinstance(widget, tk.Label):
+            widget.config(bg="black", fg='white')
+
+        elif isinstance(widget, tk.Text):
+            widget.config(bg="black", fg='white')
+        else:
+            widget.config(bg="black", fg='white')
+
+        children = widget.winfo_children()
+        for child in children:
+            change_color(child)
+
     g2 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
+
+
+    theam_widget = tk.Frame(, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    theam_widget.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
     # ======================================================= Section 3 ===========================================================================================================================================
     g3 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
