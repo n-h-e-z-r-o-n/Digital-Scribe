@@ -672,7 +672,7 @@ def change_color(widget, button):
 
             children = wdget.winfo_children()
             for child in children:
-                change_color(child)
+                change_all(child)
 
         threading.Thread(target=change_all).start()
 
