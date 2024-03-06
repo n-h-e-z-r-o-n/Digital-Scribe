@@ -11,8 +11,8 @@ document = docx.Document(r"C:\Users\HEZRON WEKESA\Desktop\Dart.docx")
 # Do something with the document, such as printing its content
 data = ''
 for paragraph in document.paragraphs:
-    data += paragraph.text
-
+    print(paragraph.text)
+    print(paragraph.)
 
 print(data)
 
