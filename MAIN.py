@@ -828,7 +828,7 @@ def conversation(widget):
 
     tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
 
-    tk.Label(conversation_widget, text="𝕤𝕥𝕒𝕥𝕦𝕤", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.505)
+    tk.Button(conversation_widget, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='n', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
 
     t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
