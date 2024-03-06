@@ -171,7 +171,7 @@ def rag_initialize(data, widget):
     widget.config(fg='green')
 
 
-def rag_chat(question):
+def rag_chat(question, widget):
     global rag_pipeline
     try:
         result = rag_pipeline.run(
@@ -197,11 +197,11 @@ def Upload_file(widget, widget2):
         for paragraph in document.paragraphs:
             data += paragraph.text + "\n"
             if paragraph.style.name == 'List Paragraph':
-                print('\t •', paragraph.text)
+
                 widget.insert(tk.END, f"\t •{paragraph.text}")
             elif paragraph.style.name == 'Normal':
                 widget.insert(tk.END, f"{paragraph.text} \n")
-
+        print(data)
         threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
 
 
@@ -923,7 +923,7 @@ def conversation(widget):
     t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
     t3.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
 
-    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get()))
+    bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get("1.0", tk.END)))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
 
     return conversation_widget
