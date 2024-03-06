@@ -178,6 +178,7 @@ def rag_chat(question, widget, widget1):
     if question == '':
         widget1.config(text='▶')
         return
+    widget.insert(tk.END, f" {question}\n", 'user_config')
     try:
         result = rag_pipeline.run(
             {
@@ -186,12 +187,13 @@ def rag_chat(question, widget, widget1):
                 "answer_builder": {"query": question}
             }
         )
-        widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n')
+        widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
         widget.see(tk.END)  # Scroll to the end of the text widget
 
         widget1.config(text='▶')
         # return result["answer_builder"]["answers"][0].data
     except Exception as e:
+        widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
         widget1.config(text='▶')
 
         print(f"UPLOAD ERROR\n {e}")
@@ -917,11 +919,14 @@ def conversation(widget):
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
-    t1 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=3)
+    t1 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
     t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
 
-    t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=3)
+    t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
     t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
+    t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
+    t2.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
+    t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
 
     tk.Button(conversation_widget, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda : Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
 
@@ -931,8 +936,9 @@ def conversation(widget):
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
 
-    t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
+    t3 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word",  font=("Times New Roman", 13), borderwidth=2, border=1)
     t3.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
+
 
     bng = tk.Button(conversation_widget, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda:rag_chat(t3.get("1.0", tk.END), t2, bng))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
@@ -1157,7 +1163,7 @@ def User_Home_page(widget):
     side_bar = tk.Frame(Home_page_frame, bg=side_bar_bg, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
 
-    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='👤', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Button(side_bar, bg=side_bar_bg, text='≣', font=("Calibri", 20), fg=side_bar_fg, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_bg_OnHover(profile_widget, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(profile_widget, side_bar_fg_widget_houver_color, side_bar_fg)
@@ -1205,7 +1211,7 @@ def User_Home_page(widget):
     change_fg_OnHover(st7_bt, side_bar_fg_widget_houver_color, side_bar_fg)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='≣', font=("Calibri", 20, 'bold'), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=side_bar_bg, text='⚙ ', font=("Calibri", 20, 'bold'), fg=side_bar_fg, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_bg_OnHover(st8_bt, side_bar_bg_widget_houver_color, side_bar_bg)
     change_fg_OnHover(st8_bt, side_bar_fg_widget_houver_color, side_bar_fg)

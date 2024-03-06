@@ -1,21 +1,31 @@
+import tkinter as tk
 
+def change_color(widget):
 
-from tkinter import filedialog
-
-import docx
-
-#file_path = filedialog.askopenfilename()
-#print(file_path)
-
-document = docx.Document(r"C:\Users\HEZRON WEKESA\Desktop\Dart.docx")
-# Do something with the document, such as printing its content
-data = ''
-for paragraph in document.paragraphs:
-    print(paragraph.text)
-    print(paragraph.style.name)
-    if paragraph.style.name == 'List Paragraph':
-        print( '\t •', paragraph.text)
-print(data)
+    if isinstance(widget, tk.Frame):
+         widget.config(bg="black")
+    if
+    children = widget.winfo_children()
+    for child in children:
+        change_color(child)
 
 
 
+
+def get_parent_children():
+    root = tk.Tk()
+    root.title("Parent Children Relationship")
+
+    parent_frame = tk.Frame(root)
+    parent_frame.pack()
+
+    child_label1 = tk.Label(parent_frame, text="Child Label 1")
+    child_label1.pack()
+
+    child_label2 = tk.Button(parent_frame, text="Child Label 2", command=lambda: change_color(root))
+    child_label2.pack()
+
+
+
+    root.mainloop()
+get_parent_children()
