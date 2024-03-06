@@ -638,26 +638,27 @@ def change_color(widget):
         bg_color = 'gray'
         fg_color = 'white'
         bg_icolor = 'gray'
-        if isinstance(widget, tk.Frame):
-            widget.config(bg=bg_icolor)
+        def change_all(widget = bg_color =bg_color, fg_color = fg_color):
+            if isinstance(widget, tk.Frame):
+                widget.config(bg=bg_icolor)
 
-        elif isinstance(widget, tk.Button):
-            widget.config(bg=bg_icolor, activebackground='black', fg=fg_color, activeforeground='white')
+            elif isinstance(widget, tk.Button):
+                widget.config(bg=bg_icolor, activebackground='black', fg=fg_color, activeforeground='white')
 
-        elif isinstance(widget, tk.Label):
-            widget.config(bg=bg_icolor, fg=fg_color)
+            elif isinstance(widget, tk.Label):
+                widget.config(bg=bg_icolor, fg=fg_color)
 
-        elif isinstance(widget, tk.Text):
-            widget.config(bg=bg_icolor, fg=fg_color)
-        elif isinstance(widget, tk.Entry):
-            widget.config(bg=bg_icolor, fg=fg_color)
-        else:
-            # widget.config(bg=bg_icolor, fg='white')
-            pass
+            elif isinstance(widget, tk.Text):
+                widget.config(bg=bg_icolor, fg=fg_color)
+            elif isinstance(widget, tk.Entry):
+                widget.config(bg=bg_icolor, fg=fg_color)
+            else:
+                # widget.config(bg=bg_icolor, fg='white')
+                pass
 
-        children = widget.winfo_children()
-        for child in children:
-            change_color(child)
+            children = widget.winfo_children()
+            for child in children:
+                change_color(child)
 
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
