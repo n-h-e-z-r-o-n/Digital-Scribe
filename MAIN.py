@@ -185,7 +185,7 @@ def Upload_file(widget):
         for paragraph in document.paragraphs:
             #data += paragraph.text
             widget.insert(tk.END,  paragraph.text)
-
+            widget.insert(tk.END, '\n')
         print("Selected file path:", file_path)
 
 
