@@ -638,15 +638,20 @@ def change_color(widget, button):
         button_text = button.cget("text")
         if button_text == 'window(light)':
             button.config(text='window(dark)')
+            bg_color = 'gray'
+            fg_color = 'white'
+            bg_icolor = 'gray'
         elif button_text == 'window(dark)':
             button.config(text='window(light)')
+            bg_color = 'gray'
+            fg_color = 'white'
+            bg_icolor = 'gray'
         else:
+            return
 
 
 
-        bg_color = 'gray'
-        fg_color = 'white'
-        bg_icolor = 'gray'
+
         def change_all(wdget = widget):
             global bg_color, fg_color
             if isinstance(wdget, tk.Frame):
