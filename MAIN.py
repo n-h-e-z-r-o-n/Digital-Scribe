@@ -1043,7 +1043,7 @@ def settings(widget):
     # ======================================================= Section 2 ===========================================================================================================================================
 
     def change_color(widget):
-
+       
         if isinstance(widget, tk.Frame):
             widget.config(bg="black")
 
@@ -1065,7 +1065,7 @@ def settings(widget):
     g2 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
 
-    theam_widget = tk.Button(g2, bg=bg_color, relief=tk.RAISED, borderwidth=0,  border=5, command=lambda: change_color(setting_widget))
+    theam_widget = tk.Button(g2, bg=bg_color, relief=tk.RAISED, borderwidth=0,  border=5, command=lambda: change_color(root))
     theam_widget.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.0253)
 
     # ======================================================= Section 3 ===========================================================================================================================================
