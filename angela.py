@@ -560,6 +560,36 @@ def Welcome_Page(wiget):
     logo_label.place(rely=0.06, relx=0.03, width=int(0.15 * screen_width), height=int(0.15 * screen_height))
     imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\IMG_20221231_102751.jpg", int(0.15 * screen_width), int(0.15 * screen_height), logo_label)
 
+    # Create buttons for uploading data and exploratory data analysis
+    upload_button = tk.Button(Home_frame, text="Upload Data", bg="white", font=('Arial', 10))  # , command=self.upload_and_preprocess)
+    upload_button.place(x=10, y=120)
+
+    eda_button = tk.Button(Home_frame, text="Exploratory Data Analysis", bg="white", font=('Arial', 10))  # , command=self.perform_eda)
+    eda_button.place(x=120, y=120)
+
+    def upload_and_preprocess(self):
+        data_uploader = DataUploader(self.master)
+        file_path = data_uploader.upload_data()
+        if file_path:
+            preprocessed_data = data_uploader.preprocess(file_path)
+            if preprocessed_data is not None:
+                messagebox.showinfo("Success", "Data preprocessing completed successfully.")
+                # Do something with preprocessed_data, e.g., pass it to the next page
+                self.controller.preprocessed_data = preprocessed_data
+                self.controller.show_frame(Load_page)
+            else:
+                messagebox.showerror("Error", "Failed to preprocess data.")
+
+    def perform_eda(self):
+        # Code to perform exploratory data analysis on preprocessed data
+        if hasattr(self.controller, 'preprocessed_data'):
+            preprocessed_data = self.controller.preprocessed_data
+            # Perform exploratory data analysis here
+            # You can display plots, summary statistics, etc.
+            messagebox.showinfo("EDA", "Exploratory Data Analysis completed.")
+        else:
+            messagebox.showerror("Error", "Preprocessed data not found.")
+
     # ----------------------------------- Nav bar section --------------------------------------------------------------
 
     App_title = "E-Government Services Prediction System"
