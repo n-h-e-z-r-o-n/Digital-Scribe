@@ -225,6 +225,8 @@ def Upload_file(widget, widget2):
                 widget.insert(tk.END, f"\t •{paragraph.text}")
             elif paragraph.style.name == 'Normal':
                 widget.insert(tk.END, f"{paragraph.text} \n")
+
+        widget.config(state=tk.DISABLED)
         print(data)
         threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
 
