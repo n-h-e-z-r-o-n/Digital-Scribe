@@ -197,7 +197,7 @@ def rag_chat(question, widget, widget1):
         widget.config(state=tk.DISABLED)
         widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
         widget.see(tk.END)  # Scroll to the end of the text widget
-
+        widget.config(state=tk.DISABLED)
         widget1.config(text='▶')
         # return result["answer_builder"]["answers"][0].data
     except Exception as e:
