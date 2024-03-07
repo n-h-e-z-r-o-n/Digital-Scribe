@@ -426,7 +426,7 @@ def User_Home_page(widget):
     nav_bar = tk.Frame(User_Page, bg='gray')
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_bt5_widget = tk.Button(nav_bar, text='Sign Out', bg='gray', activebackground='gray', justify=tk.LEFT, anchor="center", font=("Calibri Light", 10), borderwidth=0, border=0)  # command=lambda: sign_out(user_page_root))
+    nav_bar_bt5_widget = tk.Button(nav_bar, text='Sign Out', bg='gray', activebackground='gray', justify=tk.LEFT, anchor="center", font=("Calibri Light", 10), borderwidth=0, border=0, command=lambda: sign_out(User_Page))
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_fg_OnHover(nav_bar_bt5_widget, 'blue', 'white')
 
@@ -437,6 +437,10 @@ def login_Request(email, passw):
     if (len(email) and len(passw)) > 3:
         pass # Angela put your login code here
     User_Home_page(app)
+
+
+def sign_out(wig):  # Angela put your sign out code here
+    wig.destroy()
 
 
 def Login_Section_widget(widget, root_widget):
@@ -536,6 +540,7 @@ def Login_Section_widget(widget, root_widget):
     # imagen('./login_pic.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
 
     return Login_widget
+
 
 def Welcome_Page(wiget):
     global screen_width, screen_height
