@@ -22,19 +22,22 @@ widget_list = []
 screen_width = None
 screen_height = None
 app = None
+
+# ============================================================= Database Connection  =============================================================================================
+
+"""
+# Database connection
+connection = mysql.connector.connect(
+    host='localhost',
+    user='root',
+    password='01@mawiA',
+    port='3306',
+    database='logindb'
+)
+c = connection.cursor()
+"""
+
 # ============================================================= Functions =============================================================================================
-
-# Function to validate username
-def validate_username(username):
-    # Define a regular expression pattern for allowed characters in the username
-    username_pattern = r'^[a-zA-Z0-9_-]{3,20}$'  # Allow letters (upper and lower case), digits, underscores,
-    # and hyphens. Length between 3 and 20 characters.
-
-    # Validate the username against the defined pattern
-    if re.match(username_pattern, username):
-        return True  # Username is valid
-    else:
-        return False  # Username is invalid
 
 
 def imagen(image_path, screen_width, screen_height, widget): # image processing
@@ -58,30 +61,6 @@ def imagen(image_path, screen_width, screen_height, widget): # image processing
     image_thread.start()
 
 
-
-# Function to validate password
-def validate_password(password):
-    # Define a regular expression pattern for allowed characters in the password
-    # Require at least one uppercase letter, one lowercase letter, one digit, and one special character
-    password_pattern = r'^(?=.[a-z])(?=.[A-Z])(?=.\d)(?=.[@$!%?&])[A-Za-z\d@$!%?&]{8}$'
-
-    # Validate the password against the defined pattern
-    if re.match(password_pattern, password):
-        return True  # Password is valid
-    else:
-        return False  # Password is invalid
-
-"""
-# Database connection
-connection = mysql.connector.connect(
-    host='localhost',
-    user='root',
-    password='01@mawiA',
-    port='3306',
-    database='logindb'
-)
-c = connection.cursor()
-"""
 
 def login_page(widget):
 
@@ -390,7 +369,6 @@ def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on
     widget.bind("<Leave>", func=lambda e: widget.config(background=colorOnLeave))
 
 
-
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: widget.config(fg=colorOnHover))
     widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
@@ -600,7 +578,6 @@ def Welcome_Page(wiget):
 
     nav_bar_title_widget = tk.Label(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 15), borderwidth=0, border=0)
     nav_bar_title_widget.place(relheight=1, relwidth=0.5, rely=0, relx=0)
-
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Log in ∨', justify=tk.LEFT, anchor="center",font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
