@@ -633,6 +633,7 @@ def Login_Section_widget(widget, root_widget):
 
     return Login_widget
 
+
 def change_color(widget, button):
         global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
         button_text = button.cget("text")
@@ -696,6 +697,7 @@ def change_color(widget, button):
 
 
         threading.Thread(target=change_all).start()
+
 
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
