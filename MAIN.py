@@ -647,6 +647,11 @@ def change_color(widget, button):
             bg_color = 'white'
             fg_color = 'black'
             current_theme = 'window(light)'
+        elif button_text == 'window(dark)':
+            button.config(text='window(dark_blue)')
+            bg_color = '#36454F'
+            fg_color = 'white'
+            current_theme = 'window(dark)'
 
         else:
             return
