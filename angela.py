@@ -589,7 +589,7 @@ def Main():
 
     Welcome_Page(main_frame)
 
-    #login_page(main_frame)
+    login_page(main_frame)
     #Load_page(main_frame)
     #app.maxsize(1000, 500)
     app.mainloop()
