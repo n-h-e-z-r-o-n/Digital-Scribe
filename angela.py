@@ -38,6 +38,14 @@ c = connection.cursor()
 """
 
 # ============================================================= Functions =============================================================================================
+def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
+    widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
+    widget.bind("<Leave>", func=lambda e: widget.config(background=colorOnLeave))
+
+
+def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
+    widget.bind("<Enter>", func=lambda e: widget.config(fg=colorOnHover))
+    widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
 
 
 def imagen(image_path, screen_width, screen_height, widget): # image processing
@@ -62,7 +70,35 @@ def imagen(image_path, screen_width, screen_height, widget): # image processing
 
 
 
+def show(widg):
+    widg.place(relheight=0.8, relwidth=1, rely=0.04, relx=0)
 
+
+def hide(widg):
+    def enter():
+        widg.after_cancel(id)
+
+    def leave():
+        widg.place_forget()
+        return
+
+    id = widg.after(300, widg.place_forget)
+    widg.bind("<Enter>", func=lambda e: enter())
+    widg.bind("<Leave>", func=lambda e: leave())
+
+
+
+def login_Request(email, passw):
+    global  app
+    print(email)
+    print(passw)
+    if (len(email) and len(passw)) > 3:
+        pass # Angela put your login code here
+    User_Home_page(app)
+
+
+def sign_out(wig):  # Angela put your sign out code here
+    wig.destroy()
 
 def DataUploader():
 
@@ -172,62 +208,11 @@ class train_page(tk.Frame):
         else:
             messagebox.showerror("Error", "Invalid algorithm selected.")
 
-
-"""
-class Application(tk.Tk):
-    def _init_(self, *args, **kwargs):
-        tk.Tk._init_(self, *args, **kwargs)
-
-        window = tk.Frame(self)
-        window.pack()
-
-        window.grid_rowconfigure(0, minsize=500)
-        window.grid_columnconfigure(0, minsize=800)
-
-        self.frames = {}
-        for F in (login_page, Load_page, train_page):
-            frame = F(window, self)
-            self.frames[F] = frame
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.show_frame(login_page)
-
-    def show_frame(self, page):
-        frame = self.frames[page]
-        frame.tkraise()"""
-
-
-def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
-    widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
-    widget.bind("<Leave>", func=lambda e: widget.config(background=colorOnLeave))
-
-
-def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
-    widget.bind("<Enter>", func=lambda e: widget.config(fg=colorOnHover))
-    widget.bind("<Leave>", func=lambda e: widget.config(fg=colorOnLeave))
-
-
-
-def show(widg):
-    widg.place(relheight=0.8, relwidth=1, rely=0.04, relx=0)
-
-
-def hide(widg):
-    def enter():
-        widg.after_cancel(id)
-
-    def leave():
-        widg.place_forget()
-        return
-
-    id = widg.after(300, widg.place_forget)
-    widg.bind("<Enter>", func=lambda e: enter())
-    widg.bind("<Leave>", func=lambda e: leave())
-
-
 def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave, function):  # Color change bg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=colorOnHover), show(function)))
     widget.bind("<Leave>", func=lambda e: (widget.config(text=Text_On_Leave, background=colorOnLeave), hide(function)))
+
+# ---------------------------------------------------------- Widget Fuctions -------------------------------------------------------------------
 
 
 def User_Home_page(widget):
@@ -240,19 +225,6 @@ def User_Home_page(widget):
     nav_bar_bt5_widget = tk.Button(nav_bar, text='Sign Out', bg='gray', activebackground='gray', justify=tk.LEFT, anchor="center", font=("Calibri Light", 10), borderwidth=0, border=0, command=lambda: sign_out(User_Page))
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_fg_OnHover(nav_bar_bt5_widget, 'blue', 'white')
-
-
-def login_Request(email, passw):
-    global  app
-    print(email)
-    print(passw)
-    if (len(email) and len(passw)) > 3:
-        pass # Angela put your login code here
-    User_Home_page(app)
-
-
-def sign_out(wig):  # Angela put your sign out code here
-    wig.destroy()
 
 
 def Login_Section_widget(widget, root_widget):
