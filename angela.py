@@ -561,11 +561,11 @@ def Welcome_Page(wiget):
     imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\IMG_20221231_102751.jpg", int(0.15 * screen_width), int(0.15 * screen_height), logo_label)
 
     # Create buttons for uploading data and exploratory data analysis
-    upload_button = tk.Button(Home_frame, text="Upload Data", bg="white", font=('Arial', 10))  # , command=self.upload_and_preprocess)
-    upload_button.place(x=10, y=120)
+    upload_button = tk.Button(welcome_page_frame, text="Upload Data", bg="white", font=('Arial', 10))  # , command=self.upload_and_preprocess)
+    upload_button.place(relx=0.02, rely=0.22)
 
-    eda_button = tk.Button(Home_frame, text="Exploratory Data Analysis", bg="white", font=('Arial', 10))  # , command=self.perform_eda)
-    eda_button.place(x=120, y=120)
+    eda_button = tk.Button(welcome_page_frame, text="Exploratory Data Analysis", bg="white", font=('Arial', 10))  # , command=self.perform_eda)
+    eda_button.place(relx=0.02, rely=0.3)
 
     def upload_and_preprocess(self):
         data_uploader = DataUploader(self.master)
