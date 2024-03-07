@@ -423,7 +423,7 @@ def User_Home_page(widget):
     User_Page = tk.Frame(widget)
     User_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    pass
+
 
 def login_Request(email, passw):
     global  app
@@ -545,8 +545,7 @@ def Welcome_Page(wiget):
 
     logo_label = tk.Label(welcome_page_frame)
     logo_label.place(rely=0.06, relx=0.03, width=int(0.15 * screen_width), height=int(0.15 * screen_height))
-    imagen(r"C:\Users\hezron\Pictures\IMG-20211011-WA0000.jpg", int(0.15 * screen_width), int(0.15 * screen_height),
-           logo_label)
+    imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\IMG_20221231_102751.jpg", int(0.15 * screen_width), int(0.15 * screen_height), logo_label)
 
     # ----------------------------------- Nav bar section --------------------------------------------------------------
 
