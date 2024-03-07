@@ -420,8 +420,13 @@ def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorO
 
 
 def User_Home_page(widget):
+
     User_Page = tk.Frame(widget)
     User_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
+
+    nav_bar_bt5_widget = tk.Button(User_Page, text='Sign Out', justify=tk.LEFT, anchor="center", font=("Calibri Light", 10), borderwidth=0, border=0)  # command=lambda: sign_out(user_page_root))
+    nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
+    change_fg_OnHover(nav_bar_bt5_widget, 'blue', 'white')
 
 
 
