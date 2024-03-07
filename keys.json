@@ -4,9 +4,9 @@
     "_G_FT_M_": "",
     "_G_B_M_": "nous-hermes2",
     "_AAI_": "",
-    "bg_color": "white",
-    "fg_color": "black",
+    "bg_color": "gray",
+    "fg_color": "white",
     "fg_hovercolor": "red",
     "bg_hovercolor": "lightgreen",
-    "current_theme": "window(light)"
+    "current_theme": "window(dark)"
 }
