@@ -359,6 +359,7 @@ class train_page(tk.Frame):
         else:
             messagebox.showerror("Error", "Invalid algorithm selected.")
 
+
 """
 class Application(tk.Tk):
     def _init_(self, *args, **kwargs):
@@ -389,10 +390,12 @@ def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
 
+
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
     global fg_color
     widget.bind("<Enter>", func=lambda e: widget.config(fg=colorOnHover))
     widget.bind("<Leave>", func=lambda e: widget.config(fg=fg_color))
+
 
 
 def show(widg):
@@ -568,7 +571,7 @@ def Welcome_Page(wiget):
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Log in ∨', justify=tk.LEFT, anchor="center",
                                    font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color, Login_Section_widget(welcome_page_frame, welcome_page_root))
+    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color, Login_Section_widget(welcome_page_frame, nav_bar_color))
 
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Get started', justify=tk.LEFT, anchor="center",
                                    font=("Calibri", 12), borderwidth=0, border=0)
@@ -585,9 +588,9 @@ def Main():
     widget_list.append(main_frame)
 
     Welcome_Page(main_frame)
+
     #login_page(main_frame)
     #Load_page(main_frame)
-
     #app.maxsize(1000, 500)
     app.mainloop()
 
