@@ -183,7 +183,9 @@ def rag_chat(question, widget, widget1):
     if question == '':
         widget1.config(text='▶')
         return
+    widget.config(state=tk.NORMAL)
     widget.insert(tk.END, f" {question}\n", 'user_config')
+    widget.config(state=tk.DISABLED)
     try:
         result = rag_pipeline.run(
             {
@@ -192,14 +194,17 @@ def rag_chat(question, widget, widget1):
                 "answer_builder": {"query": question}
             }
         )
+        widget.config(state=tk.DISABLED)
         widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
         widget.see(tk.END)  # Scroll to the end of the text widget
 
         widget1.config(text='▶')
         # return result["answer_builder"]["answers"][0].data
     except Exception as e:
+        widget.config(state=tk.NORMAL)
         widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
         widget1.config(text='▶')
+        widget.config(state=tk.DISABLED)
 
         print(f"UPLOAD ERROR\n {e}")
 
@@ -1022,13 +1027,14 @@ def conversation(widget):
 
     t1 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
     t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
+    t1.config(state=tk.DISABLED)
 
     t2 = tk.Text(conversation_widget, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
     t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
     t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
     t2.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
     t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
-    t2.
+    t2.config(state=tk.DISABLED)
 
     tk.Button(conversation_widget, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
 
