@@ -640,27 +640,39 @@ def change_color(widget, button):
 
         if button_text == 'window(light)':
             button.config(text='window(dark)')
-            bg_color = '#36454F'
+            bg_color = '#353839'
             fg_color = 'white'
             current_theme = 'window(dark)'
-        elif button_text == 'window(dark)':
-            button.config(text='window(light)')
-            bg_color = 'white'
-            fg_color = 'black'
-            current_theme = 'window(light)'
+
         elif button_text == 'window(dark)':
             button.config(text='window(dark_blue)')
             bg_color = '#36454F'
             fg_color = 'white'
-            current_theme = 'window(dark)'
+            current_theme = 'window(dark_blue)'
 
         elif button_text == 'window(dark_blue)':
+            button.config(text='window(Blackberry)')
+            bg_color = '#3A3A38'
+            fg_color = 'white'
+            current_theme = 'window(Blackberry)'
+
+        elif button_text == 'window(Blackberry)':
             button.config(text='window(dark_green)')
             bg_color = '#555D50'
             fg_color = 'white'
-            current_theme = 'window(dark)'
+            current_theme = 'window(dark_green)'
 
+        elif button_text == 'window(dark_green)':
+            button.config(text='window(Jacket)')
+            bg_color = '#253529'
+            fg_color = 'white'
+            current_theme = 'window(Jacket)'
 
+        elif button_text == 'window(Jacket)':
+            button.config(text='window(light)')
+            bg_color = 'white'
+            fg_color = 'black'
+            current_theme = 'window(light)'
         else:
             return
 
@@ -1238,16 +1250,15 @@ def User_Home_page(widget):
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     def active(widget):
-        global widget_list
+        global widget_list,fg_hovercolor
         for i in widget_list:
             if i != widget:
-                i.config(bg=bg_color, fg=fg_color)
-                change_bg_OnHover(i, bg_hovercolor, bg_color)
-                change_fg_OnHover(i, fg_hovercolor, fg_color)
+                i.config(bg=bg_color, relief=tk.FLAT,  border=0,  fg=fg_color)
+                print("K :", fg_color )
             else:
-                i.config(bg=bg_color, fg=fg_color)
-                change_bg_OnHover(i, bg_color, bg_color)
-                change_fg_OnHover(i, fg_color, fg_color)
+                i.config(bg=bg_color, relief=tk.RAISED,  border=1, fg=fg_hovercolor)
+
+                print("p :", fg_hovercolor)
 
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
