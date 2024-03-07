@@ -431,9 +431,10 @@ def User_Home_page(widget):
     change_fg_OnHover(nav_bar_bt5_widget, 'blue', 'white')
 
 
-
 def login_Request(email, passw):
     global  app
+    print(email)
+    print(passw)
     if (len(email) and len(passw)) > 3:
         pass # Angela put your login code here
     User_Home_page(app)
