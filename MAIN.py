@@ -194,7 +194,7 @@ def rag_chat(question, widget, widget1):
                 "answer_builder": {"query": question}
             }
         )
-        widget.config(state=tk.DISABLED)
+        widget.config(state=tk.NORMAL)
         widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
         widget.see(tk.END)  # Scroll to the end of the text widget
         widget.config(state=tk.DISABLED)
@@ -214,6 +214,7 @@ def Upload_file(widget, widget2):
     file_path = filedialog.askopenfilename()
 
     if file_path:
+        widget.config(state=tk.NORMAL)
         widget.delete(1.0, tk.END)
         document = docx.Document(file_path)
         data = ""
