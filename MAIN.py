@@ -639,7 +639,7 @@ def change_color(widget, button):
         button_text = button.cget("text")
         if button_text == 'window(light)':
             button.config(text='window(dark)')
-            bg_color = 'gray'
+            bg_color = '#36454F'
             fg_color = 'white'
             current_theme = 'window(dark)'
         elif button_text == 'window(dark)':
