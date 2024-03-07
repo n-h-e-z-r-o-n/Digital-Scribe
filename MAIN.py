@@ -1214,9 +1214,9 @@ def User_Home_page(widget):
 
     # PROFILE_widget = profile(Home_page_frame)
 
-    #CHAT_Widget = chat(Home_page_frame)
-    # CALL_Widget = call(Home_page_frame)
-    #CONV_AI_Widget = conversation(Home_page_frame)
+    CHAT_Widget = chat(Home_page_frame)
+    CALL_Widget = call(Home_page_frame)
+    CONV_AI_Widget = conversation(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
@@ -1238,55 +1238,46 @@ def User_Home_page(widget):
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
-    #change_bg_OnHover(profile_widget, bg_hovercolor, bg_color)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
 
     st1_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='📞', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
-    #change_bg_OnHover(st1_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
     st2_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='🎥', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
-    change_bg_OnHover(st2_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
 
     st3_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='📩', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
-    change_bg_OnHover(st3_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
     st4_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
-    change_bg_OnHover(st4_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
     st5_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
-    change_bg_OnHover(st5_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
 
     st6_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
-    change_bg_OnHover(st6_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
 
     st7_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
-    change_bg_OnHover(st7_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
 
     st8_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 20, 'bold'), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
-    change_bg_OnHover(st8_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
 
