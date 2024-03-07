@@ -557,7 +557,7 @@ def Welcome_Page(wiget):
     title_label.place(relx=0.2, rely=0.06, relheight=0.1, relwidth=0.6)
 
     logo_label = tk.Label(welcome_page_frame)
-    logo_label.place(rely=0.06, relx=0.03, width=int(0.15 * screen_width), height=int(0.15 * screen_height))
+    logo_label.place(rely=0.06, relx=0.03, relwidth=0.15, relheight=0.15)
     imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\IMG_20221231_102751.jpg", int(0.15 * screen_width), int(0.15 * screen_height), logo_label)
 
     # Create buttons for uploading data and exploratory data analysis
