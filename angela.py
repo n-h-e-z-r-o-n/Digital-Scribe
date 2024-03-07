@@ -399,7 +399,7 @@ def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on
 
 
 def show(widg):
-    widg.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
+    widg.place(relheight=0.8, relwidth=1, rely=0.02, relx=0)
 
 
 def hide(widg):
