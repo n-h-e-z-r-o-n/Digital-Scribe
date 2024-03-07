@@ -100,6 +100,7 @@ def login_Request(email, passw):
 def sign_out(wig):  # Angela put your sign out code here
     wig.destroy()
 
+
 def DataUploader():
 
     def upload_data():
@@ -207,6 +208,7 @@ class train_page(tk.Frame):
             messagebox.showinfo("Success", "Multiple Linear Regression model trained successfully.")
         else:
             messagebox.showerror("Error", "Invalid algorithm selected.")
+
 
 def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave, function):  # Color change bg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=colorOnHover), show(function)))
@@ -329,13 +331,13 @@ def Login_Section_widget(widget, root_widget):
 def Welcome_Page(wiget):
     global screen_width, screen_height
 
-    welcome_page_frame = tk.Frame(wiget, bg='gray')
+    welcome_page_frame = tk.Frame(wiget, bg='white')
     welcome_page_frame.pack(fill=tk.BOTH, expand=True)
 
     # -------------------------------------- Body Section --------------------------------------------------------------
 
     # Create a label for the title
-    title_label = tk.Label(welcome_page_frame, text="E-Government Services Prediction System", bg='green',font=('Arial Bold', 20), )
+    title_label = tk.Label(welcome_page_frame, text="E-Government Services Prediction System", bg='white',font=('Arial Bold', 20), )
     title_label.place(relx=0.2, rely=0.06, relheight=0.1, relwidth=0.6)
 
     logo_label = tk.Label(welcome_page_frame)
