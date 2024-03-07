@@ -732,9 +732,9 @@ def chat(widget):
 
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
-    nav_bar_bg_color = 'lightblue'
+    nav_bar_bg_color = bg_color
 
-    chatbot_widget = tk.Frame(widget, bg="lightgreen", borderwidth=0, border=0)
+    chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
     # ================================ Navbar ==============================================================================================================================================================
