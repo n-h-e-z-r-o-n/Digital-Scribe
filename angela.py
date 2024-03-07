@@ -420,15 +420,16 @@ def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorO
 
 
 def User_Home_page(widget):
-    global app
+    User_Page = tk.Frame(widget)
+    User_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
+
     pass
 
 def login_Request(email, passw):
-    global client_socket, server_IP4v_address, Server_listening_port, session, user_id, First_name, Second_Name, Last_Name, Email, user_Photo
+    global  app
     if (len(email) and len(passw)) > 3:
         pass # Angela put your login code here
-
-    User_Home_page(root)
+    User_Home_page(app)
 
 
 def Login_Section_widget(widget, root_widget):
