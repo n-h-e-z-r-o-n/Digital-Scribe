@@ -1336,8 +1336,7 @@ def Welcome_Page(wiget):
     nav_bar = tk.Frame(welcome_page_frame, bg=nav_bar_color)
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_title_widget = tk.Label(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w",
-                                    font=("Forte", 20), borderwidth=0, border=0)
+    nav_bar_title_widget = tk.Label(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
     nav_bar_title_widget.place(relheight=1, relwidth=0.1, rely=0, relx=0)
 
     """
