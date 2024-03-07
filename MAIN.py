@@ -249,7 +249,7 @@ def dark_title_bar(window):
     set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
 
-# =============================== scroll Functions definition =======================================================================================
+# =============================== scroll Functions definition ===============================================================================================================
 
 def widget_scroll_bind(widget):
     def nnn(widget, event):
