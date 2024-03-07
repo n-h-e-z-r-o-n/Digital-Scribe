@@ -637,6 +637,7 @@ def Login_Section_widget(widget, root_widget):
 def change_color(widget, button):
         global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
         button_text = button.cget("text")
+
         if button_text == 'window(light)':
             button.config(text='window(dark)')
             bg_color = '#36454F'
