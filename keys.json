@@ -1,12 +1,12 @@
 {
-    "_GA_": "Fz8v1bayVU3mQ11BoCLgtvquK8OHTL68",
-    "_GW_": "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace",
-    "_G_FT_M_": "None",
+    "_GA_": "MU96F09nGNZC8R1B3d4XfbKqgyKrfqIs",
+    "_GW_": "1b99bbdd-1360-4321-a152-fc8822334cd0_workspace",
+    "_G_FT_M_": "",
     "_G_B_M_": "nous-hermes2",
     "_AAI_": "",
-    "bg_color": "lightblue",
-    "fg_color": "black",
+    "bg_color": "gray",
+    "fg_color": "white",
     "fg_hovercolor": "red",
     "bg_hovercolor": "lightgreen",
-    "current_theme" : 'window(light)'
+    "current_theme": "window(dark)"
 }
