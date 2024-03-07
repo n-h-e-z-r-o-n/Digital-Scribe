@@ -1238,13 +1238,13 @@ def User_Home_page(widget):
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
-    change_bg_OnHover(profile_widget, bg_hovercolor, bg_color)
+    #change_bg_OnHover(profile_widget, bg_hovercolor, bg_color)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
 
     st1_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='📞', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
-    change_bg_OnHover(st1_bt, bg_hovercolor, bg_color)
+    #change_bg_OnHover(st1_bt, bg_hovercolor, bg_color)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
