@@ -552,8 +552,7 @@ def Welcome_Page(wiget):
     # -------------------------------------- Body Section --------------------------------------------------------------
 
     # Create a label for the title
-    title_label = tk.Label(welcome_page_frame, text="E-Government Services Prediction System", bg='green',
-                           font=('Arial Bold', 20), )
+    title_label = tk.Label(welcome_page_frame, text="E-Government Services Prediction System", bg='green',font=('Arial Bold', 20), )
     title_label.place(relx=0.2, rely=0.06, relheight=0.1, relwidth=0.6)
 
     logo_label = tk.Label(welcome_page_frame)
