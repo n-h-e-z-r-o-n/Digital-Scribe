@@ -1,18 +1,16 @@
 import tkinter as tk
-bgd= 'yellow'
-def refresh_widgets():
-    global bgd
-    bgd = 'green'
-    root.update()
 
-# Create the root window
+def disable_cursor_disappearing(entry_widget):
+    # Set the insertontime attribute to a high value to prevent cursor disappearing
+    entry_widget.config(insertontime=0)
+
 root = tk.Tk()
-frame = tk.Frame(root, bg=bgd)
-frame.place(relwidth = 1, relheight = 1, relx = 0, rely = 0)
-# Your widget creation and layout code goes here
 
-# Example button to trigger widget refresh
-refresh_button = tk.Button(frame, text="Refresh Widgets", command=refresh_widgets)
-refresh_button.pack()
+# Create an Entry widget
+entry_widget = tk.Entry(root)
+entry_widget.pack()
+
+# Call the function to disable cursor disappearing
+disable_cursor_disappearing(entry_widget)
 
 root.mainloop()
