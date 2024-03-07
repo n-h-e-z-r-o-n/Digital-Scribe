@@ -2,14 +2,14 @@ import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from PIL import Image, ImageTk
 import re
-#import mysql.connector
-#import pandas as pd
-#import numpy as np
-#from sklearn.preprocessing import (LabelEncoder, OrdinalEncoder, MinMaxScaler)
+import mysql.connector
+import pandas as pd
+import numpy as np
+from sklearn.preprocessing import (LabelEncoder, OrdinalEncoder, MinMaxScaler)
 from datetime import datetime
-#from sklearn.ensemble import RandomForestRegressor
-#from sklearn.linear_model import LinearRegression
-#from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 from itertools import cycle
 import time
 import threading
@@ -25,7 +25,7 @@ app = None
 
 # ============================================================= Database Connection  =============================================================================================
 
-"""
+
 # Database connection
 connection = mysql.connector.connect(
     host='localhost',
@@ -35,7 +35,7 @@ connection = mysql.connector.connect(
     database='logindb'
 )
 c = connection.cursor()
-"""
+
 
 # ============================================================= Functions =============================================================================================
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
@@ -342,7 +342,7 @@ def Welcome_Page(wiget):
 
     logo_label = tk.Label(welcome_page_frame)
     logo_label.place(rely=0.06, relx=0.03, relwidth=0.15, relheight=0.15)
-    imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\IMG_20221231_102751.jpg", int(0.15 * screen_width), int(0.15 * screen_height), logo_label)
+    imagen("./logo.png", int(0.15 * screen_width), int(0.15 * screen_height), logo_label)
 
     # Create buttons for uploading data and exploratory data analysis
     upload_button = tk.Button(welcome_page_frame, text="Upload Data", bg="white", font=('Arial', 10))  # , command=self.upload_and_preprocess)
@@ -351,28 +351,7 @@ def Welcome_Page(wiget):
     eda_button = tk.Button(welcome_page_frame, text="Exploratory Data Analysis", bg="white", font=('Arial', 10))  # , command=self.perform_eda)
     eda_button.place(relx=0.02, rely=0.3)
 
-    def upload_and_preprocess(self):
-        data_uploader = DataUploader(self.master)
-        file_path = data_uploader.upload_data()
-        if file_path:
-            preprocessed_data = data_uploader.preprocess(file_path)
-            if preprocessed_data is not None:
-                messagebox.showinfo("Success", "Data preprocessing completed successfully.")
-                # Do something with preprocessed_data, e.g., pass it to the next page
-                self.controller.preprocessed_data = preprocessed_data
-                self.controller.show_frame(Load_page)
-            else:
-                messagebox.showerror("Error", "Failed to preprocess data.")
 
-    def perform_eda(self):
-        # Code to perform exploratory data analysis on preprocessed data
-        if hasattr(self.controller, 'preprocessed_data'):
-            preprocessed_data = self.controller.preprocessed_data
-            # Perform exploratory data analysis here
-            # You can display plots, summary statistics, etc.
-            messagebox.showinfo("EDA", "Exploratory Data Analysis completed.")
-        else:
-            messagebox.showerror("Error", "Preprocessed data not found.")
 
     # ----------------------------------- Nav bar section --------------------------------------------------------------
 
