@@ -248,7 +248,6 @@ def dark_title_bar(window):
     value = ct.c_int(value)
     set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
-
 # =============================== scroll Functions definition ===============================================================================================================
 
 def widget_scroll_bind(widget):
@@ -316,6 +315,7 @@ def attach_scroll(widget, color='white'):
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, canvas_FRAME_2
+
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
