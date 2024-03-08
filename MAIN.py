@@ -1223,7 +1223,7 @@ def chat_me(widget):
     global num_y, num_height, current
     num_y = 0.9
     num_height = 0.05
-    current = 150
+    current = 130
 
     def on_key_press(event, widget, widget1):
         global current, num_y, num_height
