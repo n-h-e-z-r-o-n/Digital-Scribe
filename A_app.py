@@ -28,12 +28,13 @@ llm = GradientLLM(
 
 
 
-template = """### Instruction: {Instruction} \n\n### Response:"""
+template = """{chat_history} ### Instruction: {Instruction} \n\n### Response:"""
 
 prompt = PromptTemplate(template=template, input_variables=["Instruction"])
 
+memory = ConversationBufferMemory(memory_key="chat_history")
 
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 
 Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
 
