@@ -58,7 +58,9 @@ assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
 keys = None
+
 rag_pipeline = None
+llm_chain = None
 
 bg_color = 'white'
 fg_color = 'black'
@@ -255,8 +257,30 @@ def dark_title_bar(window):
 
 
 def Chat_bot_inference(geestion, widget1, widget2):
+    
+    global llm_chain
+    gradient = Gradient()
 
+    base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
+    print(base_model.id)
 
+    llm = GradientLLM(
+        model=base_model.id,
+        model_kwargs=dict(max_generated_token_count=128),
+    )
+
+    # template = """### Instruction: {Instruction} \n\n### Response:"""
+
+    template = """You are a AI having a conversation with a human.
+    {chat_history}
+    Human: {Instruction}
+    Chatbot:"""
+
+    prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
+
+    memory = ConversationBufferMemory(memory_key="chat_history")
+
+    llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True, memory=memory)
 
     pass
 # =============================== scroll Functions definition ===============================================================================================================
