@@ -19,7 +19,7 @@ print(dir(GradientLLM))
 help(GradientLLM)
 
 
-"""llm = GradientLLM(
+llm = GradientLLM(
     model=fine_tuned_Model_Id,
     model_kwargs=dict(max_generated_token_count=128),
 )
