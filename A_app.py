@@ -5,7 +5,7 @@ def main():
     root = tk.Tk()
 
     # Set the call method to "auto" for automatic scaling
-    root.call('tk', 'scaling', '')
+    root.call('tk', 'scaling', '6.0')
 
     # Alternatively, you can set a fixed DPI scaling factor
     # root.tk.call('tk', 'scaling', 2.0)  # Adjust the scaling factor as needed
