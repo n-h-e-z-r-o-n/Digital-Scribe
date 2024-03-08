@@ -291,9 +291,14 @@ def Chat_bot_inference(Question, widget1, widget2):
     widget2.config(state=tk.NORMAL)
     widget2.insert(tk.END, f"🆈🅾🆄\n{Question}\n\n")
 
-    Answer = llm_chain.invoke(input=f"\n{Question}")
+    try:
+        Answer = llm_chain.invoke(input=f"\n{Question}")
+        widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n\n")
+    except:
+        Answer =
 
-    widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n")
+
+
 
     widget2.config(state=tk.DISABLED)
     widget1.forget()
