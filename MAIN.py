@@ -298,8 +298,8 @@ def Chat_bot_inference(Question, widget1, widget2):
         widget2.insert(tk.END, f"🅱🅾🆃\nerror: check your internet connection or api keys \n\n")
 
     widget2.config(state=tk.DISABLED)
-    widget1.forget()
     widget1.delete(1.0, tk.END)
+    widget1.forget()
     widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
 
 
@@ -1262,7 +1262,7 @@ def chat_me(widget):
     out_put_widget.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
     out_put_widget.config(state=tk.DISABLED)
 
-    search_lable = tk.Label(chatbot_widget, bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0)
+    search_lable = tk.Frame(chatbot_widget, bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0)
     search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
 
     tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color,  fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,
