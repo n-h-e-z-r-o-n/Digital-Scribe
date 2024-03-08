@@ -1234,7 +1234,7 @@ def chat_me(widget):
             num_y = num_y - 0.02
             num_height = num_height + 0.02
             widget.forget()
-            widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.25)
+            widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
 
 
             current = current + 150
@@ -1242,7 +1242,7 @@ def chat_me(widget):
             num_y = num_y + 0.02
             num_height = num_height - 0.02
             widget.forget()
-            search_lable.place(relheight=num_height, relwidth=0.5, rely=num_y, relx=0.25)
+            search_lable.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
             current = current - 150
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
