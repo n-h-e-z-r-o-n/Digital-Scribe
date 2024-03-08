@@ -283,15 +283,16 @@ def Chat_bot_inference(Question, widget1, widget2):
     global llm_chain
 
     widget2.config(state=tk.NORMAL)
-    widget2.insert(tk.END, f"\n{user_query}\n", 'user_config')
+    widget2.insert(tk.END, f"\n{Question}\n", 'user_config')
 
-        Answer = llm_chain.invoke(input=f"{Question}")
+    Answer = llm_chain.invoke(input=f"{Question}")
 
-        print(Answer['text'])
-        widget1.forget()
-        widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
-    except:
-        pass
+    print(Answer['text'])
+
+    widget2.config(state=tk.DISABLED)
+    widget1.forget()
+    widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
+
 
 
 
