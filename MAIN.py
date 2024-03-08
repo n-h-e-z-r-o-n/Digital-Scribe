@@ -1224,9 +1224,10 @@ def chat_me(widget):
     num_y = 0.9
     num_height = 0.05
     current = 130
-
+    previous = 0
     def on_key_press(event, widget, widget1):
-        global current, num_y, num_height
+        global current, num_y, num_height, previous
+
         text_content = widget1.get("1.0", "end-1c")
         num_lines = len(text_content)  # Count the number of lines
 
@@ -1248,6 +1249,7 @@ def chat_me(widget):
             current = current - 130
         else:
             pass
+        previous = num_lines
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
