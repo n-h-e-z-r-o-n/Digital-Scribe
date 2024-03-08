@@ -1408,7 +1408,7 @@ def User_Home_page(widget):
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
