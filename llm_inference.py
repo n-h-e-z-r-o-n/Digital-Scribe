@@ -20,20 +20,15 @@ base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
 print(base_model.id)
 
 llm = GradientLLM(
-    model="99148c6d-c2a0-4fbe-a4a7-e7c05bdb8a09_base_ml_model",
-    model_kwargs={
-        "max_generated_token_count": 128,
-        "temperature": 0.75,
-        "top_p": 0.95,
-        "top_k": 20,
-        "stop": [],
-    },
+    model=base_model.id,
+
     #model_kwargs=dict(max_generated_token_count=128),
 )
 
 template = """### Instruction: {Instruction} \n\n### Response:"""
 
 prompt = PromptTemplate(template=template, input_variables=["Instruction"])
+
 
 llm_chain = LLMChain(prompt=prompt, llm=llm)
 
