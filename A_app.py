@@ -5,7 +5,7 @@
 from langchain.chains import LLMChain
 from langchain_community.llms import GradientLLM
 from langchain.prompts import PromptTemplate
-
+from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
 
@@ -29,7 +29,7 @@ llm = GradientLLM(
 
 
 template = """### Instruction: {Instruction} \n\n### Response:"""
-"""
+
 prompt = PromptTemplate(template=template, input_variables=["Instruction"])
 
 
@@ -38,4 +38,4 @@ llm_chain = LLMChain(prompt=prompt, llm=llm)
 Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
 
 Answer = llm_chain.invoke(input=f"{Question}")
-print(Answer['text'])"""
+print(Answer['text'])
