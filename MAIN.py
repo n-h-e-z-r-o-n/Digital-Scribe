@@ -1235,6 +1235,7 @@ def chat_me(widget):
             num_height = num_height + 0.02
             widget.forget()
             search_lable.place(relheight=num_height, relwidth=0.5, rely=num_y, relx=0.25)
+
             current = current + 150
         if num_lines < current and current > 150:
             num_y = num_y + 0.02
