@@ -1492,7 +1492,7 @@ def main():
     access_keys_info()
 
     root = tk.Tk()
-    root.call('tk', 'scaling', '1.0')
+    #root.call('tk', 'scaling', '1.0')
     root.title("Digital Scribe")
     root.state('zoomed')  # this creates a window that takes over the screen
     root.minsize(600, 500)
