@@ -284,25 +284,28 @@ def llm_inference_initializ():
 
 def Chat_bot_inference(widget0, widget1, widget2):
     global llm_chain
-    Question = widget0.get("1.0", "end-1c")
 
-    if llm_chain == None:
-        llm_inference_initializ()
+    def run(widget0=widget0, widget1=widget1, widget2=widget2):
+        Question = widget0.get("1.0", "end-1c")
 
-    widget2.config(state=tk.NORMAL)
-    widget2.insert(tk.END, f"🆈🅾🆄\n{Question}\n\n")
+        if llm_chain == None:
+            llm_inference_initializ()
 
-    try:
-        Answer = llm_chain.invoke(input=f"\n{Question}")
-        widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n\n")
-    except:
-        widget2.insert(tk.END, f"🅱🅾🆃\nError: check your internet connection or api keys \n\n")
+        widget2.config(state=tk.NORMAL)
+        widget2.insert(tk.END, f"🆈🅾🆄\n{Question}\n\n")
 
-    widget2.config(state=tk.DISABLED)
-    widget0.delete(1.0, tk.END)
-    widget1.forget()
-    widget1.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
+        try:
+            Answer = llm_chain.invoke(input=f"\n{Question}")
+            widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n\n")
+        except:
+            widget2.insert(tk.END, f"🅱🅾🆃\nError: check your internet connection or api keys \n\n")
 
+        widget2.config(state=tk.DISABLED)
+        widget0.delete(1.0, tk.END)
+        widget1.forget()
+        widget1.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
+
+    threading.Thread(target=run).start()
 
 # =============================== scroll Functions definition ===============================================================================================================
 
