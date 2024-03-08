@@ -9,14 +9,17 @@ import gradientai
 import os
 
 
-# # Set the environment variables for gradient.ai
-os.environ['GRADIENT_ACCESS_TOKEN'] = "Dh8BfdF4J0CO7UBi7nXjZny7jh9breiK"
-os.environ['GRADIENT_WORKSPACE_ID'] = "345ce93a-40e9-4940-aa2e-fa76f1668fcd_workspace"
+os.environ['GRADIENT_ACCESS_TOKEN'] = "MU96F09nGNZC8R1B3d4XfbKqgyKrfqIs"
+os.environ['GRADIENT_WORKSPACE_ID'] = "1b99bbdd-1360-4321-a152-fc8822334cd0_workspace"
 
 fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  #  initializes a GradientLLM with our fine-tuned model by specifying our model ID.
 
+print(dir(GradientLLM))
 
-llm = GradientLLM(
+help(GradientLLM)
+
+
+"""llm = GradientLLM(
     model=fine_tuned_Model_Id,
     model_kwargs=dict(max_generated_token_count=128),
 )
@@ -30,4 +33,4 @@ llm_chain = LLMChain(prompt=prompt, llm=llm)
 Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
 
 #Answer = llm_chain.invoke(input=f"{Question}")
-#print(Answer['text'])
+#print(Answer['text'])"""
