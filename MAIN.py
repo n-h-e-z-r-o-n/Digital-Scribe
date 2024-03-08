@@ -1219,6 +1219,7 @@ def chat_me(widget):
     entry = tk.Text(search_lable, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
     entry.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
+    entry.bind("<Re>", lambda e: on_key_press(e, search_lable, entry))
 
 
     return  chatbot_widget
