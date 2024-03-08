@@ -1224,7 +1224,6 @@ def chat_me(widget):
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
     entry.bind("<Return>", lambda e: Chat_bot_inference(entry.get("1.0", "end-1c"), entry, out_put_widget))
 
-
     return  chatbot_widget
 
 
