@@ -188,37 +188,38 @@ def rag_initialize(data, widget):
 
 def rag_chat(question, widget, widget1):
     global rag_pipeline
-    def run_function
-    widget1.config(text='▫▫▫▫')
-    question = question.strip()
-    if question == '':
-        widget1.config(text='▶')
-        return
-    widget.config(state=tk.NORMAL)
-    widget.insert(tk.END, f" {question}\n", 'user_config')
-    widget.config(state=tk.DISABLED)
-    try:
-        result = rag_pipeline.run(
-            {
-                "text_embedder": {"text": question},
-                "prompt_builder": {"query": question},
-                "answer_builder": {"query": question}
-            }
-        )
+    def run_function(question = question , widget = widget, widget1 = widget1):
+        widget1.config(text='▫▫▫▫')
+        question = question.strip()
+        if question == '':
+            widget1.config(text='▶')
+            return
         widget.config(state=tk.NORMAL)
-        widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
-        widget.see(tk.END)  # Scroll to the end of the text widget
+        widget.insert(tk.END, f" {question}\n", 'user_config')
         widget.config(state=tk.DISABLED)
-        widget1.config(text='▶')
-        # return result["answer_builder"]["answers"][0].data
-    except Exception as e:
-        widget.config(state=tk.NORMAL)
-        widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
-        widget1.config(text='▶')
-        widget.config(state=tk.DISABLED)
+        try:
+            result = rag_pipeline.run(
+                {
+                    "text_embedder": {"text": question},
+                    "prompt_builder": {"query": question},
+                    "answer_builder": {"query": question}
+                }
+            )
+            widget.config(state=tk.NORMAL)
+            widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
+            widget.see(tk.END)  # Scroll to the end of the text widget
+            widget.config(state=tk.DISABLED)
+            widget1.config(text='▶')
+            # return result["answer_builder"]["answers"][0].data
+        except Exception as e:
+            widget.config(state=tk.NORMAL)
+            widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
+            widget1.config(text='▶')
+            widget.config(state=tk.DISABLED)
 
-        print(f"UPLOAD ERROR\n {e}")
+            print(f"UPLOAD ERROR\n {e}")
 
+    threading.Thread(target=run_function).start()
 
 def Upload_file(widget, widget2):
     widget2.config(fg='black')
