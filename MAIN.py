@@ -29,7 +29,12 @@ from haystack.components.builders import PromptBuilder
 from haystack.components.builders.answer_builder import AnswerBuilder
 
 # ------------------------------
-
+from langchain.chains import LLMChain
+from langchain_community.llms import GradientLLM
+from langchain.prompts import PromptTemplate
+from langchain.memory import ConversationBufferMemory
+import os
+from gradientai import Gradient
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
