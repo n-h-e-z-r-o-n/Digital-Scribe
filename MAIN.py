@@ -255,6 +255,9 @@ def dark_title_bar(window):
 
 
 def Chat_bot_inference(geestion, widget1, widget2):
+
+
+
     pass
 # =============================== scroll Functions definition ===============================================================================================================
 
