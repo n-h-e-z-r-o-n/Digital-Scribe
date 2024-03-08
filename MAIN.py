@@ -282,9 +282,9 @@ def llm_inference_initializ():
     llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True, memory=memory)
 
 
-def Chat_bot_inference(Question, widget1, widget2):
+def Chat_bot_inference(widget0, widget1, widget2):
     global llm_chain
-
+    Question = widget0.get("1.0", "end-1c")
     if llm_chain == None:
         llm_inference_initializ()
 
@@ -298,7 +298,7 @@ def Chat_bot_inference(Question, widget1, widget2):
         widget2.insert(tk.END, f"🅱🅾🆃\nerror: check your internet connection or api keys \n\n")
 
     widget2.config(state=tk.DISABLED)
-    widget1.delete(1.0, tk.END)
+    widget0.delete(1.0, tk.END)
     widget1.forget()
     widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
 
