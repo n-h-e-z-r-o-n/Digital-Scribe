@@ -20,8 +20,15 @@ help(GradientLLM)
 
 
 llm = GradientLLM(
-    model=fine_tuned_Model_Id,
-    model_kwargs=dict(max_generated_token_count=128),
+    model="99148c6d-c2a0-4fbe-a4a7-e7c05bdb8a09_base_ml_model",
+    model_kwargs={
+        "max_generated_token_count": 128,
+        "temperature": 0.75,
+        "top_p": 0.95,
+        "top_k": 20,
+        "stop": [],
+    },
+    #model_kwargs=dict(max_generated_token_count=128),
 )
 
 template = """### Instruction: {Instruction} \n\n### Response:"""
@@ -32,5 +39,5 @@ llm_chain = LLMChain(prompt=prompt, llm=llm)
 
 Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
 
-#Answer = llm_chain.invoke(input=f"{Question}")
-#print(Answer['text'])"""
+Answer = llm_chain.invoke(input=f"{Question}")
+print(Answer['text'])
