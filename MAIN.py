@@ -1282,7 +1282,7 @@ def chat_me(widget):
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
     entry.bind("<Return>", lambda e: Chat_bot_inference(entry, search_lable, out_put_widget))
 
-    tk.Frame(chatbot_widget, bg='blue', borderwidth=0, border=0).place(relheight=0.05, relwidth=0.05, rely=0.9, relx=0.8)
+    tk.Button(chatbot_widget, text = '', bg='blue', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.02, rely=0.92, relx=0.8)
 
     return chatbot_widget
 
