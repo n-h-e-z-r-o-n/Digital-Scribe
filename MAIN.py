@@ -287,10 +287,10 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
     def run(widget0=widget0, widget1=widget1, widget2=widget2):
         Question = widget0.get("1.0", "end-1c")
-
+        Question = Question.strip()
         if llm_chain == None:
             llm_inference_initializ()
-
+      
         widget2.config(state=tk.NORMAL)
         widget2.insert(tk.END, f"🆈🅾🆄\n{Question}\n\n")
 
