@@ -281,9 +281,12 @@ def llm_inference_initializ():
 
 def Chat_bot_inference(Question, widget1, widget2):
     global llm_chain
-    try:
-        widget2.i
+
+    widget2.config(state=tk.NORMAL)
+    widget2.insert(tk.END, f"\n{user_query}\n", 'user_config')
+
         Answer = llm_chain.invoke(input=f"{Question}")
+
         print(Answer['text'])
         widget1.forget()
         widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
