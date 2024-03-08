@@ -30,7 +30,7 @@ llm = GradientLLM(
 
 #template = """### Instruction: {Instruction} \n\n### Response:"""
 
-template = """You are a chatbot having a conversation with a human.
+template = """You are a AI having a conversation with a human.
 {chat_history}
 Human: {Instruction}
 Chatbot:"""
