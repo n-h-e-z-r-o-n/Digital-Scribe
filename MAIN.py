@@ -1269,8 +1269,7 @@ def chat_me(widget):
     search_lable = tk.Frame(chatbot_widget, bg=bg_color,  borderwidth=0, border=0)
     search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
 
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color,  fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,
-                                                                                                                                                                                                                                                                                                                                                                                                                       relx=0.1)
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color,  fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,                                                                                                                                                                                                                                                                                                                                                                                                              relx=0.1)
     tk.Label(search_lable, bg=bg_color, text='◜', fg=fg_color, anchor="nw", font=('Century Gothic', 20), borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◟', fg=fg_color, font=('Century Gothic', 20), anchor='sw', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◝', fg=fg_color, font=('Century Gothic', 20), anchor='ne', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0.95)
@@ -1282,6 +1281,8 @@ def chat_me(widget):
     entry.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
     entry.bind("<Return>", lambda e: Chat_bot_inference(entry, search_lable, out_put_widget))
+
+    tk.Frame(chatbot_widget, bg='blue', borderwidth=0, border=0).place(relheight=0.05, relwidth=0.05, rely=0.9, relx=0.8)
 
     return chatbot_widget
 
