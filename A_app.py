@@ -30,7 +30,7 @@ llm = GradientLLM(
 
 template = """{chat_history} ### Instruction: {Instruction} \n\n### Response:"""
 
-prompt = PromptTemplate(template=template, input_variables=["Instruction"])
+prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
 
 memory = ConversationBufferMemory(memory_key="chat_history")
 
@@ -40,3 +40,9 @@ Question = "What diseases are prevelant in dairy small ruminant, and what managm
 
 Answer = llm_chain.invoke(input=f"{Question}")
 print(Answer['text'])
+
+while True:
+    Question = inpur()
+
+    Answer = llm_chain.invoke(input=f"{Question}")
+    print(Answer['text'])
