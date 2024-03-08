@@ -289,11 +289,11 @@ def Chat_bot_inference(Question, widget1, widget2):
         llm_inference_initializ()
 
     widget2.config(state=tk.NORMAL)
-    widget2.insert(tk.END, f"\n{Question}\n", 'user_config')
+    widget2.insert(tk.END, f"\nyou\n{Question}\n")
 
-    Answer = llm_chain.invoke(input=f"{Question}")
+    Answer = llm_chain.invoke(input=f"⊙ BOT\n{Question}")
 
-    widget2.insert(tk.END, f"\n{Answer['text']}\n", 'llm_config')
+    widget2.insert(tk.END, f"\n{Answer['text']}\n")
 
     widget2.config(state=tk.DISABLED)
     widget1.forget()
@@ -1244,7 +1244,7 @@ def chat_me(widget):
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
-    out_put_widget = tk.Text(chatbot_widget, bg='blue', fg=fg_color, font=("Calibri", 10, 'bold'), borderwidth=0, border=0)
+    out_put_widget = tk.Text(chatbot_widget, bg=bg_color, fg=fg_color, font=("Calibri", 14), borderwidth=0, border=0)
     out_put_widget.place(relheight=0.85, relwidth=0.62, rely=0.02, relx=0.19)
     out_put_widget.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
     out_put_widget.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
