@@ -287,6 +287,7 @@ def Chat_bot_inference(Question, widget1, widget2):
 
     Answer = llm_chain.invoke(input=f"{Question}")
 
+    widget2.insert(tk.END, f"\n{Question}\n", 'llm_config')
     print(Answer['text'])
 
     widget2.config(state=tk.DISABLED)
