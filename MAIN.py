@@ -1285,7 +1285,7 @@ def chat_me(widget):
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
     entry.bind("<Return>", lambda e: Chat_bot_inference(entry, search_lable, out_put_widget))
 
-    tk.Button(chatbot_widget, text='⇱', font=("Times New Roman", 14), bg=bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda e: Chat_bot_inference(entry, search_lable, out_put_widget)).place(relheight=0.03, relwidth=0.02, rely=0.92, relx=0.8)
+    tk.Button(chatbot_widget, text='⇱', font=("Times New Roman", 14), bg=bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda: Chat_bot_inference(entry, search_lable, out_put_widget)).place(relheight=0.03, relwidth=0.02, rely=0.92, relx=0.8)
 
     return chatbot_widget
 
