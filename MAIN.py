@@ -256,8 +256,7 @@ def dark_title_bar(window):
     set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
 
-def Chat_bot_inference(geestion, widget1, widget2):
-    
+def llm_inference_initializ():
     global llm_chain
     gradient = Gradient()
 
@@ -268,13 +267,12 @@ def Chat_bot_inference(geestion, widget1, widget2):
         model=base_model.id,
         model_kwargs=dict(max_generated_token_count=128),
     )
-
     # template = """### Instruction: {Instruction} \n\n### Response:"""
 
     template = """You are a AI having a conversation with a human.
-    {chat_history}
-    Human: {Instruction}
-    Chatbot:"""
+        {chat_history}
+        Human: {Instruction}
+        Chatbot:"""
 
     prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
 
@@ -282,7 +280,11 @@ def Chat_bot_inference(geestion, widget1, widget2):
 
     llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True, memory=memory)
 
-    pass
+def Chat_bot_inference(geestion, widget1, widget2):
+    global llm_chain
+
+
+
 # =============================== scroll Functions definition ===============================================================================================================
 
 def widget_scroll_bind(widget):
