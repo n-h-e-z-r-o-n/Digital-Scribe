@@ -28,7 +28,12 @@ llm = GradientLLM(
 
 
 
-template = """{chat_history} ### Instruction: {Instruction} \n\n### Response:"""
+#template = """{chat_history} ### Instruction: {Instruction} \n\n### Response:"""
+
+template = """You are a chatbot having a conversation with a human.
+{chat_history}
+Human: {Instruction}
+Chatbot:"""
 
 prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
 
