@@ -1240,8 +1240,8 @@ def chat_me(widget):
             widget.forget()
             widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
             current = current + 130
-        """
-        elif (num_lines < current) and (num_lines > 130):
+
+        elif (num_lines < current) and (num_lines > 130) and  (num_lines < previous):
             num_y = num_y + 0.02
             num_height = num_height - 0.02
             widget.forget()
@@ -1249,7 +1249,7 @@ def chat_me(widget):
             current = current - 130
         else:
             pass
-        """
+      
         previous = num_lines
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
