@@ -28,7 +28,7 @@ llm = GradientLLM(
 
 
 
-#template = """{chat_history} ### Instruction: {Instruction} \n\n### Response:"""
+#template = """### Instruction: {Instruction} \n\n### Response:"""
 
 template = """You are a chatbot having a conversation with a human.
 {chat_history}
@@ -50,4 +50,4 @@ while True:
     Question = input()
 
     Answer = llm_chain.invoke(input=f"{Question}")
-    print(Answer)
+    print(Answer['text'])
