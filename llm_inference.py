@@ -5,7 +5,7 @@
 from langchain.chains import LLMChain
 from langchain_community.llms import GradientLLM
 from langchain.prompts import PromptTemplate
-import gradientai
+from langchain import  ConversationChain, ConversationBufferMemory
 import os
 from gradientai import Gradient
 
@@ -19,11 +19,20 @@ gradient =  Gradient()
 base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
 print(base_model.id)
 
+
 llm = GradientLLM(
     model=base_model.id,
-
     #model_kwargs=dict(max_generated_token_count=128),
 )
+
+conversation_buffer = ConversationChain(
+    llm=llm,
+    memory=ConversationBufferMemory(),
+    verbose=True
+)
+
+conversation_buffer("What are some popular ones?")
+
 
 template = """### Instruction: {Instruction} \n\n### Response:"""
 
