@@ -300,7 +300,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
     widget2.config(state=tk.DISABLED)
     widget0.delete(1.0, tk.END)
     widget1.forget()
-    widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
+    widget1.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
 
 
 # =============================== scroll Functions definition ===============================================================================================================
