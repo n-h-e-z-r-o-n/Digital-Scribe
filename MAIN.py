@@ -1233,7 +1233,7 @@ def chat_me(widget):
         print("- ", num_lines, " - ", current)
 
 
-        if num_lines >= current:
+        if num_lines > current:
             num_y = num_y - 0.02
             num_height = num_height + 0.02
             widget.forget()
