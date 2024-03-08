@@ -296,7 +296,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
         Answer = llm_chain.invoke(input=f"\n{Question}")
         widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n\n")
     except:
-        widget2.insert(tk.END, f"🅱🅾🆃\nerror: check your internet connection or api keys \n\n")
+        widget2.insert(tk.END, f"🅱🅾🆃\nError: check your internet connection or api keys \n\n")
 
     widget2.config(state=tk.DISABLED)
     widget0.delete(1.0, tk.END)
