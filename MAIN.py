@@ -287,7 +287,7 @@ def Chat_bot_inference(Question, widget1, widget2):
 
     if llm_chain == None:
         llm_inference_initializ()
-        
+
     widget2.config(state=tk.NORMAL)
     widget2.insert(tk.END, f"\n{Question}\n", 'user_config')
 
@@ -297,6 +297,7 @@ def Chat_bot_inference(Question, widget1, widget2):
 
     widget2.config(state=tk.DISABLED)
     widget1.forget()
+    widget1.delete(1.0, tk.END)
     widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
 
 
