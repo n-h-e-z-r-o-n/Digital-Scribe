@@ -49,5 +49,5 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 while True:
     Question = input()
 
-    Answer = llm_chain.invoke(Instruction=f"{Question}")
-    print(Answer['text'])
+    Answer = llm_chain.invoke(input=f"{Question}")
+    print(Answer)
