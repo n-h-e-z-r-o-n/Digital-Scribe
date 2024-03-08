@@ -35,6 +35,7 @@ from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
+
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -68,6 +69,8 @@ fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
 current_theme = 'window(light)'
 Home_page_frame = None
+
+
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
 
@@ -282,19 +285,19 @@ def llm_inference_initializ():
 def Chat_bot_inference(Question, widget1, widget2):
     global llm_chain
 
+    if llm_chain == None:
+        llm_inference_initializ()
+        
     widget2.config(state=tk.NORMAL)
     widget2.insert(tk.END, f"\n{Question}\n", 'user_config')
 
     Answer = llm_chain.invoke(input=f"{Question}")
 
-    widget2.insert(tk.END, f"\n{Question}\n", 'llm_config')
-    print(Answer['text'])
+    widget2.insert(tk.END, f"\n{Answer['text']}\n", 'llm_config')
 
     widget2.config(state=tk.DISABLED)
     widget1.forget()
     widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
-
-
 
 
 # =============================== scroll Functions definition ===============================================================================================================
@@ -364,7 +367,6 @@ def attach_scroll(widget, color='white'):
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, canvas_FRAME_2
-
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -461,15 +463,15 @@ def Service_Section(widget):
                              activebackground=nav_bar_color, font=("Calibri", 13))
     t3_link_btn4.place(relheight=0.1, relwidth=1, rely=0.45, relx=0)
     change_fg_OnHover(t3_link_btn4, 'brown', 'black')
-    t3_link_btn5 = tk.Button(t3, bg=nav_bar_color, text='Teen therapy', anchor='w', borderwidth=0, border=0,activebackground=nav_bar_color, font=("Calibri", 13))
+    t3_link_btn5 = tk.Button(t3, bg=nav_bar_color, text='Teen therapy', anchor='w', borderwidth=0, border=0, activebackground=nav_bar_color, font=("Calibri", 13))
     t3_link_btn5.place(relheight=0.1, relwidth=1, rely=0.56, relx=0)
     change_fg_OnHover(t3_link_btn5, 'brown', 'black')
 
     t4 = tk.Frame(Service_widget, bg=nav_bar_color)
     t4.place(relheight=0.4, relwidth=0.15, rely=0.02, relx=0.82)
-    tk.Label(t4, bg=nav_bar_color, text='Get treatment for', anchor='w', font=("Bauhaus 93", 18)).place(relheight=0.11,relwidth=1,rely=0, relx=0)
+    tk.Label(t4, bg=nav_bar_color, text='Get treatment for', anchor='w', font=("Bauhaus 93", 18)).place(relheight=0.11, relwidth=1, rely=0, relx=0)
 
-    t4_link_btn1 = tk.Button(t4, bg=nav_bar_color, text='Depression', anchor='w', borderwidth=0, border=0,activebackground=nav_bar_color, font=("Calibri", 13))
+    t4_link_btn1 = tk.Button(t4, bg=nav_bar_color, text='Depression', anchor='w', borderwidth=0, border=0, activebackground=nav_bar_color, font=("Calibri", 13))
     t4_link_btn1.place(relheight=0.1, relwidth=1, rely=0.12, relx=0)
     change_fg_OnHover(t4_link_btn1, 'brown', 'black')
     t4_link_btn2 = tk.Button(t4, bg=nav_bar_color, text='Anxiety', anchor='w', borderwidth=0, border=0, activebackground=nav_bar_color, font=("Calibri", 13))
@@ -687,93 +689,90 @@ def Login_Section_widget(widget, root_widget):
 
 
 def change_color(widget, button):
-        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
-        button_text = button.cget("text")
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    button_text = button.cget("text")
 
-        if button_text == 'window(light)':
-            button.config(text='window(dark)')
-            bg_color = '#353839'
-            fg_color = 'white'
-            current_theme = 'window(dark)'
+    if button_text == 'window(light)':
+        button.config(text='window(dark)')
+        bg_color = '#353839'
+        fg_color = 'white'
+        current_theme = 'window(dark)'
 
-        elif button_text == 'window(dark)':
-            button.config(text='window(dark_blue)')
-            bg_color = '#36454F'
-            fg_color = 'white'
-            current_theme = 'window(dark_blue)'
+    elif button_text == 'window(dark)':
+        button.config(text='window(dark_blue)')
+        bg_color = '#36454F'
+        fg_color = 'white'
+        current_theme = 'window(dark_blue)'
 
-        elif button_text == 'window(dark_blue)':
-            button.config(text='window(Blackberry)')
-            bg_color = '#3A3A38'
-            fg_color = 'white'
-            current_theme = 'window(Blackberry)'
+    elif button_text == 'window(dark_blue)':
+        button.config(text='window(Blackberry)')
+        bg_color = '#3A3A38'
+        fg_color = 'white'
+        current_theme = 'window(Blackberry)'
 
-        elif button_text == 'window(Blackberry)':
-            button.config(text='window(dark_green)')
-            bg_color = '#555D50'
-            fg_color = 'white'
-            current_theme = 'window(dark_green)'
+    elif button_text == 'window(Blackberry)':
+        button.config(text='window(dark_green)')
+        bg_color = '#555D50'
+        fg_color = 'white'
+        current_theme = 'window(dark_green)'
 
-        elif button_text == 'window(dark_green)':
-            button.config(text='window(Jacket)')
-            bg_color = '#253529'
-            fg_color = 'white'
-            current_theme = 'window(Jacket)'
+    elif button_text == 'window(dark_green)':
+        button.config(text='window(Jacket)')
+        bg_color = '#253529'
+        fg_color = 'white'
+        current_theme = 'window(Jacket)'
 
-        elif button_text == 'window(Jacket)':
-            button.config(text='window(light)')
-            bg_color = 'white'
-            fg_color = 'black'
-            current_theme = 'window(light)'
+    elif button_text == 'window(Jacket)':
+        button.config(text='window(light)')
+        bg_color = 'white'
+        fg_color = 'black'
+        current_theme = 'window(light)'
+    else:
+        return
+
+    def change_all(wdget=widget):
+        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, Home_page_frame
+
+        if isinstance(wdget, tk.Frame):
+            wdget.config(bg=bg_color)
+
+        elif isinstance(wdget, tk.Button):
+            wdget.config(bg=bg_color, activebackground=bg_color, fg=fg_color, activeforeground=fg_color)
+
+        elif isinstance(wdget, tk.Label):
+            wdget.config(bg=bg_color, fg=fg_color)
+
+        elif isinstance(wdget, tk.Text):
+            wdget.config(bg=bg_color, fg=fg_color)
+        elif isinstance(wdget, tk.Entry):
+            wdget.config(bg=bg_color, fg=fg_color)
         else:
-            return
+            # widget.config(bg=bg_icolor, fg='white')
+            pass
 
-        def change_all(wdget = widget):
-            global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, Home_page_frame
+        children = wdget.winfo_children()
+        for child in children:
+            change_all(child)
+        Home_page_frame.config(bg=fg_color)
+        dic = {
+            '_GA_': gradient_ai_access_key,
+            '_GW_': gradient_ai_workspace_id,
+            '_G_FT_M_': gradient_ai_finetuned_id,
+            '_G_B_M_': gradient_ai_base_model_id,
+            '_AAI_': assemblyai_access_key,
+            "bg_color": bg_color,
+            "fg_color": fg_color,
+            "fg_hovercolor": fg_hovercolor,
+            "bg_hovercolor": bg_hovercolor,
+            "current_theme": current_theme
+        }
 
-            if isinstance(wdget, tk.Frame):
-                wdget.config(bg=bg_color)
+        json_object = json.dumps(dic, indent=4)
 
-            elif isinstance(wdget, tk.Button):
-                wdget.config(bg=bg_color, activebackground=bg_color, fg=fg_color, activeforeground=fg_color)
+        with open("keys.json", "w") as outfile:
+            outfile.write(json_object)
 
-            elif isinstance(wdget, tk.Label):
-                wdget.config(bg=bg_color, fg=fg_color)
-
-            elif isinstance(wdget, tk.Text):
-                wdget.config(bg=bg_color, fg=fg_color)
-            elif isinstance(wdget, tk.Entry):
-                wdget.config(bg=bg_color, fg=fg_color)
-            else:
-                # widget.config(bg=bg_icolor, fg='white')
-                pass
-
-            children = wdget.winfo_children()
-            for child in children:
-                change_all(child)
-            Home_page_frame.config(bg=fg_color)
-            dic = {
-                '_GA_': gradient_ai_access_key,
-                '_GW_': gradient_ai_workspace_id,
-                '_G_FT_M_': gradient_ai_finetuned_id,
-                '_G_B_M_': gradient_ai_base_model_id,
-                '_AAI_': assemblyai_access_key,
-                "bg_color": bg_color,
-                "fg_color": fg_color,
-                "fg_hovercolor": fg_hovercolor,
-                "bg_hovercolor": bg_hovercolor,
-                "current_theme": current_theme
-            }
-
-            json_object = json.dumps(dic, indent=4)
-
-            with open("keys.json", "w") as outfile:
-                outfile.write(json_object)
-
-
-
-
-        threading.Thread(target=change_all).start()
+    threading.Thread(target=change_all).start()
 
 
 def chat(widget):
@@ -1195,19 +1194,15 @@ def settings(widget):
 
     # ======================================================= Section 2 ===========================================================================================================================================
 
-
-
     g2 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g2.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
 
     tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
     tk.Label(g2, text="  current theme :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Courier New", 10), command=lambda : change_color(root,themes_change ))
+    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
     themes_change.place(relheight=0.07, relwidth=0.3, rely=0.071, relx=0.25)
     change_fg_OnHover(themes_change, fg_hovercolor, fg_color)
-    
-    
-    
+
     # ======================================================= Section 3 ===========================================================================================================================================
     g3 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
     g3.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
@@ -1258,19 +1253,21 @@ def chat_me(widget):
     search_lable = tk.Label(chatbot_widget, bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0)
     search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
 
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s', fg=fg_color,  borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0, relx=0.1)
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s', fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,
+                                                                                                                                                                                                                                                                                                                                                                                                                       relx=0.1)
     tk.Label(search_lable, bg=bg_color, text='◜', fg=fg_color, anchor="nw", font=('Century Gothic', 20), borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◟', fg=fg_color, font=('Century Gothic', 20), anchor='sw', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◝', fg=fg_color, font=('Century Gothic', 20), anchor='ne', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0.95)
     tk.Label(search_lable, bg=bg_color, text='◞', fg=fg_color, font=('Century Gothic', 20), anchor='se', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0.95)
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s',fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0.85, relx=0.1)
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s', fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0.85,
+                                                                                                                                                                                                                                                                                                                                                                                                                       relx=0.1)
 
     entry = tk.Text(search_lable, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
     entry.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
     entry.bind("<Return>", lambda e: Chat_bot_inference(entry.get("1.0", "end-1c"), entry, out_put_widget))
 
-    return  chatbot_widget
+    return chatbot_widget
 
 
 def connect_to_server():
@@ -1358,13 +1355,13 @@ def User_Home_page(widget):
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     def active(widget):
-        global widget_list,fg_hovercolor
+        global widget_list, fg_hovercolor
         for i in widget_list:
             if i != widget:
-                i.config(bg=bg_color, relief=tk.FLAT,  border=0,  fg=fg_color)
-                print("K :", fg_color )
+                i.config(bg=bg_color, relief=tk.FLAT, border=0, fg=fg_color)
+                print("K :", fg_color)
             else:
-                i.config(bg=bg_color, relief=tk.RAISED,  border=1, fg=fg_hovercolor)
+                i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
                 print("p :", fg_hovercolor)
 
@@ -1376,42 +1373,42 @@ def User_Home_page(widget):
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
 
-    st1_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='📞', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='📞', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
 
-    st3_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
+    st3_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
 
-    st7_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
