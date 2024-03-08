@@ -42,7 +42,7 @@ def predict(input, history=[]):
 
 
 
-print("Chatbot: Hello! I'm your chatbot therapist. Type 'exit' to end the conversation.")
+print("Chatbot: Hello! I'm your chatbot therapist. Type 'exit' to end the RAG_page.")
 history = []
 
 while True:

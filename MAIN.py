@@ -412,23 +412,18 @@ def Service_Section(widget):
                              activebackground=nav_bar_color, font=("Calibri", 13))
     t3_link_btn4.place(relheight=0.1, relwidth=1, rely=0.45, relx=0)
     change_fg_OnHover(t3_link_btn4, 'brown', 'black')
-    t3_link_btn5 = tk.Button(t3, bg=nav_bar_color, text='Teen therapy', anchor='w', borderwidth=0, border=0,
-                             activebackground=nav_bar_color, font=("Calibri", 13))
+    t3_link_btn5 = tk.Button(t3, bg=nav_bar_color, text='Teen therapy', anchor='w', borderwidth=0, border=0,activebackground=nav_bar_color, font=("Calibri", 13))
     t3_link_btn5.place(relheight=0.1, relwidth=1, rely=0.56, relx=0)
     change_fg_OnHover(t3_link_btn5, 'brown', 'black')
 
     t4 = tk.Frame(Service_widget, bg=nav_bar_color)
     t4.place(relheight=0.4, relwidth=0.15, rely=0.02, relx=0.82)
-    tk.Label(t4, bg=nav_bar_color, text='Get treatment for', anchor='w', font=("Bauhaus 93", 18)).place(relheight=0.11,
-                                                                                                        relwidth=1,
-                                                                                                        rely=0, relx=0)
+    tk.Label(t4, bg=nav_bar_color, text='Get treatment for', anchor='w', font=("Bauhaus 93", 18)).place(relheight=0.11,relwidth=1,rely=0, relx=0)
 
-    t4_link_btn1 = tk.Button(t4, bg=nav_bar_color, text='Depression', anchor='w', borderwidth=0, border=0,
-                             activebackground=nav_bar_color, font=("Calibri", 13))
+    t4_link_btn1 = tk.Button(t4, bg=nav_bar_color, text='Depression', anchor='w', borderwidth=0, border=0,activebackground=nav_bar_color, font=("Calibri", 13))
     t4_link_btn1.place(relheight=0.1, relwidth=1, rely=0.12, relx=0)
     change_fg_OnHover(t4_link_btn1, 'brown', 'black')
-    t4_link_btn2 = tk.Button(t4, bg=nav_bar_color, text='Anxiety', anchor='w', borderwidth=0, border=0,
-                             activebackground=nav_bar_color, font=("Calibri", 13))
+    t4_link_btn2 = tk.Button(t4, bg=nav_bar_color, text='Anxiety', anchor='w', borderwidth=0, border=0, activebackground=nav_bar_color, font=("Calibri", 13))
     t4_link_btn2.place(relheight=0.1, relwidth=1, rely=0.23, relx=0)
     change_fg_OnHover(t4_link_btn2, 'brown', 'black')
     t4_link_btn3 = tk.Button(t4, bg=nav_bar_color, text='Bipolar disorder For Veterans', anchor='w', borderwidth=0,
@@ -1022,7 +1017,7 @@ def profile(widget):
     return profile_widget
 
 
-def conversation(widget):
+def RAG_page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
 
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
@@ -1176,6 +1171,59 @@ def settings(widget):
     return setting_widget
 
 
+def chat_me(widget):
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    global num_y, num_height, current
+    num_y = 0.9
+    num_height = 0.05
+    current = 150
+
+    def on_key_press(event, widget, widget1):
+        global current, num_y, num_height
+        text_content = widget1.get("1.0", "end-1c")
+        num_lines = len(text_content)  # Count the number of lines
+        print("- ", num_lines)
+        if num_lines > current:
+            num_y = num_y - 0.02
+            num_height = num_height + 0.02
+            widget.forget()
+            search_lable.place(relheight=num_height, relwidth=0.5, rely=num_y, relx=0.25)
+            current = current + 150
+        if num_lines < current and current > 150:
+            num_y = num_y + 0.02
+            num_height = num_height - 0.02
+            widget.forget()
+            search_lable.place(relheight=num_height, relwidth=0.5, rely=num_y, relx=0.25)
+            current = current - 150
+
+    chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
+    chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+
+    out_put_widget = tk.Text(chatbot_widget, bg='blue', fg=fg_color, font=("Calibri", 10, 'bold'), borderwidth=0, border=0)
+    out_put_widget.place(relheight=0.85, relwidth=0.62, rely=0.02, relx=0.19)
+    out_put_widget.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
+    out_put_widget.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
+    out_put_widget.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
+    out_put_widget.config(state=tk.DISABLED)
+
+    search_lable = tk.Label(chatbot_widget, bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0)
+    search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
+
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s', fg=fg_color,  borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0, relx=0.1)
+    tk.Label(search_lable, bg=bg_color, text='◜', fg=fg_color, anchor="nw", font=('Century Gothic', 20), borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0)
+    tk.Label(search_lable, bg=bg_color, text='◟', fg=fg_color, font=('Century Gothic', 20), anchor='sw', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0)
+    tk.Label(search_lable, bg=bg_color, text='◝', fg=fg_color, font=('Century Gothic', 20), anchor='ne', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0.95)
+    tk.Label(search_lable, bg=bg_color, text='◞', fg=fg_color, font=('Century Gothic', 20), anchor='se', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0.95)
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s',fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0.85, relx=0.1)
+
+    entry = tk.Text(search_lable, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
+    entry.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
+    entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
+
+
+    return  chatbot_widget
+
+
 def connect_to_server():
     pass
     """
@@ -1254,8 +1302,9 @@ def User_Home_page(widget):
 
     CHAT_Widget = chat(Home_page_frame)
     CALL_Widget = call(Home_page_frame)
-    CONV_AI_Widget = conversation(Home_page_frame)
+    rag_widget = RAG_page(Home_page_frame)
     SETTINGS_Widget = settings(Home_page_frame)
+    chat_me_Widget = chat_me(Home_page_frame)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1283,37 +1332,37 @@ def User_Home_page(widget):
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='🎥', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
 
-    st3_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='📩', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st3_bt)))
+    st3_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
 
-    st7_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CONV_AI_Widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 20, 'bold'), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=bg_color,  activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
