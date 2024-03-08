@@ -285,6 +285,7 @@ def llm_inference_initializ():
 def Chat_bot_inference(widget0, widget1, widget2):
     global llm_chain
     Question = widget0.get("1.0", "end-1c")
+
     if llm_chain == None:
         llm_inference_initializ()
 
