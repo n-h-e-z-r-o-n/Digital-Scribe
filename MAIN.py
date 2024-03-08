@@ -1239,7 +1239,7 @@ def chat_me(widget):
             widget.forget()
             widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
             current = current + 130
-        elif num_lines < current and current > 130:
+        elif num_lines < current:
             num_y = num_y + 0.02
             num_height = num_height - 0.02
             widget.forget()
