@@ -1,11 +1,11 @@
 # pip install -U langchain
 # pip install gradientai
-# pip install -U langchain-community
+
 
 from langchain.chains import LLMChain
 from langchain_community.llms import GradientLLM
 from langchain.prompts import PromptTemplate
-from langchain import  ConversationChain, ConversationBufferMemory
+from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
 
@@ -22,26 +22,32 @@ print(base_model.id)
 
 llm = GradientLLM(
     model=base_model.id,
-    #model_kwargs=dict(max_generated_token_count=128),
+    model_kwargs=dict(max_generated_token_count=128),
 )
 
-conversation_buffer = ConversationChain(
-    llm=llm,
-    memory=ConversationBufferMemory(),
-    verbose=True
-)
-
-conversation_buffer("What are some popular ones?")
 
 
-template = """### Instruction: {Instruction} \n\n### Response:"""
-"""
-prompt = PromptTemplate(template=template, input_variables=["Instruction"])
 
+#template = """### Instruction: {Instruction} \n\n### Response:"""
 
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+template = """You are a AI having a conversation with a human.
+{chat_history}
+Human: {Instruction}
+Chatbot:"""
 
-Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
+prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
 
-Answer = llm_chain.invoke(input=f"{Question}")
-print(Answer['text'])"""
+memory = ConversationBufferMemory(memory_key="chat_history")
+
+llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
+
+#Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
+
+#Answer = llm_chain.invoke(input=f"{Question}")
+#print(Answer['text'])
+
+while True:
+    Question = input()
+
+    Answer = llm_chain.invoke(input=f"{Question}")
+    print(Answer['text'])

@@ -258,30 +258,33 @@ def dark_title_bar(window):
 
 def llm_inference_initializ():
     global llm_chain
-    gradient = Gradient()
+    fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  # initializes a GradientLLM with our fine-tuned model by specifying our model ID.
 
+    gradient = Gradient()
     base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
-    print(base_model.id)
 
     llm = GradientLLM(
         model=base_model.id,
         model_kwargs=dict(max_generated_token_count=128),
     )
-    # template = """### Instruction: {Instruction} \n\n### Response:"""
 
+    # template = """### Instruction: {Instruction} \n\n### Response:"""
     template = """You are a AI having a conversation with a human.
-        {chat_history}
-        Human: {Instruction}
-        Chatbot:"""
+    {chat_history}
+    Human: {Instruction}
+    Chatbot:"""
 
     prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
-
     memory = ConversationBufferMemory(memory_key="chat_history")
-
     llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True, memory=memory)
 
-def Chat_bot_inference(geestion, widget1, widget2):
+
+def Chat_bot_inference(Question, widget1, widget2):
     global llm_chain
+    Question = input()
+
+    Answer = llm_chain.invoke(input=f"{Question}")
+    print(Answer['text'])
 
 
 
