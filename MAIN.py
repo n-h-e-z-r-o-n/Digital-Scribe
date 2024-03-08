@@ -188,6 +188,7 @@ def rag_initialize(data, widget):
 
 def rag_chat(question, widget, widget1):
     global rag_pipeline
+    def run_function
     widget1.config(text='▫▫▫▫')
     question = question.strip()
     if question == '':
@@ -290,7 +291,8 @@ def Chat_bot_inference(widget0, widget1, widget2):
         Question = Question.strip()
         if llm_chain == None:
             llm_inference_initializ()
-      
+        if len(Question) == 0:
+            return
         widget2.config(state=tk.NORMAL)
         widget2.insert(tk.END, f"🆈🅾🆄\n{Question}\n\n")
 
