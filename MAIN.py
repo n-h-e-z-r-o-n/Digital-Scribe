@@ -1229,7 +1229,9 @@ def chat_me(widget):
         global current, num_y, num_height
         text_content = widget1.get("1.0", "end-1c")
         num_lines = len(text_content)  # Count the number of lines
-        print("- ", num_lines)
+
+        print("- ", num_lines, " - ", current)
+
 
         if num_lines > current:
             num_y = num_y - 0.02
