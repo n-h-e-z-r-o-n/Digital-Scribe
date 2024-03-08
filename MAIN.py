@@ -281,10 +281,14 @@ def llm_inference_initializ():
 
 def Chat_bot_inference(Question, widget1, widget2):
     global llm_chain
-    Question = input()
-
-    Answer = llm_chain.invoke(input=f"{Question}")
-    print(Answer['text'])
+    try:
+        widget2.i
+        Answer = llm_chain.invoke(input=f"{Question}")
+        print(Answer['text'])
+        widget1.forget()
+        widget1.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
+    except:
+        pass
 
 
 
