@@ -36,13 +36,13 @@ memory = ConversationBufferMemory(memory_key="chat_history")
 
 llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 
-Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
+#Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
 
-Answer = llm_chain.invoke(input=f"{Question}")
-print(Answer['text'])
+#Answer = llm_chain.invoke(input=f"{Question}")
+#print(Answer['text'])
 
 while True:
-    Question = inpur()
+    Question = input()
 
     Answer = llm_chain.invoke(input=f"{Question}")
     print(Answer['text'])
