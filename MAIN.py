@@ -289,11 +289,11 @@ def Chat_bot_inference(Question, widget1, widget2):
         llm_inference_initializ()
 
     widget2.config(state=tk.NORMAL)
-    widget2.insert(tk.END, f"\nyou\n{Question}\n")
+    widget2.insert(tk.END, f"YOU\n{Question}\n")
 
-    Answer = llm_chain.invoke(input=f"⊙ BOT\n{Question}")
+    Answer = llm_chain.invoke(input=f"\n{Question}")
 
-    widget2.insert(tk.END, f"\n{Answer['text']}\n")
+    widget2.insert(tk.END, f"⊙ BOT{Answer['text']}\n")
 
     widget2.config(state=tk.DISABLED)
     widget1.forget()
