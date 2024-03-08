@@ -249,7 +249,7 @@ def dark_title_bar(window):
     set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
 
-def Chat_bot_inference(geestion, widget1, widg):
+def Chat_bot_inference(geestion, widget1, widget2):
     pass
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -1222,7 +1222,7 @@ def chat_me(widget):
     entry = tk.Text(search_lable, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
     entry.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
     entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
-    #entry.bind("<Return>", lambda e: on_key_press(e, search_lable, entry))
+    entry.bind("<Return>", lambda e: Chat_bot_inference(entry))
 
 
     return  chatbot_widget
