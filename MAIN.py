@@ -1235,14 +1235,14 @@ def chat_me(widget):
             num_height = num_height + 0.02
             widget.forget()
             widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
-            current = current + current
+            current = current + 130
 
         if num_lines < current and current > 150:
             num_y = num_y + 0.02
             num_height = num_height - 0.02
             widget.forget()
             search_lable.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
-            current = current - current
+            current = current - 130
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
