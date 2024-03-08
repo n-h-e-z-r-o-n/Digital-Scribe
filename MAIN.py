@@ -1249,7 +1249,7 @@ def chat_me(widget):
             current = current - 130
         else:
             pass
-      
+
         previous = num_lines
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
@@ -1265,7 +1265,7 @@ def chat_me(widget):
     search_lable = tk.Label(chatbot_widget, bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0)
     search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
 
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s', fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='', fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,
                                                                                                                                                                                                                                                                                                                                                                                                                        relx=0.1)
     tk.Label(search_lable, bg=bg_color, text='◜', fg=fg_color, anchor="nw", font=('Century Gothic', 20), borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◟', fg=fg_color, font=('Century Gothic', 20), anchor='sw', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0)
