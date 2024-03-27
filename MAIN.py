@@ -1399,7 +1399,7 @@ def User_Home_page(widget):
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
     container2.place(rely=0.02, relx=0.0253, width=int(screen_width * 0.9747), height=int(screen_height * 0.96) )  #place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
-
+    """
     nav_bar_color = bg_color
     nav_bar_btn_hover_color = bg_hovercolor
     nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
@@ -1419,7 +1419,7 @@ def User_Home_page(widget):
     chat_me_Widget = chat_me(Home_page_frame)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
-
+ 
     def active(widget):
         global widget_list, fg_hovercolor
         for i in widget_list:
@@ -1434,7 +1434,7 @@ def User_Home_page(widget):
 
 
     side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
-    side_bar..place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
+    side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
     #side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
@@ -1483,7 +1483,7 @@ def User_Home_page(widget):
     widget_list.append(st8_bt)
 
     return container2
-
+    """
 
 
 def Welcome_Page(wiget):
