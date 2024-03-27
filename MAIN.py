@@ -1426,7 +1426,7 @@ def User_Home_page(widget):
     side_wdg_height = int(screen_height * 0.025)
 
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
-    side_bar.place(rely=0.02, relx=0, width=side_wdg_width,  hei)#.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
+    side_bar.place(rely=0.02, relx=0, width=side_wdg_width, height=side_wdg_height) #.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
     side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
