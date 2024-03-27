@@ -1519,6 +1519,13 @@ def Welcome_Page(wiget):
 # =============================== Main Function definition ============================================================
 # =====================================================================================================================
 
+def resize(event, widget, width, heigh):
+    global root, screen_width, screen_height
+    # Prevent resizing by setting the widget's size to its original size
+    widget.config(width=original_width)
+    print("resized")
+
+
 def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
