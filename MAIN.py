@@ -1422,6 +1422,9 @@ def User_Home_page(widget):
 
                 print("p :", fg_hovercolor)
 
+    original_width = int(screen_width * width)
+    original_height = int(screen_height * heigh)
+
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
     side_bar.bind("<Configure>", lambda e: resize(side_bar, 0.025, 0.96))
@@ -1522,8 +1525,7 @@ def Welcome_Page(wiget):
 
 def resize(widget, width, heigh):
     global root, screen_width, screen_height
-    original_width = int(screen_width * width)
-    original_height = int(screen_height * heigh)
+
     # Prevent resizing by setting the widget's size to its original size
     widget.config(width=original_width, height=original_height)
     print("resized")
