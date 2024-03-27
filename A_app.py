@@ -3,6 +3,7 @@ import tkinter as tk
 def resize(event):
     # Prevent resizing by setting the widget's size to its original size
     widget.config(width=original_width)
+    widget.config(width=original_width)
     print("resized")
 
 root = tk.Tk()
@@ -19,11 +20,11 @@ frame.pack(expand=True, fill="both")
 
 # Create the widget (e.g., a label)
 widget = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
-widget.place(rely=0, relx=0, relheight=1)
+widget.place(rely=0, relx=0.1, relheight=1)
 
 
-widget = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
-widget.place(rely=0.1, relx=0, relheight=1)
+widget2 = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
+widget2.place(rely=0, relx=0.2, relheight=1)
 
 # Bind the resize event to the function that prevents resizing
 root.bind("<Configure>", resize)
