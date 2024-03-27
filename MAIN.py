@@ -1394,20 +1394,12 @@ def User_Home_page(widget):
     Home_page_frame.place(relx=0, rely=0)
 
     container1 = tk.Frame(Home_page_frame, bg=bg_color)
-    container1.place(rely=0.02, relx=0, width=int(screen_width * 0.025), height=int(screen_height * 0.96))
+    container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int(screen_height * 1))
 
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
-    container2.place(rely=0.02, relx=0.0253, width=int(screen_width * 0.9747), height=int(screen_height * 0.98) )  #place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
+    container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int(screen_height * 0.) )  #place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
 
-    nav_bar_color = bg_color
-    nav_bar_btn_hover_color = bg_hovercolor
-    nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
-    nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
-
-    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, activebackground=nav_bar_color, text='Sign Out', justify=tk.LEFT, anchor="center", font=("Calibri Light", 10), borderwidth=0, border=0)  # command=lambda: sign_out(user_page_root))
-    nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
-    change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
     
     # PROFILE_widget = profile(Home_page_frame)
