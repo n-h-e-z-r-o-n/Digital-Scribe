@@ -1483,7 +1483,7 @@ def User_Home_page(widget):
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
 
-    return Home_page_frame
+    return container2
 
 
 
