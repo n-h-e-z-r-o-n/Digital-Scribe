@@ -1521,8 +1521,10 @@ def Welcome_Page(wiget):
 
 def resize(event, widget, width, heigh):
     global root, screen_width, screen_height
+    original_width = int(screen_width * width)
+    original_height = int(screen_height * heigh)
     # Prevent resizing by setting the widget's size to its original size
-    widget.config(width=original_width)
+    widget.config(width=original_width, height=original_height)
     print("resized")
 
 
