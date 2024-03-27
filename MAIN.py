@@ -1397,7 +1397,7 @@ def User_Home_page(widget):
     container1.place(rely=0.02, relx=0, width=int(screen_width * 0.025), height=int(screen_height * 0.96))
 
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
-    container2.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    container2.place(rely=0.02, relx=0.0253,  width=int(screen_width * 0.9747), height=int(screen_height * 0.96) )  #place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
     nav_bar_color = bg_color
     nav_bar_btn_hover_color = bg_hovercolor
@@ -1485,7 +1485,7 @@ def User_Home_page(widget):
     return Home_page_frame
 
     """
-    
+
 def Welcome_Page(wiget):
     global screen_width, screen_height
     home_widget, welcome_page_root = attach_scroll(wiget)
