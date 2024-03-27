@@ -1389,7 +1389,7 @@ def User_Home_page(widget):
     global user_id, widget_list, Home_page_frame
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
     global root, screen_width, screen_height
-    
+
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -1423,12 +1423,12 @@ def User_Home_page(widget):
 
                 print("p :", fg_hovercolor)
 
-    side_wdg_width = int(screen_width * 0.96)
-    side_wdg_height = int(screen_height * 0.025)
+    side_wdg_width = int(screen_width * 0.025)
+    side_wdg_height = int(screen_height * 0.96)
 
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(rely=0.02, relx=0, width=side_wdg_width, height=side_wdg_height) #.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
-    side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
+    #side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
