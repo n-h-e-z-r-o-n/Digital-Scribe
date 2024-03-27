@@ -1393,6 +1393,9 @@ def User_Home_page(widget):
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.pack(fill=tk.BOTH, expand=True)
 
+    container1 = tk.Frame(Home_page_frame, bg=bg_color)
+    continer
+
     nav_bar_color = bg_color
     nav_bar_btn_hover_color = bg_hovercolor
     nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
