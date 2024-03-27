@@ -16,7 +16,7 @@ import json
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
 import docx
-
+import ctypes
 # ------------------------------
 from gradient_haystack.embedders.gradient_document_embedder import GradientDocumentEmbedder
 from gradient_haystack.embedders.gradient_text_embedder import GradientTextEmbedder
@@ -69,7 +69,10 @@ fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
 current_theme = 'window(light)'
 Home_page_frame = None
-
+setting_status = False
+rag_data = None
+rag_widget = None
+sammary_data = None
 
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
@@ -93,12 +96,14 @@ def Entity_Extraction(document, entity_list, widget):
             document=document,
             schema_=dictionary,
         )
+        widget.config(state=tk.NORMAL)
         widget.delete(1.0, tk.END)
         for key, value in result["entity"].items():
             m = key + " : " + value + "\n"
             print()
             widget.insert(tk.END, m)
 
+        widget.config(state=tk.DISABLED)
         print(result)
         return result
     except:
@@ -106,31 +111,47 @@ def Entity_Extraction(document, entity_list, widget):
 
 
 def D_Summary(widget1, widget):
-    document = widget1.get("1.0", "end")
-    document = (document.strip())
-    print(len(document))
-    if len(document) == 0:
-        time.sleep(2)
-        return None
+    def run_f(widget1= widget1, widget = widget):
+        document = widget1.get("1.0", "end")
+        document = (document.strip())
+        print(len(document))
+        if len(document) == 0:
+            time.sleep(2)
+            return None
 
-    gradient = Gradient()
+        gradient = Gradient()
 
-    try:
-        summary_length = SummarizeParamsLength.LONG
-        result = gradient.summarize(
-            document=document,
-            length=summary_length
-        )
-        widget.delete(1.0, tk.END)
-        widget.insert(tk.END, result['summary'])
+        try:
+            summary_length = SummarizeParamsLength.LONG
+            result = gradient.summarize(
+                document=document,
+                length=summary_length
+            )
+            widget.config(state=tk.NORMAL)
+            widget.delete(1.0, tk.END)
 
-        return result
-    except:
-        return None
+            widget.insert(tk.END, result['summary'])
+            widget.config(state=tk.DISABLED)
+
+            print(" Summary result :", result['summary'])
+        except Exception as e:
+            print(e)
+            return None
+    threading.Thread(target=run_f).start()
 
 
-def rag_initialize(data, widget):
-    global rag_pipeline
+def rag_initialize(data = None, widget = None):
+    global rag_pipeline, rag_data, rag_widget
+    rag_pipeline = None
+
+    if rag_widget == None or rag_data == None:
+        return
+
+    if data == None:
+        data = rag_data
+    if widget == None:
+        widget = rag_widget
+
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
 
@@ -142,48 +163,53 @@ def rag_initialize(data, widget):
     docs = [
         Document(content=data)
     ]
+    try:
+        indexing_pipeline = Pipeline()
+        indexing_pipeline.add_component(instance=document_embedder, name="document_embedder")
+        indexing_pipeline.add_component(instance=writer, name="writer")
+        indexing_pipeline.connect("document_embedder", "writer")
+        indexing_pipeline.run({"document_embedder": {"documents": docs}})
 
-    indexing_pipeline = Pipeline()
-    indexing_pipeline.add_component(instance=document_embedder, name="document_embedder")
-    indexing_pipeline.add_component(instance=writer, name="writer")
-    indexing_pipeline.connect("document_embedder", "writer")
-    indexing_pipeline.run({"document_embedder": {"documents": docs}})
 
-    text_embedder = GradientTextEmbedder(
-        access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
-        workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
-    )
+        text_embedder = GradientTextEmbedder(
+            access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
+            workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+        )
 
-    generator = GradientGenerator(
-        access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
-        workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
-        # model_adapter_id=fine_tuned_Model_Id,
-        base_model_slug="nous-hermes2",
-        max_generated_token_count=350,
-    )
+        generator = GradientGenerator(
+            access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
+            workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+            # model_adapter_id=fine_tuned_Model_Id,
+            base_model_slug="nous-hermes2",
+            max_generated_token_count=350,
+        )
 
-    prompt = """You are helpful assistant ment to answer questions to help in clinical documentation. Answer the query, based on the
-    content in the documents. if you dont know the answer say you don't know.
-    {{documents}}
-    Query: {{query}}
-    \nAnswer:
-    """
+        prompt = """You are helpful assistant ment to answer questions to help in clinical documentation. Answer the query, based on the
+        content in the documents. if you dont know the answer say you don't know.
+        {{documents}}
+        Query: {{query}}
+        \nAnswer:
+        """
 
-    retriever = InMemoryEmbeddingRetriever(document_store=document_store)
-    prompt_builder = PromptBuilder(template=prompt)
+        retriever = InMemoryEmbeddingRetriever(document_store=document_store)
+        prompt_builder = PromptBuilder(template=prompt)
 
-    rag_pipeline = Pipeline()
-    rag_pipeline.add_component(instance=text_embedder, name="text_embedder")
-    rag_pipeline.add_component(instance=retriever, name="retriever")
-    rag_pipeline.add_component(instance=prompt_builder, name="prompt_builder")
-    rag_pipeline.add_component(instance=generator, name="generator")
-    rag_pipeline.add_component(instance=AnswerBuilder(), name="answer_builder")
-    rag_pipeline.connect("generator.replies", "answer_builder.replies")
-    rag_pipeline.connect("retriever", "answer_builder.documents")
-    rag_pipeline.connect("text_embedder", "retriever")
-    rag_pipeline.connect("retriever", "prompt_builder.documents")
-    rag_pipeline.connect("prompt_builder", "generator")
-    widget.config(fg='green')
+        rag_pipeline = Pipeline()
+        rag_pipeline.add_component(instance=text_embedder, name="text_embedder")
+        rag_pipeline.add_component(instance=retriever, name="retriever")
+        rag_pipeline.add_component(instance=prompt_builder, name="prompt_builder")
+        rag_pipeline.add_component(instance=generator, name="generator")
+        rag_pipeline.add_component(instance=AnswerBuilder(), name="answer_builder")
+        rag_pipeline.connect("generator.replies", "answer_builder.replies")
+        rag_pipeline.connect("retriever", "answer_builder.documents")
+        rag_pipeline.connect("text_embedder", "retriever")
+        rag_pipeline.connect("retriever", "prompt_builder.documents")
+        rag_pipeline.connect("prompt_builder", "generator")
+        widget.config(fg='green')
+    except:
+        widget.config(fg='red')
+        rag_pipeline = None
+        return
 
 
 def rag_chat(question, widget, widget1):
@@ -191,9 +217,10 @@ def rag_chat(question, widget, widget1):
     def run_function(question = question , widget = widget, widget1 = widget1):
         widget1.config(text='▫▫▫▫')
         question = question.strip()
-        if question == '':
+        if question == '' or rag_pipeline == None:
             widget1.config(text='▶')
             return
+
         widget.config(state=tk.NORMAL)
         widget.insert(tk.END, f" {question}\n", 'user_config')
         widget.config(state=tk.DISABLED)
@@ -221,7 +248,9 @@ def rag_chat(question, widget, widget1):
 
     threading.Thread(target=run_function).start()
 
+
 def Upload_file(widget, widget2):
+    global rag_data, rag_widget
     widget2.config(fg='black')
     file_path = filedialog.askopenfilename()
 
@@ -239,7 +268,8 @@ def Upload_file(widget, widget2):
                 widget.insert(tk.END, f"{paragraph.text} \n")
 
         widget.config(state=tk.DISABLED)
-        print(data)
+        rag_data = data
+        rag_widget = widget2
         threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
 
 
@@ -357,6 +387,7 @@ def access_keys_info():
             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
             print(bg_color)
+
     except Exception as e:
         print("access_keys_info Function:", e)
         pass
@@ -366,7 +397,10 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
     widget.configure(scrollregion=widget.bbox("all"))
 
 
-def attach_scroll(widget, color='white'):
+def attach_scroll(widget, color=None):
+    global bg_color
+    if color is None:
+        color = bg_color
     FRAME_2 = tk.Frame(widget, bg=color)
     FRAME_2.place(relwidth=1, relheight=1, relx=0, rely=0)
     canvas_FRAME_2 = tk.Canvas(FRAME_2, highlightthickness=0, bg=color)  # Create a Canvas widget to hold the frame and enable scrolling
@@ -757,6 +791,8 @@ def change_color(widget, button):
             wdget.config(bg=bg_color, fg=fg_color)
         elif isinstance(wdget, tk.Entry):
             wdget.config(bg=bg_color, fg=fg_color)
+        elif isinstance(wdget, tk.Canvas):
+            wdget.config(bg=bg_color)
         else:
             # widget.config(bg=bg_icolor, fg='white')
             pass
@@ -1115,8 +1151,8 @@ def settings(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
 
     def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
-        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
-
+        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys, setting_status
+        setting_status = True
         gradient_ai_access_key = str(g_access).strip()
         gradient_ai_workspace_id = str(g_workkey).strip()
         gradient_ai_finetuned_id = str(g_finetuned_id).strip()
@@ -1149,7 +1185,7 @@ def settings(widget):
         print("gradient_ai_access_key", gradient_ai_access_key)
         print("gradient_ai_workspace_id", gradient_ai_workspace_id)
         print("assemblyai_access_key", assemblyai_access_key)
-
+        rag_initialize()
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
@@ -1389,47 +1425,47 @@ def User_Home_page(widget):
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
 
-    profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
 
-    st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='📞', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
 
-    st3_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
+    st3_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
 
-    st7_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='☏', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 20), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
@@ -1488,15 +1524,20 @@ def main():
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
     global bg_color
-    print(bg_color)
+    print("main started")
+
     access_keys_info()
 
     root = tk.Tk()
-    #root.call('tk', 'scaling', '1.0')
-    root.title("Digital Scribe")
+
+    scale = tk.Scale(root, from_=0, to=256, orient=tk.HORIZONTAL)
+    scale.set(100)  # Set the default value to 100
+    ctypes.windll.shcore.SetProcessDpiAwareness(2)  # For Windows 8.1 and above
+
+    root.title("")
     root.state('zoomed')  # this creates a window that takes over the screen
     root.minsize(600, 500)
-
+    root.geometry("1920x1280")
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
     print(str(screen_width) + "\n" + str(screen_height))

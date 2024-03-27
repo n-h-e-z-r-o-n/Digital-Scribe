@@ -3,10 +3,10 @@
     "_GW_": "1b99bbdd-1360-4321-a152-fc8822334cd0_workspace",
     "_G_FT_M_": "",
     "_G_B_M_": "nous-hermes2",
-    "_AAI_": "",
-    "bg_color": "#353839",
-    "fg_color": "white",
+    "_AAI_": "1b99bbdd-1360-4321-a152-fc8822334cd0_workspace",
+    "bg_color": "white",
+    "fg_color": "black",
     "fg_hovercolor": "red",
     "bg_hovercolor": "lightgreen",
-    "current_theme": "window(dark)"
+    "current_theme": "window(light)"
 }

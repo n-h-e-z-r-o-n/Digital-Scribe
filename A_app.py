@@ -1,23 +1,27 @@
 import tkinter as tk
-from tkinter import ttk
 
-def main():
-    root = tk.Tk()
+def resize(event):
+    # Prevent resizing by setting the widget's size to its original size
+    widget.config(width=original_width)
+    print("resized")
 
-    # Set the call method to "auto" for automatic scaling
-    root.call('tk', 'scaling', '6.0')
+root = tk.Tk()
+root.title("Resizable Widget Demo")
+screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
+screen_height = root.winfo_screenheight()  # Get the screen height dimensions
+# Set the original size of the widget
+original_width = int(screen_width * 0.01)
 
-    # Alternatively, you can set a fixed DPI scaling factor
-    # root.tk.call('tk', 'scaling', 2.0)  # Adjust the scaling factor as needed
 
-    # Create widgets using ttk for better scaling
-    label = ttk.Label(root, text="Hello, Tkinter!")
-    label.pack(pady=10)
+# Create a frame to contain the widget
+frame = tk.Frame(root)
+frame.pack(expand=True, fill="both")
 
-    button = ttk.Button(root, text="Click Me")
-    button.pack(pady=10)
+# Create the widget (e.g., a label)
+widget = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
+widget.place(rely=0, relx=0, relheight=1)
 
-    root.mainloop()
+# Bind the resize event to the function that prevents resizing
+root.bind("<Configure>", resize)
 
-if __name__ == "__main__":
-    main()
+root.mainloop()
