@@ -1434,7 +1434,7 @@ def User_Home_page(widget):
 
 
     side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
-    side_bar.place(relheight=1, relwidth=1.25, rely=0, relx=0)
+    side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     #side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
