@@ -1408,8 +1408,9 @@ def User_Home_page(widget):
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
+    """
     # PROFILE_widget = profile(Home_page_frame)
-
+ 
     CHAT_Widget = chat(Home_page_frame)
     CALL_Widget = call(Home_page_frame)
     rag_widget = RAG_page(Home_page_frame)
@@ -1433,7 +1434,7 @@ def User_Home_page(widget):
     side_wdg_height = int(screen_height * 0.96)
 
     side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
-    #side_bar.place(rely=0.02, relx=0, width=side_wdg_width, height=side_wdg_height) #.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
+    side_bar.place(rely=0.02, relx=0, width=side_wdg_width, height=side_wdg_height) #.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
     #side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
@@ -1483,7 +1484,8 @@ def User_Home_page(widget):
 
     return Home_page_frame
 
-
+    """
+    
 def Welcome_Page(wiget):
     global screen_width, screen_height
     home_widget, welcome_page_root = attach_scroll(wiget)
