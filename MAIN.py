@@ -1434,7 +1434,7 @@ def User_Home_page(widget):
     side_wdg_width = int(screen_width * 0.025)
     side_wdg_height = int(screen_height * 0.96)
 
-    side_bar = tk.Frame(Home_page_frame, bg=bg_color, borderwidth=0, border=0)
+    side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(rely=0.02, relx=0, width=side_wdg_width, height=side_wdg_height) #.place(relheight=0.96, relwidth=0.025, rely=0.02, relx=0)
     #side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
