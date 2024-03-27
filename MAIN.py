@@ -1527,7 +1527,7 @@ def resize(widget, width, heigh):
     global root, screen_width, screen_height
 
     # Prevent resizing by setting the widget's size to its original size
-    widget.config(width=original_width, height=original_height)
+    widget.config(width=width, height=heigh)
     print("resized")
 
 
