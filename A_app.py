@@ -21,6 +21,10 @@ frame.pack(expand=True, fill="both")
 widget = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
 widget.place(rely=0, relx=0, relheight=1)
 
+
+widget = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
+widget.place(rely=0.1, relx=0, relheight=1)
+
 # Bind the resize event to the function that prevents resizing
 root.bind("<Configure>", resize)
 
