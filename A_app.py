@@ -3,10 +3,14 @@ import tkinter as tk
 root = tk.Tk()
 root.title("")  # Set title to an empty string to minimize any impact on the width
 
-screen_width = root.winfo_screenwidth()
-virtual_width = root.winfo_vrootwidth()
+total_height = root.winfo_screenheight()
 
-print("Screen Width:", screen_width)
-print("Virtual Width:", virtual_width)
+# Get the height of the window content area
+content_height = root.winfo_height()
+
+# Calculate the title bar height
+title_bar_height = total_height - content_height
+
+print("Title Bar Height:", title_bar_height)
 
 root.mainloop()
