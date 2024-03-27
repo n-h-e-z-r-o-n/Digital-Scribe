@@ -10,13 +10,16 @@ root = tk.Tk()
 root.title("Resizable Widget Demo")
 screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
 screen_height = root.winfo_screenheight()  # Get the screen height dimensions
+
+
+
 # Set the original size of the widget
 original_width = int(screen_width * 0.01)
 
 
 # Create a frame to contain the widget
 frame = tk.Frame(root)
-frame.pack(expand=True, fill="both")
+frame.place(relx=0, rely=0, width=screen_width, height=screen_height)
 
 # Create the widget (e.g., a label)
 widget = tk.Label(frame, text="Resizable Widget", bg="lightblue", width=original_width, height=screen_height)
