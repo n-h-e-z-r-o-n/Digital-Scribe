@@ -1553,6 +1553,8 @@ def main():
     root.geometry("1920x1280")
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
+    content_height = root.winfo_height()
+    screen_height = screen_height - content_height
     print(str(screen_width) + "\n" + str(screen_height))
 
     # dark_title_bar(root)
