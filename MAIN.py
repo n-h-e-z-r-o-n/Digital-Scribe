@@ -1399,6 +1399,7 @@ def User_Home_page(widget):
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
     container2.place(rely=0.02, relx=0.0253, width=int(screen_width * 0.9747), height=int(screen_height * 0.96) )  #place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
+    """
     nav_bar_color = bg_color
     nav_bar_btn_hover_color = bg_hovercolor
     nav_bar = tk.Frame(Home_page_frame, bg=nav_bar_color)
@@ -1408,7 +1409,7 @@ def User_Home_page(widget):
     nav_bar_bt5_widget.place(relheight=0.9, relwidth=0.06, rely=0.05, relx=0.935)
     change_bg_OnHover(nav_bar_bt5_widget, nav_bar_btn_hover_color, nav_bar_color)
 
-    """
+    
     # PROFILE_widget = profile(Home_page_frame)
  
     CHAT_Widget = chat(Home_page_frame)
