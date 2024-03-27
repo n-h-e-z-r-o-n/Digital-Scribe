@@ -11,6 +11,6 @@ content_height = root.winfo_height()
 # Calculate the title bar height
 title_bar_height = total_height - content_height
 
-print("{content_height} : {total_height} Title Bar Height:", title_bar_height)
+print(f"{content_height} : {total_height} Title Bar Height:", title_bar_height)
 
 root.mainloop()
