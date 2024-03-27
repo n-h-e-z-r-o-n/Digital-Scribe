@@ -1559,10 +1559,7 @@ def main():
 
     # dark_title_bar(root)
 
-    attach_scroll(root, color=None)
-
-
-    User_Home_page(root)
+    User_Home_page(X)
 
     def on_closing():
         global session, root, closed
