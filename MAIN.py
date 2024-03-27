@@ -1559,6 +1559,9 @@ def main():
 
     # dark_title_bar(root)
 
+    attach_scroll(root, color=None)
+
+
     User_Home_page(root)
 
     def on_closing():
