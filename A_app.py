@@ -3,7 +3,7 @@ import tkinter as tk
 def resize(event):
     # Prevent resizing by setting the widget's size to its original size
     widget.config(width=original_width)
-    widget.config(width=original_width)
+    widget2.config(width=original_width)
     print("resized")
 
 root = tk.Tk()
