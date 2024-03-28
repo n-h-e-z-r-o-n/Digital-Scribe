@@ -797,6 +797,9 @@ def change_color(widget, button):
             wdget.config(bg=bg_color, fg=fg_color)
         elif isinstance(wdget, tk.Canvas):
             wdget.config(bg=bg_color)
+        elif isinstance(wdget, tk.Checkbutton):
+            wdget.config(bg=bg_color)
+        
         else:
             # widget.config(bg=bg_icolor, fg='white')
             pass
