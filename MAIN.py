@@ -113,7 +113,7 @@ def Entity_Extraction(document, entity_list, widget):
     except Exception as e:
         print(type(e).__name__)
         if type(e).__name__ == 'BadRequestException':
-            error = "Error :" + str(type(e).__name__) + " :Please define your entites. if defined Check Your defined entities format"
+            error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
             widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
             widget.insert(tk.END, error)
