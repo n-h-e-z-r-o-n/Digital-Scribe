@@ -936,7 +936,7 @@ def chat(widget):
 
         style = ttk.Style()
         style.configure("Custom.TCheckbutton", background=bg_color, foreground="blue")
-        chk_var = tk.BooleanVar()
+        chk_var = tk.BooleanVar(value=True)
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
