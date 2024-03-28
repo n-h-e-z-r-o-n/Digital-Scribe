@@ -1394,7 +1394,7 @@ def User_Home_page(widget):
     Home_page_frame.place(relx=0, rely=0)
 
     container1 = tk.Frame(Home_page_frame, bg=bg_color)
-    container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1)-15))
+    container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1)-20))
 
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
     container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int(screen_height * 1) )  #place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
