@@ -12,5 +12,8 @@ content_height = root.winfo_height()
 title_bar_height = total_height - content_height
 
 print(f"{content_height} : {total_height} Title Bar Height:", title_bar_height)
+print('root.winfo_x() = ', root.winfo_height())
+print('root.winfo_y() = ', root.winfo_y())
+print('root.geometry() = ', root.geometry())
 
 root.mainloop()
