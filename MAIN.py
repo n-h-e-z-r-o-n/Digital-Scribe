@@ -897,7 +897,7 @@ def chat(widget):
     title = tk.Frame(entity_section, bg=bg_color, borderwidth=2, border=1)
     title.place(relheight=0.036, relwidth=1, rely=0, relx=0)
     tk.Label(title, text="Field Name", bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
-    tk.Label(title, text="Type", bg=bg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
+    tk.Label(title, text="Type", bg=bg_color,fg=fg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
 
     fr = tk.Frame(entity_section, bg=bg_color, borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0.036, relx=0)
