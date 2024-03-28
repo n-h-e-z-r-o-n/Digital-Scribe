@@ -940,7 +940,7 @@ def chat(widget):
 
         entity_name = tk.Entry(new_entity, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Times New Roman", 11))
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
-        type_widget = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
+        entity_type_widget = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
         type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
         checkbox = ttk.Checkbutton(new_entity, style="Custom.TCheckbutton", variable=chk_var, onvalue=True, offvalue=False)
         checkbox.place(relx=0.8,  rely=0, relwidth=0.1, relheight=1)
