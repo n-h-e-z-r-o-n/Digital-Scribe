@@ -940,8 +940,8 @@ def chat(widget):
 
         entity_name = tk.Entry(new_entity, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Times New Roman", 11))
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
-        entity_type_widget = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
-        type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
+        entity_type = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
+        entity_type.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
         checkbox = ttk.Checkbutton(new_entity, style="Custom.TCheckbutton", variable=chk_var, onvalue=True, offvalue=False)
         checkbox.place(relx=0.8,  rely=0, relwidth=0.1, relheight=1)
         close_widg = tk.Button(new_entity, bg=bg_color, fg=fg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
@@ -950,7 +950,7 @@ def chat(widget):
 
         new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
-        entity_widget_lists.append((new_entity, entity_name, type_widget))
+        entity_widget_lists.append((new_entity, entity_name, entity_type, chk_var.get()))
 
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
