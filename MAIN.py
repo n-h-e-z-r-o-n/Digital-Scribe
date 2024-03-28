@@ -94,7 +94,7 @@ def Entity_Extraction(document, entity_list, widget):
     print(schema)
     dictionary = eval(schema)
     print(dictionary)
-
+    print("starting")
     try:
         result = mygradient.extract(
             document=document,
@@ -110,7 +110,8 @@ def Entity_Extraction(document, entity_list, widget):
         widget.config(state=tk.DISABLED)
         print(result)
         return result
-    except:
+    except Exception as e:
+        print(e)
         return None
 
 
