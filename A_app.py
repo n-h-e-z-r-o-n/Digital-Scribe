@@ -1,26 +1,24 @@
 import tkinter as tk
-from tkinter import ttk
 
-def on_checkbox_click():
-    if chk_var.get():
-        print("Checkbox is checked :", chk_var.get() )
-    else:
-        print("Checkbox is unchecked :", chk_var.get())
+def on_drag(event):
+    # Update the size of the panes based on the drag event
+    paned_window.sash_place(1, event.x, event.y)
 
-# Create the main application window
 root = tk.Tk()
-root.title("Custom Checkbox Example")
+root.title("Resizable Widget Demo")
 
-# Create a Tkinter variable to hold the checkbox state
-chk_var = tk.BooleanVar()
+# Create a PanedWindow
+paned_window = tk.PanedWindow(root, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.RAISED)
+paned_window.pack(fill=tk.BOTH, expand=True)
 
-# Create a custom style for the checkbox
-style = ttk.Style()
-style.configure("Custom.TCheckbutton", background="black", foreground="green")
+# Add widgets to the PanedWindow
+widget1 = tk.Label(paned_window, text="Resizable Widget 1", bg="lightblue")
+widget2 = tk.Label(paned_window, text="Resizable Widget 2", bg="lightgreen")
 
-# Create the custom checkbox
-checkbox = ttk.Checkbutton(root,variable=chk_var, style="Custom.TCheckbutton", command=on_checkbox_click)
-checkbox.place(relx=0.8,  rely=0.2, relwidth=0.1, relheight=0.1)
+paned_window.add(widget1)
+paned_window.add(widget2)
 
-# Run the Tkinter event loop
+# Bind the motion event to the on_drag function
+paned_window.bind("<B1-Motion>", on_drag)
+
 root.mainloop()
