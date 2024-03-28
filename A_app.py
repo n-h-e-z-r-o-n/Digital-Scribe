@@ -8,7 +8,10 @@ root = tk.Tk()
 root.title("Resizable Widget Demo")
 
 # Create a PanedWindow
-paned_window = tk.PanedWindow(root, orient=tk.VERTICAL, sashwidth=8, sashrelief=tk.RAISED)
+
+F = tk.Frame(root)
+F.place(relheight=0.5, relwidth=0.5, relx=0.1, rely=0.1)
+paned_window = tk.PanedWindow(F, orient=tk.VERTICAL, sashwidth=8, sashrelief=tk.RAISED)
 paned_window.pack(fill=tk.BOTH, expand=True)
 
 # Add widgets to the PanedWindow
