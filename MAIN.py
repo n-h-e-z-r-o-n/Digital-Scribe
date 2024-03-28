@@ -86,7 +86,7 @@ def Entity_Extraction(document, entity_list, widget):
     schema = '{'
     for i in entity_list:
         schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": False, }, '
-        print(i[1].get(), '--', i[2].cget("text"), '--', i[3])
+        print(i[1].get(), '--', i[2].cget("text"), '--', i[3].get())
 
     return
 
@@ -953,7 +953,7 @@ def chat(widget):
 
         new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
-        entity_widget_lists.append((new_entity, entity_name, entity_type, chk_var.get()))
+        entity_widget_lists.append((new_entity, entity_name, entity_type, chk_var))
 
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
