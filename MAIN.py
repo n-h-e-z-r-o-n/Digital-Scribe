@@ -88,7 +88,7 @@ def Entity_Extraction(document, entity_list, widget):
         schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + i[3].get() + ', }, '
         print(i[1].get(), '--', i[2].cget("text"), '--', i[3].get())
 
-    return
+
 
     schema += '}'
     print(schema)
