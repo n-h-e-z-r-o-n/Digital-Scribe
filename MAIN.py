@@ -112,7 +112,7 @@ def Entity_Extraction(document, entity_list, widget):
 
     except Exception as e:
         print("Error :", type(e).__name__)
-        print("Error :", e.)
+        print("Error :", e.args.)
         widget.config(state=tk.NORMAL)
         widget.delete(1.0, tk.END)
         widget.insert(tk.END, e)
