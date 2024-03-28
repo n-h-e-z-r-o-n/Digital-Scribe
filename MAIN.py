@@ -109,14 +109,14 @@ def Entity_Extraction(document, entity_list, widget):
 
         widget.config(state=tk.DISABLED)
         print(result)
-        return result
+
     except Exception as e:
-        print("Error :", e)
+        print("Error :", e.args)
         widget.config(state=tk.NORMAL)
         widget.delete(1.0, tk.END)
-        widget.insert(tk.END, m)
+        widget.insert(tk.END, e)
+        widget.config(state=tk.DISABLED)
 
-        return e
 
 
 def D_Summary(widget1, widget):
