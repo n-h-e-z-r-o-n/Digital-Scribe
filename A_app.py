@@ -19,7 +19,7 @@ style = ttk.Style()
 style.configure("Custom.TCheckbutton", background="black", foreground="green")
 
 # Create the custom checkbox
-checkbox = ttk.Checkbutton(root, variable=chk_var, style="Custom.TCheckbutton", command=on_checkbox_click)
+checkbox = ttk.Checkbutton(root, variable=chk_var, style="Custom.TCheckbutton")
 checkbox.place(relx=0.8,  rely=0.2, relwidth=0.1, relheight=0.1)
 
 # Run the Tkinter event loop
