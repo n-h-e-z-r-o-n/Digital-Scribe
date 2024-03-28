@@ -3,9 +3,9 @@ from tkinter import ttk
 
 def on_checkbox_click():
     if chk_var.get():
-        print("Checkbox is checked")
+        print("Checkbox is checked :", chk_var.get() )
     else:
-        print("Checkbox is unchecked")
+        print("Checkbox is unchecked :", chk_var.get())
 
 # Create the main application window
 root = tk.Tk()
