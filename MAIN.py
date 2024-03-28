@@ -113,12 +113,17 @@ def Entity_Extraction(document, entity_list, widget):
     except Exception as e:
         print(type(e).__name__)
         if type(e).__name__ == 'BadRequestException':
-            error = "Error :" + str(type(e).__name__) + " : Check Your defined entities"
+            error = "Error :" + str(type(e).__name__) + " :Please define your entites. if defined Check Your defined entities format"
             widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
             widget.insert(tk.END, error)
             widget.config(state=tk.DISABLED)
-       
+        elif type(e).__name__ == 'MaxRetryError':
+            error = "Error :"  + " : Check Your internet conection"
+            widget.config(state=tk.NORMAL)
+            widget.delete(1.0, tk.END)
+            widget.insert(tk.END, error)
+            widget.config(state=tk.DISABLED)
 
 
 def D_Summary(widget1, widget):
