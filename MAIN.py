@@ -111,11 +111,12 @@ def Entity_Extraction(document, entity_list, widget):
         print(result)
 
     except Exception as e:
-        print("Error :", type(e).__name__, " : Check Your defined entities")
-        widget.config(state=tk.NORMAL)
-        widget.delete(1.0, tk.END)
-        widget.insert(tk.END, e)
-        widget.config(state=tk.DISABLED)
+        if type(e).__name__ == 'BadRequestException':
+            error = "Error :", type(e).__name__, " : Check Your defined entities"
+            widget.config(state=tk.NORMAL)
+            widget.delete(1.0, tk.END)
+            widget.insert(tk.END, error)
+            widget.config(state=tk.DISABLED)
 
 
 
