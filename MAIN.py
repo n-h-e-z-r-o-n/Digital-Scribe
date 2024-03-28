@@ -111,7 +111,7 @@ def Entity_Extraction(document, entity_list, widget):
         print(result)
         return result
     except Exception as e:
-        print(e)
+        print("Error :", e)
         return e
 
 
