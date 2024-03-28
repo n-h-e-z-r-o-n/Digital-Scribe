@@ -125,7 +125,7 @@ def Entity_Extraction(document, entity_list, widget):
             widget.insert(tk.END, error)
             widget.config(state=tk.DISABLED)
         elif type(e).__name__ == 'ServiceException':
-            error = "Error :" + " : Check Your internet conection"
+            error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
             widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
             widget.insert(tk.END, error)
