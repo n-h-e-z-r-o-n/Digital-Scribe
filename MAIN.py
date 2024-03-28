@@ -86,7 +86,7 @@ def Entity_Extraction(document, entity_list, widget):
     schema = '{'
     for i in entity_list:
         schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": False, }, '
-        print(i[1].get(), '--', i[2].cget("text"))
+        print(i[1].get(), '--', i[2].cget("text"), '--', i[3].cget("text"))
     schema += '}'
     print(schema)
     dictionary = eval(schema)
