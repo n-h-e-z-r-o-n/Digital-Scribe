@@ -932,7 +932,7 @@ def chat(widget):
                 widget.config(text=entity_type)
 
         style = ttk.Style()
-        style.configure("Custom.TCheckbutton", background="lightblue", foreground="blue")
+        style.configure("Custom.TCheckbutton", background=bg_color, foreground="blue")
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
@@ -941,7 +941,7 @@ def chat(widget):
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
         type_widget = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(type_widget))
         type_widget.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
-        checkbox = tk.Checkbutton(new_entity, bg=bg_color, fg=fg_color, activebackground=bg_color, borderwidth=0, border=0)
+        checkbox = tk.Checkbutton(new_entity, style="Custom.TCheckbutton", activebackground=bg_color, borderwidth=0, border=0)
         checkbox.place(relx=0.8,  rely=0, relwidth=0.05, relheight=1)
         close_widg = tk.Button(new_entity, bg=bg_color, fg=fg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
