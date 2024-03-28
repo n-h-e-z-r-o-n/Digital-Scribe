@@ -817,6 +817,8 @@ def change_color(widget, button):
             wdget.config(bg=bg_color)
         elif isinstance(wdget, tk.Checkbutton):
             wdget.config(bg=bg_color, activebackground=bg_color)
+       
+        PanedWindow
 
         else:
             # widget.config(bg=bg_icolor, fg='white')
