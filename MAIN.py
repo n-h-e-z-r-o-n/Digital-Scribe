@@ -15,6 +15,7 @@ import os
 import json
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
+from tkinter import ttk
 import docx
 import ctypes
 # ------------------------------
@@ -929,6 +930,9 @@ def chat(widget):
             else:
                 entity_type = "STRING"
                 widget.config(text=entity_type)
+
+        style = ttk.Style()
+        style.configure("Custom.TCheckbutton", background="lightblue", foreground="blue")
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
