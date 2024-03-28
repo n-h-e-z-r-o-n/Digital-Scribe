@@ -111,8 +111,8 @@ def Entity_Extraction(document, entity_list, widget):
         print(result)
         return result
     except Exception as e:
-        print(e.args)
-        return e.args
+        print(e)
+        return e
 
 
 def D_Summary(widget1, widget):
