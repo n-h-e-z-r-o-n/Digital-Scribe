@@ -819,7 +819,7 @@ def change_color(widget, button):
             wdget.config(bg=bg_color, activebackground=bg_color)
         elif isinstance(wdget, tk.PanedWindow):
             wdget.config(bg=bg_color)
-            
+
         else:
             # widget.config(bg=bg_icolor, fg='white')
             pass
