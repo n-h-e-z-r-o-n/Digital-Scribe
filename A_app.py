@@ -1,19 +1,21 @@
 import tkinter as tk
 
+def on_checkbox_click():
+    if chk_var.get():
+        print("Checkbox is checked")
+    else:
+        print("Checkbox is unchecked")
+
+# Create the main application window
 root = tk.Tk()
-root.title("")  # Set title to an empty string to minimize any impact on the width
+root.title("Checkbox Example")
 
-total_height = root.winfo_screenheight()
+# Create a Tkinter variable to hold the checkbox state
+chk_var = tk.BooleanVar()
 
-# Get the height of the window content area
-content_height = root.winfo_height()
+# Create the checkbox
+checkbox = tk.Checkbutton(root, text="Check me", variable=chk_var, command=on_checkbox_click)
+checkbox.pack()
 
-# Calculate the title bar height
-title_bar_height = total_height - content_height
-
-print(f"{content_height} : {total_height} Title Bar Height:", title_bar_height)
-print('root.winfo_x() = ', root.winfo_height())
-print('root.winfo_y() = ', root.winfo_y())
-print('root.geometry() = ', root.geometry())
-
+# Run the Tkinter event loop
 root.mainloop()
