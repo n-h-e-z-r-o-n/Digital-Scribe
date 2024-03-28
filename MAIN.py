@@ -916,6 +916,9 @@ def chat(widget):
     #t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t2.config(state=tk.DISABLED)
 
+    paned_window.add(t1)
+    paned_window.add(t2)
+    """
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
 
@@ -990,7 +993,7 @@ def chat(widget):
     Summary_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
     Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
-
+    """
     return chatbot_widget
 
 
