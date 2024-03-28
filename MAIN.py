@@ -798,8 +798,8 @@ def change_color(widget, button):
         elif isinstance(wdget, tk.Canvas):
             wdget.config(bg=bg_color)
         elif isinstance(wdget, tk.Checkbutton):
-            wdget.config(bg=bg_color)
-        
+            wdget.config(bg=bg_color, activebackground=bg_color)
+
         else:
             # widget.config(bg=bg_icolor, fg='white')
             pass
@@ -939,7 +939,7 @@ def chat(widget):
 
         #style = ttk.Style()
         #style.configure("Custom.TCheckbutton", background=bg_color, foreground="blue")
-        chk_var = tk.BooleanVar(value=True)
+        chk_var = tk.BooleanVar(value=False)
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
         new_entity.pack(side=tk.TOP, fill=tk.X)
@@ -948,7 +948,7 @@ def chat(widget):
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
         entity_type = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(entity_type))
         entity_type.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
-        entity_requred = tk.Checkbutton(new_entity,  background=bg_color, variable=chk_var, onvalue=True, offvalue=False)
+        entity_requred = tk.Checkbutton(new_entity,  background=bg_color, activebackground=bg_color, variable=chk_var, onvalue=True, offvalue=False)
         entity_requred.place(relx=0.8,  rely=0, relwidth=0.1, relheight=1)
         close_widg = tk.Button(new_entity, bg=bg_color, fg=fg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
