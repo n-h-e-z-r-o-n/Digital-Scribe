@@ -439,6 +439,7 @@ def RUN_OFFLINE_speech_recognition(widget):
 
             widget.config(state=tk.NORMAL)
             widget.insert(tk.END, f" {text}")
+            widget.see(tk.END)
             widget.config(state=tk.DISABLED)
             print("----", text)
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
