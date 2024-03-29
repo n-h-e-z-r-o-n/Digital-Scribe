@@ -59,7 +59,6 @@ def RUN_OFFLINE_speech_recognition():
         p.terminate()
 
 
-
     def speech_recognition(output):
         global closed
         print("scanning")
