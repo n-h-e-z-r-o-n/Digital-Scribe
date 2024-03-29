@@ -436,7 +436,7 @@ def RUN_OFFLINE_speech_recognition(widget):
             if text == "the" or text == "" :
                 continue
             Recording_data += text
-            
+
             widget.config(state=tk.NORMAL)
             widget.insert(tk.END, f" {text}")
             widget.config(state=tk.DISABLED)
