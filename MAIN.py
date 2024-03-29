@@ -436,9 +436,9 @@ def RUN_OFFLINE_speech_recognition(widget):
             if text == "the" or text == "" :
                 continue
             Recording_data += text
-            print(type(widget))
+            
             widget.config(state=tk.NORMAL)
-            widget.insert(tk.END, f" {text}\n")
+            widget.insert(tk.END, f" {text}")
             widget.config(state=tk.DISABLED)
             print("----", text)
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
