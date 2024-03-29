@@ -374,7 +374,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def RUN_OFFLINE_speech_recognition(widget=None):
-    global closed, Recording
+    global closed, Recording, Recording_data
     messages = Queue()
     recordings = Queue()
     output = []
