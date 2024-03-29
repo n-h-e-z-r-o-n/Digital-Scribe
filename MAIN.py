@@ -423,7 +423,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
 
 
     def speech_recognition(widget=widget):
-        global closed
+        global closed, Recording_data
         print("scanning")
         while not messages.empty():
             if closed:
@@ -445,7 +445,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             # time.sleep(1)
 
 
-    
+
     start_recording()
 # =============================== scroll Functions definition ===============================================================================================================
 
