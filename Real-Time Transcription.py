@@ -13,7 +13,7 @@ for i in range(p.get_device_count()):
 closed = False
 
 
-def RUN_OFFLINE_speech_recognition():
+def RUN_OFFLINE_speech_recognition(widget=None):
     global closed
     messages = Queue()
     recordings = Queue()
@@ -48,6 +48,8 @@ def RUN_OFFLINE_speech_recognition():
                         frames_per_buffer=chunk)
         frames = []
         while not messages.empty():
+            if closed:
+                break
             data = stream.read(chunk)
             frames.append(data)
             if len(frames) >= (FRAME_RATE * RECORD_SECONDS) / chunk:
