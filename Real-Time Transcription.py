@@ -75,7 +75,7 @@ def speech_recognition(output):
 
 
 
-
+def 
 
 start_recording()
 
