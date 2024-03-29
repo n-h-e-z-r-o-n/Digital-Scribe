@@ -36,7 +36,7 @@ from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
-# ------------------------------- Speech recogniation
+# ------------------------------- Speech recogniation libraries --------------------------------------------------------------------------------------------
 from queue import Queue
 from threading import Thread
 import pyaudio
@@ -84,6 +84,7 @@ sammary_data = None
 # =============================== Functions definition ============================================================================================
 # =================================================================================================================================================
 
+# ============================================= NLP  ==========================================================================================
 
 def Entity_Extraction(document, entity_list, widget):
     document = (document.strip())
@@ -369,6 +370,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
     threading.Thread(target=run).start()
 
+# =============================== Sp ===============================================================================================================
 # =============================== scroll Functions definition ===============================================================================================================
 
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
