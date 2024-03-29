@@ -10,10 +10,11 @@ for i in range(p.get_device_count()):
     print(F" {M['index']}   {M['name']}")
 
 
-
+closed = False
 
 
 def RUN_OFFLINE_speech_recognition():
+    global closed
     messages = Queue()
     recordings = Queue()
     output = []
@@ -59,6 +60,7 @@ def RUN_OFFLINE_speech_recognition():
 
 
     def speech_recognition(output):
+        global closed
         print("scanning")
         while not messages.empty():
             frames = recordings.get()
@@ -70,6 +72,7 @@ def RUN_OFFLINE_speech_recognition():
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
             # time.sleep(1)
+        print("tr")
 
 
 start_recording()
