@@ -37,6 +37,7 @@ def RUN_OFFLINE_speech_recognition():
         print("Stopped.")
 
     def record_microphone(chunk=1024, RECORD_SECONDS=2):
+        global closed
         p = pyaudio.PyAudio()
         FRAME_RATE = 16000
         stream = p.open(format=pyaudio.paInt16,
@@ -56,14 +57,14 @@ def RUN_OFFLINE_speech_recognition():
         stream.stop_stream()
         stream.close()
         p.terminate()
-        print("mic term")
+
 
 
     def speech_recognition(output):
         global closed
         print("scanning")
         while not messages.empty():
-            if  closed:
+            if closed:
                 break
             frames = recordings.get()
 
@@ -74,7 +75,7 @@ def RUN_OFFLINE_speech_recognition():
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
             # time.sleep(1)
-        
+
 
 
     start_recording()
