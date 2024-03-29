@@ -10,72 +10,67 @@ for i in range(p.get_device_count()):
     print(F" {M['index']}   {M['name']}")
 
 
-messages = Queue()
-recordings = Queue()
-
-output = []
-def start_recording():
-    messages.put(True)
-    print("Starting...")
-    record = Thread(target=record_microphone)
-    record.start()
-
-    transcribe = Thread(target=speech_recognition, args=(output,))
-    transcribe.start()
-
-
-def stop_recording(data):
-    messages.get()
-    print("Stopped.")
 
 
 
-def record_microphone(chunk=1024, RECORD_SECONDS = 2 ):
-    p = pyaudio.PyAudio()
+def RUN_OFFLINE_speech_recognition():
+    messages = Queue()
+    recordings = Queue()
+    output = []
     FRAME_RATE = 16000
-    stream = p.open(format=pyaudio.paInt16,
-                    channels=1,
-                    rate=16000,
-                    input=True,
-                    input_device_index=0,
-                    frames_per_buffer=chunk)
-    frames = []
-    while not messages.empty():
-        data = stream.read(chunk)
-        frames.append(data)
-        if len(frames) >= (FRAME_RATE * RECORD_SECONDS) / chunk:
-            recordings.put(frames.copy())
-            frames = []
+    model = Model(model_name="vosk-model-en-us-0.22")
+    rec = KaldiRecognizer(model, FRAME_RATE)
+    rec.SetWords(True)
 
-    stream.stop_stream()
-    stream.close()
-    p.terminate()
-    print("mic term")
+    def start_recording():
+        messages.put(True)
+        print("Starting...")
+        record = Thread(target=record_microphone)
+        record.start()
 
+        transcribe = Thread(target=speech_recognition, args=(output,))
+        transcribe.start()
 
+    def stop_recording(data):
+        messages.get()
+        print("Stopped.")
 
-FRAME_RATE = 16000
-model = Model(model_name="vosk-model-en-us-0.22")
-rec = KaldiRecognizer(model, FRAME_RATE)
-rec.SetWords(True)
+    def record_microphone(chunk=1024, RECORD_SECONDS=2):
+        p = pyaudio.PyAudio()
+        FRAME_RATE = 16000
+        stream = p.open(format=pyaudio.paInt16,
+                        channels=1,
+                        rate=16000,
+                        input=True,
+                        input_device_index=0,
+                        frames_per_buffer=chunk)
+        frames = []
+        while not messages.empty():
+            data = stream.read(chunk)
+            frames.append(data)
+            if len(frames) >= (FRAME_RATE * RECORD_SECONDS) / chunk:
+                recordings.put(frames.copy())
+                frames = []
 
-
-def speech_recognition(output):
-    print("scanning")
-    while not messages.empty():
-        frames = recordings.get()
-
-        rec.AcceptWaveform(b''.join(frames))
-        result = rec.Result()
-        text = json.loads(result)["text"]
-        print("----", text)
-        #cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
-        #output.append_stdout(cased)
-        #time.sleep(1)
-
+        stream.stop_stream()
+        stream.close()
+        p.terminate()
+        print("mic term")
 
 
-def 
+    def speech_recognition(output):
+        print("scanning")
+        while not messages.empty():
+            frames = recordings.get()
+
+            rec.AcceptWaveform(b''.join(frames))
+            result = rec.Result()
+            text = json.loads(result)["text"]
+            print("----", text)
+            # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
+            # output.append_stdout(cased)
+            # time.sleep(1)
+
 
 start_recording()
 
