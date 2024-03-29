@@ -378,7 +378,6 @@ def RUN_OFFLINE_speech_recognition(widget):
 
     messages = Queue()
     recordings = Queue()
-    output = []
     FRAME_RATE = 16000
     model = Model(model_name="vosk-model-en-us-0.22")
     rec = KaldiRecognizer(model, FRAME_RATE)
@@ -391,7 +390,7 @@ def RUN_OFFLINE_speech_recognition(widget):
         record = Thread(target=record_microphone)
         record.start()
 
-        transcribe = Thread(target=speech_recognition, args=(output,))
+        transcribe = Thread(target=speech_recognition, args=(widget,))
         transcribe.start()
 
     def stop_recording(data):
