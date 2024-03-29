@@ -14,7 +14,6 @@ messages = Queue()
 recordings = Queue()
 
 output = []
-
 def start_recording():
     messages.put(True)
     print("Starting...")
@@ -28,14 +27,6 @@ def start_recording():
 def stop_recording(data):
     messages.get()
     print("Stopped.")
-
-
-
-
-
-CHANNELS = 1
-
-
 
 
 
