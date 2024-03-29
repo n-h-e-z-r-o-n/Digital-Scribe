@@ -375,6 +375,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 def RUN_OFFLINE_speech_recognition(widget):
     global closed, Recording, Recording_data
+
     messages = Queue()
     recordings = Queue()
     output = []
@@ -436,6 +437,7 @@ def RUN_OFFLINE_speech_recognition(widget):
             if text == "the" or text == "" :
                 continue
             Recording_data += text
+            print(type(widget))
             widget.config(state=tk.NORMAL)
             widget.insert(tk.END, f" {text}\n")
             widget.config(state=tk.DISABLED)
