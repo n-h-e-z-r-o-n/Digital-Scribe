@@ -438,13 +438,14 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             Recording_data += text
             widget.config(state=tk.NORMAL)
             widget.insert(tk.END, f" {text}\n")
+            widget.config(state=tk.DISABLED)
             print("----", text)
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
             # time.sleep(1)
 
 
-
+    
     start_recording()
 # =============================== scroll Functions definition ===============================================================================================================
 
