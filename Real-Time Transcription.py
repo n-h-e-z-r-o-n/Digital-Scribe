@@ -72,7 +72,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             rec.AcceptWaveform(b''.join(frames))
             result = rec.Result()
             text = json.loads(result)["text"]
-            if text == "the":
+            if text == "the" or text == "" :
                 continue
             print("----", text)
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
