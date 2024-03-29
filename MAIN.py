@@ -422,7 +422,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
         p.terminate()
 
 
-    def speech_recognition(output):
+    def speech_recognition(widget=widget):
         global closed
         print("scanning")
         while not messages.empty():
