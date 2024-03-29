@@ -43,8 +43,8 @@ def record_microphone(chunk=1024):
     p = pyaudio.PyAudio()
 
     stream = p.open(format=AUDIO_FORMAT,
-                    channels=CHANNELS,
-                    rate=FRAME_RATE,
+                    channels=1,
+                    rate=16000,
                     input=True,
                     input_device_index=0,
                     frames_per_buffer=chunk)
