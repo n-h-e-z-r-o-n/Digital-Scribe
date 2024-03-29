@@ -1527,10 +1527,11 @@ def User_Home_page(widget):
  
 
     CALL_Widget = call(Home_page_frame)
-    rag_widget = RAG_page(Home_page_frame)
+
     SETTINGS_Widget = settings(Home_page_frame)
     chat_me_Widget = chat_me(Home_page_frame)
     CHAT_Widget = chat(Home_page_frame)
+    rag_widget = RAG_page(Home_page_frame)
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
  
     def active(widget):
