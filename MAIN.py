@@ -360,7 +360,8 @@ def Chat_bot_inference(widget0, widget1, widget2):
         try:
             Answer = llm_chain.invoke(input=f"\n{Question}")
             widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n\n")
-        except:
+        except Exception as e:
+            print(e)
             widget2.insert(tk.END, f"🅱🅾🆃\nError: check your internet connection or api keys \n\n")
 
         widget2.config(state=tk.DISABLED)
@@ -1554,11 +1555,9 @@ def User_Home_page(widget):
         for i in widget_list:
             if i != widget:
                 i.config(bg=bg_color, relief=tk.FLAT, border=0, fg=fg_color)
-
             else:
                 i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
-                print("p :", fg_hovercolor)
 
 
 
