@@ -37,7 +37,7 @@ for i in range(p.get_device_count()):
 
 CHANNELS = 1
 FRAME_RATE = 16000
-RECORD_SECONDS = 1
+RECORD_SECONDS = 2
 AUDIO_FORMAT = pyaudio.paInt16
 SAMPLE_SIZE = 2
 
