@@ -365,17 +365,37 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 # =============================== scroll Functions definition ===============================================================================================================
 
-def widget_scroll_bind(widget):
-    widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
-    widget.bind("<MouseWheel>", lambda e: on_mouse_wheel(widget, e))
-
-
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
     # Scroll the canvas up or down based on the mouse wheel direction
     if event.delta < 0:
         widget.yview_scroll(1, "units")
     else:
         widget.yview_scroll(-1, "units")
+
+
+def on_frame_configure(widget, event):  # Update the canvas scrolling region when the large frame changes size
+    widget.configure(scrollregion=widget.bbox("all"))
+
+def widget_scroll_bind(widget):
+    widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
+    widget.bind("<MouseWheel>", lambda e: on_mouse_wheel(widget, e))
+
+
+def attach_scroll(widget, color=None):
+    global bg_color
+    if color is None:
+        color = bg_color
+    FRAME_2 = tk.Frame(widget, bg=color)
+    FRAME_2.place(relwidth=1, relheight=1, relx=0, rely=0)
+    canvas_FRAME_2 = tk.Canvas(FRAME_2, highlightthickness=0, bg=color)  # Create a Canvas widget to hold the frame and enable scrolling
+    canvas_FRAME_2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    canvas_FRAME_2_scrollbar = tk.Scrollbar(widget,
+                                            command=canvas_FRAME_2.yview)  # Create a Scrollbar and connect it to the Canvas
+    canvas_FRAME_2.config(yscrollcommand=canvas_FRAME_2_scrollbar.set)
+    canvas_FRAME_2_frame = tk.Frame(canvas_FRAME_2, bg=color)  # Create a frame to hold your content of the canvers
+    canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
+    widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
+    return canvas_FRAME_2_frame, canvas_FRAME_2
 
 
 def access_keys_info():
@@ -412,25 +432,6 @@ def access_keys_info():
         pass
 
 
-def on_frame_configure(widget, event):  # Update the canvas scrolling region when the large frame changes size
-    widget.configure(scrollregion=widget.bbox("all"))
-
-
-def attach_scroll(widget, color=None):
-    global bg_color
-    if color is None:
-        color = bg_color
-    FRAME_2 = tk.Frame(widget, bg=color)
-    FRAME_2.place(relwidth=1, relheight=1, relx=0, rely=0)
-    canvas_FRAME_2 = tk.Canvas(FRAME_2, highlightthickness=0, bg=color)  # Create a Canvas widget to hold the frame and enable scrolling
-    canvas_FRAME_2.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    canvas_FRAME_2_scrollbar = tk.Scrollbar(widget,
-                                            command=canvas_FRAME_2.yview)  # Create a Scrollbar and connect it to the Canvas
-    canvas_FRAME_2.config(yscrollcommand=canvas_FRAME_2_scrollbar.set)
-    canvas_FRAME_2_frame = tk.Frame(canvas_FRAME_2, bg=color)  # Create a frame to hold your content of the canvers
-    canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
-    widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
-    return canvas_FRAME_2_frame, canvas_FRAME_2
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
