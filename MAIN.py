@@ -377,7 +377,6 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
     widget.configure(scrollregion=widget.bbox("all"))
 
 
-
 def widget_scroll_bind(widget):
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
     widget.bind("<MouseWheel>", lambda e: on_mouse_wheel(widget, e))
