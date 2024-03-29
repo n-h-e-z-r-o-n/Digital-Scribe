@@ -36,6 +36,12 @@ from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
+# ------------------------------- Speech recogniation
+from queue import Queue
+from threading import Thread
+import pyaudio
+import json
+from vosk import Model, KaldiRecognizer
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
