@@ -428,6 +428,7 @@ def RUN_OFFLINE_speech_recognition(widget):
         print("scanning")
         while not messages.empty():
             if closed:
+                print('speech_recognition closed')
                 break
             frames = recordings.get()
 
