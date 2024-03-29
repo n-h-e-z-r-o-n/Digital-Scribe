@@ -6,7 +6,7 @@ from vosk import Model, KaldiRecognizer
 
 p = pyaudio.PyAudio()
 for i in range(p.get_device_count()):
-    M  =  p.get_device_info_by_index(i)
+    M = p.get_device_info_by_index(i)
     print(F" {M['index']}   {M['name']}")
 
 
@@ -33,6 +33,7 @@ def stop_recording(data):
 
 
 
+CHANNELS = 1
 
 
 
@@ -40,7 +41,7 @@ def stop_recording(data):
 
 def record_microphone(chunk=1024, RECORD_SECONDS = 2 ):
     p = pyaudio.PyAudio()
-
+    FRAME_RATE = 16000
     stream = p.open(format=pyaudio.paInt16,
                     channels=1,
                     rate=16000,
@@ -62,7 +63,7 @@ def record_microphone(chunk=1024, RECORD_SECONDS = 2 ):
 
 
 
-
+FRAME_RATE = 16000
 model = Model(model_name="vosk-model-en-us-0.22")
 rec = KaldiRecognizer(model, FRAME_RATE)
 rec.SetWords(True)
