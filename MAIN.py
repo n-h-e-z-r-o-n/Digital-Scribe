@@ -366,9 +366,6 @@ def Chat_bot_inference(widget0, widget1, widget2):
 # =============================== scroll Functions definition ===============================================================================================================
 
 def widget_scroll_bind(widget):
-    def nnn(widget, event):
-        pass
-
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
     widget.bind("<MouseWheel>", lambda e: on_mouse_wheel(widget, e))
 
