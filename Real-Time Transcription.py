@@ -1,7 +1,8 @@
-
 from queue import Queue
 from threading import Thread
 import pyaudio
+import json
+from vosk import Model, KaldiRecognizer
 
 
 messages = Queue()
@@ -29,7 +30,7 @@ def stop_recording(data):
 
 
 
-import pyaudio
+
 p = pyaudio.PyAudio()
 for i in range(p.get_device_count()):
     M  =  p.get_device_info_by_index(i)
@@ -66,10 +67,7 @@ def record_microphone(chunk=1024):
     print("mic term")
 
 
-import subprocess
-import json
-from vosk import Model, KaldiRecognizer
-import time
+
 
 model = Model(model_name="vosk-model-en-us-0.22")
 rec = KaldiRecognizer(model, FRAME_RATE)
