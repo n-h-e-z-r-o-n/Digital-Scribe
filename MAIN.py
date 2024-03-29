@@ -373,7 +373,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def RUN_OFFLINE_speech_recognition(widget=None):
-    global closed
+    global closed, Recording
     messages = Queue()
     recordings = Queue()
     output = []
@@ -385,6 +385,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
     def start_recording():
         messages.put(True)
         print("Starting...")
+        Recording = True
         record = Thread(target=record_microphone)
         record.start()
 
