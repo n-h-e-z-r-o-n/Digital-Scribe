@@ -981,6 +981,9 @@ def chat(widget):
         change_fg_OnHover(close_widg, 'red', 'black')
 
         new_entity.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
+        children = new_entity.winfo_children()
+        for child in children:
+            child.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
         entity_widget_lists.append((new_entity, entity_name, entity_type, chk_var))
 
