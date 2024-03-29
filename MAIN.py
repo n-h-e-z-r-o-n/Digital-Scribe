@@ -1239,8 +1239,8 @@ def RAG_page(widget):
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
-    paned_window = tk.PanedWindow(conversation_widget, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.RAISED)
-    paned_window.place(relheight=0.60, relwidth=0.916, rely=0.03, relx=0.01)
+    paned_window = tk.PanedWindow(conversation_widget, bg=bg_color, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.FLAT)
+    paned_window.place(relheight=0.60, relwidth=0.96, rely=0.03, relx=0.01)
 
     t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
     #t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
