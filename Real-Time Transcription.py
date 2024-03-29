@@ -33,16 +33,15 @@ def stop_recording(data):
 
 
 
-CHANNELS = 1
-FRAME_RATE = 16000
-RECORD_SECONDS = 2
-AUDIO_FORMAT = pyaudio.paInt16
-SAMPLE_SIZE = 2
 
-def record_microphone(chunk=1024):
+
+
+
+
+def record_microphone(chunk=1024, RECORD_SECONDS = 2 ):
     p = pyaudio.PyAudio()
 
-    stream = p.open(format=AUDIO_FORMAT,
+    stream = p.open(format=pyaudio.paInt16,
                     channels=1,
                     rate=16000,
                     input=True,
