@@ -4,6 +4,11 @@ import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
 
+p = pyaudio.PyAudio()
+for i in range(p.get_device_count()):
+    M  =  p.get_device_info_by_index(i)
+    print(F" {M['index']}   {M['name']}")
+
 
 messages = Queue()
 recordings = Queue()
@@ -12,8 +17,6 @@ output = []
 
 def start_recording():
     messages.put(True)
-
-
     print("Starting...")
     record = Thread(target=record_microphone)
     record.start()
@@ -23,18 +26,12 @@ def start_recording():
 
 
 def stop_recording(data):
-
     messages.get()
     print("Stopped.")
 
 
 
 
-
-p = pyaudio.PyAudio()
-for i in range(p.get_device_count()):
-    M  =  p.get_device_info_by_index(i)
-    print(F" {M['index']}   {M['name']}")
 
 CHANNELS = 1
 FRAME_RATE = 16000
@@ -51,9 +48,7 @@ def record_microphone(chunk=1024):
                     input=True,
                     input_device_index=0,
                     frames_per_buffer=chunk)
-
     frames = []
-
     while not messages.empty():
         data = stream.read(chunk)
         frames.append(data)
