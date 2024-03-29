@@ -410,6 +410,7 @@ def RUN_OFFLINE_speech_recognition(widget):
         frames = []
         while not messages.empty():
             if closed:
+                print('record_microphone closed')
                 break
             data = stream.read(chunk)
             frames.append(data)
