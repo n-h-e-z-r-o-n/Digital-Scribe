@@ -1243,16 +1243,18 @@ def RAG_page(widget):
     paned_window.place(relheight=0.60, relwidth=0.916, rely=0.03, relx=0.01)
 
     t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
-    t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
+    #t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
     t1.config(state=tk.DISABLED)
 
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
-    t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
+    #t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
     t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
     t2.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
     t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
     t2.config(state=tk.DISABLED)
 
+    paned_window.add(t1)
+    paned_window.add(t2)
 
     tk.Button(conversation_widget, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
 
