@@ -63,6 +63,8 @@ def RUN_OFFLINE_speech_recognition():
         global closed
         print("scanning")
         while not messages.empty():
+            if  closed:
+                break
             frames = recordings.get()
 
             rec.AcceptWaveform(b''.join(frames))
