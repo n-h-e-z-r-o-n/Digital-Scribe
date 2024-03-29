@@ -1554,7 +1554,7 @@ def User_Home_page(widget):
         for i in widget_list:
             if i != widget:
                 i.config(bg=bg_color, relief=tk.FLAT, border=0, fg=fg_color)
-                print("K :", fg_color)
+
             else:
                 i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
