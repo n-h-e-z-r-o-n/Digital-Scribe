@@ -375,7 +375,9 @@ def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
 
 def on_frame_configure(widget, event):  # Update the canvas scrolling region when the large frame changes size
     widget.configure(scrollregion=widget.bbox("all"))
-
+    children = widget.winfo_children()
+    for child in children:
+        change_all(child)
 
 def widget_scroll_bind(widget):
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
