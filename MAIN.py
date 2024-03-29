@@ -362,7 +362,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
             widget2.insert(tk.END, f"🅱🅾🆃\n{Answer['text']}\n\n")
         except Exception as e:
             print(e)
-            widget2.insert(tk.END, f"🅱🅾🆃\nError: check your internet connection or api keys \n\n")
+            widget2.insert(tk.END, f"🅱🅾🆃\nError: check your internet connection or ensure all invoices are paid and your payment method is up to date \n\n")
 
         widget2.config(state=tk.DISABLED)
         widget2.see(tk.END)  # Scroll to the end of the text widget
