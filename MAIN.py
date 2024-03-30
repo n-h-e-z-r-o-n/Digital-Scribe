@@ -69,6 +69,7 @@ keys = None
 
 rag_pipeline = None
 llm_chain = None
+llm = None
 
 bg_color = '#FFFFFF'
 fg_color = 'black'
@@ -431,7 +432,7 @@ def Upload_file(widget, widget2):
 
 
 def llm_inference_initializ():
-    global llm_chain
+    global llm_chain, llm
     fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  # initializes a GradientLLM with our fine-tuned model by specifying our model ID.
 
     gradient = Gradient()
