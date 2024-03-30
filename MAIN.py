@@ -70,7 +70,7 @@ keys = None
 rag_pipeline = None
 llm_chain = None
 
-bg_color = 'white'
+bg_color = '#FFFFFF'
 fg_color = 'black'
 fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
@@ -85,7 +85,7 @@ Recording_data = ''
 # =============================== Functions definition ============================================================================================
 # ================================= Themes ================================================================================================================
 
-def title_bar_color(window, color):
+def title_bar_color( color):
     # import ctypes as ct
     global root
     root.update()
@@ -1710,7 +1710,7 @@ def main():
 
     print(str(screen_width) + "\n" + str(screen_height))
 
-    title_bar_color(root, bg_color)
+    title_bar_color(bg_color)
 
     User_Home_page(root)
 
