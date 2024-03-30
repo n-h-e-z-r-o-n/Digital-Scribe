@@ -1132,6 +1132,8 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
+    RUN_OFFLINE_speech_recognition
+
     return chatbot_widget
 
 
