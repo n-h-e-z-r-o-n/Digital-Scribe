@@ -367,9 +367,10 @@ def rag_chat(question, widget, widget1):
     def run_function(question = question , widget = widget, widget1 = widget1):
         widget1.config(text='▫▫▫▫')
         question = question.strip()
-        if question == '' or rag_pipeline == None:
+        if question == '':
             widget1.config(text='▶')
             return
+        if rag_pipeline == None:
 
         widget.config(state=tk.NORMAL)
         widget.insert(tk.END, f" {question}\n", 'user_config')
@@ -1303,6 +1304,7 @@ def settings(widget):
 
     def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys, setting_status
+        global llm_chain
         setting_status = True
         gradient_ai_access_key = str(g_access).strip()
         gradient_ai_workspace_id = str(g_workkey).strip()
@@ -1336,6 +1338,7 @@ def settings(widget):
         print("gradient_ai_access_key", gradient_ai_access_key)
         print("gradient_ai_workspace_id", gradient_ai_workspace_id)
         print("assemblyai_access_key", assemblyai_access_key)
+        llm_chain = None
         rag_initialize()
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
