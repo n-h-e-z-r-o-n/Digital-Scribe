@@ -126,30 +126,32 @@ def change_color(widget, button):
         bg_color = '#36454F'
         fg_color = 'white'
         current_theme = 'window(dark_blue)'
-
+        title_bar_color(bg_color)
     elif button_text == 'window(dark_blue)':
         button.config(text='window(Blackberry)')
         bg_color = '#3A3A38'
         fg_color = 'white'
         current_theme = 'window(Blackberry)'
-
+        title_bar_color(bg_color)
     elif button_text == 'window(Blackberry)':
         button.config(text='window(dark_green)')
         bg_color = '#555D50'
         fg_color = 'white'
         current_theme = 'window(dark_green)'
-
+        title_bar_color(bg_color)
     elif button_text == 'window(dark_green)':
         button.config(text='window(Jacket)')
         bg_color = '#253529'
         fg_color = 'white'
         current_theme = 'window(Jacket)'
+        title_bar_color(bg_color)
 
     elif button_text == 'window(Jacket)':
         button.config(text='window(light)')
         bg_color = 'white'
         fg_color = 'black'
         current_theme = 'window(light)'
+        title_bar_color(bg_color)
     else:
         return
 
