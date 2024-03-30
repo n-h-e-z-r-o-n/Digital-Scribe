@@ -1044,6 +1044,8 @@ def chat(widget):
     #t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t2.config(state=tk.DISABLED)
 
+    
+
     paned_window.add(t1)
     paned_window.add(t2)
 
