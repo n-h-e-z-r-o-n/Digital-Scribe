@@ -24,13 +24,13 @@ llm = GradientLLM(
     model_kwargs=dict(max_generated_token_count=510),
 )
 
-template = """formats the conversation with correct grammar and flow.
+template = """formats the Below conversation with correct grammar.
 conversation: {conversation}
 Chatbot:"""
 
-prompt = PromptTemplate(template=template, input_variables=["conversation"], verbose=True)
+prompt = PromptTemplate(template=template, input_variables=["conversation"])
 
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True)
 
 while True:
     Question = input()
