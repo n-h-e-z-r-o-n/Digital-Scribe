@@ -24,7 +24,7 @@ llm = GradientLLM(
     model_kwargs=dict(max_generated_token_count=510),
 )
 
-template = """ formats the conversation with correct grammar.
+template = """Given the conversation between two or more people. formats the conversation with correct grammar and flo.
 conversation: {conversation}
 Chatbot:"""
 
