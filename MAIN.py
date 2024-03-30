@@ -439,7 +439,7 @@ def llm_inference_initializ():
     gradient = Gradient()
     base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
 
-    # ================================================ chat bot section 
+    # ================================================ chat bot section
     llm = GradientLLM(
         model=base_model.id,
         model_kwargs=dict(max_generated_token_count=510),
@@ -454,6 +454,20 @@ def llm_inference_initializ():
     prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
     memory = ConversationBufferMemory(memory_key="chat_history")
     llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True, memory=memory)
+
+    # ================================================ chat bot section
+    llm2 = GradientLLM(
+        model=base_model.id,
+        model_kwargs=dict(max_generated_token_count=510),
+    )
+
+    template2 = """ formats the conversation with correct grammar.
+    conversation: {conversation}
+    Chatbot:"""
+
+    prompt = PromptTemplate(template=template2, input_variables=["conversation"])
+
+    llm_chain2 = LLMChain(prompt=prompt, llm=llm2, verbose=True)
 
 
 def Chat_bot_inference(widget0, widget1, widget2):
