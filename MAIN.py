@@ -69,7 +69,7 @@ keys = None
 
 rag_pipeline = None
 llm_chain = None
-
+llm_chain2 = None
 bg_color = '#FFFFFF'
 fg_color = 'black'
 fg_hovercolor = 'red'
@@ -206,6 +206,9 @@ def change_color(widget, button):
     threading.Thread(target=change_all).start()
 
 def conversation_grammar():
+    global llm_chain2
+
+    pass
 
 # ============================================= NLP  ==========================================================================================
 
@@ -465,9 +468,8 @@ def llm_inference_initializ():
     conversation: {conversation}
     Chatbot:"""
 
-    prompt = PromptTemplate(template=template2, input_variables=["conversation"])
-
-    llm_chain2 = LLMChain(prompt=prompt, llm=llm2, verbose=True)
+    prompt2 = PromptTemplate(template=template2, input_variables=["conversation"])
+    llm_chain2 = LLMChain(prompt=prompt2, llm=llm2, verbose=True)
 
 
 def Chat_bot_inference(widget0, widget1, widget2):
