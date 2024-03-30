@@ -83,7 +83,126 @@ sammary_data = None
 Recording = False
 Recording_data = ''
 # =============================== Functions definition ============================================================================================
-# =================================================================================================================================================
+# ================================= Themes ================================================================================================================
+
+def title_bar_color(window, color):
+    # import ctypes as ct
+    global root
+    root.update()
+    if color.startswith('#'):
+        blue = color[5:7]
+        green = color[3:5]
+        red = color[1:3]
+        color = blue  + green + red
+    else:
+        blue = color[4:6]
+        green = color[2:4]
+        red = color[0:2]
+        color = blue  + green + red
+    print(color)
+    get_parent = ct.windll.user32.GetParent
+    HWND = get_parent(root.winfo_id())
+
+    color = '0x' + color
+    color = int(color, 16)
+
+    ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
+
+
+
+
+def change_color(widget, button):
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    button_text = button.cget("text")
+
+    if button_text == 'window(light)':
+        button.config(text='window(dark)')
+        bg_color = '#353839'
+        fg_color = 'white'
+        current_theme = 'window(dark)'
+
+    elif button_text == 'window(dark)':
+        button.config(text='window(dark_blue)')
+        bg_color = '#36454F'
+        fg_color = 'white'
+        current_theme = 'window(dark_blue)'
+
+    elif button_text == 'window(dark_blue)':
+        button.config(text='window(Blackberry)')
+        bg_color = '#3A3A38'
+        fg_color = 'white'
+        current_theme = 'window(Blackberry)'
+
+    elif button_text == 'window(Blackberry)':
+        button.config(text='window(dark_green)')
+        bg_color = '#555D50'
+        fg_color = 'white'
+        current_theme = 'window(dark_green)'
+
+    elif button_text == 'window(dark_green)':
+        button.config(text='window(Jacket)')
+        bg_color = '#253529'
+        fg_color = 'white'
+        current_theme = 'window(Jacket)'
+
+    elif button_text == 'window(Jacket)':
+        button.config(text='window(light)')
+        bg_color = 'white'
+        fg_color = 'black'
+        current_theme = 'window(light)'
+    else:
+        return
+
+    def change_all(wdget=widget):
+        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, Home_page_frame
+
+        if isinstance(wdget, tk.Frame):
+            wdget.config(bg=bg_color)
+
+        elif isinstance(wdget, tk.Button):
+            wdget.config(bg=bg_color, activebackground=bg_color, fg=fg_color, activeforeground=fg_color)
+
+        elif isinstance(wdget, tk.Label):
+            wdget.config(bg=bg_color, fg=fg_color)
+
+        elif isinstance(wdget, tk.Text):
+            wdget.config(bg=bg_color, fg=fg_color)
+        elif isinstance(wdget, tk.Entry):
+            wdget.config(bg=bg_color, fg=fg_color)
+        elif isinstance(wdget, tk.Canvas):
+            wdget.config(bg=bg_color)
+        elif isinstance(wdget, tk.Checkbutton):
+            wdget.config(bg=bg_color, activebackground=bg_color)
+        elif isinstance(wdget, tk.PanedWindow):
+            wdget.config(bg=bg_color)
+
+        else:
+            # widget.config(bg=bg_icolor, fg='white')
+            pass
+
+        children = wdget.winfo_children()
+        for child in children:
+            change_all(child)
+        Home_page_frame.config(bg=fg_color)
+        dic = {
+            '_GA_': gradient_ai_access_key,
+            '_GW_': gradient_ai_workspace_id,
+            '_G_FT_M_': gradient_ai_finetuned_id,
+            '_G_B_M_': gradient_ai_base_model_id,
+            '_AAI_': assemblyai_access_key,
+            "bg_color": bg_color,
+            "fg_color": fg_color,
+            "fg_hovercolor": fg_hovercolor,
+            "bg_hovercolor": bg_hovercolor,
+            "current_theme": current_theme
+        }
+
+        json_object = json.dumps(dic, indent=4)
+
+        with open("keys.json", "w") as outfile:
+            outfile.write(json_object)
+
+    threading.Thread(target=change_all).start()
 
 # ============================================= NLP  ==========================================================================================
 
@@ -309,16 +428,6 @@ def Upload_file(widget, widget2):
         print("No file selected")
 
 
-def dark_title_bar(window):
-    window.update()
-    DWMWA_USE_IMMERSIVE_DARK_MODE = 20
-    set_window_attribute = ct.windll.dwmapi.DwmSetWindowAttribute
-    get_parent = ct.windll.user32.GetParent
-    hwnd = get_parent(window.winfo_id())
-    rendering_policy = DWMWA_USE_IMMERSIVE_DARK_MODE
-    value = 2
-    value = ct.c_int(value)
-    set_window_attribute(hwnd, rendering_policy, ct.byref(value), ct.sizeof(value))
 
 
 def llm_inference_initializ():
@@ -843,98 +952,6 @@ def Login_Section_widget(widget, root_widget):
     return Login_widget
 
 
-def change_color(widget, button):
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
-    button_text = button.cget("text")
-
-    if button_text == 'window(light)':
-        button.config(text='window(dark)')
-        bg_color = '#353839'
-        fg_color = 'white'
-        current_theme = 'window(dark)'
-
-    elif button_text == 'window(dark)':
-        button.config(text='window(dark_blue)')
-        bg_color = '#36454F'
-        fg_color = 'white'
-        current_theme = 'window(dark_blue)'
-
-    elif button_text == 'window(dark_blue)':
-        button.config(text='window(Blackberry)')
-        bg_color = '#3A3A38'
-        fg_color = 'white'
-        current_theme = 'window(Blackberry)'
-
-    elif button_text == 'window(Blackberry)':
-        button.config(text='window(dark_green)')
-        bg_color = '#555D50'
-        fg_color = 'white'
-        current_theme = 'window(dark_green)'
-
-    elif button_text == 'window(dark_green)':
-        button.config(text='window(Jacket)')
-        bg_color = '#253529'
-        fg_color = 'white'
-        current_theme = 'window(Jacket)'
-
-    elif button_text == 'window(Jacket)':
-        button.config(text='window(light)')
-        bg_color = 'white'
-        fg_color = 'black'
-        current_theme = 'window(light)'
-    else:
-        return
-
-    def change_all(wdget=widget):
-        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, Home_page_frame
-
-        if isinstance(wdget, tk.Frame):
-            wdget.config(bg=bg_color)
-
-        elif isinstance(wdget, tk.Button):
-            wdget.config(bg=bg_color, activebackground=bg_color, fg=fg_color, activeforeground=fg_color)
-
-        elif isinstance(wdget, tk.Label):
-            wdget.config(bg=bg_color, fg=fg_color)
-
-        elif isinstance(wdget, tk.Text):
-            wdget.config(bg=bg_color, fg=fg_color)
-        elif isinstance(wdget, tk.Entry):
-            wdget.config(bg=bg_color, fg=fg_color)
-        elif isinstance(wdget, tk.Canvas):
-            wdget.config(bg=bg_color)
-        elif isinstance(wdget, tk.Checkbutton):
-            wdget.config(bg=bg_color, activebackground=bg_color)
-        elif isinstance(wdget, tk.PanedWindow):
-            wdget.config(bg=bg_color)
-
-        else:
-            # widget.config(bg=bg_icolor, fg='white')
-            pass
-
-        children = wdget.winfo_children()
-        for child in children:
-            change_all(child)
-        Home_page_frame.config(bg=fg_color)
-        dic = {
-            '_GA_': gradient_ai_access_key,
-            '_GW_': gradient_ai_workspace_id,
-            '_G_FT_M_': gradient_ai_finetuned_id,
-            '_G_B_M_': gradient_ai_base_model_id,
-            '_AAI_': assemblyai_access_key,
-            "bg_color": bg_color,
-            "fg_color": fg_color,
-            "fg_hovercolor": fg_hovercolor,
-            "bg_hovercolor": bg_hovercolor,
-            "current_theme": current_theme
-        }
-
-        json_object = json.dumps(dic, indent=4)
-
-        with open("keys.json", "w") as outfile:
-            outfile.write(json_object)
-
-    threading.Thread(target=change_all).start()
 
 
 def chat(widget):
@@ -1693,7 +1710,7 @@ def main():
 
     print(str(screen_width) + "\n" + str(screen_height))
 
-    # dark_title_bar(root)
+    title_bar_color(root, bg_color)
 
     User_Home_page(root)
 
