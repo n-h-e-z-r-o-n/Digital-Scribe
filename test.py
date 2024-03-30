@@ -31,14 +31,14 @@ llm = GradientLLM(
 #template = """### Instruction: {Instruction} \n\n### Response:"""
 
 template = """You are a AI that formats a conversation with correct grammar.
-conversation: {Instruction}
+conversation: {conversation}
 Chatbot:"""
 
-prompt = PromptTemplate(template=template, input_variables=["Instruction"])
+prompt = PromptTemplate(template=template, input_variables=["conversation"])
 
 memory = ConversationBufferMemory(memory_key="chat_history")
 
-llm_chain = LLMChain(prompt=prompt, llm=llm)
+llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True)
 
 #Question = "What diseases are prevelant in dairy small ruminant, and what managment practice can mitigate their impact "
 
