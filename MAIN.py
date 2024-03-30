@@ -429,8 +429,6 @@ def Upload_file(widget, widget2):
         print("No file selected")
 
 
-
-
 def llm_inference_initializ():
     global llm_chain
     fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  # initializes a GradientLLM with our fine-tuned model by specifying our model ID.
@@ -560,7 +558,7 @@ def RUN_OFFLINE_speech_recognition(widget):
 
 
 
-    start_recording()
+    threading.Thread(start_recording()
 # =============================== scroll Functions definition ===============================================================================================================
 
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
