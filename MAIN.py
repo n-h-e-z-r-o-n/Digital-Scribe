@@ -367,10 +367,10 @@ def rag_chat(question, widget, widget1):
     def run_function(question = question , widget = widget, widget1 = widget1):
         widget1.config(text='▫▫▫▫')
         question = question.strip()
-        if question == '':
+        if question == '' or rag_pipeline == None:
             widget1.config(text='▶')
             return
-        if rag_pipeline == None:
+
 
         widget.config(state=tk.NORMAL)
         widget.insert(tk.END, f" {question}\n", 'user_config')
@@ -431,7 +431,7 @@ def Upload_file(widget, widget2):
 
 
 def llm_inference_initializ():
-    global llm_chain,
+    global llm_chain
     fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  # initializes a GradientLLM with our fine-tuned model by specifying our model ID.
 
     gradient = Gradient()
@@ -439,7 +439,7 @@ def llm_inference_initializ():
 
     llm = GradientLLM(
         model=base_model.id,
-        model_kwargs=dict(max_generated_token_count=128),
+        model_kwargs=dict(max_generated_token_count=4000),
     )
 
     # template = """### Instruction: {Instruction} \n\n### Response:"""
