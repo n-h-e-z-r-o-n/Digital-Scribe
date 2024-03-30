@@ -468,9 +468,9 @@ def llm_inference_initializ():
         model_kwargs=dict(max_generated_token_count=510),
     )
 
-    template2 = """ formats the conversation with correct grammar.
-    conversation: {conversation}
-    Chatbot:"""
+    template2 ="""Don't ask me questions just format the conversation with correct grammar. if you cant say you can't.
+                conversation: "{conversation}"
+                Chatbot:"""
 
     prompt2 = PromptTemplate(template=template2, input_variables=["conversation"])
     llm_chain2 = LLMChain(prompt=prompt2, llm=llm2, verbose=True)
