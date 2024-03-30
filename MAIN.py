@@ -531,7 +531,6 @@ def RUN_OFFLINE_speech_recognition(widget):
         stream.close()
         p.terminate()
 
-
     def speech_recognition(widget=widget):
         global closed, Recording_data
         print("scanning")
@@ -556,9 +555,8 @@ def RUN_OFFLINE_speech_recognition(widget):
             # output.append_stdout(cased)
             # time.sleep(1)
 
+    threading.Thread(target=start_recording).start()
 
-
-    threading.Thread(start_recording()
 # =============================== scroll Functions definition ===============================================================================================================
 
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
