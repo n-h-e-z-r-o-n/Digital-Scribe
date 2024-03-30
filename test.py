@@ -30,7 +30,7 @@ llm = GradientLLM(
 
 #template = """### Instruction: {Instruction} \n\n### Response:"""
 
-template = """You are a AI that formats a conversation with correct grammar.
+template = """ formats the conversation with correct grammar.
 conversation: {conversation}
 Chatbot:"""
 
