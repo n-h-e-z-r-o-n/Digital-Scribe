@@ -989,19 +989,22 @@ def chat(widget):
             while True:
                 if closed:
                     break
-                font_style = widget1.get()
-                font_size = widget2.get()
-                if font_size == '':
-                    font_size = '1'
-                if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
-                    try:
-                        widget3.config(font=(font_style, font_size))
-                        defalt_font_style = font_style.strip()
-                        defalt_font_size = int(font_size)
-                        print('changed')
-                    except:
-                        pass
-                time.sleep(1)
+                try:
+                    font_style = widget1.get()
+                    font_size = widget2.get()
+                    if font_size == '':
+                        font_size = '1'
+                    if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
+                        try:
+                            widget3.config(font=(font_style, font_size))
+                            defalt_font_style = font_style.strip()
+                            defalt_font_size = int(font_size)
+                            print('changed')
+                        except:
+                            pass
+                    time.sleep(1)
+                except:
+                    pass
 
         time.sleep(10)
         check()
@@ -1044,10 +1047,12 @@ def chat(widget):
     #t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t2.config(state=tk.DISABLED)
 
-    
+    t3 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
+
 
     paned_window.add(t1)
     paned_window.add(t2)
+    paned_window.add(t3)
 
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
