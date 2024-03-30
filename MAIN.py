@@ -109,8 +109,6 @@ def title_bar_color( color):
     ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
 
 
-
-
 def change_color(widget, button):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
     button_text = button.cget("text")
