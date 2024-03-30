@@ -1136,7 +1136,7 @@ def chat(widget):
     record_wid.place(relheight=0.02, relwidth=0.21, rely=0.792, relx=0.78)
     change_fg_OnHover(record_wid, 'red', fg_color)
 
-    R
+
 
     return chatbot_widget
 
