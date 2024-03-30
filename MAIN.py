@@ -439,7 +439,7 @@ def llm_inference_initializ():
 
     llm = GradientLLM(
         model=base_model.id,
-        model_kwargs=dict(max_generated_token_count=4000),
+        model_kwargs=dict(max_generated_token_count=510),
     )
 
     # template = """### Instruction: {Instruction} \n\n### Response:"""
