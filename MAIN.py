@@ -205,6 +205,8 @@ def change_color(widget, button):
 
     threading.Thread(target=change_all).start()
 
+def conversation_grammar():
+
 # ============================================= NLP  ==========================================================================================
 
 def Entity_Extraction(document, entity_list, widget):
