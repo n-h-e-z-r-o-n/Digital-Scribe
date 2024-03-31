@@ -523,13 +523,14 @@ def conversation_grammar(widget, widget1):
     pass
 
 
-def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
+def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_wideth=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color
     if Recording:
         Recording = False
         Record_btn.config(fg=fg_color)
         return
+
     def start_recording():
         global Recording
         messages.put(True)
@@ -542,10 +543,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
 
         transcribe = Thread(target=speech_recognition, args=(widget,))
         transcribe.start()
-
-    def stop_recording(data):
-        messages.get()
-        print("Stopped.")
 
     def record_microphone(chunk=1024, RECORD_SECONDS=1):
         global closed, Recording_paused, Recording
@@ -615,6 +612,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
                 # time.sleep(1)
             except:
                 continue
+
     while True:
         if vosk_model == None:
             continue
@@ -625,6 +623,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
         rec = KaldiRecognizer(vosk_model, FRAME_RATE)
         rec.SetWords(True)
         threading.Thread(target=start_recording).start()
+        speech_record_time(clock_wideth)
         break
 
 miniute = 0
