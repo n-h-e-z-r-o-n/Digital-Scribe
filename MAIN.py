@@ -577,7 +577,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             widget.config(state=tk.DISABLED)
 
             last_index = widget.index("end")
-            last_index = int(widget.split('.')[0])
+            last_index = int(last_index.split('.')[0])
             last_index = last_index - 1
             pos = last_index - Recording_data
             #if pos > Recording_data:
