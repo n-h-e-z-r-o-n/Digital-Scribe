@@ -1166,12 +1166,14 @@ def chat(widget):
         return entity_name, entity_type, chk_var
 
     def custom_add(widget):
-            list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING')]
-            for i
-            e_name, e_type, chk_var = add(fr2)
-            e_name.insert(0, "hello")
-            e_type.config(text='STRING')
-            chk_var.set(False)
+            defalt_entities_list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING')]
+            for i in defalt_entities_list:
+                e_name, e_type, chk_var = add(fr2)
+                e_name.insert(0, i[0])
+                e_type.config(text= i[1])
+                chk_var.set(False)
+
+    custom_add(fr2)
 
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
