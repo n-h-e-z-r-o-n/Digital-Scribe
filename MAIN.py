@@ -636,6 +636,9 @@ def speech_record_time(widget):
         global sec, miniute, hour
         if closed or not recording:
             return
+        if Recording_paused:
+            widget.after(1000, speech_record_time)
+            return
         time = f"{hour}:{miniute}:{sec}"
         sec = sec + 1
         if sec == 60:
