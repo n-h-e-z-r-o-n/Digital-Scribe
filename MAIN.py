@@ -522,13 +522,14 @@ def conversation_grammar(widget, widget1):
     pass
 
 
-def RUN_OFFLINE_speech_recognition(widget, widget1=None):
+def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
     global closed, Recording, Recording_data, vosk_model
 
     def start_recording():
         messages.put(True)
         print("Starting...")
         Recording = True
+        Record_btn.config(fg="green")
         record = Thread(target=record_microphone)
         record.start()
 
