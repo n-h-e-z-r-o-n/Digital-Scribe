@@ -3,6 +3,7 @@ import tkinter as tk
 def count_lines():
     # Get the index of the last line
     last_index = text_widget.index("end")
+    print("Last index:", last_index)
     # Parse the last index to get the line number
     line_number = last_index.split('.')[0]
     print("Number of lines:", line_number)
