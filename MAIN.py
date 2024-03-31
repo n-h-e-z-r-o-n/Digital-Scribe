@@ -654,13 +654,15 @@ def speech_record_time(widget):
     threading.Thread(target=Run).start()
 
 def set_recording_paused(widget):
-    global Recording_paused, fg_color
-    if Recording_paused:
-        widget.config(fg='green')
-        Recording_paused = True
-    else:
-        widget.config(fg=fg_color)
-        Recording_paused = False
+    global Recording_paused, fg_color, Recording
+    print('set_recording_paused')
+    if Recording:
+        if Recording_paused:
+            widget.config(fg='green')
+            Recording_paused = True
+        else:
+            widget.config(fg=fg_color)
+            Recording_paused = False
 # =============================== scroll Functions definition ===============================================================================================================
 
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
