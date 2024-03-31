@@ -2,7 +2,7 @@ import tkinter as tk
 from time import strftime
 
 def update_time():
-    current_time = strftime('%H:%M:%S %p')
+    current_time = strftime('%S')
     print(current_time)
     print(type(current_time))
     label.config(text=current_time)
