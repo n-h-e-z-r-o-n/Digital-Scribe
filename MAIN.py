@@ -205,14 +205,6 @@ def change_color(widget, button):
 
     threading.Thread(target=change_all).start()
 
-def conversation_grammar(widget):
-    global llm_chain2
-    if llm_chain2 == None:
-        llm_inference_initializ()
-    Question = widget.get(1.0, tk.END)
-    Answer = llm_chain2.invoke(input=f"{Question}")
-    print(Answer['text'])
-    pass
 
 # ============================================= NLP  ==========================================================================================
 
