@@ -621,7 +621,7 @@ def on_touch_scroll(widget, event):
 def widget_scroll_bind(widget):
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
     widget.bind("<MouseWheel>", lambda e: on_mouse_wheel(widget, e))
-    widget.bind_all("<B1-Motion>", lambda e: on_touch_scroll(widget, e))
+    widget.bind("<B1-Motion>", lambda e: on_touch_scroll(widget, e))
 
 
 def attach_scroll(widget, color=None):
