@@ -530,7 +530,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         miniute = second = hour = 0
         Recording = False
         Record_btn.config(fg=fg_color)
-        clock_wideth
+        clock_wideth.config(text='0:0:0')
         return
 
     def start_recording():
