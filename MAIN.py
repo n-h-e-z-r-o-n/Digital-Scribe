@@ -510,7 +510,8 @@ def conversation_grammar(widget, widget1):
         llm_inference_initializ()
     Question = widget.get(1.0, tk.END)
     Answer = llm_chain2.invoke(input=f"{Question}")
-    print(Answer['text'])
+    
+    widget1.delete(1.0, tk.END)
     widget1.insert(tk.END, f"{Answer['text']}")
     pass
 
@@ -584,7 +585,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             #if pos > Recording_data:
             #print('widget1 :', widget1)
             if widget1 is not None:
-                conversation_grammar(widget, widget1)
+                if last_index > 6:
+                   conversation_grammar(widget, widget1)
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
