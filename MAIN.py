@@ -1068,6 +1068,7 @@ def Login_Section_widget(widget, root_widget):
 
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
+    global Recording_paused
 
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
@@ -1234,7 +1235,7 @@ def chat(widget):
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
     #change_fg_OnHover(Record_btn, 'red', fg_color)
 
-    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: (Recording_paused = True))
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
     change_fg_OnHover(play_pause_btn, 'red', fg_color)
 
