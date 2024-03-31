@@ -527,7 +527,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     if Recording:
         Recording = False
-        Record_btn.config(fg="red")
+        Record_btn.config(fg=fg)
         return
     def start_recording():
         messages.put(True)
