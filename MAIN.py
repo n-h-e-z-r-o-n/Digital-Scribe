@@ -498,13 +498,16 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
     threading.Thread(target=run).start()
 
+
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
     global vosk_model
     vosk_model = Model(model_name="vosk-model-en-us-0.22")
 
+
 threading.Thread(target=Initialize_VOSK).start()
+
 
 def conversation_grammar(widget, widget1):
     global llm_chain2, recording_data
@@ -516,6 +519,7 @@ def conversation_grammar(widget, widget1):
     widget1.delete(1.0, tk.END)
     widget1.insert(tk.END, f"{Answer['text']}")
     pass
+
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None):
     global closed, Recording, Recording_data, vosk_model
@@ -603,6 +607,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
         rec.SetWords(True)
         threading.Thread(target=start_recording).start()
         break
+
 
 # =============================== scroll Functions definition ===============================================================================================================
 
