@@ -532,7 +532,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
         messages.get()
         print("Stopped.")
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=2):
+    def record_microphone(chunk=1024, RECORD_SECONDS=1):
         global closed
         p = pyaudio.PyAudio()
         FRAME_RATE = 16000
