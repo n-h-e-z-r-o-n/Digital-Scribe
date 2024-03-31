@@ -632,6 +632,7 @@ hour = 0
 sec = 0
 def speech_record_time(widget):
     def Run(widget=widget):
+        
         global sec, miniute, hour
         time = f"{hour}:{miniute}:{sec}"
         sec = sec + 1
