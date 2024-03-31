@@ -557,7 +557,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
             if closed:
                 print('record_microphone closed')
                 break
-                
+
             data = stream.read(chunk)
             frames.append(data)
             if len(frames) >= (FRAME_RATE * RECORD_SECONDS) / chunk:
