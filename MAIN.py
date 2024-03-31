@@ -1189,7 +1189,11 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Extract_entities = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
+    change_fg_OnHover(Record_btn, 'red', fg_color)
+
+    play_pause = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
     Extract_entities.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
     change_fg_OnHover(Extract_entities, 'red', fg_color)
 
