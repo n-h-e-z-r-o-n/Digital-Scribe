@@ -1165,7 +1165,10 @@ def chat(widget):
 
         return entity_name, entity_type, chk_var
 
-
+    def default_entites(widget):
+        new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
+        new_entity.pack(side=tk.TOP, fill=tk.X)
+        
     e_name, e_type, chk_var = add(fr2)
     e_name.insert(0, "hello")
     e_type.config(text='STRING')
