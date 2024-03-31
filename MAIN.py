@@ -527,9 +527,10 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
     if Recording:
-
+        miniute = second = hour = 0
         Recording = False
         Record_btn.config(fg=fg_color)
+        clock_wideth
         return
 
     def start_recording():
