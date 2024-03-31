@@ -627,6 +627,24 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
         threading.Thread(target=start_recording).start()
         break
 
+miniute = 0
+hour = 0
+sec = 0
+def speech_record_time(widget):
+    def Run(widget=widget):
+        global sec, miniute, hour
+        time = f"{hour}:{miniute}:{sec}"
+        sec = sec + 1
+        if sec == 60:
+            sec = 0
+            miniute = miniute + 1
+            if miniute == 60:
+                miniute = 0
+                hour = hour + 1
+        widget.config(text=time)
+        widget.after(1000, speech_record_time)
+    threading.Thread(target=Run).start()
+
 
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -1211,23 +1229,7 @@ def chat(widget):
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
     #change_fg_OnHover(Record_btn, 'red', fg_color)
 
-    miniute = 0
-    hour = 0
-    sec = 0
-    def update_time(widget):
-        def Run(widget=widget):
-            global sec, miniute, hour
-            time = f"{hour}:{miniute}:{sec}"
-            sec = sec + 1
-            if sec == 60:
-                sec = 0
-                miniute = miniute + 1
-                if miniute == 60:
-                    miniute = 0
-                    hour = hour + 1
-            widget.config(text=time)
-            widget.after(1000, update_time)
-        threading.Thread(target=Run).start()
+
 
 
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
