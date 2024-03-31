@@ -997,8 +997,6 @@ def Login_Section_widget(widget, root_widget):
     return Login_widget
 
 
-
-
 def chat(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
 
