@@ -581,7 +581,9 @@ def RUN_OFFLINE_speech_recognition(widget):
             last_index = int(widget.split('.')[0])
             last_index = last_index - 1
             pos = last_index - Recording_data
-            if pos > Recording_data:
+            #if pos > Recording_data:
+
+            conversation_grammar(widget)
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
