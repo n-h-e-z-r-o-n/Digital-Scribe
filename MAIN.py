@@ -507,7 +507,7 @@ def conversation_grammar(widget):
     print(Answer['text'])
     pass
 
-def RUN_OFFLINE_speech_recognition(widget):
+def RUN_OFFLINE_speech_recognition(widget, widget1=None):
     global closed, Recording, Recording_data
 
     messages = Queue()
@@ -1163,7 +1163,7 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    record_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1))
+    record_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3))
     record_wid.place(relheight=0.02, relwidth=0.21, rely=0.792, relx=0.78)
     change_fg_OnHover(record_wid, 'red', fg_color)
 
