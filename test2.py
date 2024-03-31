@@ -4,9 +4,8 @@ from time import strftime
 miniute = 0
 hour = 0
 sec = 0
-def update_time():
+def update_time(widget):
     global sec, miniute, hour
-
     time = f"{hour}:{miniute}:{sec}"
     sec = sec + 1
     if sec == 60:
@@ -15,11 +14,8 @@ def update_time():
         if miniute == 60:
             miniute = 0
             hour = hour + 1
-
-    print(sec)
-    print(type(sec))
-    label.config(text=time)
-    label.after(1000, update_time)  # Update time every 1000 milliseconds (1 second)
+    widget.config(text=time)
+    widget.after(1000, update_time)  # Update time every 1000 milliseconds (1 second)
 
 # Create main window
 root = tk.Tk()
