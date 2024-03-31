@@ -503,7 +503,7 @@ def conversation_grammar(widget):
     if llm_chain2 == None:
         llm_inference_initializ()
     Question = widget.get(1.0, tk.END)
-    Answer = llm_chain2.invoke(input=f"{Question}")
+    Answer = llm_chain2.(input=f"{Question}")
     print(Answer['text'])
     pass
 
