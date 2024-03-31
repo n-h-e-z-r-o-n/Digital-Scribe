@@ -623,7 +623,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         rec = KaldiRecognizer(vosk_model, FRAME_RATE)
         rec.SetWords(True)
         threading.Thread(target=start_recording).start()
-        #speech_record_time(clock_wideth)
+        speech_record_time(clock_wideth)
         break
 
 miniute = 0
@@ -636,7 +636,6 @@ def speech_record_time(widget):
         while True:
             if closed or not Recording:
                 break
-
             if Recording_paused:
                 continue
 
