@@ -1167,7 +1167,9 @@ def chat(widget):
 
 
     e_name, e_type, chk_var = add(fr2)
-    e_name.set()
+    e_name.insert(0, "hello")
+    e_type.config(text='STRING')
+    chk_var.set(True)
 
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
