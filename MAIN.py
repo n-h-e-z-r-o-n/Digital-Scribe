@@ -657,7 +657,7 @@ def set_recording_paused(widget):
     global Recording_paused, fg_color, Recording
     print('set_recording_paused')
     if Recording:
-        if Recording_paused:
+        if Recording_paused == False:
             widget.config(fg='green')
             Recording_paused = True
         else:
