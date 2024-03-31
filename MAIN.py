@@ -652,8 +652,10 @@ def speech_record_time(widget):
         widget.after(1000, speech_record_time(widget))
     threading.Thread(target=Run).start()
 
-def set_recording_paused():
+def set_recording_paused(widget):
     global Recording_paused
+    if
+    widget.config(fg='green')
     Recording_paused = True
 
 # =============================== scroll Functions definition ===============================================================================================================
