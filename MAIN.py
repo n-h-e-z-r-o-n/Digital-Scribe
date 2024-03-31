@@ -81,7 +81,7 @@ rag_data = None
 rag_widget = None
 sammary_data = None
 Recording = False
-Recording_status = False
+Recording_paused = False
 Recording_data = 0
 # =============================== Functions definition ============================================================================================
 # ================================= Themes ================================================================================================================
@@ -524,7 +524,7 @@ def conversation_grammar(widget, widget1):
 
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
-    global closed, Recording, Recording_data, vosk_model
+    global closed, Recording, Recording_paused, Recording_data, vosk_model
 
     def start_recording():
         messages.put(True)
@@ -543,6 +543,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
 
     def record_microphone(chunk=1024, RECORD_SECONDS=1):
         global closed
+        if
         p = pyaudio.PyAudio()
         FRAME_RATE = 16000
         stream = p.open(format=pyaudio.paInt16,
