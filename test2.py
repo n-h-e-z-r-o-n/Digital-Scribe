@@ -4,6 +4,7 @@ from time import strftime
 def update_time():
     current_time = strftime('%H:%M:%S %p')
     print(current_time)
+    print(type(current_time))
     label.config(text=current_time)
     label.after(1000, update_time)  # Update time every 1000 milliseconds (1 second)
 
