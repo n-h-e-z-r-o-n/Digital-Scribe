@@ -263,6 +263,7 @@ def Entity_Extraction(document, entity_list, widget):
 
     del mygradient
 
+
 def D_Summary(widget1, widget):
     def run_f(widget1= widget1, widget = widget):
         document = widget1.get("1.0", "end")
@@ -462,7 +463,7 @@ def llm_inference_initializ():
         model_kwargs=dict(max_generated_token_count=510),
     )
 
-    template2 ="""Don't ask me questions just format the conversation with correct grammar. if you cant say you can't.
+    template2 ="""Rewite the conversation with correct grammar
                 conversation: "{conversation}"
                 Chatbot:"""
 
@@ -623,6 +624,7 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
     widget.configure(scrollregion=widget.bbox("all"))
     children = widget.winfo_children()
 
+
 prevy = 0
 def on_touch_scroll(widget, event):
     global prevy
@@ -645,6 +647,7 @@ def on_touch_scroll(widget, event):
         event.delta = 0
     prevy = nowy
     widget.unbind_all("<Button-1>"), "+"
+
 
 def widget_scroll_bind(widget):
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
@@ -701,8 +704,6 @@ def access_keys_info():
     except Exception as e:
         print("access_keys_info Function:", e)
         pass
-
-
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
