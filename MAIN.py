@@ -516,13 +516,6 @@ def conversation_grammar(widget):
 def RUN_OFFLINE_speech_recognition(widget, widget1=None):
     global closed, Recording, Recording_data, vosk_model
 
-    messages = Queue()
-    recordings = Queue()
-    FRAME_RATE = 16000
-    #vosk_model = Model(model_name="vosk-model-en-us-0.22")
-    rec = KaldiRecognizer(vosk_model, FRAME_RATE)
-    rec.SetWords(True)
-
     def start_recording():
         messages.put(True)
         print("Starting...")
@@ -597,6 +590,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
     while True:
         if vosk_model == None:
             continue
+        messages = Queue()
+        recordings = Queue()
+        FRAME_RATE = 16000
+        # vosk_model = Model(model_name="vosk-model-en-us-0.22")
+        rec = KaldiRecognizer(vosk_model, FRAME_RATE)
+        rec.SetWords(True)
         threading.Thread(target=start_recording).start()
         break
 
