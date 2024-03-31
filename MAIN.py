@@ -502,6 +502,8 @@ def Initialize_VOSK():
     global vosk_model
     vosk_model = Model(model_name="vosk-model-en-us-0.22")
 
+threading.Thread(target=Initialize_VOSK).start()
+
 def conversation_grammar(widget):
     global llm_chain2, recording_data
     if llm_chain2 is None:
@@ -517,7 +519,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
     messages = Queue()
     recordings = Queue()
     FRAME_RATE = 16000
-    vosk_model = Model(model_name="vosk-model-en-us-0.22")
+    #vosk_model = Model(model_name="vosk-model-en-us-0.22")
     rec = KaldiRecognizer(vosk_model, FRAME_RATE)
     rec.SetWords(True)
 
@@ -592,8 +594,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
             # time.sleep(1)
-
-    threading.Thread(target=start_recording).start()
+    while True:
+        if vosk_model == None:
+            continue
+        threading.Thread(target=start_recording).start()
+        break
 
 # =============================== scroll Functions definition ===============================================================================================================
 
