@@ -66,7 +66,7 @@ assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
 keys = None
-
+vosk_model = None
 rag_pipeline = None
 llm_chain = None
 llm_chain2 = None
@@ -498,6 +498,9 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 # =============================== Speech recognition Functions ==============================================================================================================
 
+def Initialize_VOSK():
+vosk_model = Model(model_name="vosk-model-en-us-0.22")
+
 def conversation_grammar(widget):
     global llm_chain2, recording_data
     if llm_chain2 is None:
@@ -508,7 +511,7 @@ def conversation_grammar(widget):
     pass
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None):
-    global closed, Recording, Recording_data
+    global closed, Recording, Recording_data, vosk_model
 
     messages = Queue()
     recordings = Queue()
@@ -582,8 +585,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             last_index = last_index - 1
             pos = last_index - Recording_data
             #if pos > Recording_data:
-
-            conversation_grammar(widget1)
+            if widget1 is not None:
+                conversation_grammar(widget1)
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
