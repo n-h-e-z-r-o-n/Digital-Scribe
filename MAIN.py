@@ -504,13 +504,14 @@ def Initialize_VOSK():
 
 threading.Thread(target=Initialize_VOSK).start()
 
-def conversation_grammar(widget):
+def conversation_grammar(widget, widget1):
     global llm_chain2, recording_data
     if llm_chain2 is None:
         llm_inference_initializ()
     Question = widget.get(1.0, tk.END)
     Answer = llm_chain2.invoke(input=f"{Question}")
     print(Answer['text'])
+    widget1.insert(tk.END, f"{Answer['text']}")
     pass
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None):
@@ -581,9 +582,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             last_index = last_index - 1
             pos = last_index - Recording_data
             #if pos > Recording_data:
-            print('widget1 :', widget1)
+            #print('widget1 :', widget1)
             if widget1 is not None:
-                conversation_grammar(widget)
+                conversation_grammar(widget, wi)
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
