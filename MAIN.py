@@ -531,11 +531,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
         Record_btn.config(fg=fg_color)
         return
     def start_recording():
-        Recording
+        global Recording
         messages.put(True)
         print("Starting...")
         Recording = True
         Record_btn.config(fg="green")
+
         record = Thread(target=record_microphone)
         record.start()
 
