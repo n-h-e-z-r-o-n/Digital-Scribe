@@ -1,33 +1,20 @@
-from gramformer import Gramformer
-import torch
+import tkinter as tk
+from time import strftime
 
-def set_seed(seed):
-  torch.manual_seed(seed)
-  if torch.cuda.is_available():
-    torch.cuda.manual_seed_all(seed)
+def update_time():
+    current_time = strftime('%H:%M:%S %p')
+    label.config(text=current_time)
+    label.after(1000, update_time)  # Update time every 1000 milliseconds (1 second)
 
-set_seed(1212)
+# Create main window
+root = tk.Tk()
+root.title("Simple Clock")
 
+# Create label to display time
+label = tk.Label(root, font=('calibri', 40, 'bold'), background='purple', foreground='white')
+label.pack(anchor='center')
 
-gf = Gramformer(models = 1, use_gpu=False) # 1=corrector, 2=detector
+# Call the function to update time
+update_time()
 
-influent_sentences = [
-    "He are moving here.",
-    "I am doing fine. How is you?",
-    "How is they?",
-    "Matt like fish",
-    "the collection of letters was original used by the ancient Romans",
-    "We enjoys horror movies",
-    "Anna and Mike is going skiing",
-    "I walk to the store and I bought milk",
-    " We all eat the fish and then made dessert",
-    "I will eat fish for dinner and drink milk",
-    "what be the reason for everyone leave the company",
-]
-
-for influent_sentence in influent_sentences:
-    corrected_sentences = gf.correct(influent_sentence, max_candidates=1)
-    print("[Input] ", influent_sentence)
-    for corrected_sentence in corrected_sentences:
-      print("[Correction] ",corrected_sentence)
-    print("-" *100)
+root.mainloop()
