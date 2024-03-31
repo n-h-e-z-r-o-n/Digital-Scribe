@@ -1167,6 +1167,7 @@ def chat(widget):
 
     def custom_add(widget):
             list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING')]
+            for i
             e_name, e_type, chk_var = add(fr2)
             e_name.insert(0, "hello")
             e_type.config(text='STRING')
