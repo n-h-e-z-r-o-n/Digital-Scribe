@@ -1185,19 +1185,19 @@ def chat(widget):
 
     custom_add(fr2)
 
-    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground='blue', bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Extract_entities = tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground='blue', bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    Extract_entities = tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
     Extract_entities.place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
     change_fg_OnHover(Extract_entities, 'red', fg_color)
 
-    Summary_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground='blue', bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
+    Summary_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
     Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    record_wid = tk.Button(chatbot_widget, text='recod', fg=fg_color, font=("Bauhaus 93", 10), activebackground='blue', bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3))
+    record_wid = tk.Button(chatbot_widget, text='recod', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3))
     record_wid.place(relheight=0.02, relwidth=0.21, rely=0.792, relx=0.78)
     change_fg_OnHover(record_wid, 'red', fg_color)
 
