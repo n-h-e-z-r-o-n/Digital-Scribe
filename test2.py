@@ -1,11 +1,14 @@
 import tkinter as tk
 from time import strftime
 
+miniute = 0
+hour = 0
+sec = 0
 def update_time():
-    current_time = strftime('%S')
-    print(current_time)
-    print(type(current_time))
-    label.config(text=current_time)
+    sec_time = strftime('%S')
+    print(sec_time)
+    print(type(sec_time))
+    label.config(text=sec_time)
     label.after(1000, update_time)  # Update time every 1000 milliseconds (1 second)
 
 # Create main window
