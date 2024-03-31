@@ -1209,7 +1209,7 @@ def chat(widget):
 
     Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 20), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3, Record_btn))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
-    change_fg_OnHover(Record_btn, 'red', fg_color)
+    #change_fg_OnHover(Record_btn, 'red', fg_color)
 
     miniute = 0
     hour = 0
