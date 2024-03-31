@@ -1,2 +1,33 @@
-p = " i whooping more woman i see a senior member of the you ever since i got it heard of a job three years ago or something coming back it'd be fine for awhile and now you see you again what what brings well my back i see i've seen a number of times you will ever since i got hurt on the job three years ago it's something that just keeps coming back it'll be fine for awhile and then and move your way go out with them unfortunately that that can happen and i do have quite a few patients who get reappeared episodes of panic have you been keeping up with it therapy that we had you on before which the pills actually i was talking about the physical therapy that we had you doing the pills are only meant for a short time because they they don't actually provide the back from coming back see yeah once my back started feeling better i was happy about too go to the therapist at work why was that was"
-print(len(p))
+from gramformer import Gramformer
+import torch
+
+def set_seed(seed):
+  torch.manual_seed(seed)
+  if torch.cuda.is_available():
+    torch.cuda.manual_seed_all(seed)
+
+set_seed(1212)
+
+
+gf = Gramformer(models = 1, use_gpu=False) # 1=corrector, 2=detector
+
+influent_sentences = [
+    "He are moving here.",
+    "I am doing fine. How is you?",
+    "How is they?",
+    "Matt like fish",
+    "the collection of letters was original used by the ancient Romans",
+    "We enjoys horror movies",
+    "Anna and Mike is going skiing",
+    "I walk to the store and I bought milk",
+    " We all eat the fish and then made dessert",
+    "I will eat fish for dinner and drink milk",
+    "what be the reason for everyone leave the company",
+]   
+
+for influent_sentence in influent_sentences:
+    corrected_sentences = gf.correct(influent_sentence, max_candidates=1)
+    print("[Input] ", influent_sentence)
+    for corrected_sentence in corrected_sentences:
+      print("[Correction] ",corrected_sentence)
+    print("-" *100)
