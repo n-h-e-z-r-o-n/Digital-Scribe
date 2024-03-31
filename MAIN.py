@@ -81,7 +81,7 @@ rag_data = None
 rag_widget = None
 sammary_data = None
 Recording = False
-Recording_data = ''
+Recording_data = 0
 # =============================== Functions definition ============================================================================================
 # ================================= Themes ================================================================================================================
 
@@ -581,6 +581,7 @@ def RUN_OFFLINE_speech_recognition(widget):
             last_index = int(widget.split('.')[0])
             last_index = last_index - 1
 
+            if 
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
