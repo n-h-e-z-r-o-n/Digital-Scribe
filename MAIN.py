@@ -639,7 +639,7 @@ def speech_record_time(widget):
             if Recording_paused:
                 continue
 
-            time = f"{hour}:{miniute}:{sec}"
+            time_text = f"{hour}:{miniute}:{sec}"
             sec = sec + 1
             if sec == 60:
                 sec = 0
@@ -647,7 +647,7 @@ def speech_record_time(widget):
                 if miniute == 60:
                     miniute = 0
                     hour = hour + 1
-            widget.config(text=time)
+            widget.config(text=time_text)
             time.sleep(1)
 
     threading.Thread(target=Run).start()
