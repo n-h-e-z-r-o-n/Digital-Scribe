@@ -1193,9 +1193,9 @@ def chat(widget):
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
     change_fg_OnHover(Record_btn, 'red', fg_color)
 
-    play_pause = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
-    Extract_entities.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
-    change_fg_OnHover(Extract_entities, 'red', fg_color)
+    play_pause_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
+    change_fg_OnHover(play_pause_btn, 'red', fg_color)
 
     Summary_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
     #Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
