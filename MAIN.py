@@ -525,11 +525,13 @@ def conversation_grammar(widget, widget1):
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
+    global fg_color, bg_color
     if Recording:
         Recording = False
-        Record_btn.config(fg=fg)
+        Record_btn.config(fg=fg_color)
         return
     def start_recording():
+        Recording
         messages.put(True)
         print("Starting...")
         Recording = True
