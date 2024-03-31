@@ -498,6 +498,15 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 # =============================== Speech recognition Functions ==============================================================================================================
 
+def conversation_grammar(widget):
+    global llm_chain2
+    if llm_chain2 == None:
+        llm_inference_initializ()
+    Question = widget.get(1.0, tk.END)
+    Answer = llm_chain2.invoke(input=f"{Question}")
+    print(Answer['text'])
+    pass
+
 def RUN_OFFLINE_speech_recognition(widget):
     global closed, Recording, Recording_data
 
