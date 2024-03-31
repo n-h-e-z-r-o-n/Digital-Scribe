@@ -1189,7 +1189,7 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Extract_entities = tk.Button(chatbot_widget, text='Extract', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    Extract_entities = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
     Extract_entities.place(relheight=0.02, relwidth=0.21, rely=0.751, relx=0.78)
     change_fg_OnHover(Extract_entities, 'red', fg_color)
 
@@ -1647,10 +1647,8 @@ def User_Home_page(widget):
 
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.place(relx=0, rely=0)
-
     container1 = tk.Frame(Home_page_frame, bg=bg_color)
     container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1)-20))
-
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
     container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int((screen_height * 1)-20))  # place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
@@ -1664,8 +1662,9 @@ def User_Home_page(widget):
 
     SETTINGS_Widget = settings(Home_page_frame)
     chat_me_Widget = chat_me(Home_page_frame)
-    CHAT_Widget = chat(Home_page_frame)
+
     rag_widget = RAG_page(Home_page_frame)
+    CHAT_Widget = chat(Home_page_frame)
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
  
     def active(widget):
