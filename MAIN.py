@@ -581,6 +581,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             last_index = last_index - 1
             pos = last_index - Recording_data
             #if pos > Recording_data:
+            print('widget1 :', widget1)
             if widget1 is not None:
                 conversation_grammar(widget1)
 
@@ -1171,7 +1172,7 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    record_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3))
+    record_wid = tk.Button(chatbot_widget, text='recod', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3))
     record_wid.place(relheight=0.02, relwidth=0.21, rely=0.792, relx=0.78)
     change_fg_OnHover(record_wid, 'red', fg_color)
 
