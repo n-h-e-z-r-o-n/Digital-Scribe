@@ -499,7 +499,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def conversation_grammar(widget):
-    global llm_chain2
+    global llm_chain2, recording_data
     if llm_chain2 == None:
         llm_inference_initializ()
     Question = widget.get(1.0, tk.END)
