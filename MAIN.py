@@ -499,7 +499,8 @@ def Chat_bot_inference(widget0, widget1, widget2):
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
-vosk_model = Model(model_name="vosk-model-en-us-0.22")
+    global vosk_model
+    vosk_model = Model(model_name="vosk-model-en-us-0.22")
 
 def conversation_grammar(widget):
     global llm_chain2, recording_data
