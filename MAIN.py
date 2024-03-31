@@ -1166,7 +1166,8 @@ def chat(widget):
         return entity_name, entity_type, chk_var
 
     def custom_add(widget):
-            defalt_entities_list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING')]
+            defalt_entities_list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING'), ('Treatment', 'STRING'), ('Diagnosis', 'STRING'), ('Medication', 'STRING'), ('Procedures', 'STRING')
+                , ('Medical History', 'STRING'), ('Treatment', 'STRING'),('Treatment', 'STRING'),('Treatment', 'STRING'),('Treatment', 'STRING')]
             for i in defalt_entities_list:
                 e_name, e_type, chk_var = add(fr2)
                 e_name.insert(0, i[0])
