@@ -584,7 +584,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             #if pos > Recording_data:
             #print('widget1 :', widget1)
             if widget1 is not None:
-                conversation_grammar(widget, wi)
+                conversation_grammar(widget, widget1)
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
