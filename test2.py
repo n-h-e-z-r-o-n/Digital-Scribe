@@ -1,27 +1,2 @@
-import tkinter as tk
-
-def count_lines():
-    # Get the index of the last line
-    last_index = text_widget.index("end")
-    print("Last index:", last_index)
-    # Parse the last index to get the line number
-    line_number = last_index.split('.')[0]
-    print("Number of lines:", line_number)
-
-# Create a tkinter window
-root = tk.Tk()
-root.title("Count Lines Example")
-
-# Create a Text widget
-text_widget = tk.Text(root)
-text_widget.pack()
-
-# Insert some text into the Text widget
-text_widget.insert("1.0", "Line 1\nLine 2\nLine 3\nLine 4\nLine 5")
-
-# Button to count the number of lines
-count_lines_button = tk.Button(root, text="Count Lines", command=count_lines)
-count_lines_button.pack()
-
-# Run the tkinter event loop
-root.mainloop()
+p = " i whooping more woman i see a senior member of the you ever since i got it heard of a job three years ago or something coming back it'd be fine for awhile and now you see you again what what brings well my back i see i've seen a number of times you will ever since i got hurt on the job three years ago it's something that just keeps coming back it'll be fine for awhile and then and move your way go out with them unfortunately that that can happen and i do have quite a few patients who get reappeared episodes of panic have you been keeping up with it therapy that we had you on before which the pills actually i was talking about the physical therapy that we had you doing the pills are only meant for a short time because they they don't actually provide the back from coming back see yeah once my back started feeling better i was happy about too go to the therapist at work why was that was"
+print(len(p))
