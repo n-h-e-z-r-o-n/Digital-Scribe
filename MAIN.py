@@ -595,10 +595,33 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
     widget.configure(scrollregion=widget.bbox("all"))
     children = widget.winfo_children()
 
+prevy = 0
+def on_touch_scroll(widget, event):
+    global prevy
+
+    def xxx(widget=widget, increment=None):
+        current_scroll = float(widget.yview()[0])
+        new_scroll = max(0.0, min(1.0, current_scroll + increment))
+        widget.yview_moveto(new_scroll)
+
+    nowy = event.y_root
+
+    if nowy > prevy:
+        xxx(widget, -0.008)
+        # widget.yview_scroll(-1, "units")
+    elif nowy < prevy:
+        xxx(widget, 0.008)
+        # widget.yview_scroll(1, "units")
+
+    else:
+        event.delta = 0
+    prevy = nowy
+    widget.unbind_all("<Button-1>"), "+"
 
 def widget_scroll_bind(widget):
     widget.bind("<Configure>", lambda e: on_frame_configure(widget, e))
     widget.bind("<MouseWheel>", lambda e: on_mouse_wheel(widget, e))
+    widget.bind_all("<B1-Motion>", lambda e: on_touch_scroll(widget, e))
 
 
 def attach_scroll(widget, color=None):
