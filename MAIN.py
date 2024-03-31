@@ -525,8 +525,9 @@ def conversation_grammar(widget, widget1):
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_wideth=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
-    global fg_color, bg_color
+    global fg_color, bg_color, miniute, second, hour
     if Recording:
+        miniute = sw
         Recording = False
         Record_btn.config(fg=fg_color)
         return
@@ -652,6 +653,7 @@ def speech_record_time(widget):
 
     threading.Thread(target=Run).start()
 
+
 def set_recording_paused(widget):
     global Recording_paused, fg_color, Recording
     print('set_recording_paused')
@@ -662,7 +664,9 @@ def set_recording_paused(widget):
         else:
             widget.config(fg=fg_color)
             Recording_paused = False
+
 # =============================== scroll Functions definition ===============================================================================================================
+
 
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
     # Scroll the canvas up or down based on the mouse wheel direction
