@@ -1088,7 +1088,7 @@ def chat(widget):
     #t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
 
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
-    t2.tag_configure("error_config", foreground="#7E191B", justify=tk.LEFT)
+    t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)
     #t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t2.config(state=tk.DISABLED)
 
