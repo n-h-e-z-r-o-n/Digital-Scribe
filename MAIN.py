@@ -1160,10 +1160,13 @@ def chat(widget):
         for child in children:
             child.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
+
         entity_widget_lists.append((new_entity, entity_name, entity_type, chk_var))
 
+        return entity_name, entity_type, chk_var
 
 
+    e_name, e_type, chk_var = add(fr2)
 
 
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
