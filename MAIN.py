@@ -636,7 +636,7 @@ def speech_record_time(widget):
         if closed or not Recording:
             return
         if Recording_paused:
-            widget.after(1000, speech_record_time)
+            widget.after(1000, speech_record_time(widget))
             return
         time = f"{hour}:{miniute}:{sec}"
         sec = sec + 1
@@ -647,7 +647,7 @@ def speech_record_time(widget):
                 miniute = 0
                 hour = hour + 1
         widget.config(text=time)
-        widget.after(1000, speech_record_time)
+        widget.after(1000, speech_record_time(widget))
     threading.Thread(target=Run).start()
 
 def set_recording_paused():
