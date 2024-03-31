@@ -5,7 +5,16 @@ miniute = 0
 hour = 0
 sec = 0
 def update_time():
-    sec_time = strftime('%S')
+    global sec, miniute, hour
+    time = f"{hour}:{miniute}:{sec}"
+    sec = sec + 1
+    if sec == 60:
+        sec = 0
+        miniute = miniute + 1
+    if miniute == 60:
+        miniute = 0
+        hour = hour + 1
+        
     print(sec_time)
     print(type(sec_time))
     label.config(text=sec_time)
