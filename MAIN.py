@@ -513,7 +513,7 @@ def RUN_OFFLINE_speech_recognition(widget):
     messages = Queue()
     recordings = Queue()
     FRAME_RATE = 16000
-    model = Model(model_name="vosk-model-en-us-0.22")
+    vosk_model = Model(model_name="vosk-model-en-us-0.22")
     rec = KaldiRecognizer(model, FRAME_RATE)
     rec.SetWords(True)
 
