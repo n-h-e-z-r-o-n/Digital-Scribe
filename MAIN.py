@@ -1165,7 +1165,7 @@ def chat(widget):
 
         return entity_name, entity_type, chk_var
 
-
+   
     e_name, e_type, chk_var = add(fr2)
 
 
