@@ -211,19 +211,14 @@ def change_color(widget, button):
 def Entity_Extraction(document, entity_list, widget):
     document = (document.strip())
     mygradient = Gradient()
-    print(document)
     schema = '{'
     for i in entity_list:
         schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get())+ ', }, '
-        print(i[1].get(), '--', i[2].cget("text"), '--', i[3].get())
 
 
 
     schema += '}'
-    print(schema)
     dictionary = eval(schema)
-    print(dictionary)
-    print("starting")
     try:
         result = mygradient.extract(
             document=document,
@@ -237,7 +232,6 @@ def Entity_Extraction(document, entity_list, widget):
             widget.insert(tk.END, m)
 
         widget.config(state=tk.DISABLED)
-        print(result)
 
     except Exception as e:
         print(type(e).__name__)
@@ -245,21 +239,29 @@ def Entity_Extraction(document, entity_list, widget):
             error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
             widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
-            widget.insert(tk.END, error)
+            widget.insert(tk.END, e,  'error_config')
             widget.config(state=tk.DISABLED)
         elif type(e).__name__ == 'MaxRetryError':
             error = "Error :"  + " : Check Your internet conection"
             widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
-            widget.insert(tk.END, error)
+            widget.insert(tk.END, e,  'error_config')
             widget.config(state=tk.DISABLED)
         elif type(e).__name__ == 'ServiceException':
+
             error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
             widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
-            widget.insert(tk.END, error)
+            widget.insert(tk.END, e)
+            widget.config(state=tk.DISABLED)
+        elif type(e).__name__ == 'ValidationError':
+            error = "Error :" + " : No data provide for extraction"
+            widget.config(state=tk.NORMAL)
+            widget.delete(1.0, tk.END)
+            widget.insert(tk.END, e, 'error_config')
             widget.config(state=tk.DISABLED)
 
+    del mygradient
 
 def D_Summary(widget1, widget):
     def run_f(widget1= widget1, widget = widget):
@@ -1086,6 +1088,7 @@ def chat(widget):
     #t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
 
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
+    t2.tag_configure("error_config", foreground="#7E191B", justify=tk.LEFT)
     #t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t2.config(state=tk.DISABLED)
 
@@ -1093,8 +1096,8 @@ def chat(widget):
 
 
     paned_window.add(t1)
-    paned_window.add(t2)
     paned_window.add(t3)
+    paned_window.add(t2)
 
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
@@ -1166,8 +1169,8 @@ def chat(widget):
         return entity_name, entity_type, chk_var
 
     def custom_add(widget):
-            defalt_entities_list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING'), ('Treatment', 'STRING'), ('Diagnosis', 'STRING'), ('Medication', 'STRING'), ('Procedures', 'STRING')
-                , ('Medical History', 'STRING'), ('Docter Name', 'STRING'), ('Patient Name', 'STRING'), ('Treatment Plan', 'STRING'), ('Allergies', 'STRING'), ('Vitals', 'STRING'), ('Lifestyle', 'STRING'), ('Patient Concerns', 'STRING')]
+            defalt_entities_list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING'), ('Treatment', 'STRING'), ('Diagnosis', 'STRING'), ('Medication', 'STRING')
+                , ('Medical History', 'STRING'), ('Docter Name', 'STRING'), ('Patient Name', 'STRING'), ('Treatment Plan', 'STRING'), ('Allergy', 'STRING'), ('Vitals', 'STRING'), ('Lifestyle', 'STRING'), ('Patient Concerns', 'STRING')]
             for i in defalt_entities_list:
                 e_name, e_type, chk_var = add(fr2)
                 e_name.insert(0, i[0])
