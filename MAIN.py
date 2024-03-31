@@ -510,7 +510,7 @@ def conversation_grammar(widget, widget1):
         llm_inference_initializ()
     Question = widget.get(1.0, tk.END)
     Answer = llm_chain2.invoke(input=f"{Question}")
-    
+
     widget1.delete(1.0, tk.END)
     widget1.insert(tk.END, f"{Answer['text']}")
     pass
@@ -564,33 +564,36 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             if closed:
                 print('speech_recognition closed')
                 break
-            frames = recordings.get()
-
-            rec.AcceptWaveform(b''.join(frames))
-            result = rec.Result()
-            text = json.loads(result)["text"]
-            if text == "the" or text == "" :
+            try:
+                frames = recordings.get()
+    
+                rec.AcceptWaveform(b''.join(frames))
+                result = rec.Result()
+                text = json.loads(result)["text"]
+                if text == "the" or text == "" :
+                    continue
+                #Recording_data += text
+    
+                widget.config(state=tk.NORMAL)
+                widget.insert(tk.END, f" {text}")
+                widget.see(tk.END)
+                widget.config(state=tk.DISABLED)
+    
+                last_index = widget.index("end")
+                last_index = int(last_index.split('.')[0])
+                last_index = last_index - 1
+                pos = last_index - Recording_data
+                #if pos > Recording_data:
+                print('last_index :', last_index)
+                if widget1 is not None:
+                    if last_index > 6:
+                       conversation_grammar(widget, widget1)
+    
+                # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
+                # output.append_stdout(cased)
+                # time.sleep(1)
+            except:
                 continue
-            #Recording_data += text
-
-            widget.config(state=tk.NORMAL)
-            widget.insert(tk.END, f" {text}")
-            widget.see(tk.END)
-            widget.config(state=tk.DISABLED)
-
-            last_index = widget.index("end")
-            last_index = int(last_index.split('.')[0])
-            last_index = last_index - 1
-            pos = last_index - Recording_data
-            #if pos > Recording_data:
-            #print('widget1 :', widget1)
-            if widget1 is not None:
-                if last_index > 6:
-                   conversation_grammar(widget, widget1)
-
-            # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
-            # output.append_stdout(cased)
-            # time.sleep(1)
     while True:
         if vosk_model == None:
             continue
