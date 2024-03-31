@@ -1242,10 +1242,10 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 23), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
-    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 17), anchor= activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
+    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
 
     clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg=bg_color, borderwidth=0, border=0) #, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
