@@ -1216,7 +1216,7 @@ def chat(widget):
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
     change_fg_OnHover(play_pause_btn, 'red', fg_color)
 
-    clock_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    clock_lb = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
     change_fg_OnHover(play_pause_btn, 'red', fg_color)
 
