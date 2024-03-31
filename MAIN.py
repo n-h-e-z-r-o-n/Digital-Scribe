@@ -653,11 +653,13 @@ def speech_record_time(widget):
     threading.Thread(target=Run).start()
 
 def set_recording_paused(widget):
-    global Recording_paused
-    if
-    widget.config(fg='green')
-    Recording_paused = True
-
+    global Recording_paused, fg_color
+    if Recording_paused:
+        widget.config(fg='green')
+        Recording_paused = True
+    else:
+        widget.config(fg=fg_color)
+        Recording_paused = False
 # =============================== scroll Functions definition ===============================================================================================================
 
 def on_mouse_wheel(widget, event):  # Function to handle mouse wheel scrolling
@@ -1242,7 +1244,7 @@ def chat(widget):
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
     #change_fg_OnHover(Record_btn, 'red', fg_color)
 
-    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: set_recording_paused)
+    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
     change_fg_OnHover(play_pause_btn, 'red', fg_color)
 
