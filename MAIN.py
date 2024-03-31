@@ -578,15 +578,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
                 widget.insert(tk.END, f" {text}")
                 widget.see(tk.END)
                 widget.config(state=tk.DISABLED)
-    
-                last_index = widget.index("end")
-                last_index = int(last_index.split('.')[0])
-                last_index = last_index - 1
-                pos = last_index - Recording_data
-                #if pos > Recording_data:
-                print('last_index :', last_index)
+
+                info = widget.get('1.0', tk.END)
+                info = len(info)
                 if widget1 is not None:
-                    if last_index > 6:
+                    if info > 1000:
                        conversation_grammar(widget, widget1)
     
                 # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
