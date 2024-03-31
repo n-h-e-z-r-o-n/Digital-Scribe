@@ -452,7 +452,7 @@ def llm_inference_initializ():
 
     prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
     memory = ConversationBufferMemory(memory_key="chat_history")
-    llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True, memory=memory)
+    llm_chain = LLMChain(prompt=prompt, llm=llm, memory=memory)
 
     # ================================================ chat bot section
     llm2 = GradientLLM(
@@ -465,7 +465,7 @@ def llm_inference_initializ():
                 Chatbot:"""
 
     prompt2 = PromptTemplate(template=template2, input_variables=["conversation"])
-    llm_chain2 = LLMChain(prompt=prompt2, llm=llm2, verbose=True)
+    llm_chain2 = LLMChain(prompt=prompt2, llm=llm2)
 
 
 def Chat_bot_inference(widget0, widget1, widget2):
@@ -583,7 +583,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None):
             #if pos > Recording_data:
             print('widget1 :', widget1)
             if widget1 is not None:
-                conversation_grammar(widget1)
+                conversation_grammar(widget)
 
             # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
             # output.append_stdout(cased)
