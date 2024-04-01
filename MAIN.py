@@ -209,61 +209,80 @@ def change_color(widget, button):
 
 # ============================================= NLP  ==========================================================================================
 
-def Entity_Extraction(document, entity_list, widget):
-    document = (document.strip())
-    mygradient = Gradient()
-    schema = '{'
-    for i in entity_list:
-        schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get())+ ', }, '
+def Entity_Extraction(document_widget, entity_list, widget, loop=False):
+    def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
+        global Recording, Recording_paused
+        mygradient = Gradient()
+
+        while True:
+            document = document_widget.get("1.0", "end")
+            if len(document) < 500:
+                print('entity_ low')
+                continue
+            if Recording_paused:
+                print('entity_paused')
+                continue
+            if closed :
+                print('entity_stoped')
+                break
+            document = (document.strip())
+            schema = '{'
+            for i in entity_list:
+                schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get())+ ', }, '
+            schema += '}'
+            dictionary = eval(schema)
+            try:
+                result = mygradient.extract(
+                    document=document,
+                    schema_=dictionary,
+                )
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                for key, value in result["entity"].items():
+                    m = key + " : " + value + "\n"
+                    print()
+                    widget.insert(tk.END, m)
+
+                widget.config(state=tk.DISABLED)
+
+            except Exception as e:
+                print(type(e).__name__)
+                if type(e).__name__ == 'BadRequestException':
+                    error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
+                    widget.config(state=tk.NORMAL)
+                    widget.delete(1.0, tk.END)
+                    widget.insert(tk.END, e,  'error_config')
+                    widget.config(state=tk.DISABLED)
+                elif type(e).__name__ == 'MaxRetryError':
+                    error = "Error :"  + " : Check Your internet conection"
+                    widget.config(state=tk.NORMAL)
+                    widget.delete(1.0, tk.END)
+                    widget.insert(tk.END, e,  'error_config')
+                    widget.config(state=tk.DISABLED)
+                elif type(e).__name__ == 'ServiceException':
+
+                    error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
+                    widget.config(state=tk.NORMAL)
+                    widget.delete(1.0, tk.END)
+                    widget.insert(tk.END, e)
+                    widget.config(state=tk.DISABLED)
+                elif type(e).__name__ == 'ValidationError':
+                    error = "Error :" + " : No data provide for extraction"
+                    widget.config(state=tk.NORMAL)
+                    widget.delete(1.0, tk.END)
+                    widget.insert(tk.END, e, 'error_config')
+                    widget.config(state=tk.DISABLED)
+
+            if not loop:
+                print("loop break")
+                break
+            else:
+                if not Recording:
+                    break
+            time.sleep(10)
 
 
-
-    schema += '}'
-    dictionary = eval(schema)
-    try:
-        result = mygradient.extract(
-            document=document,
-            schema_=dictionary,
-        )
-        widget.config(state=tk.NORMAL)
-        widget.delete(1.0, tk.END)
-        for key, value in result["entity"].items():
-            m = key + " : " + value + "\n"
-            print()
-            widget.insert(tk.END, m)
-
-        widget.config(state=tk.DISABLED)
-
-    except Exception as e:
-        print(type(e).__name__)
-        if type(e).__name__ == 'BadRequestException':
-            error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
-            widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
-            widget.insert(tk.END, e,  'error_config')
-            widget.config(state=tk.DISABLED)
-        elif type(e).__name__ == 'MaxRetryError':
-            error = "Error :"  + " : Check Your internet conection"
-            widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
-            widget.insert(tk.END, e,  'error_config')
-            widget.config(state=tk.DISABLED)
-        elif type(e).__name__ == 'ServiceException':
-
-            error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
-            widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
-            widget.insert(tk.END, e)
-            widget.config(state=tk.DISABLED)
-        elif type(e).__name__ == 'ValidationError':
-            error = "Error :" + " : No data provide for extraction"
-            widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
-            widget.insert(tk.END, e, 'error_config')
-            widget.config(state=tk.DISABLED)
-
-    del mygradient
-
+    threading.Thread(target=run).start()
 
 def D_Summary(widget1, widget):
     def run_f(widget1= widget1, widget = widget):
@@ -587,6 +606,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
             if Recording == False:
                 break
             if Recording_paused:
+                print('  paused')
                 continue
             try:
                 frames = recordings.get()
@@ -598,10 +618,10 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     continue
                 #Recording_data += text
     
-                widget.config(state=tk.NORMAL)
+                #widget.config(state=tk.NORMAL)
                 widget.insert(tk.END, f" {text}")
                 widget.see(tk.END)
-                widget.config(state=tk.DISABLED)
+                #widget.config(state=tk.DISABLED)
 
                 info = widget.get('1.0', tk.END)
                 info = len(info)
@@ -665,6 +685,8 @@ def set_recording_paused(widget):
         else:
             widget.config(fg=fg_color)
             Recording_paused = False
+    else:
+        widget.config(fg=fg_color)
 
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -1154,7 +1176,7 @@ def chat(widget):
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)
     #t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
-    t2.config(state=tk.DISABLED)
+
 
     t3 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
 
@@ -1243,26 +1265,32 @@ def chat(widget):
 
     custom_add(fr2)
 
-    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: add(fr2))
-    Add_new_entity.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t2, True)))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
-    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
+    play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
 
-    clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg=bg_color, borderwidth=0, border=0) #, command=lambda: Entity_Extraction(t1.get("1.0", "end"), entity_widget_lists, t2))
+    clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg=bg_color, borderwidth=0, border=0)
     clock_lb.place(relheight=0.03, relwidth=0.06, rely=0.751, relx=0.82)
 
-    Summary_wid = tk.Button(chatbot_widget, text='Summary', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
-    #Summary_wid.place(relheight=0.02, relwidth=0.21, rely=0.772, relx=0.78)
+    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t2, False) )#D_Summary(t1, t2))
+    extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.78, relx=0.78)
+    change_fg_OnHover(extract_wid, 'red', fg_color)
+
+    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
+    Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    record_wid = tk.Button(chatbot_widget, text='recod', fg=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t3))
-    #record_wid.place(relheight=0.02, relwidth=0.21, rely=0.792, relx=0.78)
-    change_fg_OnHover(record_wid, 'red', fg_color)
+    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
+    upload_audio_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.863)
+    change_fg_OnHover(upload_audio_wid, 'red', fg_color)
+
+
 
 
 

@@ -3,7 +3,7 @@ from threading import Thread
 import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
-
+import subprocess, time
 p = pyaudio.PyAudio()
 for i in range(p.get_device_count()):
     M = p.get_device_info_by_index(i)
@@ -75,9 +75,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             if text == "the" or text == "" :
                 continue
             print("----", text)
-            # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
-            # output.append_stdout(cased)
-            # time.sleep(1)
+
 
 
 
