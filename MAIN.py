@@ -645,7 +645,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
                 if widget1 is not None:
                     if info > 0:
-                       text = grammar(frames)
+                       text = grammar(audio_frames)
                        print("===",text)
                        widget1.insert(tk.END, f" {text}")
 
