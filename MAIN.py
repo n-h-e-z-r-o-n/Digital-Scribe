@@ -673,7 +673,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
         sample_rate = 16000  # Sample rate (Hz)
-        output_file = 'output.wav'
+        output_file = 'wisper_model_tiny.wav'
         # Open the output file in write mode
         with wave.open(output_file, 'wb') as output_wave:
             # Set audio parameters
@@ -686,8 +686,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
         # print("Audio file saved successfully.")
 
-        result = whisper_model.transcribe(output_file)
-        print(result["text"])
+        result = wisper_model_tiny.transcribe(output_file)
+
+        return result["text"]
 
 
     while True:
