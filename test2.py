@@ -8,7 +8,7 @@ print(file_path)
 
 model = whisper.load_model("tiny")
 
-result = model.transcribe(rf"{file_path}")
+result = model.transcribe(rf"{file_path}",  task = 'translate', language = 'en')
 print(result["text"])
 
 help(file_path)
