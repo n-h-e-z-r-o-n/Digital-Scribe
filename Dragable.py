@@ -15,7 +15,7 @@ paned_window.pack(fill=tk.BOTH, expand=True)
 widget1 = tk.Frame(paned_window,  bg="lightblue")
 widget2 = tk.Frame(paned_window,  bg="lightgreen")
 
-paned_window.add(widget1)
+paned_window.add(widget1, )
 paned_window.add(widget2)
 
 # Bind the motion event to the on_drag function
