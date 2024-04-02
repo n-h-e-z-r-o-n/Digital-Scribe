@@ -2,7 +2,7 @@ from tkinter import filedialog
 import whisper
 
 
-filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
+filetypes = [("Audio Files", "*.mp3;*.wav;*.mpeg;*.mpga;*.mp4;*.webm;*.m4a")]
 file_path = filedialog.askopenfilename(filetypes=filetypes)
 print(file_path)
 
