@@ -706,7 +706,7 @@ def set_recording_paused(widget):
         widget.config(fg=fg_color)
 
 def upload_audio_file(widget):
-    file_path = filedialog.askopenfilename()
+    file_path = filedialog.askopenfilename(t)
     print(file_path)
 
 # =============================== scroll Functions definition ===============================================================================================================
