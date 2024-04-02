@@ -709,7 +709,7 @@ def set_recording_paused(widget):
 
 def upload_audio_file(widget):
     global fg_color
-
+    audio_p
     filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
     def visual():
@@ -721,8 +721,8 @@ def upload_audio_file(widget):
             else:
                 widget.config(fg=color)
                 color = 'yellow'
-            
-            time.sleep(0.5)
+            time.sleep(0.1)
+
             widget.config(fg='yellow')
     if file_path:
 
