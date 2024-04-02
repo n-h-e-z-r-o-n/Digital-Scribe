@@ -795,7 +795,7 @@ def download_transcribed_audio(widget):
                 channels = 1  # Mono
                 sample_width = 2  # 16-bit audio
                 sample_rate = 16000  # Sample rate (Hz)
-                output_file = r'{folder_selected}/conversation_scribe.wav'
+                output_file = rf'{folder_selected}/conversation_scribe.wav'
                 print(folder_selected)
 
                 # Open the output file in write mode
