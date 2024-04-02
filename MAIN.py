@@ -224,7 +224,6 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         mygradient = Gradient()
 
         while True:
-
             if closed :
                 break
             document = document_widget.get("1.0", "end")
@@ -246,10 +245,10 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     document=document,
                     schema_=dictionary,
                 )
-                widget.config(state=tk.NORMAL)
+                # widget.config(state=tk.NORMAL)
                 widget.delete(1.0, tk.END)
                 Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
-                m = ''
+                m = '------------------------ EXTRACTED ENTITIES \n\n'
                 for key, value in result["entity"].items():
                     m += key + " : " + value + "\n"
                     #widget.insert(tk.END, m)
@@ -258,10 +257,11 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     Recording_entity += m
                     widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
                     print('Recording_summary', Recording_summary)
+                    time.sleep(10)
                 else:
                     widget.insert(tk.END, m)
 
-                widget.config(state=tk.DISABLED)
+
 
             except Exception as e:
                 print(type(e).__name__)
@@ -297,7 +297,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
             else:
                 if not Recording:
                     break
-            time.sleep(10)
+
 
 
     threading.Thread(target=run).start()
@@ -329,12 +329,13 @@ def D_Summary(widget1, widget, loop=False):
                     if loop:
                         Recording_summary += result['summary']
                         print('Recording_summary length', len(Recording_summary))
+                        time.sleep(10)
                     else:
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
 
                         widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
-                        widget.config(state=tk.DISABLED)
+
 
 
                 except Exception as e:
