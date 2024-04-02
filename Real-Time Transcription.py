@@ -75,7 +75,25 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             if text == "the" or text == "" :
                 continue
             print("----", text)
+    def save():
+        # Define audio parameters
+        import wave
+        channels = 1  # Mono
+        sample_width = 2  # 16-bit audio
+        sample_rate = 44100  # Sample rate (Hz)
+        output_file = 'output.wav'
+        # Open the output file in write mode
+        with wave.open(output_file, 'wb') as output_wave:
+            # Set audio parameters
+            output_wave.setnchannels(channels)
+            output_wave.setsampwidth(sample_width)
+            output_wave.setframerate(sample_rate)
 
+            # Write the audio frames to the file
+            output_wave.writeframes(b''.join(frames))
+
+        print("Audio file saved successfully.")
+        output_file = 'output.wav'
 
 
 
