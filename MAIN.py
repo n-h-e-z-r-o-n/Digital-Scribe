@@ -307,7 +307,6 @@ def D_Summary(widget1, widget, loop=False):
                     time.sleep(5)
                     continue
                 if Recording_paused:
-
                     continue
 
 
