@@ -323,13 +323,16 @@ def D_Summary(widget1, widget, loop=False):
                         document=document,
                         length=summary_length
                     )
-                    widget.config(state=tk.NORMAL)
-                    widget.delete(1.0, tk.END)
+                    if loop:
+                        Recording_summary += result['summary']
+                    else:
+                        widget.config(state=tk.NORMAL)
+                        widget.delete(1.0, tk.END)
 
-                    widget.insert(tk.END, result['summary'])
-                    widget.config(state=tk.DISABLED)
+                        widget.insert(tk.END, result['summary'])
+                        widget.config(state=tk.DISABLED)
 
-                    Recording_summary += result['summary']
+
                 except Exception as e:
                     print(e)
 
