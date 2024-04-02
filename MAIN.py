@@ -299,7 +299,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
 
 def D_Summary(widget1, widget, loop=False):
     def run_f(widget1= widget1, widget = widget, loop=loop):
-        global Recording, Recording_paused, 
+        global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
         while True:
                 if closed:
@@ -317,6 +317,7 @@ def D_Summary(widget1, widget, loop=False):
 
 
                 try:
+                    Recording_summary = '\n\n  Conversation Summary \n'
                     summary_length = SummarizeParamsLength.LONG
                     result = gradient.summarize(
                         document=document,
@@ -328,7 +329,7 @@ def D_Summary(widget1, widget, loop=False):
                     widget.insert(tk.END, result['summary'])
                     widget.config(state=tk.DISABLED)
 
-                    print(" Summary result :", result['summary'])
+                    Recording_summary += result['summary']
                 except Exception as e:
                     print(e)
 
