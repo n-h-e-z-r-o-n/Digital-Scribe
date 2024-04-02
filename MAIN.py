@@ -257,6 +257,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 if loop:
                     Recording_entity += m
                     widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
+                    print('Recording_summary', Recording_summary)
                 else:
                     widget.insert(tk.END, m)
 
@@ -327,8 +328,6 @@ def D_Summary(widget1, widget, loop=False):
                     )
                     if loop:
                         Recording_summary += result['summary']
-                        print('Recording_summary', Recording_summary)
-                        print('summary', result['summary'])
                     else:
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
