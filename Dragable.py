@@ -12,8 +12,8 @@ paned_window = tk.PanedWindow(root, orient=tk.HORIZONTAL, sashwidth=8, sashrelie
 paned_window.pack(fill=tk.BOTH, expand=True)
 
 # Add widgets to the PanedWindow
-widget1 = tk.Label(paned_window, text="Resizable Widget 1", bg="lightblue")
-widget2 = tk.Label(paned_window, text="Resizable Widget 2", bg="lightgreen")
+widget1 = tk.Frame(paned_window,  bg="lightblue")
+widget2 = tk.Frame(paned_window,  bg="lightgreen")
 
 paned_window.add(widget1)
 paned_window.add(widget2)
