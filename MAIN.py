@@ -778,7 +778,7 @@ def download_transcribed_audio(widget):
         while downloading_audio:
             if color == 'yellow':
                 bt_widget.config(fg=color)
-                color = 'red'
+                color = 'gold'
             else:
                 bt_widget.config(fg=color)
                 color = 'yellow'
