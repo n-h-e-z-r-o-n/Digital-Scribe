@@ -655,11 +655,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
                 info = widget.get('1.0', tk.END)
                 info = len(info)
-                """
+
                 if widget1 is not None:
                     if info > 1000:
-                       conversation_grammar(widget, widget1)
-                """
+                       text = grammar(frames)
+                       widget1.insert(tk.END, f" {text}")
+
                 # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
                 # output.append_stdout(cased)
                 # time.sleep(1)
