@@ -68,16 +68,20 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             if closed:
                 break
             frames = recordings.get()
-            save(frames)
+
 
             rec.AcceptWaveform(b''.join(frames))
             result = rec.Result()
             text = json.loads(result)["text"]
             if text == "the" or text == "" :
-                save(frames)
 
                 continue
-            #print("----", text)
+            print('------------------------------- vosk speech recognition -------------------------------')
+            print("----", text)
+            print('------------------------------- vosk end -------------------------------')
+            print('------------------------------- wisper speech recognition -------------------------------')
+            save(frames)
+            print('------------------------------- wisper end -------------------------------')
 
     def save(frames):
         # Define audio parameters
