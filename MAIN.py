@@ -708,34 +708,35 @@ def set_recording_paused(widget):
         widget.config(fg=fg_color)
 
 def upload_audio_file(widget):
-
-    audio_processing = False
-    filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
-    file_path = filedialog.askopenfilename(filetypes=filetypes)
-    def visual(widget=widget):
+    def run(widget=widget):
         global audio_processing
-        global fg_color
-        color = 'yellow'
-        while audio_processing:
-            if color == 'yellow':
-                widget.config(fg=color)
-                color = 'red'
-            else:
-                widget.config(fg=color)
-                color = 'yellow'
-            time.sleep(0.1)
-
-        widget.config(fg=fg_color)
-
-    if file_path:
-        audio_processing = True
-        threading.Thread(target=visual).start()
-        model = whisper.load_model("base")
-        result = model.transcribe(rf"{file_path}")
-        print(result["text"])
-        widget.delete(1.0, tk.END)
-        widget.insert(tk.END, result["text"])
         audio_processing = False
+        filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
+        file_path = filedialog.askopenfilename(filetypes=filetypes)
+        def visual(widget=widget):
+            global audio_processing
+            global fg_color
+            color = 'yellow'
+            while audio_processing:
+                if color == 'yellow':
+                    widget.config(fg=color)
+                    color = 'red'
+                else:
+                    widget.config(fg=color)
+                    color = 'yellow'
+                time.sleep(0.1)
+
+            widget.config(fg=fg_color)
+
+        if file_path:
+            audio_processing = True
+            threading.Thread(target=visual).start()
+            model = whisper.load_model("base")
+            result = model.transcribe(rf"{file_path}")
+            print(result["text"])
+            widget.delete(1.0, tk.END)
+            widget.insert(tk.END, result["text"])
+            audio_processing = False
 
 # =============================== scroll Functions definition ===============================================================================================================
 
