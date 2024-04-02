@@ -249,8 +249,15 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 widget.config(state=tk.NORMAL)
                 widget.delete(1.0, tk.END)
                 Recording_entity = ' Extracted Entities \n'
+                m = ''
                 for key, value in result["entity"].items():
-                    m = key + " : " + value + "\n"
+                    m += key + " : " + value + "\n"
+                    #widget.insert(tk.END, m)
+
+                if loop:
+                    Recording_entity += m
+                    widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
+                else:
                     widget.insert(tk.END, m)
 
                 widget.config(state=tk.DISABLED)
