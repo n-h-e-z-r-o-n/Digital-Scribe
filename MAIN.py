@@ -769,12 +769,13 @@ def upload_audio_file(widget, bt_widget):
 
     threading.Thread(target=run).start()
 
+
 def download_transcribed_audio(widget):
     def visual(bt_widget=widget):
-        global audio_processing
+        global downloading_audio
         global fg_color
         color = 'yellow'
-        while audio_processing:
+        while downloading_audio:
             if color == 'yellow':
                 bt_widget.config(fg=color)
                 color = 'red'
@@ -787,9 +788,10 @@ def download_transcribed_audio(widget):
         global audio_frames, downloading_audio
         if not downloading_audio:
             downloading_audio = True
-            print("Audio fdoenload.")
+
             folder_selected = filedialog.askdirectory()
             if folder_selected:
+                threading.Thread(target=visual).start()
                 channels = 1  # Mono
                 sample_width = 2  # 16-bit audio
                 sample_rate = 16000  # Sample rate (Hz)
