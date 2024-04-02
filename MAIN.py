@@ -13,6 +13,8 @@ import io
 import base64
 import os
 import json
+import whisper
+
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
 from tkinter import ttk
@@ -710,9 +712,11 @@ def upload_audio_file(widget):
     file_path = filedialog.askopenfilename(filetypes=filetypes)
 
     if file_path:
-
+        model = whisper.load_model("base")
+        result = model.transcribe(rf"{file_path}")
+        print(result["text"])
         widget.delete(1.0, tk.END)
-        widget.insert(tk.END, file_path)
+        widget.insert(tk.END, result["text"])
 
 # =============================== scroll Functions definition ===============================================================================================================
 
