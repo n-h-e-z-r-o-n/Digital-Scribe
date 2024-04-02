@@ -223,7 +223,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         while True:
             document = document_widget.get("1.0", "end")
             if len(document) < 500:
-                
+                time.sleep(5)
                 continue
             if Recording_paused:
                 print('entity_paused')
@@ -300,7 +300,7 @@ def D_Summary(widget1, widget, loop=False):
 
 
                 if len(document) < 500:
-                    print('Sammary low')
+                    time.sleep(5)
                     continue
                 if Recording_paused:
 
