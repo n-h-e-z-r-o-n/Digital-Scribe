@@ -36,7 +36,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
         messages.get()
         print("Stopped.")
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=2):
+    def record_microphone(chunk=1024, RECORD_SECONDS=60):
         global closed
         p = pyaudio.PyAudio()
         FRAME_RATE = 16000
@@ -68,6 +68,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             if closed:
                 break
             frames = recordings.get()
+            save(frames)
 
             rec.AcceptWaveform(b''.join(frames))
             result = rec.Result()
@@ -75,12 +76,13 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             if text == "the" or text == "" :
                 continue
             print("----", text)
-    def save():
+
+    def save(frames):
         # Define audio parameters
         import wave
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
-        sample_rate = 44100  # Sample rate (Hz)
+        sample_rate = 16000  # Sample rate (Hz)
         output_file = 'output.wav'
         # Open the output file in write mode
         with wave.open(output_file, 'wb') as output_wave:
@@ -93,7 +95,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             output_wave.writeframes(b''.join(frames))
 
         print("Audio file saved successfully.")
-        output_file = 'output.wav'
+
 
 
 
