@@ -328,7 +328,7 @@ def D_Summary(widget1, widget, loop=False):
                     )
                     if loop:
                         Recording_summary += result['summary']
-                        print('Recording_summary', len(Recording_summary))
+                        print('Recording_summary length', len(Recording_summary))
                     else:
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
