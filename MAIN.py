@@ -626,8 +626,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
     output_file = 'output.wav'
 
     def speech_recognition(widget=widget):
-        global closed, Recording_data, Recording_paused, Recording
+        global closed, Recording_data, Recording_paused, Recording, audio_frames
         print("scanning")
+        audio_frames = []
         while not messages.empty():
             if closed :
                 print('speech_recognition closed')
@@ -639,7 +640,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 continue
             try:
                 frames = recordings.get()
-    
+                audio_frames.append(frames)
                 rec.AcceptWaveform(b''.join(frames))
                 result = rec.Result()
                 text = json.loads(result)["text"]

@@ -70,7 +70,8 @@ def RUN_OFFLINE_speech_recognition(widget=None):
                 break
             frames = recordings.get()
 
-
+            print(frames)
+            print(type(frames))
             rec.AcceptWaveform(b''.join(frames))
             result = rec.Result()
             text = json.loads(result)["text"]
