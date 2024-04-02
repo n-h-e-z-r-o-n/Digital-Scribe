@@ -770,13 +770,16 @@ def upload_audio_file(widget, bt_widget):
 
 def download_transcribed_audio():
         global audio_frames
+        print("Audio fdoenload.")
         folder_selected = filedialog.askdirectory()
         if folder_selected:
             channels = 1  # Mono
             sample_width = 2  # 16-bit audio
             sample_rate = 16000  # Sample rate (Hz)
             output_file = r'{folder_selected}/wisper_model_tiny.wav'
+            print(folder_selected)
             return
+            """
             # Open the output file in write mode
             with wave.open(output_file, 'wb') as output_wave:
                 # Set audio parameters
@@ -784,6 +787,7 @@ def download_transcribed_audio():
                 output_wave.setsampwidth(sample_width)
                 output_wave.setframerate(sample_rate)
                 output_wave.writeframes(b''.join(audio_frames))
+            """
 # =============================== scroll Functions definition ===============================================================================================================
 
 
@@ -1374,7 +1378,7 @@ def chat(widget):
     clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg='blue', borderwidth=0, border=0)
     clock_lb.place(relheight=0.03, relwidth=0.06, rely=0.751, relx=0.82)
 
-    download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 17), bg='blue', borderwidth=0, border=0, command=lambda: download_transcribed_audio)
+    download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 17), bg='blue', borderwidth=0, border=0, command= download_transcribed_audio)
     download_audio_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.881)
 
     extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t2, False) )#D_Summary(t1, t2))
