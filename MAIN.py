@@ -793,6 +793,7 @@ def download_transcribed_audio(widget):
                 bt_widget.config(fg=color)
                 color = 'yellow'
             time.sleep(0.1)
+        bt_widget.config(fg=fg_color)
 
     def run(widget=widget):
         global audio_frames, downloading_audio
