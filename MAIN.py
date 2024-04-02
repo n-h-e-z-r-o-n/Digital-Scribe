@@ -647,6 +647,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     if info > 0:
                        text = grammar(audio_frames)
                        print("===",text)
+                       widget1.delete(1.0, tk.END)
                        widget1.insert(tk.END, f" {text}")
 
                 # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
