@@ -1300,12 +1300,12 @@ def chat(widget):
     paned_window = tk.PanedWindow(chatbot_widget, bg=bg_color, orient=tk.VERTICAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=0.96, relwidth=0.75, rely=0.03, relx=0.0253)
 
-    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.SUNKEN, borderwidth=2, border=5)
-    t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
-
-
-    #t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
+    t1 = tk.Frame(paned_window, bg='yellow', relief=tk.SUNKEN, borderwidth=2, border=5)
     #t1.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+
+
+    t4 = tk.Text(t1, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=2, border=1)
+    t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
 
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)
