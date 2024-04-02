@@ -220,7 +220,7 @@ def change_color(widget, button):
 
 def Entity_Extraction(document_widget, entity_list, widget, loop=False):
     def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
-        global Recording, Recording_paused, Recording_entity, Recording_data,
+        global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
         mygradient = Gradient()
 
         while True:
@@ -228,7 +228,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
             if closed :
                 break
             document = document_widget.get("1.0", "end")
-            if len(document) < 1000:
+            if len(document) < 50:
                 time.sleep(5)
                 continue
             if Recording_paused:
@@ -253,6 +253,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     m = key + " : " + value + "\n"
                     if loop:
                         Recording_entity += m
+                        widget.insert(tk.END, Recording_entity + "\n"+Recording_summary)
                     else:
                         widget.insert(tk.END, m)
 
@@ -309,7 +310,7 @@ def D_Summary(widget1, widget, loop=False):
                 document = (document.strip())
 
 
-                if len(document) < 1000:
+                if len(document) < 50:
                     time.sleep(5)
                     continue
                 if Recording_paused:
