@@ -248,7 +248,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 )
                 widget.config(state=tk.NORMAL)
                 widget.delete(1.0, tk.END)
-                Recording_entity = ' EXTRACTED ENTITIES \n'
+                Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
                 m = ''
                 for key, value in result["entity"].items():
                     m += key + " : " + value + "\n"
@@ -319,7 +319,7 @@ def D_Summary(widget1, widget, loop=False):
                     continue
 
                 try:
-                    Recording_summary = '\n\n  Conversation Summary \n'
+                    Recording_summary = '\n------------------------ CONVERSATION SUMMARY\n'
                     summary_length = SummarizeParamsLength.LONG
                     result = gradient.summarize(
                         document=document,
