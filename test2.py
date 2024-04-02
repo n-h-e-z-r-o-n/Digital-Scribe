@@ -1,14 +1,15 @@
-from tkinter import filedialog
-import whisper
+# Example code (not functional, for illustration purposes)
+import pyannote.audio as pa
 
+# Load your audio file (e.g., 'audio.wav')
+audio = pa.AudioFile("audio.wav")
 
-filetypes = [("Audio Files", "*.mp3;*.wav;*.mpeg;*.mpga;*.mp4;*.webm;*.m4a")]
-file_path = filedialog.askopenfilename(filetypes=filetypes)
-print(file_path)
+# Create a speaker diarization pipeline
+diarization_pipeline = pa.SpeakerDiarization()
 
-model = whisper.load_model("tiny")
+# Process the audio
+diarization = diarization_pipeline(audio)
 
-result = model.transcribe(rf"{file_path}",  task = 'translate')
-print(result["text"])
-
-help(file_path)
+# Get speaker segments
+for segment, speaker in diarization.itertracks(yield_label=True):
+    print(f"Speaker {speaker} speaks from {segment.start:.2f}s to {segment.end:.2f}s")
