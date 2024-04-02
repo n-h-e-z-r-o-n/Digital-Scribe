@@ -707,7 +707,7 @@ def set_recording_paused(widget):
     else:
         widget.config(fg=fg_color)
 
-def upload_audio_file(widget):
+def upload_audio_file(widget, wid):
     def run(widget=widget):
         global audio_processing
         audio_processing = False
@@ -737,6 +737,8 @@ def upload_audio_file(widget):
             widget.delete(1.0, tk.END)
             widget.insert(tk.END, result["text"])
             audio_processing = False
+
+    threading.Thread(target=run).start()
 
 # =============================== scroll Functions definition ===============================================================================================================
 
