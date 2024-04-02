@@ -708,10 +708,16 @@ def set_recording_paused(widget):
         widget.config(fg=fg_color)
 
 def upload_audio_file(widget):
+    global fg_color
+
     filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
-
+    def visual():
+        while True:
+            if
+            widget.config(fg='yellow')
     if file_path:
+
         model = whisper.load_model("base")
         result = model.transcribe(rf"{file_path}")
         print(result["text"])
