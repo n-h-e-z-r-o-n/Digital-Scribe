@@ -1314,7 +1314,7 @@ def chat(widget):
     paned_window.add(t1, weight=1)
     paned_window.add(t3)
     paned_window.add(t2)
-    #paned_window.add(t4)
+
 
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
