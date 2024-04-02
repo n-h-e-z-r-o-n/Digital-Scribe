@@ -224,7 +224,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         mygradient = Gradient()
 
         while True:
-            Recording_entity = 'Extracted Entities'
+            
             if closed :
                 break
             document = document_widget.get("1.0", "end")
@@ -250,6 +250,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 widget.delete(1.0, tk.END)
                 for key, value in result["entity"].items():
                     m = key + " : " + value + "\n"
+                    Recording_entity += m
                     widget.insert(tk.END, m)
 
                 widget.config(state=tk.DISABLED)
