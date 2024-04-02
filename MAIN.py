@@ -780,8 +780,6 @@ def download_transcribed_audio(widget):
             output_wave.setnchannels(channels)
             output_wave.setsampwidth(sample_width)
             output_wave.setframerate(sample_rate)
-
-            # Write the audio frames to the file
             output_wave.writeframes(b''.join(audio_frames))
 # =============================== scroll Functions definition ===============================================================================================================
 
