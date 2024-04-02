@@ -221,6 +221,8 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         mygradient = Gradient()
 
         while True:
+            if closed :
+                break
             document = document_widget.get("1.0", "end")
             if len(document) < 500:
                 time.sleep(5)
@@ -228,8 +230,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
             if Recording_paused:
                 print('entity_paused')
                 continue
-            if closed :
-                break
+
             document = (document.strip())
             schema = '{'
             for i in entity_list:
@@ -656,6 +657,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 if widget1 is not None:
                     if info > 1000:
                        text = grammar(frames)
+                       print("===",text)
                        widget1.insert(tk.END, f" {text}")
 
                 # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
