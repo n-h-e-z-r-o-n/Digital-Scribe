@@ -1285,7 +1285,7 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t2, True), D_Summary(t1, t2,True)))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t2, True), D_Summary(t1, t3,True)))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
@@ -1298,7 +1298,7 @@ def chat(widget):
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.78, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
-    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2, False))
+    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t3, False))
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
