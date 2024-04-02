@@ -1355,7 +1355,10 @@ def chat(widget):
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
     play_pause_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.8)
 
-    clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg=bg_color, borderwidth=0, border=0)
+    clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg='blue', borderwidth=0, border=0)
+    clock_lb.place(relheight=0.03, relwidth=0.06, rely=0.751, relx=0.82)
+
+    do_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg='blue', borderwidth=0, border=0)
     clock_lb.place(relheight=0.03, relwidth=0.06, rely=0.751, relx=0.82)
 
     extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t2, False) )#D_Summary(t1, t2))
