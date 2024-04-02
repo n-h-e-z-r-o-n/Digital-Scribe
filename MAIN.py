@@ -284,33 +284,49 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
 
     threading.Thread(target=run).start()
 
-def D_Summary(widget1, widget):
-    def run_f(widget1= widget1, widget = widget):
-        document = widget1.get("1.0", "end")
-        document = (document.strip())
-        print(len(document))
-        if len(document) == 0:
-            time.sleep(2)
-            return None
-
+def D_Summary(widget1, widget, loop=False):
+    def run_f(widget1= widget1, widget = widget, loop=loop):
+        global Recording, Recording_paused
         gradient = Gradient()
+        while True:
 
-        try:
-            summary_length = SummarizeParamsLength.LONG
-            result = gradient.summarize(
-                document=document,
-                length=summary_length
-            )
-            widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
+                document = widget1.get("1.0", "end")
+                document = (document.strip())
+                print(len(document))
 
-            widget.insert(tk.END, result['summary'])
-            widget.config(state=tk.DISABLED)
+                if len(document) < 500:
+                    print('Sammary low')
+                    continue
+                if Recording_paused:
+                    print('Sammary_paused')
+                    continue
+                if closed:
+                    print('Sammary_stoped')
+                    break
 
-            print(" Summary result :", result['summary'])
-        except Exception as e:
-            print(e)
-            return None
+                try:
+                    summary_length = SummarizeParamsLength.LONG
+                    result = gradient.summarize(
+                        document=document,
+                        length=summary_length
+                    )
+                    widget.config(state=tk.NORMAL)
+                    widget.delete(1.0, tk.END)
+
+                    widget.insert(tk.END, result['summary'])
+                    widget.config(state=tk.DISABLED)
+
+                    print(" Summary result :", result['summary'])
+                except Exception as e:
+                    print(e)
+
+                if not loop:
+                    print("loop break")
+                    break
+                else:
+                    if not Recording:
+                        break
+
     threading.Thread(target=run_f).start()
 
 
