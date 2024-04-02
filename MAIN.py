@@ -713,8 +713,16 @@ def upload_audio_file(widget):
     filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
     def visual():
+        color = 'yellow'
         while True:
-            if
+            if color == 'yellow':
+                widget.config(fg=color)
+                color = 'red'
+            else:
+                widget.config(fg=color)
+                color = 'yellow'
+            
+            time.sleep(0.5)
             widget.config(fg='yellow')
     if file_path:
 
