@@ -299,7 +299,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
 
 def D_Summary(widget1, widget, loop=False):
     def run_f(widget1= widget1, widget = widget, loop=loop):
-        global Recording, Recording_paused
+        global Recording, Recording_paused, 
         gradient = Gradient()
         while True:
                 if closed:
