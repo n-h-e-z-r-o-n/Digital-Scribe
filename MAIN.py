@@ -220,7 +220,7 @@ def change_color(widget, button):
 
 def Entity_Extraction(document_widget, entity_list, widget, loop=False):
     def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
-        global Recording, Recording_paused, Recording_entity, Recording_data
+        global Recording, Recording_paused, Recording_entity, Recording_data,
         mygradient = Gradient()
 
         while True:
