@@ -77,12 +77,11 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             if text == "the" or text == "" :
 
                 continue
-            print('------------------------------- vosk speech recognition -------------------------------')
-            print("----", text)
-            print('------------------------------- vosk end -------------------------------')
-            print('------------------------------- wisper speech recognition -------------------------------')
+
+            #print("----", text)
+
             save(frames)
-            print('------------------------------- wisper end -------------------------------')
+            #print('------------------------------- wisper end -------------------------------')
 
     def save(frames):
         # Define audio parameters
