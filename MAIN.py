@@ -666,7 +666,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
             except:
                 continue
 
-    def save(frames):
+    def grammar(frames):
+        global wisper_model_tiny
         # Define audio parameters
         import wave
         channels = 1  # Mono
