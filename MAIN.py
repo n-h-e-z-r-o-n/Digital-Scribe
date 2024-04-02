@@ -296,6 +296,8 @@ def D_Summary(widget1, widget, loop=False):
         global Recording, Recording_paused
         gradient = Gradient()
         while True:
+                if closed:
+                    break
 
                 document = widget1.get("1.0", "end")
                 document = (document.strip())
@@ -307,8 +309,7 @@ def D_Summary(widget1, widget, loop=False):
                 if Recording_paused:
 
                     continue
-                if closed:
-                    break
+
 
                 try:
                     summary_length = SummarizeParamsLength.LONG
