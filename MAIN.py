@@ -745,6 +745,7 @@ def set_recording_paused(widget):
     else:
         widget.config(fg=fg_color)
 
+
 def upload_audio_file(widget, bt_widget):
     def run(widget=widget, bt_widget=bt_widget):
         global audio_processing
