@@ -89,6 +89,7 @@ Recording = False
 Recording_paused = False
 Recording_data = 0
 audio_frames = None
+downloading_audio = False
 # =============================== Functions definition ============================================================================================
 # ================================= Themes ================================================================================================================
 
@@ -770,23 +771,26 @@ def upload_audio_file(widget, bt_widget):
 
 def download_transcribed_audio(widget):
     def run(widget=widget):
-        global audio_frames
-        print("Audio fdoenload.")
-        folder_selected = filedialog.askdirectory()
-        if folder_selected:
-            channels = 1  # Mono
-            sample_width = 2  # 16-bit audio
-            sample_rate = 16000  # Sample rate (Hz)
-            output_file = r'{folder_selected}/conversation_scribe.wav'
-            print(folder_selected)
+        global audio_frames, downloading_audio
+        if not downloading_audio:
+            downloading_audio = True
+            print("Audio fdoenload.")
+            folder_selected = filedialog.askdirectory()
+            if folder_selected:
+                channels = 1  # Mono
+                sample_width = 2  # 16-bit audio
+                sample_rate = 16000  # Sample rate (Hz)
+                output_file = r'{folder_selected}/conversation_scribe.wav'
+                print(folder_selected)
 
-            # Open the output file in write mode
-            with wave.open(output_file, 'wb') as output_wave:
-                # Set audio parameters
-                output_wave.setnchannels(channels)
-                output_wave.setsampwidth(sample_width)
-                output_wave.setframerate(sample_rate)
-                output_wave.writeframes(b''.join(audio_frames))
+                # Open the output file in write mode
+                with wave.open(output_file, 'wb') as output_wave:
+                    # Set audio parameters
+                    output_wave.setnchannels(channels)
+                    output_wave.setsampwidth(sample_width)
+                    output_wave.setframerate(sample_rate)
+                    output_wave.writeframes(b''.join(audio_frames))
+            downloading_audio = 
     threading.Thread(target=run).start()
 # =============================== scroll Functions definition ===============================================================================================================
 
