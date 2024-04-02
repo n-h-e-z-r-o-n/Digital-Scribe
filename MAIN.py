@@ -553,17 +553,6 @@ def Initialize_VOSK():
 threading.Thread(target=Initialize_VOSK).start()
 
 
-def conversation_grammar(widget, widget1):
-    global llm_chain2, recording_data
-    if llm_chain2 is None:
-        llm_inference_initializ()
-    Question = widget.get(1.0, tk.END)
-    Answer = llm_chain2.invoke(input=f"{Question}")
-
-    widget1.delete(1.0, tk.END)
-    widget1.insert(tk.END, f"{Answer['text']}")
-    pass
-
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_wideth=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
@@ -655,7 +644,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 info = len(info)
 
                 if widget1 is not None:
-                    if info > 10:
+                    if info > 0:
                        text = grammar(frames)
                        print("===",text)
                        widget1.insert(tk.END, f" {text}")
