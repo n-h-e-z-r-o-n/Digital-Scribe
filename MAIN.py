@@ -328,6 +328,7 @@ def D_Summary(widget1, widget, loop=False):
                     )
                     if loop:
                         Recording_summary += result['summary']
+                        print('Recording_summary', len(Recording_summary))
                     else:
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
@@ -344,6 +345,7 @@ def D_Summary(widget1, widget, loop=False):
                 else:
                     if not Recording:
                         break
+                time.sleep(10)
 
     threading.Thread(target=run_f).start()
 
