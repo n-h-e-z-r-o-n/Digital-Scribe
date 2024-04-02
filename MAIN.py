@@ -1315,6 +1315,7 @@ def chat(widget):
     t3 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, font=("Times New Roman", 13), borderwidth=4, border=1)
 
 
+
     paned_window.add(t1)
     paned_window.add(t3)
     paned_window.add(t2)
