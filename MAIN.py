@@ -770,6 +770,19 @@ def upload_audio_file(widget, bt_widget):
     threading.Thread(target=run).start()
 
 def download_transcribed_audio(widget):
+    def visual(bt_widget=widget):
+        global audio_processing
+        global fg_color
+        color = 'yellow'
+        while audio_processing:
+            if color == 'yellow':
+                bt_widget.config(fg=color)
+                color = 'red'
+            else:
+                bt_widget.config(fg=color)
+                color = 'yellow'
+            time.sleep(0.1)
+
     def run(widget=widget):
         global audio_frames, downloading_audio
         if not downloading_audio:
@@ -790,7 +803,7 @@ def download_transcribed_audio(widget):
                     output_wave.setsampwidth(sample_width)
                     output_wave.setframerate(sample_rate)
                     output_wave.writeframes(b''.join(audio_frames))
-            downloading_audio = 
+            downloading_audio = False
     threading.Thread(target=run).start()
 # =============================== scroll Functions definition ===============================================================================================================
 
