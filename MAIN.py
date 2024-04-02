@@ -224,6 +224,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         mygradient = Gradient()
 
         while True:
+            Recording_entity = 'Extracted Entities'
             if closed :
                 break
             document = document_widget.get("1.0", "end")
