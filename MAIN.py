@@ -251,11 +251,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 Recording_entity = ' Extracted Entities \n'
                 for key, value in result["entity"].items():
                     m = key + " : " + value + "\n"
-                    if loop:
-                        Recording_entity += m
-                        widget.insert(tk.END, Recording_entity + "\n"+Recording_summary)
-                    else:
-                        widget.insert(tk.END, m)
+                    widget.insert(tk.END, m)
 
                 widget.config(state=tk.DISABLED)
 
@@ -1411,7 +1407,7 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t2, True), D_Summary(t1, t3,True)))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t3, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t2, True), D_Summary(t1, t2,True)))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
