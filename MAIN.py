@@ -1307,7 +1307,7 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: D_Summary(t1, t2))
+    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: upload_audio_file(t1))
     upload_audio_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.863)
     change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
