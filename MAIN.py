@@ -85,6 +85,7 @@ sammary_data = None
 Recording = False
 Recording_paused = False
 Recording_data = 0
+audio_frames = None
 # =============================== Functions definition ============================================================================================
 # ================================= Themes ================================================================================================================
 
@@ -563,6 +564,7 @@ def conversation_grammar(widget, widget1):
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_wideth=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
+    global audio_frames
     if Recording:
         miniute = second = hour = 0
         Recording = False
