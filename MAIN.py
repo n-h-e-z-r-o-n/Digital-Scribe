@@ -666,6 +666,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
             except:
                 continue
 
+
+
     while True:
         if vosk_model == None:
             continue
