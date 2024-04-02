@@ -70,6 +70,7 @@ gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
 keys = None
 vosk_model = None
+wisper_model = None
 rag_pipeline = None
 llm_chain = None
 llm_chain2 = None
@@ -543,8 +544,9 @@ def Chat_bot_inference(widget0, widget1, widget2):
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
-    global vosk_model
+    global vosk_model, wisper_model
     vosk_model = Model(model_name="vosk-model-en-us-0.22")
+    wisper_model = Model(model_name="wisper-medium")
 
 
 threading.Thread(target=Initialize_VOSK).start()
