@@ -224,7 +224,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
             if closed :
                 break
             document = document_widget.get("1.0", "end")
-            if len(document) < 500:
+            if len(document) < 1000:
                 time.sleep(5)
                 continue
             if Recording_paused:
@@ -300,7 +300,7 @@ def D_Summary(widget1, widget, loop=False):
                 document = (document.strip())
 
 
-                if len(document) < 500:
+                if len(document) < 1000:
                     time.sleep(5)
                     continue
                 if Recording_paused:
