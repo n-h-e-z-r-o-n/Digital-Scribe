@@ -563,6 +563,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         Recording = False
         Record_btn.config(fg=fg_color)
         clock_wideth.config(text='0:0:0')
+        Recording_paused = False
         return
 
     def start_recording():
@@ -646,7 +647,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 if widget1 is not None:
                     if info > 0:
                        text = grammar(audio_frames)
-                       print("===",text)
+
                        widget1.delete(1.0, tk.END)
                        widget1.insert(tk.END, f" {text}")
 
