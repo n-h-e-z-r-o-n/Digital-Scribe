@@ -707,26 +707,26 @@ def set_recording_paused(widget):
     else:
         widget.config(fg=fg_color)
 
-def upload_audio_file(widget, wid):
-    def run(widget=widget):
+def upload_audio_file(widget, bt_widget):
+    def run(widget=widget, bt_widget=bt_widget):
         global audio_processing
         audio_processing = False
         filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
         file_path = filedialog.askopenfilename(filetypes=filetypes)
-        def visual(widget=widget):
+        def visual(bt_widget=bt_widget):
             global audio_processing
             global fg_color
             color = 'yellow'
             while audio_processing:
                 if color == 'yellow':
-                    widget.config(fg=color)
+                    bt_widget.config(fg=color)
                     color = 'red'
                 else:
-                    widget.config(fg=color)
+                    bt_widget.config(fg=color)
                     color = 'yellow'
                 time.sleep(0.1)
 
-            widget.config(fg=fg_color)
+            bt_widget.config(fg=fg_color)
 
         if file_path:
             audio_processing = True
@@ -1338,9 +1338,9 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: upload_audio_file(t1))
+    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid))
     upload_audio_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.863)
-    change_fg_OnHover(upload_audio_wid, 'red', fg_color)
+    #change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
 
 
