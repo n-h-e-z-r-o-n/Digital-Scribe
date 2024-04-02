@@ -708,13 +708,15 @@ def set_recording_paused(widget):
         widget.config(fg=fg_color)
 
 def upload_audio_file(widget):
-    global fg_color
-    audio_p
+
+    audio_processing = False
     filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
     def visual():
+        global audio_processing
+        global fg_color
         color = 'yellow'
-        while True:
+        while audio_processing:
             if color == 'yellow':
                 widget.config(fg=color)
                 color = 'red'
@@ -723,14 +725,17 @@ def upload_audio_file(widget):
                 color = 'yellow'
             time.sleep(0.1)
 
-            widget.config(fg='yellow')
+        widget.config(fg=fg_color)
+
     if file_path:
+        audio_processing = True
 
         model = whisper.load_model("base")
         result = model.transcribe(rf"{file_path}")
         print(result["text"])
         widget.delete(1.0, tk.END)
         widget.insert(tk.END, result["text"])
+        audio_processing = False
 
 # =============================== scroll Functions definition ===============================================================================================================
 
