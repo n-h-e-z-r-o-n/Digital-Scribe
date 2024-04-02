@@ -312,13 +312,11 @@ def D_Summary(widget1, widget, loop=False):
                 document = widget1.get("1.0", "end")
                 document = (document.strip())
 
-
                 if len(document) < 50:
                     time.sleep(5)
                     continue
                 if Recording_paused:
                     continue
-
 
                 try:
                     Recording_summary = '\n\n  Conversation Summary \n'
@@ -329,6 +327,7 @@ def D_Summary(widget1, widget, loop=False):
                     )
                     if loop:
                         Recording_summary += result['summary']
+                        print('Recording_summary', Recording_summary)
                     else:
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
