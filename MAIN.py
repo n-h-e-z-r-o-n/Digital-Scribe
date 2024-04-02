@@ -614,6 +614,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         stream.close()
         p.terminate()
 
+    import wave
+    output_file = 'output.wav'
+    
     def speech_recognition(widget=widget):
         global closed, Recording_data, Recording_paused, Recording
         print("scanning")
