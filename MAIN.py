@@ -87,7 +87,9 @@ rag_widget = None
 sammary_data = None
 Recording = False
 Recording_paused = False
-Recording_data = 0
+Recording_data = ''
+Recording_entity = ''
+Recording_summary = ''
 audio_frames = None
 downloading_audio = False
 # =============================== Functions definition ============================================================================================
