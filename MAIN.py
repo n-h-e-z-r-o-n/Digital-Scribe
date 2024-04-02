@@ -333,7 +333,7 @@ def D_Summary(widget1, widget, loop=False):
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
 
-                        widget.insert(tk.END, result['summary'])
+                        widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
                         widget.config(state=tk.DISABLED)
 
 
@@ -1409,7 +1409,7 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t2, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t3, True), D_Summary(t1, t2,True)))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t2, Record_btn, clock_lb),  Entity_Extraction(t1, entity_widget_lists, t3, True), D_Summary(t1, t3,True)))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
@@ -1421,7 +1421,7 @@ def chat(widget):
     download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 17), bg=bg_color, borderwidth=0, border=0, command=lambda: download_transcribed_audio(download_audio_btn))
     download_audio_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.881)
 
-    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t2, False) )#D_Summary(t1, t2))
+    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t3, False) )#D_Summary(t1, t2))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.78, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
