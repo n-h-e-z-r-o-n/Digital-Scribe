@@ -94,7 +94,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             # Write the audio frames to the file
             output_wave.writeframes(b''.join(frames))
 
-        print("Audio file saved successfully.")
+        #print("Audio file saved successfully.")
 
         model = whisper.load_model("tiny")
         result = model.transcribe(output_file, task='translate')
