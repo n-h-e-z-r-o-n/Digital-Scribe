@@ -725,11 +725,12 @@ def speech_record_time(widget):
 
 def set_recording_paused(widget):
 
-    def check():
+    def check(widget=widget):
         global Recording
-        if not Recording:
-            set_recording_paused(widget)
-
+        while True:
+            if not Recording:
+                set_recording_paused(widget)
+                break
     threading.Thread(target=check).start()
 
     global Recording_paused, fg_color, Recording
