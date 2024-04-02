@@ -257,11 +257,9 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     Recording_entity += m
                     widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
                     print('Recording_summary', Recording_summary)
-                    time.sleep(10)
+                    time.sleep(30)
                 else:
                     widget.insert(tk.END, m)
-
-
 
             except Exception as e:
                 print(type(e).__name__)
@@ -298,9 +296,8 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 if not Recording:
                     break
 
-
-
     threading.Thread(target=run).start()
+
 
 def D_Summary(widget1, widget, loop=False):
     def run_f(widget1= widget1, widget = widget, loop=loop):
@@ -329,11 +326,10 @@ def D_Summary(widget1, widget, loop=False):
                     if loop:
                         Recording_summary += result['summary']
                         print('Recording_summary length', len(Recording_summary))
-                        time.sleep(10)
+                        time.sleep(30)
                     else:
                         widget.config(state=tk.NORMAL)
                         widget.delete(1.0, tk.END)
-
                         widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
 
 
