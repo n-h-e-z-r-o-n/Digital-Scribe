@@ -44,6 +44,7 @@ from threading import Thread
 import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
+import whisper
 
 # =============================== Global variable decoration  ============================================================================================
 root = None

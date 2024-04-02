@@ -2,7 +2,8 @@ from queue import Queue
 from threading import Thread
 import pyaudio
 import json
-from vosk import Model, KaldiRecognizer
+from vosk import Moimport whisper
+del, KaldiRecognizer
 import subprocess, time
 p = pyaudio.PyAudio()
 for i in range(p.get_device_count()):
@@ -11,7 +12,6 @@ for i in range(p.get_device_count()):
 
 
 closed = False
-import whisper
 
 def RUN_OFFLINE_speech_recognition(widget=None):
     global closed
