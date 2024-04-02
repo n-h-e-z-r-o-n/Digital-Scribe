@@ -223,13 +223,12 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         while True:
             document = document_widget.get("1.0", "end")
             if len(document) < 500:
-                print('entity_ low')
+                
                 continue
             if Recording_paused:
                 print('entity_paused')
                 continue
             if closed :
-                print('entity_stoped')
                 break
             document = (document.strip())
             schema = '{'
@@ -298,16 +297,15 @@ def D_Summary(widget1, widget, loop=False):
 
                 document = widget1.get("1.0", "end")
                 document = (document.strip())
-                print(len(document))
+
 
                 if len(document) < 500:
                     print('Sammary low')
                     continue
                 if Recording_paused:
-                    print('Sammary_paused')
+
                     continue
                 if closed:
-                    print('Sammary_stoped')
                     break
 
                 try:
@@ -327,7 +325,6 @@ def D_Summary(widget1, widget, loop=False):
                     print(e)
 
                 if not loop:
-                    print("loop break")
                     break
                 else:
                     if not Recording:
