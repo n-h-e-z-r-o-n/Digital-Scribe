@@ -99,7 +99,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
         #print("Audio file saved successfully.")
 
         model = whisper.load_model("tiny")
-        result = model.transcribe(output_file, task='translate')
+        result = model.transcribe(output_file)
         print(result["text"])
 
 
