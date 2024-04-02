@@ -22,6 +22,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
     model = Model(model_name="vosk-model-en-us-0.22")
     rec = KaldiRecognizer(model, FRAME_RATE)
     rec.SetWords(True)
+    whisper_model = whisper.load_model("tiny")
 
     def start_recording():
         messages.put(True)
@@ -36,7 +37,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
         messages.get()
         print("Stopped.")
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=60):
+    def record_microphone(chunk=1024, RECORD_SECONDS=30):
         global closed
         p = pyaudio.PyAudio()
         FRAME_RATE = 16000
@@ -102,8 +103,8 @@ def RUN_OFFLINE_speech_recognition(widget=None):
 
         #print("Audio file saved successfully.")
 
-        model = whisper.load_model("tiny")
-        result = model.transcribe(output_file)
+
+        result = whisper_model.transcribe(output_file)
         print(result["text"])
 
 
