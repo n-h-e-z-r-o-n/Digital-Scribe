@@ -11,7 +11,7 @@ for i in range(p.get_device_count()):
 
 
 closed = False
-
+import whisper
 
 def RUN_OFFLINE_speech_recognition(widget=None):
     global closed
@@ -75,7 +75,7 @@ def RUN_OFFLINE_speech_recognition(widget=None):
             text = json.loads(result)["text"]
             if text == "the" or text == "" :
                 continue
-            print("----", text)
+            #print("----", text)
 
     def save(frames):
         # Define audio parameters
@@ -96,7 +96,9 @@ def RUN_OFFLINE_speech_recognition(widget=None):
 
         print("Audio file saved successfully.")
 
-
+        model = whisper.load_model("tiny")
+        result = model.transcribe(output_file, task='translate')
+        print(result["text"])
 
 
     start_recording()
