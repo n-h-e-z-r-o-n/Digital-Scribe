@@ -640,7 +640,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 continue
             try:
                 frames = recordings.get()
-                audio_frames.append(frames)
+                audio_frames..extend(list2)
                 rec.AcceptWaveform(b''.join(frames))
                 result = rec.Result()
                 text = json.loads(result)["text"]
