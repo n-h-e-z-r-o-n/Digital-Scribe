@@ -712,7 +712,7 @@ def upload_audio_file(widget):
     audio_processing = False
     filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
-    def visual():
+    def visual(widget=widget):
         global audio_processing
         global fg_color
         color = 'yellow'
@@ -729,7 +729,7 @@ def upload_audio_file(widget):
 
     if file_path:
         audio_processing = True
-
+        threading.Thread(target=visual).start()
         model = whisper.load_model("base")
         result = model.transcribe(rf"{file_path}")
         print(result["text"])
