@@ -18,8 +18,9 @@ def integrate_strings(original, edited):
             integreted += o_word + " "
         else:
             integreted += e_word + " "
+            o_word_index += 1
 
-        o_word_index += 1
+
         count += 1
 
     print(original_list[o_word_index:])
