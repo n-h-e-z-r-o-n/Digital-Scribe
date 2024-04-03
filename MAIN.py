@@ -271,6 +271,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     #widget.insert(tk.END, m)
                     found_entities.append(value)
 
+                entity_highlight_words(widget)
                 if loop:
                     Recording_entity += m
                     widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
