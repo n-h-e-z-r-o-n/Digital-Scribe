@@ -653,8 +653,14 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 result = rec.Result()
 
 
-                text = json.loads(result)["text"]
+                vosk_text = json.loads(result)["text"]
                 print("vosk_text", text)
+
+                if vosk_text.strip() != "huh":
+                    text = grammar(frames)
+                    widget1.insert(tk.END, f" {text}")
+
+
                 #if text == "the" or text == "" :
                 #    continue
                 #Recording_data += text
