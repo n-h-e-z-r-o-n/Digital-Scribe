@@ -652,7 +652,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
     def speech_recognition(widget=widget, widget1=widget1):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
-        global running_scribe
+        global running_scribe, previous_data
         running_scribe = False
         print("scanning")
         audio_frames = []
@@ -680,7 +680,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
-                    transcribe_audio(audio_frames, widget1)
+                    transcribe_audio(audio_frames, widget1)running_scribe
                     previous_data = widget1.get("1.0", "end")
 
 
@@ -715,7 +715,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         return result["text"]
 
     def transcribe_audio(frames, widget):
-        global running_scribe
+        global running_scribe, previous_data
         global wisper_model_tiny, wisper_model_base
 
         if running_scribe:
