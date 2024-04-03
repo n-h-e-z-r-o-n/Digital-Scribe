@@ -795,7 +795,7 @@ def set_recording_paused(widget):
             if not Recording:
                 set_recording_paused(widget)
                 break
-    #threading.Thread(target=check).start()
+    threading.Thread(target=check).start()
 
     global Recording_paused, fg_color, Recording
     print('set_recording_paused')
