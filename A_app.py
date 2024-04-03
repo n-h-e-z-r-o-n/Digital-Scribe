@@ -16,9 +16,10 @@ def integrate_strings(original, edited):
         e_word = edited_list[count]
         if o_word == e_word:
             integreted += o_word + " "
+            o_word_index += 1
         else:
             integreted += e_word + " "
-            o_word_index += 1
+
 
 
         count += 1
