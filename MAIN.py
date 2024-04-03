@@ -648,17 +648,20 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 continue
             try:
                 frames = recordings.get()
-                audio_frames.extend(frames)
+
                 rec.AcceptWaveform(b''.join(frames))
                 result = rec.Result()
 
 
                 vosk_text = json.loads(result)["text"]
                 print("vosk_text", text)
-
-                if vosk_text.strip() != "huh":
-                    text = grammar(frames)
-                    widget1.insert(tk.END, f" {text}")
+                if vosk_text.strip() != '':
+                    if vosk_text.strip() != "huh":
+                        audio_frames.extend(frames)
+                        text = grammar(frames)
+                        widget1.insert(tk.END, f" {text}")
+                else:
+                    print("microphone muted")
 
 
                 #if text == "the" or text == "" :
@@ -669,17 +672,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 #widget.insert(tk.END, f" {text}")
                 #widget.see(tk.END)
                 #widget.config(state=tk.DISABLED)
-                text = grammar(frames)
-                print("text :", len(text))
-                if text.strip() != "you":
-                   #widget1.delete(1.0, tk.END)
-                   widget1.insert(tk.END, f" {text}")
-                else:
-                    print("microphone muted")
 
-                # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
-                # output.append_stdout(cased)
-                # time.sleep(1)
+
             except:
                 continue
 
