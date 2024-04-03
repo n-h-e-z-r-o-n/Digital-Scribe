@@ -649,8 +649,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         stream.close()
         p.terminate()
 
-    import wave
-    output_file = 'output.wav'
 
     def speech_recognition(widget=widget, widget1=widget1):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
@@ -676,8 +674,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
 
                 vosk_text = json.loads(result)["text"]
-
-                print("vosk_text", vosk_text)
                 if vosk_text.strip() != "huh" or vosk_text.strip() != '':
                     print("name")
                     audio_frames.extend(frames)
@@ -686,7 +682,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     widget.see(tk.END)
                     transcribe_audio(audio_frames, widget1)
                 else:
-                    print("microphone muted")
+                    pass
 
             except:
                 continue
