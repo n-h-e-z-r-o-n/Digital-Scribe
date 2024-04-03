@@ -2,8 +2,9 @@ def integrate_strings(original, edited):
     original_list =  original.strip()
     edited_list = edited.strip()
 
-    print(string1)
-    print( string2)
+    original_len = len
+    print(original_list)
+    print(edited_list)
     """
     integrated_string = ""
     # Iterate through the characters of both strings simultaneously
