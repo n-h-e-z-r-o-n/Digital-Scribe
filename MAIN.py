@@ -660,7 +660,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     print("name")
                     audio_frames.extend(frames)
                     text = grammar(frames)
-                    widget1.insert(tk.END, f" {text}")
+                    widget.insert(tk.END, f" {text}")
                 else:
                     print("microphone muted")
 
