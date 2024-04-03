@@ -656,7 +656,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         running_scribe = False
         print("scanning")
         audio_frames = []
-
+        previous_data = ''
         while not messages.empty():
             if closed :
                 print('speech_recognition closed')
