@@ -219,6 +219,22 @@ def change_color(widget, button):
 
 # ============================================= NLP  ==========================================================================================
 
+def entity_highlight_words(widget):
+    global found_entities
+    widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
+
+    words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
+
+    for word in found_entities:
+        start = 1.0
+        while True:
+            start = widget.search(word, start, stopindex=tk.END)
+            if not start:
+                break
+            end = f"{start}+{len(word)}c"
+            widget.tag_add("highlight", start, end)
+            start = end
+
 def Entity_Extraction(document_widget, entity_list, widget, loop=False):
     def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
@@ -251,9 +267,11 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                 widget.delete(1.0, tk.END)
                 Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
                 m = '------------------------ EXTRACTED ENTITIES \n\n'
+                found_entities = []
                 for key, value in result["entity"].items():
                     m += key + " : " + value + "\n"
                     #widget.insert(tk.END, m)
+                    found_entities.append(value)
 
                 if loop:
                     Recording_entity += m
@@ -865,21 +883,7 @@ def download_transcribed_audio(widget):
     threading.Thread(target=run).start()
 
 
-def entity_highlight_words(widget):
-    global found_entities
-    widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
 
-    words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
-
-    for word in words_to_highlight:
-        start = 1.0
-        while True:
-            start = widget.search(word, start, stopindex=tk.END)
-            if not start:
-                break
-            end = f"{start}+{len(word)}c"
-            widget.tag_add("highlight", start, end)
-            start = end
 
 # =============================== scroll Functions definition ===============================================================================================================
 
