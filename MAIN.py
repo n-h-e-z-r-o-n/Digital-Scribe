@@ -89,6 +89,7 @@ Recording = False
 Recording_paused = False
 Recording_data = ''
 Recording_entity = ''
+found_entities = []
 Recording_summary = ''
 audio_frames = None
 downloading_audio = False
@@ -219,9 +220,9 @@ def change_color(widget, button):
 # ============================================= NLP  ==========================================================================================
 
 def Entity_Extraction(document_widget, entity_list, widget, loop=False):
-    return
     def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
+        global found_entities
         mygradient = Gradient()
 
         while True:
@@ -865,6 +866,7 @@ def download_transcribed_audio(widget):
 
 
 def entity_highlight_words(widget):
+    global found_entities
     widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
 
     words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
