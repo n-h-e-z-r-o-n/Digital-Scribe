@@ -285,6 +285,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
 
             except Exception as e:
                 print(type(e).__name__)
+                """
                 if type(e).__name__ == 'BadRequestException':
                     error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
                     widget.config(state=tk.NORMAL)
@@ -298,7 +299,6 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     widget.insert(tk.END, e,  'error_config')
                     widget.config(state=tk.DISABLED)
                 elif type(e).__name__ == 'ServiceException':
-
                     error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
                     widget.config(state=tk.NORMAL)
                     widget.delete(1.0, tk.END)
@@ -310,7 +310,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
                     widget.delete(1.0, tk.END)
                     widget.insert(tk.END, e, 'error_config')
                     widget.config(state=tk.DISABLED)
-
+                """
             if not loop:
                 print("loop break")
                 break
