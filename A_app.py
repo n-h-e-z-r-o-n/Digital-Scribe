@@ -4,11 +4,13 @@ def integrate_strings(original, edited):
 
     original_len = len(original_list)
     edited_len = len(edited_list)
-
+    integreted = ""
     print(original_list)
     print(edited_list)
     count = 0
     for i in original_list:
+        if i == edited_list[count]:
+
         count += 1
 
 
