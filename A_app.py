@@ -15,7 +15,7 @@ def integrate_strings(string1, string2):
     return integrated_string
 
 # Example usage:
-string1 = "hello world"
+string1 = "hello world today"
 string2 = "hallo welt"
 integrated = integrate_strings(string1, string2)
 print(integrated)
