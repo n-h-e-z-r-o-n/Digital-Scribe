@@ -563,6 +563,7 @@ def Initialize_VOSK():
     vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
     wisper_model_tiny= whisper.load_model("tiny")
     wisper_model_base = whisper.load_model("base")
+    print('SR Initialized')
 
 
 
@@ -664,7 +665,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     if info > 0:
                        text = grammar(frames)
 
-                       widget1.delete(1.0, tk.END)
+                       #widget1.delete(1.0, tk.END)
                        widget1.insert(tk.END, f" {text}")
 
                 # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
