@@ -4,9 +4,9 @@ def integrate_strings(old , edited, new):
     new = new.split()
 
     for i in new:
-        
-        if old[i] == edited[i]:
-            old[i] = new[i]
+        if old[i] != new[i]:
+            edited.extend(new[i])
+
 
     integreted = " ".join(old)
 
