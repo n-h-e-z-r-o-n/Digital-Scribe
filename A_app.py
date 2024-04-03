@@ -8,10 +8,10 @@ def integrate_strings(original, edited):
     print(original_list)
     print(edited_list)
     count = 0
-    for i in range(original_len):
-        if original_list[i] != edited_list[i]:
-            print(i)
-            break
+    for i in original_list:
+        count += 1
+
+
 
     """
     integrated_string = ""
