@@ -224,7 +224,7 @@ def entity_highlight_words(widget):
     if fg_color == 'black':
          widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
     else:
-         widget.tag_configure("highlight", background="#E8AC41")
+         widget.tag_configure("highlight", background="#737000")
 
     for word in found_entities:
         start = 1.0
