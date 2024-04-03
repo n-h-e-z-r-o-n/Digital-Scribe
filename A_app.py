@@ -7,12 +7,6 @@ def integrate_strings(old , edited, new):
         if old[i] != new[i]:
             edited.extend(new[i])
 
-
-    integreted = " ".join(old)
-
-
-
-
     return integreted
 
 
