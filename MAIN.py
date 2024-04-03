@@ -659,7 +659,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 #widget.see(tk.END)
                 #widget.config(state=tk.DISABLED)
                 text = grammar(frames)
-                if text != "you" or text != "":
+                print("text :", len(text))
+                if text != "you":
                    #widget1.delete(1.0, tk.END)
                    widget1.insert(tk.END, f" {text}")
                 else:
