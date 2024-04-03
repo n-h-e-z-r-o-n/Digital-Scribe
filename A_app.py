@@ -11,6 +11,12 @@ def integrate_strings(original, edited):
     while True:
         word1 = original_list[count]
         word2 = edited_list[count]
+        if word1 == word2:
+            integreted += word1
+
+
+        count += 1
+
 
 
 
