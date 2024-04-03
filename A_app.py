@@ -12,16 +12,17 @@ def integrate_strings(original, edited):
     count = 0
     o_word_index = 0
     while count <= edited_len-1:
-        o_word = original_list[count]
+        o_word = original_list[o_word_index]
         e_word = edited_list[count]
         if o_word == e_word:
             integreted += o_word + " "
         else:
             integreted += e_word + " "
 
+        o_word_index += 1
         count += 1
 
-    print(original_list[count-1:])
+    print(original_list[o_word_index:])
     for i in original_list[count:]:
         integreted += i
     print(count)
