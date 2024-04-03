@@ -638,7 +638,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 break
             if Recording_paused:
                 continue
-
+            Record_btn.config(fg="green")
             data = stream.read(chunk)
             frames.append(data)
             if len(frames) >= (FRAME_RATE * RECORD_SECONDS) / chunk:
