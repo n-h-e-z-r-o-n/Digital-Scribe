@@ -791,10 +791,8 @@ def set_recording_paused(widget):
 
     def check(widget=widget):
         global Recording
-        while True:
-            if not Recording:
-                set_recording_paused(widget)
-                break
+        while not Recording:
+            widget.config(fg='green')
     threading.Thread(target=check).start()
 
     global Recording_paused, fg_color, Recording
