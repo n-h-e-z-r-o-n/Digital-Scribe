@@ -7,10 +7,11 @@ def integrate_strings(original, edited):
     integreted = ""
     print(original_list)
     print(edited_list)
-    count = 0
+    original_index = 0
+    edited_index = 0
     while True:
-        o_word = original_list[count]
-        e_word = edited_list[count]
+        o_word = original_list[original_index]
+        e_word = edited_list[edited_index]
         if o_word == e_word:
             integreted += o_word
         else:
