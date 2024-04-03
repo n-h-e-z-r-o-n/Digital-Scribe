@@ -560,7 +560,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 def Initialize_VOSK():
     global vosk_model, wisper_model_base, wisper_model_tiny
     #vosk_model = Model(model_name="vosk-model-en-us-0.22")
-    vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
+    #vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
     wisper_model_tiny= whisper.load_model("tiny")
     wisper_model_base = whisper.load_model("base")
     print('SR Initialized')
