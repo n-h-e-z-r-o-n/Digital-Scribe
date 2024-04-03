@@ -221,7 +221,7 @@ def change_color(widget, button):
 
 def entity_highlight_words(widget):
     global found_entities
-    widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
+    widget.tag_configure("highlight", background="lightgreen")  # Configure a tag for highlighting
 
     for word in found_entities:
         start = 1.0
