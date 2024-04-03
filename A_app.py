@@ -31,7 +31,7 @@ def integrate_strings(original, edited):
 
 # Example usage:
 original = "hello world today hezron. sample string containing words."
-edited = "hallo welt boy today hezron."
+edited = "hallo welt boy today heron."
 
 integrated = integrate_strings(original, edited)
 print(integrated)
