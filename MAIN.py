@@ -634,9 +634,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
     def speech_recognition(widget=widget, widget1=widget1):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
+        global running_scribe
+        running_scribe = False
         print("scanning")
         audio_frames = []
-        hold = None
+
         while not messages.empty():
             if closed :
                 print('speech_recognition closed')
@@ -662,27 +664,17 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
+                    transcribe_audio(audio_frames, widget1)
                 else:
                     print("microphone muted")
-
-
-                #if text == "the" or text == "" :
-                #    continue
-                #Recording_data += text
-
-                #widget.config(state=tk.NORMAL)
-                #widget.insert(tk.END, f" {text}")
-                #widget.see(tk.END)
-                #widget.config(state=tk.DISABLED)
-
 
             except:
                 continue
 
     def grammar(frames):
         global wisper_model_tiny, wisper_model_base
+
         # Define audio parameters
-        import wave
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
         sample_rate = 16000  # Sample rate (Hz)
@@ -702,6 +694,36 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         result = wisper_model_base.transcribe(output_file)
 
         return result["text"]
+
+    def transcribe_audio(frames, widget):
+        global running_scribe
+        global wisper_model_tiny, wisper_model_base
+
+        if running_scribe:
+            return
+        running_scribe = True
+        # Define audio parameters
+        channels = 1  # Mono
+        sample_width = 2  # 16-bit audio
+        sample_rate = 16000  # Sample rate (Hz)
+        output_file = 'wisper_model_tiny.wav'
+        # Open the output file in write mode
+        with wave.open(output_file, 'wb') as output_wave:
+            # Set audio parameters
+            output_wave.setnchannels(channels)
+            output_wave.setsampwidth(sample_width)
+            output_wave.setframerate(sample_rate)
+
+            # Write the audio frames to the file
+            output_wave.writeframes(b''.join(frames))
+
+        # print("Audio file saved successfully.")
+        result = wisper_model_base.transcribe(output_file)
+        widget.delete(1.0, tk.END)
+        widget.insert(tk.END, result["text"])
+        widget.see(tk.END)
+        running_scribe = False
+
 
 
     while True:
