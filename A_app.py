@@ -3,7 +3,7 @@ def integrate_strings(old , edited, new):
     edited = edited.split()
     new = new.split()
 
-    for i in new:
+    for i in old:
         if old[i] != new[i]:
             edited.extend(new[i])
 
