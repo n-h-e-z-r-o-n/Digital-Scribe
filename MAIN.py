@@ -886,7 +886,7 @@ def integrate_strings(old , edited, new):
     integrate = ''
     for i in edited:
         integrate += i + ' '
-    print(integrate)
+    print("============= ",integrate)
 
 
 # =============================== scroll Functions definition ===============================================================================================================
