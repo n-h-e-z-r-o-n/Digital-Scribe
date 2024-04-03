@@ -1,4 +1,10 @@
-def integrate_strings(string1, string2):
+def integrate_strings(original, edited):
+    string1 =  string1.strip()
+    string2 = string2.strip()
+
+    print(string1)
+    print( string2)
+    """
     integrated_string = ""
     # Iterate through the characters of both strings simultaneously
     for char1, char2 in zip(string1, string2):
@@ -13,9 +19,10 @@ def integrate_strings(string1, string2):
     elif len(string2) > len(string1):
         integrated_string += string2[len(string1):]
     return integrated_string
+    """
 
 # Example usage:
-string1 = "hello world today"
+string1 = "hello world today."
 string2 = "hallo welt"
 integrated = integrate_strings(string1, string2)
 print(integrated)
