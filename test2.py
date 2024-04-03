@@ -18,7 +18,7 @@ def highlight_words(widget):
 root = tk.Tk()
 root.title("Text Highlighter")
 
-text = tk.Text(root, wrap="word")
+text = tk.Text(root, wrap="word", bg='black', fg='white')
 text.pack(expand=True, fill="both")
 
 text.insert("1.0", "This is a simple Python script using Tkinter for GUI.")
