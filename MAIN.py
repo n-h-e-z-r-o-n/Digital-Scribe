@@ -1480,7 +1480,7 @@ def chat(widget):
     download_audio_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.881)
 
     download_audio_btn2 = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 20), bg='blue', borderwidth=0, border=0, command=lambda: download_transcribed_audio(download_audio_btn))
-    download_audio_btn2.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.91)
+    download_audio_btn2.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.901)
 
     upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid))
     #upload_audio_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.863)
