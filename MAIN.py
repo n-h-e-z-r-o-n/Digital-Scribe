@@ -221,11 +221,11 @@ def change_color(widget, button):
 
 def entity_highlight_words(widget):
     global found_entities, fg_color
-    if fg_color == 'white':
-    
-    widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
+    if fg_color == 'black':
+         widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
+    else:
+         widget.tag_configure("highlight", background="#E8AC41")
 
-    widget.tag_configure("highlight", background="#E8AC41")
     for word in found_entities:
         start = 1.0
         while True:
