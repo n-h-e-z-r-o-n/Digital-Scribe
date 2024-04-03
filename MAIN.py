@@ -862,6 +862,23 @@ def download_transcribed_audio(widget):
                     output_wave.writeframes(b''.join(audio_frames))
             downloading_audio = False
     threading.Thread(target=run).start()
+
+
+def entity_words(widget):
+    widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
+
+    words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
+
+    for word in words_to_highlight:
+        start = 1.0
+        while True:
+            start = widget.search(word, start, stopindex=tk.END)
+            if not start:
+                break
+            end = f"{start}+{len(word)}c"
+            widget.tag_add("highlight", start, end)
+            start = end
+
 # =============================== scroll Functions definition ===============================================================================================================
 
 
@@ -923,6 +940,10 @@ def attach_scroll(widget, color=None):
     canvas_FRAME_2.create_window((0, 0), window=canvas_FRAME_2_frame, anchor=tk.NW)
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, canvas_FRAME_2
+
+# ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
 
 
 def access_keys_info():
