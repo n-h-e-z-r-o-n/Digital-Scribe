@@ -652,8 +652,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 rec.AcceptWaveform(b''.join(frames))
                 result = rec.Result()
 
-                print("vosk_text", result)
+
                 text = json.loads(result)["text"]
+                print("vosk_text", text)
                 #if text == "the" or text == "" :
                 #    continue
                 #Recording_data += text
@@ -709,7 +710,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         messages = Queue()
         recordings = Queue()
         FRAME_RATE = 16000
-        vosk_model = Model(model_name="vosk-model-en-us-0.22")
         rec = KaldiRecognizer(vosk_model, FRAME_RATE)
         rec.SetWords(True)
         threading.Thread(target=start_recording).start()
