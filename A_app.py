@@ -9,10 +9,13 @@ def integrate_strings(original, edited):
     print(edited_list)
     count = 0
     while True:
-        word1 = original_list[count]
-        word2 = edited_list[count]
-        if word1 == word2:
-            integreted += word1
+        o_word = original_list[count]
+        e_word = edited_list[count]
+        if o_word == e_word:
+            integreted += o_word
+        else:
+            integreted += e_word
+
 
 
         count += 1
