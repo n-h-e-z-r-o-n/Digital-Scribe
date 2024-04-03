@@ -736,7 +736,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
             output_wave.writeframes(b''.join(frames))
 
         # print("Audio file saved successfully.")
-        result = wisper_model_base.transcribe(output_file)
+        result = wisper_model_tiny.transcribe(output_file)
         widget.delete(1.0, tk.END)
         widget.insert(tk.END, result["text"])
         widget.see(tk.END)
@@ -886,7 +886,7 @@ def integrate_strings(old , edited, new):
     integrate = ''
     for i in edited:
         integrate += i + ' '
-    return integrate
+    print(integrate)
 
 
 # =============================== scroll Functions definition ===============================================================================================================
