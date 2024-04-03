@@ -680,8 +680,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
-                    transcribe_audio(audio_frames, widget1)running_scribe
-                    previous_data = widget1.get("1.0", "end")
+                    transcribe_audio(audio_frames, widget1)
 
 
                 else:
@@ -743,6 +742,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         widget.see(tk.END)
         running_scribe = False
 
+        integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
 
 
     while True:
