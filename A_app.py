@@ -7,6 +7,8 @@ def integrate_strings(original, edited):
     integreted = ""
     print(original_list)
     print(edited_list)
+    print(original_list[5: -1])
+
     original_index = 0
     edited_index = 0
     count = 0
