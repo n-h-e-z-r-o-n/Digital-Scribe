@@ -633,7 +633,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         frames = []
         while not messages.empty():
             if closed:
-                print('record_microphone closed')
                 break
             if Recording == False:
                 break
