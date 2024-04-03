@@ -20,7 +20,7 @@ def integrate_strings(original, edited):
 
         count += 1
 
-    integreted += original_list[count: -1]
+    integreted += original_list[count:]
     print(count)
     return integreted
 
