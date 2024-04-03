@@ -1,6 +1,6 @@
 def integrate_strings(original, edited):
-    string1 =  string1.strip()
-    string2 = string2.strip()
+    original_list =  original.strip()
+    edited_list = edited.strip()
 
     print(string1)
     print( string2)
@@ -23,6 +23,6 @@ def integrate_strings(original, edited):
 
 # Example usage:
 string1 = "hello world today."
-string2 = "hallo welt"
+string2 = "hallo welt today."
 integrated = integrate_strings(string1, string2)
 print(integrated)
