@@ -678,7 +678,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
                 vosk_text = json.loads(result)["text"]
                 if vosk_text.strip() != "huh" or vosk_text.strip() != '':
-                    print("name")
+                    print("name", vosk_text.strip() )
                     audio_frames.extend(frames)
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
@@ -745,7 +745,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         widget.see(tk.END)
         running_scribe = False
 
-        integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
+        #integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
 
 
     while True:
