@@ -7,28 +7,22 @@ def integrate_strings(original, edited):
     integreted = ""
     print(original_list)
     print(original_list[5:])
-    
+
     #print(edited_list)
 
 
-    original_index = 0
-    edited_index = 0
     count = 0
     while count < edited_len:
-        o_word = original_list[original_index]
-        e_word = edited_list[edited_index]
+        o_word = original_list[count]
+        e_word = edited_list[count]
         if o_word == e_word:
             integreted += o_word
         else:
             integreted += e_word
 
-
-
-        original_index += 1
-        edited_index += 1
         count += 1
 
-    integreted += original_list[original_index: -1]
+    integreted += original_list[count: -1]
 
     return integreted
 
