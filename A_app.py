@@ -8,7 +8,11 @@ def integrate_strings(original, edited):
     print(original_list)
     print(edited_list)
     count = 0
-    while True
+    while True:
+        word1 = original_list[count]
+        word2 = edited_list[count]
+
+
 
     return integreted
 
