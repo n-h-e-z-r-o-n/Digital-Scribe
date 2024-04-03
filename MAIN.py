@@ -236,6 +236,7 @@ def entity_highlight_words(widget):
             widget.tag_add("highlight", start, end)
             start = end
 
+
 def Entity_Extraction(document_widget, entity_list, widget, loop=False):
     return
     def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
