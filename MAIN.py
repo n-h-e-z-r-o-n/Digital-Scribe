@@ -622,7 +622,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         transcribe = Thread(target=speech_recognition, args=(widget,))
         transcribe.start()
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=10):
+    def record_microphone(chunk=1024, RECORD_SECONDS=5):
         global closed, Recording_paused, Recording
 
         p = pyaudio.PyAudio()
