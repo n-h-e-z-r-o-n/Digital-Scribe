@@ -223,8 +223,6 @@ def entity_highlight_words(widget):
     global found_entities
     widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
 
-    words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
-
     for word in found_entities:
         start = 1.0
         while True:
