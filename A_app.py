@@ -2,10 +2,12 @@ def integrate_strings(old , edited, new):
     old = old.split()
     edited = edited.split()
     new = new.split()
-
+    index = 0
     for i in old:
-        if old[i] != new[i]:
-            edited.extend(new[i])
+        if i == new[index]:
+
+            old[index] = new[index]
+        index += 1
 
     return integreted
 
