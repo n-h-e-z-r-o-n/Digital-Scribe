@@ -661,18 +661,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     audio_frames.extend(frames)
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
+
                 else:
                     print("microphone muted")
 
 
-                #if text == "the" or text == "" :
-                #    continue
-                #Recording_data += text
-    
-                #widget.config(state=tk.NORMAL)
-                #widget.insert(tk.END, f" {text}")
-                #widget.see(tk.END)
-                #widget.config(state=tk.DISABLED)
 
 
             except:
