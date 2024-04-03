@@ -6,9 +6,7 @@ def integrate_strings(original, edited):
     edited_len = len(edited_list)
     integreted = ""
     print(original_list)
-    print(original_list[0])
-
-    #print(edited_list)
+    print(edited_list)
 
 
     count = 0
@@ -23,7 +21,7 @@ def integrate_strings(original, edited):
         count += 1
 
     integreted += original_list[count: -1]
-
+    print(count)
     return integreted
 
 
@@ -32,4 +30,5 @@ original = "hello world today hezron. sample string containing words."
 edited = "hallo welt boy today hezron."
 
 integrated = integrate_strings(original, edited)
-#print(integrated)
+print("-------------------------")
+print(integrated)
