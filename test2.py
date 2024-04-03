@@ -1,7 +1,7 @@
 import tkinter as tk
 
 def highlight_words(widget):
-    widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
+    widget.tag_configure("highlight", background="#FFFACD")  # Configure a tag for highlighting
 
     words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
 
@@ -24,7 +24,6 @@ text.pack(expand=True, fill="both")
 text.insert("1.0", "This is a simple Python script using Tkinter for GUI.")
 text.insert(tk.END, "\n\nThis is another example of highlighting Tkinter in Python.")
 
-highlight_button = tk.Button(root, text="Highlight Words", command= lambda :highlight_words(text))
-highlight_button.pack()
+highlight_words(text)
 
 root.mainloop()
