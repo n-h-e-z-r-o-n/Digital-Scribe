@@ -788,25 +788,19 @@ def speech_record_time(widget):
 
 
 def set_recording_paused(widget):
-
-    def check(widget=widget):
-        global Recording
-        while not Recording:
-            widget.config(fg='green')
-    threading.Thread(target=check).start()
-
-    global Recording_paused, fg_color, Recording
-    print('set_recording_paused')
-    if Recording:
-        if Recording_paused == False:
-            widget.config(fg='green')
-            Recording_paused = True
-        else:
-            widget.config(fg=fg_color)
-            Recording_paused = False
-    else:
-        widget.config(fg=fg_color)
-
+    def run(widget=widget):
+            global Recording_paused, fg_color, Recording
+            print('set_recording_paused')
+            if Recording:
+                if Recording_paused == False:
+                    widget.config(fg='green')
+                    Recording_paused = True
+                else:
+                    widget.config(fg=fg_color)
+                    Recording_paused = False
+            else:
+                widget.config(fg=fg_color)
+    threading.Thread(target=run).start()
 
 def upload_audio_file(widget, bt_widget):
     def run(widget=widget, bt_widget=bt_widget):
