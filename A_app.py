@@ -24,13 +24,13 @@ def integrate_strings(original, edited):
         edited_index += 1
         count += 1
 
-
+    integreted += original_list[original_index: -1]
 
     return integreted
 
 
 # Example usage:
-original = "hello world today."
+original = "hello world today hezron."
 edited = "hallo welt today."
 integrated = integrate_strings(original, edited)
 print(integrated)
