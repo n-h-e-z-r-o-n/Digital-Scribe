@@ -9,7 +9,8 @@ def integrate_strings(original, edited):
     print(edited_list)
     original_index = 0
     edited_index = 0
-    FOR 
+    count = 0
+    while count < edited_len:
         o_word = original_list[original_index]
         e_word = edited_list[edited_index]
         if o_word == e_word:
@@ -21,6 +22,7 @@ def integrate_strings(original, edited):
 
         original_index += 1
         edited_index += 1
+        count += 1
 
 
 
