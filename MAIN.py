@@ -241,12 +241,12 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
         global found_entities
         mygradient = Gradient()
-
+        print("checking entity")
         while True:
             if closed :
                 break
             document = document_widget.get("1.0", "end")
-            if len(document) < 50:
+            if len(document) < 5:
                 time.sleep(5)
                 continue
             if Recording_paused:
