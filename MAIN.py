@@ -1476,8 +1476,13 @@ def chat(widget):
     clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg=bg_color, borderwidth=0, border=0)
     clock_lb.place(relheight=0.03, relwidth=0.06, rely=0.751, relx=0.82)
 
-    download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 17), bg=bg_color, borderwidth=0, border=0, command=lambda: download_transcribed_audio(download_audio_btn))
+    download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 17), bg='blue', borderwidth=0, border=0, command=lambda: download_transcribed_audio(download_audio_btn))
     download_audio_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.881)
+
+    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg='blue', borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid))
+    upload_audio_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.863)
+
+
 
     extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t3, False) )#D_Summary(t1, t2))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.78, relx=0.78)
@@ -1487,8 +1492,7 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    upload_audio_wid = tk.Button(chatbot_widget, text='⥣️audio', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid))
-    upload_audio_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.863)
+
     #change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
 
