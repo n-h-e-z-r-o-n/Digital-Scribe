@@ -15,7 +15,7 @@ def integrate_strings(old , edited, new):
 # Example usage:
 
 old = "hallo world boy today hezron"
-edited = "hallo welt boy today hezron."
+edited = "hallo welt boy today COME hezron."
 new = "hello world today hezron. sample string containing words."
 
 print(old)
