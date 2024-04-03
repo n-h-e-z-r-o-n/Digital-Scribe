@@ -32,8 +32,11 @@ def integrate_strings(original, edited):
 
 
 # Example usage:
-original = "hello world today hezron. sample string containing words."
+
+old = "hello world today hezron. sample string containing words."
 edited = "hallo welt boy today hezron."
+new = "hello world today hezron. sample string containing words."
+
 
 integrated = integrate_strings(original, edited)
 print("-------------------------")
