@@ -19,8 +19,8 @@ def integrate_strings(original, edited):
 
 
 
-        count += 1
-
+        original_index += 1
+        edited_index += 1
 
 
 
