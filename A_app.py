@@ -14,13 +14,13 @@ def integrate_strings(original, edited):
         o_word = original_list[count]
         e_word = edited_list[count]
         if o_word == e_word:
-            integreted += o_word
+            integreted += o_word + " "
         else:
-            integreted += e_word
+            integreted += e_word + " "
 
         count += 1
-
-    integreted += original_list[count:]
+    for i in original_list[count:]:
+        integreted += i
     print(count)
     return integreted
 
