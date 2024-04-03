@@ -1,6 +1,6 @@
 def integrate_strings(original, edited):
-    original_list =  original.strip()
-    edited_list = edited.strip()
+    original_list =  original.split()
+    edited_list = edited.split()
 
     original_len = len(original_list)
     edited_len = len(edited_list)
@@ -10,7 +10,7 @@ def integrate_strings(original, edited):
 
 
     count = 0
-    while count < edited_len:
+    while count <= edited_len-1:
         o_word = original_list[count]
         e_word = edited_list[count]
         if o_word == e_word:
