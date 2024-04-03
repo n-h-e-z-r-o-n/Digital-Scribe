@@ -219,6 +219,7 @@ def change_color(widget, button):
 # ============================================= NLP  ==========================================================================================
 
 def Entity_Extraction(document_widget, entity_list, widget, loop=False):
+    return
     def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
         mygradient = Gradient()
@@ -300,6 +301,7 @@ def Entity_Extraction(document_widget, entity_list, widget, loop=False):
 
 
 def D_Summary(widget1, widget, loop=False):
+    return
     def run_f(widget1= widget1, widget = widget, loop=loop):
         global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
@@ -557,10 +559,11 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 def Initialize_VOSK():
     global vosk_model, wisper_model_base, wisper_model_tiny
-    vosk_model = Model(model_name="vosk-model-en-us-0.22")
-
+    #vosk_model = Model(model_name="vosk-model-en-us-0.22")
+    vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
     wisper_model_tiny= whisper.load_model("tiny")
     wisper_model_base = whisper.load_model("base")
+
 
 
 threading.Thread(target=Initialize_VOSK).start()
@@ -592,7 +595,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         transcribe = Thread(target=speech_recognition, args=(widget,))
         transcribe.start()
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=1):
+    def record_microphone(chunk=1024, RECORD_SECONDS=5):
         global closed, Recording_paused, Recording
 
         p = pyaudio.PyAudio()
@@ -659,7 +662,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
                 if widget1 is not None:
                     if info > 0:
-                       text = grammar(audio_frames)
+                       text = grammar(frames)
 
                        widget1.delete(1.0, tk.END)
                        widget1.insert(tk.END, f" {text}")
@@ -671,7 +674,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 continue
 
     def grammar(frames):
-        global wisper_model_tiny
+        global wisper_model_tiny, wisper_model_base
         # Define audio parameters
         import wave
         channels = 1  # Mono
@@ -690,7 +693,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
         # print("Audio file saved successfully.")
 
-        result = wisper_model_tiny.transcribe(output_file)
+        result = wisper_model_base.transcribe(output_file)
 
         return result["text"]
 
