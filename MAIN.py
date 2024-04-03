@@ -1476,19 +1476,19 @@ def chat(widget):
     clock_lb = tk.Label(chatbot_widget, text='', fg=fg_color, font=("Bauhaus 93", 13), bg=bg_color, borderwidth=0, border=0)
     clock_lb.place(relheight=0.03, relwidth=0.06, rely=0.751, relx=0.82)
 
-    download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 22), bg='blue', borderwidth=0, border=0, command=lambda: download_transcribed_audio(download_audio_btn))
+    download_audio_btn = tk.Button(chatbot_widget, text='⤓', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Bauhaus 93", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: download_transcribed_audio(download_audio_btn))
     download_audio_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.881)
 
-    download_audio_btn2 = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg='blue', borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid))
+    download_audio_btn2 = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid))
     download_audio_btn2.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
 
     extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t3, False) )#D_Summary(t1, t2))
-    extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.78, relx=0.78)
+    extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
     Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t1, t3, False))
-    Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.78, relx=0.821)
+    Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
 
