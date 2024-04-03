@@ -707,7 +707,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
         # print("Audio file saved successfully.")
 
-        result = wisper_model_base.transcribe(output_file)
+        result = wisper_model_tiny.transcribe(output_file)
 
         return result["text"]
 
