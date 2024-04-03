@@ -683,8 +683,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
-                    transcribe_audio(audio_frames, widget1)
                 else:
+                    transcribe_audio(audio_frames, widget1)
                     pass
 
             except:
