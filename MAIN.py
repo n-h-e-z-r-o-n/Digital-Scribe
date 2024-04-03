@@ -561,8 +561,8 @@ def Initialize_VOSK():
     global vosk_model, wisper_model_base, wisper_model_tiny
     #vosk_model = Model(model_name="vosk-model-en-us-0.22")
     #vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
-    # vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
-    vosk - model - small - en - us - 0.15
+    vosk_model = Model(model_name="vosk-model-small-en-us-0.15")
+
     wisper_model_tiny= whisper.load_model("tiny")
     wisper_model_base = whisper.load_model("base")
     print('SR Initialized')
@@ -649,9 +649,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
             try:
                 frames = recordings.get()
                 audio_frames.extend(frames)
-                #rec.AcceptWaveform(b''.join(frames))
-                #result = rec.Result()
-                #text = json.loads(result)["text"]
+                rec.AcceptWaveform(b''.join(frames))
+                result = rec.Result()
+
+                print("vosk_text", result)
+                text = json.loads(result)["text"]
                 #if text == "the" or text == "" :
                 #    continue
                 #Recording_data += text
@@ -707,9 +709,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         messages = Queue()
         recordings = Queue()
         FRAME_RATE = 16000
-        # vosk_model = Model(model_name="vosk-model-en-us-0.22")
-        #rec = KaldiRecognizer(vosk_model, FRAME_RATE)
-        #rec.SetWords(True)
+        vosk_model = Model(model_name="vosk-model-en-us-0.22")
+        rec = KaldiRecognizer(vosk_model, FRAME_RATE)
+        rec.SetWords(True)
         threading.Thread(target=start_recording).start()
         speech_record_time(clock_wideth)
         break
