@@ -10,6 +10,7 @@ def integrate_strings(original, edited):
 
 
     count = 0
+    o_word_index = 0
     while count <= edited_len-1:
         o_word = original_list[count]
         e_word = edited_list[count]
