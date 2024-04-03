@@ -872,6 +872,18 @@ def download_transcribed_audio(widget):
     threading.Thread(target=run).start()
 
 
+def integrate_strings(old , edited, new):
+    old = old.split()
+    edited = edited.split()
+    new = new.split()
+    print(len(old))
+    pos = len(old)-1
+    data = new[pos:]
+    edited.extend(data)
+    integrate = ''
+    for i in edited:
+        integrate += i + ' '
+    return integrate
 
 
 # =============================== scroll Functions definition ===============================================================================================================
