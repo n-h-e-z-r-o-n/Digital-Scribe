@@ -8,10 +8,7 @@ def integrate_strings(original, edited):
     print(original_list)
     print(edited_list)
     count = 0
-    for i in original_list:
-        if i == edited_list[count]:
-            integreted += i + ' '
-        count += 1
+    while True
 
     return integreted
 
@@ -19,5 +16,5 @@ def integrate_strings(original, edited):
 # Example usage:
 original = "hello world today."
 edited = "hallo welt today."
-integrated = integrate_strings(original, string2)
+integrated = integrate_strings(original, edited)
 print(integrated)
