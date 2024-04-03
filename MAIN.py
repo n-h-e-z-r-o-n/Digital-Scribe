@@ -864,7 +864,7 @@ def download_transcribed_audio(widget):
     threading.Thread(target=run).start()
 
 
-def entity_words(widget):
+def entity_highlight_words(widget):
     widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
 
     words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
