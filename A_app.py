@@ -7,7 +7,7 @@ def integrate_strings(original, edited):
     integreted = ""
     print(original_list)
     print(edited_list)
-
+    original_list[count:]
 
     count = 0
     while count <= edited_len-1:
