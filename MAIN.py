@@ -700,8 +700,10 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
 
     while True:
+        """
         if vosk_model == None:
             continue
+        """
         messages = Queue()
         recordings = Queue()
         FRAME_RATE = 16000
