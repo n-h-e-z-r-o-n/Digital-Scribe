@@ -634,6 +634,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         global closed, Recording_data, Recording_paused, Recording, audio_frames
         print("scanning")
         audio_frames = []
+        hold = None
         while not messages.empty():
             if closed :
                 print('speech_recognition closed')
@@ -648,25 +649,21 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                 audio_frames.extend(frames)
                 #rec.AcceptWaveform(b''.join(frames))
                 #result = rec.Result()
-                text = json.loads(result)["text"]
-                if text == "the" or text == "" :
-                    continue
+                #text = json.loads(result)["text"]
+                #if text == "the" or text == "" :
+                #    continue
                 #Recording_data += text
     
                 #widget.config(state=tk.NORMAL)
-                widget.insert(tk.END, f" {text}")
-                widget.see(tk.END)
+                #widget.insert(tk.END, f" {text}")
+                #widget.see(tk.END)
                 #widget.config(state=tk.DISABLED)
-
-                info = widget.get('1.0', tk.END)
-                info = len(info)
-
-                if widget1 is not None:
-                    if info > 0:
-                       text = grammar(frames)
-
-                       #widget1.delete(1.0, tk.END)
-                       widget1.insert(tk.END, f" {text}")
+                text = grammar(frames)
+                if text != "you" or text != "":
+                   #widget1.delete(1.0, tk.END)
+                   widget1.insert(tk.END, f" {text}")
+                else:
+                    print("microphone muted")
 
                 # cased = subprocess.check_output('python recasepunc/recasepunc.py predict recasepunc/checkpoint', shell=True, text=True, input=text)
                 # output.append_stdout(cased)
