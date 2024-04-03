@@ -6,7 +6,7 @@ def integrate_strings(original, edited):
     edited_len = len(edited_list)
     integreted = ""
     print(original_list)
-    print(original_list[5:])
+    print(original_list[0])
 
     #print(edited_list)
 
