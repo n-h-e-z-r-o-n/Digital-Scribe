@@ -681,7 +681,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
                     transcribe_audio(audio_frames, widget1)
-                    #integrate_strings(widget1.get() , edited, new)
+                    previous_data = widget1.get("1.0", "end")
+
+
                 else:
                     pass
 
