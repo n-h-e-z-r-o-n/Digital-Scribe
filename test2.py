@@ -1,7 +1,7 @@
 import tkinter as tk
 
 def highlight_words(widget):
-    widget.tag_configure("highlight", background="yellow")  # Configure a tag for highlighting
+    widget.tag_configure("highlight", foreground="yellow")  # Configure a tag for highlighting
 
     words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
 
