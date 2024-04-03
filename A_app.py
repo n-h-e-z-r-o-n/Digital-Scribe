@@ -7,7 +7,7 @@ def integrate_strings(original, edited):
     integreted = ""
     print(original_list)
     print(edited_list)
-    original_list[count:]
+
 
     count = 0
     while count <= edited_len-1:
@@ -19,6 +19,8 @@ def integrate_strings(original, edited):
             integreted += e_word + " "
 
         count += 1
+
+    print(original_list[count-1:])
     for i in original_list[count:]:
         integreted += i
     print(count)
