@@ -1392,12 +1392,12 @@ def chat(widget):
 
 
     def add(widget):
-        global entity_type, entity_widget_lists, entity_widg_list
+        global entity_type, entity_widg_list
         entity_type = "STRING"
 
         def delet_widget(widget):
             widget.destroy()
-            for i in entity_widget_lists:
+            for i in entity_widg_list:
                 if i[0] == widget:
                     entity_widg_list.remove(i)
 
