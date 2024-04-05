@@ -308,7 +308,7 @@ def Entity_Extraction(document_widget, widget):
     threading.Thread(target=run).start()
 
 
-def D_Summary(widget1, widget, loop=False):
+def D_Summary(widget1, widget):
 
     def run_f(widget1= widget1, widget = widget, loop=loop):
         global Recording, Recording_paused, Recording_summary
@@ -319,9 +319,6 @@ def D_Summary(widget1, widget, loop=False):
 
         if len(document) < 5:
             return
-        if Recording_paused:
-            continue
-
         try:
             Recording_summary = '\n------------------------ CONVERSATION SUMMARY\n'
             summary_length = SummarizeParamsLength.LONG
@@ -329,26 +326,14 @@ def D_Summary(widget1, widget, loop=False):
                 document=document,
                 length=summary_length
             )
-            if loop:
-                Recording_summary += result['summary']
-                print('Recording_summary length', len(Recording_summary))
-                time.sleep(30)
-            else:
-                widget.config(state=tk.NORMAL)
-                widget.delete(1.0, tk.END)
-                widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
 
-
+            widget.config(state=tk.NORMAL)
+            widget.delete(1.0, tk.END)
+            widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
 
         except Exception as e:
             print(e)
 
-        if not loop:
-            break
-        else:
-            if not Recording:
-                break
-        time.sleep(10)
 
     threading.Thread(target=run_f).start()
 
@@ -664,6 +649,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     if pos == 10:
                         transcribe_audio(audio_frames, widget1)
                         Entity_Extraction(widget1, widget2)
+                        D_Summary(widget1, widget2)
                         pos = 0
                     print(pos)
                     pos +=1
