@@ -656,8 +656,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     widget.see(tk.END)
                     if pos == 10:
                         transcribe_audio(audio_frames, widget1)
-                        #Entity_Extraction(widget1, widget2)
+                        #Entity_Extraction(widget1)
                         D_Summary(widget1, widget2)
+                        widget2.insert("1")
                         pos = 0
                     print(pos)
                     pos +=1
