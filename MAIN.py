@@ -628,7 +628,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
 
     def speech_recognition(widget=widget, widget1=widget1, widget2=widget2):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
-        global running_scribe, previous_data
+        global running_scribe, previous_data, Recording_summary, Recording_entity
         running_scribe = False
         print("scanning")
         audio_frames = []
@@ -658,7 +658,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         transcribe_audio(audio_frames, widget1)
                         #Entity_Extraction(widget1)
                         D_Summary(widget1, widget2)
-                        widget2.insert("1")
+                        widget.delete(1.0, tk.END)
+                        widget2.insert("1.0", Recording_entity + Recording_summary)
                         pos = 0
                     print(pos)
                     pos +=1
