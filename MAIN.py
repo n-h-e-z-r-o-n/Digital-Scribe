@@ -665,7 +665,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     pos +=1
 
 
-            except:
+            except Exception as e:
+                print(e)
                 continue
 
     def grammar(frames):
