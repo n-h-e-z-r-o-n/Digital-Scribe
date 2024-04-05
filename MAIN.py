@@ -309,50 +309,46 @@ def Entity_Extraction(document_widget, widget):
 
 
 def D_Summary(widget1, widget, loop=False):
-    return
+
     def run_f(widget1= widget1, widget = widget, loop=loop):
         global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
-        while True:
-                if closed:
-                    break
 
-                document = widget1.get("1.0", "end")
-                document = (document.strip())
+        document = widget1.get("1.0", "end")
+        document = (document.strip())
 
-                if len(document) < 50:
-                    time.sleep(5)
-                    continue
-                if Recording_paused:
-                    continue
+        if len(document) < 5:
+            return
+        if Recording_paused:
+            continue
 
-                try:
-                    Recording_summary = '\n------------------------ CONVERSATION SUMMARY\n'
-                    summary_length = SummarizeParamsLength.LONG
-                    result = gradient.summarize(
-                        document=document,
-                        length=summary_length
-                    )
-                    if loop:
-                        Recording_summary += result['summary']
-                        print('Recording_summary length', len(Recording_summary))
-                        time.sleep(30)
-                    else:
-                        widget.config(state=tk.NORMAL)
-                        widget.delete(1.0, tk.END)
-                        widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
+        try:
+            Recording_summary = '\n------------------------ CONVERSATION SUMMARY\n'
+            summary_length = SummarizeParamsLength.LONG
+            result = gradient.summarize(
+                document=document,
+                length=summary_length
+            )
+            if loop:
+                Recording_summary += result['summary']
+                print('Recording_summary length', len(Recording_summary))
+                time.sleep(30)
+            else:
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
 
 
 
-                except Exception as e:
-                    print(e)
+        except Exception as e:
+            print(e)
 
-                if not loop:
-                    break
-                else:
-                    if not Recording:
-                        break
-                time.sleep(10)
+        if not loop:
+            break
+        else:
+            if not Recording:
+                break
+        time.sleep(10)
 
     threading.Thread(target=run_f).start()
 
