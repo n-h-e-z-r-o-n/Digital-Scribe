@@ -665,12 +665,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
-                    if pos == 1:
+                    if pos == 10:
                         transcribe_audio(audio_frames, widget1)
                         Entity_Extraction(widget1, widget2)
                         pos = 0
                     print(pos)
-                    pos +=0.1
+                    pos +=1
 
 
             except:
