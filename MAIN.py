@@ -238,7 +238,7 @@ def entity_highlight_words(widget):
             start = end
 
 
-def Entity_Extraction(document_widget, widget):
+def Entity_Extraction(document_widget, widget=None):
 
     def run(document_widget=document_widget, widget=widget):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
