@@ -245,7 +245,7 @@ def Entity_Extraction(document_widget, widget):
         global found_entities, entity_widg_list
 
         mygradient = Gradient()
-        print("checking entity")
+
 
         document = document_widget.get("1.0", "end")
         if len(document) < 0:
@@ -268,7 +268,6 @@ def Entity_Extraction(document_widget, widget):
             widget.delete(1.0, tk.END)
             Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
             found_entities = []
-            print("number of entities", len(result["entity"].items()))
             for key, value in result["entity"].items():
                 Recording_entity += key + " : " + value + "\n"
                 found_entities.append(value)
