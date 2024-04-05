@@ -644,6 +644,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         print("scanning")
         audio_frames = []
         previous_data = ''
+        pos = 0
         while not messages.empty():
             if closed :
                 print('speech_recognition closed')
@@ -664,10 +665,10 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
-                else:
-                    if widget2 is not None:
+                    if pos == 1:
                         transcribe_audio(audio_frames, widget1)
                         Entity_Extraction(widget1, widget2)
+                    pos +=0.1
 
 
             except:
