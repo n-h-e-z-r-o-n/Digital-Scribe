@@ -663,7 +663,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                 if (vosk_text.strip() != "huh") and (vosk_text.strip() != ''):
                     audio_frames.extend(frames)
                     text = grammar(frames)
-                    widget.insert(tk.END, f" {text}")
+                    widget.insert(tk.END, f" {text}", 'ASR')
                     widget.see(tk.END)
                     if pos == 10:
                         transcribe_audio(audio_frames, widget1)
@@ -1363,7 +1363,7 @@ def chat(widget):
     paned_window.place(relheight=0.96, relwidth=0.75, rely=0.03, relx=0.0253)
 
     t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1) # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
-    t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)
+    t1.tag_configure("ASR", foreground="gray")
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
