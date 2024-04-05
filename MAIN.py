@@ -252,7 +252,7 @@ def Entity_Extraction(document_widget, widget):
             print("No value to Extract")
             return
 
-      
+
         document = (document.strip())
         schema = '{'
         for i in entity_widg_list:
@@ -274,10 +274,7 @@ def Entity_Extraction(document_widget, widget):
                 found_entities.append(value)
 
             entity_highlight_words(document_widget)
-
             widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
-
-
 
         except Exception as e:
             print(type(e).__name__)
@@ -307,7 +304,6 @@ def Entity_Extraction(document_widget, widget):
                 widget.insert(tk.END, e, 'error_config')
                 widget.config(state=tk.DISABLED)
             """
-
 
     threading.Thread(target=run).start()
 
