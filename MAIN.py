@@ -268,17 +268,15 @@ def Entity_Extraction(document_widget, widget):
             # widget.config(state=tk.NORMAL)
             widget.delete(1.0, tk.END)
             Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
-            m = '------------------------ EXTRACTED ENTITIES \n\n'
             found_entities = []
             print("number of entities", len(result["entity"].items()))
             for key, value in result["entity"].items():
-                m += key + " : " + value + "\n"
+                Recording_entity += key + " : " + value + "\n"
                 #widget.insert(tk.END, m)
                 found_entities.append(value)
 
             entity_highlight_words(document_widget)
 
-            Recording_entity += m
             widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
 
 
