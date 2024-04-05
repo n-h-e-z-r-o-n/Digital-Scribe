@@ -276,7 +276,7 @@ def Entity_Extraction(document_widget, widget=None):
             entity_highlight_words(document_widget)
 
             if widget is not None:
-                widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
+                widget.insert(tk.END, Recording_entity)
             else:
                 Recording_entity = Recording_entity
 
