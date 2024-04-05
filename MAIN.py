@@ -668,6 +668,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     if pos == 1:
                         transcribe_audio(audio_frames, widget1)
                         Entity_Extraction(widget1, widget2)
+                        pos = 0
+                    print(pos)
                     pos +=0.1
 
 
