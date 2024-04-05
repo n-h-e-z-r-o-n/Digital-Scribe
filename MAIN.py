@@ -667,7 +667,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                 else:
                     if widget2 is not None:
                         transcribe_audio(audio_frames, widget1)
-                        # Entity_Extraction(t2, entity_widget_lists, t3, True), D_Summary(t2, t3, True)
                         Entity_Extraction(widget1, widget2)
 
 
