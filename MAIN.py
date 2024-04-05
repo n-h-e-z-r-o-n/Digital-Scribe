@@ -90,6 +90,7 @@ Recording_paused = False
 Recording_data = ''
 Recording_entity = ''
 found_entities = []
+entity_widg_list = []
 Recording_summary = ''
 audio_frames = None
 downloading_audio = False
@@ -237,89 +238,78 @@ def entity_highlight_words(widget):
             start = end
 
 
-def Entity_Extraction(document_widget, entity_list, widget, loop=False):
-    return
-    def run(document_widget=document_widget, entity_list=entity_list, widget=widget, loop=loop):
+def Entity_Extraction(document_widget, widget):
+
+    def run(document_widget=document_widget, widget=widget):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
-        global found_entities
+        global found_entities, entity_widg_list
+
         mygradient = Gradient()
         print("checking entity")
-        while True:
-            if closed :
-                break
-            document = document_widget.get("1.0", "end")
-            if len(document) < 5:
-                time.sleep(5)
-                continue
-            if Recording_paused:
-                print('entity_paused')
-                continue
 
-            document = (document.strip())
-            schema = '{'
-            for i in entity_list:
-                schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get())+ ', }, '
-            schema += '}'
-            dictionary = eval(schema)
-            try:
-                result = mygradient.extract(
-                    document=document,
-                    schema_=dictionary,
-                )
-                # widget.config(state=tk.NORMAL)
+        document = document_widget.get("1.0", "end")
+        if len(document) < 0:
+            print("No value to Extract")
+            return
+
+        document = (document.strip())
+        schema = '{'
+        for i in entity_widg_list:
+            schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get())+ ', }, '
+        schema += '}'
+        dictionary = eval(schema)
+        try:
+            result = mygradient.extract(
+                document=document,
+                schema_=dictionary,
+            )
+            # widget.config(state=tk.NORMAL)
+            widget.delete(1.0, tk.END)
+            Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
+            m = '------------------------ EXTRACTED ENTITIES \n\n'
+            found_entities = []
+            print("number of entities", len(result["entity"].items()))
+            for key, value in result["entity"].items():
+                m += key + " : " + value + "\n"
+                #widget.insert(tk.END, m)
+                found_entities.append(value)
+
+            entity_highlight_words(document_widget)
+
+            Recording_entity += m
+            widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
+
+
+
+        except Exception as e:
+            print(type(e).__name__)
+            """
+            if type(e).__name__ == 'BadRequestException':
+                error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
+                widget.config(state=tk.NORMAL)
                 widget.delete(1.0, tk.END)
-                Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
-                m = '------------------------ EXTRACTED ENTITIES \n\n'
-                found_entities = []
-                print("number of entities", len(result["entity"].items()))
-                for key, value in result["entity"].items():
-                    m += key + " : " + value + "\n"
-                    #widget.insert(tk.END, m)
-                    found_entities.append(value)
+                widget.insert(tk.END, e,  'error_config')
+                widget.config(state=tk.DISABLED)
+            elif type(e).__name__ == 'MaxRetryError':
+                error = "Error :"  + " : Check Your internet conection"
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                widget.insert(tk.END, e,  'error_config')
+                widget.config(state=tk.DISABLED)
+            elif type(e).__name__ == 'ServiceException':
+                error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                widget.insert(tk.END, e)
+                widget.config(state=tk.DISABLED)
+            elif type(e).__name__ == 'ValidationError':
+                error = "Error :" + " : No data provide for extraction"
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                widget.insert(tk.END, e, 'error_config')
+                widget.config(state=tk.DISABLED)
+            """
 
-                    entity_highlight_words(document_widget)
-                if loop:
-                    Recording_entity += m
-                    widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
-                    print('Recording_summary', Recording_summary)
-                    time.sleep(30)
-                else:
-                    widget.insert(tk.END, m)
-
-            except Exception as e:
-                print(type(e).__name__)
-                """
-                if type(e).__name__ == 'BadRequestException':
-                    error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
-                    widget.config(state=tk.NORMAL)
-                    widget.delete(1.0, tk.END)
-                    widget.insert(tk.END, e,  'error_config')
-                    widget.config(state=tk.DISABLED)
-                elif type(e).__name__ == 'MaxRetryError':
-                    error = "Error :"  + " : Check Your internet conection"
-                    widget.config(state=tk.NORMAL)
-                    widget.delete(1.0, tk.END)
-                    widget.insert(tk.END, e,  'error_config')
-                    widget.config(state=tk.DISABLED)
-                elif type(e).__name__ == 'ServiceException':
-                    error = "Error :" + " : Payment Due for Service Utilization. Please Upgrade your account"
-                    widget.config(state=tk.NORMAL)
-                    widget.delete(1.0, tk.END)
-                    widget.insert(tk.END, e)
-                    widget.config(state=tk.DISABLED)
-                elif type(e).__name__ == 'ValidationError':
-                    error = "Error :" + " : No data provide for extraction"
-                    widget.config(state=tk.NORMAL)
-                    widget.delete(1.0, tk.END)
-                    widget.insert(tk.END, e, 'error_config')
-                    widget.config(state=tk.DISABLED)
-                """
-            if not loop:
-                print("loop break")
-                break
-            else:
-                if not Recording:
-                    break
 
     threading.Thread(target=run).start()
 
@@ -674,17 +664,16 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
 
                 rec.AcceptWaveform(b''.join(frames))
                 result = rec.Result()
-
-
                 vosk_text = json.loads(result)["text"]
                 if (vosk_text.strip() != "huh") and (vosk_text.strip() != ''):
-                    print("name", vosk_text.strip(), len(vosk_text.strip()), type(vosk_text.strip()))
                     audio_frames.extend(frames)
                     text = grammar(frames)
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
                 else:
                     transcribe_audio(audio_frames, widget1)
+                    # Entity_Extraction(t2, entity_widget_lists, t3, True), D_Summary(t2, t3, True)
+                    Entity_Extraction(document_widget, entity_list, widget)
                     pass
 
             except:
@@ -1403,18 +1392,17 @@ def chat(widget):
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width * 0.9747 * 0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
 
-    global entity_widget_lists
-    entity_widget_lists = []
+
 
     def add(widget):
-        global entity_type, entity_widget_lists
+        global entity_type, entity_widget_lists, entity_widg_list
         entity_type = "STRING"
 
         def delet_widget(widget):
             widget.destroy()
             for i in entity_widget_lists:
                 if i[0] == widget:
-                    entity_widget_lists.remove(i)
+                    entity_widg_list.remove(i)
 
         def change_type(widget):
             global entity_type
@@ -1451,7 +1439,7 @@ def chat(widget):
             child.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
 
-        entity_widget_lists.append((new_entity, entity_name, entity_type, chk_var))
+        entity_widg_list.append((new_entity, entity_name, entity_type, chk_var))
 
         return entity_name, entity_type, chk_var
 
@@ -1470,7 +1458,7 @@ def chat(widget):
     Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (RUN_OFFLINE_speech_recognition(t1, t2, Record_btn, clock_lb),  Entity_Extraction(t2, entity_widget_lists, t3, True), D_Summary(t2, t3,True)))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t2, Record_btn, clock_lb))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
@@ -1486,7 +1474,7 @@ def chat(widget):
     upload_audio_wid_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
 
-    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, entity_widget_lists, t3, False) )#D_Summary(t1, t2))
+    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t1, t3) )#D_Summary(t1, t2))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
