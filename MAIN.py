@@ -252,6 +252,8 @@ def Entity_Extraction(document_widget, widget):
             print("No value to Extract")
             return
 
+        print(entity_widg_list)
+
         document = (document.strip())
         schema = '{'
         for i in entity_widg_list:
