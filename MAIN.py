@@ -307,7 +307,9 @@ def Entity_Extraction(document_widget, widget=None):
                 widget.delete(1.0, tk.END)
                 widget.insert(tk.END, e, 'error_config')
                 widget.config(state=tk.DISABLED)
+            AttributeError
             """
+
 
     threading.Thread(target=run).start()
 
