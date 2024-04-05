@@ -274,8 +274,11 @@ def Entity_Extraction(document_widget, widget):
                 found_entities.append(value)
 
             entity_highlight_words(document_widget)
-            if
-            widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
+
+            if widget is not None:
+                widget.insert(tk.END, Recording_entity + "\n" + Recording_summary)
+            else:
+                Recording_entity = Recording_entity
 
         except Exception as e:
             print(type(e).__name__)
@@ -309,7 +312,7 @@ def Entity_Extraction(document_widget, widget):
     threading.Thread(target=run).start()
 
 
-def D_Summary(widget1, widget):
+def D_Summary(widget1, widget = None):
 
     def run_f(widget1= widget1, widget = widget):
         global Recording, Recording_paused, Recording_summary
@@ -328,9 +331,13 @@ def D_Summary(widget1, widget):
                 length=summary_length
             )
 
-            widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
-            widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
+            if widget is not None:
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
+            else:
+                Recording_summary += result['summary']
+
 
         except Exception as e:
             print(e)
