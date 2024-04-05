@@ -1409,8 +1409,7 @@ def chat(widget):
                 entity_type = "STRING"
                 widget.config(text=entity_type)
 
-        #style = ttk.Style()
-        #style.configure("Custom.TCheckbutton", background=bg_color, foreground="blue")
+
         chk_var = tk.BooleanVar(value=False)
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
