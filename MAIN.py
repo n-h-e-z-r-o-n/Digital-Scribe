@@ -586,7 +586,7 @@ threading.Thread(target=Initialize_VOSK).start()
 
 
 
-def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_wideth=None):
+def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
     global audio_frames
@@ -642,7 +642,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
         p.terminate()
 
 
-    def speech_recognition(widget=widget, widget1=widget1):
+    def speech_recognition(widget=widget, widget1=widget1, widget2=widget2):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
         global running_scribe, previous_data
         running_scribe = False
@@ -670,10 +670,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, Record_btn=None, clock_
                     widget.insert(tk.END, f" {text}")
                     widget.see(tk.END)
                 else:
-                    transcribe_audio(audio_frames, widget1)
-                    # Entity_Extraction(t2, entity_widget_lists, t3, True), D_Summary(t2, t3, True)
-                    Entity_Extraction(document_widget, entity_list, widget)
-                    pass
+                    if widget2 is not None:
+                        transcribe_audio(audio_frames, widget1)
+                        # Entity_Extraction(t2, entity_widget_lists, t3, True), D_Summary(t2, t3, True)
+                        Entity_Extraction(widget1, widget2)
+
 
             except:
                 continue
