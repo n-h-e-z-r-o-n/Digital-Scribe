@@ -1,5 +1,5 @@
 # ============================================= Used libraries ==========================================================================================
-
+import sys
 import base64
 import hashlib
 import time
@@ -46,6 +46,7 @@ import json
 from vosk import Model, KaldiRecognizer
 import whisper
 import wave
+
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -94,10 +95,77 @@ entity_widg_list = []
 Recording_summary = ''
 audio_frames = None
 downloading_audio = False
-# =============================== Functions definition ============================================================================================
-# ================================= Themes ================================================================================================================
 
-def title_bar_color( color):
+# ========================== Class Defination ====================================================================================================
+import ctypes
+import tkinter as tk
+from webview.window import Window
+from webview.platforms.edgechromium import EdgeChrome
+from System import IntPtr, Int32, Func, Type, Environment
+from System.Windows.Forms import Control
+from System.Threading import Thread, ApartmentState, ThreadStart, SynchronizationContext, SendOrPostCallback
+
+
+user32 = ctypes.windll.user32
+
+class WebView2(tk.Frame):
+    def __init__(self, parent, width: int, height: int, url: str = '', **kw):
+        tk.Frame.__init__(self, parent, width=width, height=height, **kw)
+        control = Control()
+        uid = 'master'
+        window = Window(uid, str(id(self)), url=None, html=None, js_api=None, width=width, height=height, x=None, y=None,
+                        resizable=True, fullscreen=False, min_size=(200, 100), hidden=False,
+                        frameless=False, easy_drag=True,
+                        minimized=False, on_top=False, confirm_close=False, background_color='black',
+                        transparent=False, text_select=True, localization=None,
+                        zoomable=True, draggable=True, vibrancy=False)
+        self.window = window
+        self.web_view = EdgeChrome(control, window, None)
+        self.control = control
+        self.web = self.web_view.web_view
+        self.width = width
+        self.height = height
+        self.parent = parent
+        self.chwnd = int(str(self.control.Handle))
+        user32.SetParent(self.chwnd, self.winfo_id())
+        user32.MoveWindow(self.chwnd, 0, 0, width, height, True)
+        self.loaded = window.events.loaded
+        self.__go_bind()
+        if url != '':
+            self.load_url(url)
+        self.core = None
+        #self.web.CoreWebView2InitializationCompleted += self.__load_core
+
+    def __go_bind(self):
+        self.bind('<Destroy>', lambda event: self.web.Dispose())
+        self.bind('<Configure>', self.__resize_webview)
+        self.newwindow = None
+
+    def __resize_webview(self, event):
+        user32.MoveWindow(self.chwnd, 0, 0, self.winfo_width(), self.winfo_height(), True)
+
+    def __load_core(self, sender, _):
+        self.core = sender.CoreWebView2
+        self.core.NewWindowRequested -= self.web_view.on_new_window_request
+        # Prevent opening new windows or browsers
+        self.core.NewWindowRequested += lambda _, args: args.Handled(True)
+
+        if self.newwindow != None:
+            self.core.NewWindowRequested += self.newwindow
+        settings = sender.CoreWebView2.Settings  # 设置
+        settings.AreDefaultContextMenusEnabled = False  # 菜单
+        settings.AreDevToolsEnabled = False  # 开发者工具
+        # self.core.DownloadStarting+=self.__download_file
+
+    def load_url(self, url):
+        self.web_view.load_url(url)
+
+    def reload(self):
+        self.core.Reload()
+# =============================== Functions definition ============================================================================================
+# ================================= Themes ========================================================================================================
+
+def title_bar_color(color):
     # import ctypes as ct
     global root
     root.update()
@@ -105,12 +173,12 @@ def title_bar_color( color):
         blue = color[5:7]
         green = color[3:5]
         red = color[1:3]
-        color = blue  + green + red
+        color = blue + green + red
     else:
         blue = color[4:6]
         green = color[2:4]
         red = color[0:2]
-        color = blue  + green + red
+        color = blue + green + red
     print(color)
     get_parent = ct.windll.user32.GetParent
     HWND = get_parent(root.winfo_id())
@@ -223,9 +291,9 @@ def change_color(widget, button):
 def entity_highlight_words(widget):
     global found_entities, fg_color
     if fg_color == 'black':
-         widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
+        widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
     else:
-         widget.tag_configure("highlight", background="#737000")
+        widget.tag_configure("highlight", background="#737000")
 
     for word in found_entities:
         start = 1.0
@@ -239,24 +307,21 @@ def entity_highlight_words(widget):
 
 
 def Entity_Extraction(document_widget, widget=None):
-
     def run(document_widget=document_widget, widget=widget):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
         global found_entities, entity_widg_list
 
         mygradient = Gradient()
 
-
         document = document_widget.get("1.0", "end")
         if len(document) < 0:
             print("No value to Extract")
             return
 
-
         document = (document.strip())
         schema = '{'
         for i in entity_widg_list:
-            schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get())+ ', }, '
+            schema += '"' + i[1].get() + '": { "type": ExtractParamsSchemaValueType.' + str(i[2].cget("text")) + ', "required": ' + str(i[3].get()) + ', }, '
         schema += '}'
         dictionary = eval(schema)
         try:
@@ -310,13 +375,11 @@ def Entity_Extraction(document_widget, widget=None):
             AttributeError
             """
 
-
     threading.Thread(target=run).start()
 
 
-def D_Summary(widget1, widget = None):
-
-    def run_f(widget1= widget1, widget = widget):
+def D_Summary(widget1, widget=None):
+    def run_f(widget1=widget1, widget=widget):
         global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
 
@@ -344,11 +407,10 @@ def D_Summary(widget1, widget = None):
         except Exception as e:
             print(e)
 
-
     threading.Thread(target=run_f).start()
 
 
-def rag_initialize(data = None, widget = None):
+def rag_initialize(data=None, widget=None):
     global rag_pipeline, rag_data, rag_widget
     rag_pipeline = None
 
@@ -377,7 +439,6 @@ def rag_initialize(data = None, widget = None):
         indexing_pipeline.add_component(instance=writer, name="writer")
         indexing_pipeline.connect("document_embedder", "writer")
         indexing_pipeline.run({"document_embedder": {"documents": docs}})
-
 
         text_embedder = GradientTextEmbedder(
             access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
@@ -422,13 +483,13 @@ def rag_initialize(data = None, widget = None):
 
 def rag_chat(question, widget, widget1):
     global rag_pipeline
-    def run_function(question = question , widget = widget, widget1 = widget1):
+
+    def run_function(question=question, widget=widget, widget1=widget1):
         widget1.config(text='▫▫▫▫')
         question = question.strip()
         if question == '' or rag_pipeline == None:
             widget1.config(text='▶')
             return
-
 
         widget.config(state=tk.NORMAL)
         widget.insert(tk.END, f" {question}\n", 'user_config')
@@ -517,7 +578,7 @@ def llm_inference_initializ():
         model_kwargs=dict(max_generated_token_count=510),
     )
 
-    template2 ="""Rewite the conversation with correct grammar
+    template2 = """Rewite the conversation with correct grammar
                 conversation: "{conversation}"
                 Chatbot:"""
 
@@ -558,18 +619,16 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 def Initialize_VOSK():
     global vosk_model, wisper_model_base, wisper_model_tiny
-    #vosk_model = Model(model_name="vosk-model-en-us-0.22")
-    #vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
+    # vosk_model = Model(model_name="vosk-model-en-us-0.22")
+    # vosk_model = Model(model_name="vosk-model-en-us-0.42-gigaspeech")
     vosk_model = Model(model_name="vosk-model-small-en-us-0.15")
 
-    wisper_model_tiny= whisper.load_model("tiny")
+    wisper_model_tiny = whisper.load_model("tiny")
     wisper_model_base = whisper.load_model("base")
     print('SR Initialized')
 
 
-
 threading.Thread(target=Initialize_VOSK).start()
-
 
 
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None):
@@ -591,11 +650,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         Recording = True
         Record_btn.config(fg="green")
 
-        record = Thread(target=record_microphone)
-        record.start()
-
-        transcribe = Thread(target=speech_recognition, args=(widget,))
-        transcribe.start()
+        Thread(target=record_microphone).start()
+        Thread(target=speech_recognition, args=(widget,)).start()
 
     def record_microphone(chunk=1024, RECORD_SECONDS=5):
         global closed, Recording_paused, Recording
@@ -627,7 +683,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         stream.close()
         p.terminate()
 
-
     def speech_recognition(widget=widget, widget1=widget1, widget2=widget2):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
         global running_scribe, previous_data, Recording_summary, Recording_entity
@@ -636,14 +691,14 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         audio_frames = []
         previous_data = ''
         pos = 0
+        index = 0
         while not messages.empty():
-            if closed :
+            if closed:
                 print('speech_recognition closed')
                 break
-            if Recording == False:
+            if not Recording:
                 break
             if Recording_paused:
-                print('  paused')
                 continue
             try:
                 frames = recordings.get()
@@ -657,19 +712,29 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     widget.insert(tk.END, f" {text}", 'ASR')
                     widget.see(tk.END)
                     if pos == 10:
-                        transcribe_audio(audio_frames, widget1)
+                        start_idx = index
+                        end_idx = len(audio_frames) - index
+                        index = end_idx
+                        transcribe_audio(audio_frames[start_idx: end_idx], widget1)
                         Entity_Extraction(widget1)
-                        D_Summary(widget1)
-                        widget.delete(1.0, tk.END)
+                        # D_Summary(widget1)
+                        widget2.delete(1.0, tk.END)
                         widget2.insert(tk.END, Recording_entity + Recording_summary)
                         pos = 0
-                    print(pos)
-                    pos +=1
 
-
+                    pos += 1
+                else:
+                    pass
+                    """
+                    if index != len(audio_frames) - index:
+                        start_idx = index
+                        end_idx = len(audio_frames) - index
+                        index = end_idx
+                        transcribe_audio(audio_frames[start_idx: end_idx], widget1)
+                    print("index new:", index)
+                    """
             except Exception as e:
                 print(e)
-                continue
 
     def grammar(frames):
         global wisper_model_tiny, wisper_model_base
@@ -719,13 +784,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
 
         # print("Audio file saved successfully.")
         result = wisper_model_tiny.transcribe(output_file)
-        widget.delete(1.0, tk.END)
-        widget.insert(tk.END, result["text"])
+        # widget.delete(1.0, tk.END)
+        widget.insert(tk.END, result["text"] + "\n")
         widget.see(tk.END)
         running_scribe = False
 
-        #integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
-
+        # integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
 
     while True:
         """
@@ -741,9 +805,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         speech_record_time(clock_wideth)
         break
 
+
 miniute = 0
 hour = 0
 sec = 0
+
+
 def speech_record_time(widget):
     def Run(widget=widget):
         global closed, Recording, Recording_paused
@@ -770,18 +837,20 @@ def speech_record_time(widget):
 
 def set_recording_paused(widget):
     def run(widget=widget):
-            global Recording_paused, fg_color, Recording
-            print('set_recording_paused')
-            if Recording:
-                if Recording_paused == False:
-                    widget.config(fg='green')
-                    Recording_paused = True
-                else:
-                    widget.config(fg=fg_color)
-                    Recording_paused = False
+        global Recording_paused, fg_color, Recording
+        print('set_recording_paused')
+        if Recording:
+            if Recording_paused == False:
+                widget.config(fg='green')
+                Recording_paused = True
             else:
                 widget.config(fg=fg_color)
+                Recording_paused = False
+        else:
+            widget.config(fg=fg_color)
+
     threading.Thread(target=run).start()
+
 
 def upload_audio_file(widget, bt_widget):
     def run(widget=widget, bt_widget=bt_widget):
@@ -789,6 +858,7 @@ def upload_audio_file(widget, bt_widget):
         audio_processing = False
         filetypes = [("Audio Files", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
         file_path = filedialog.askopenfilename(filetypes=filetypes)
+
         def visual(bt_widget=bt_widget):
             global audio_processing
             global fg_color
@@ -854,21 +924,22 @@ def download_transcribed_audio(widget):
                     output_wave.setframerate(sample_rate)
                     output_wave.writeframes(b''.join(audio_frames))
             downloading_audio = False
+
     threading.Thread(target=run).start()
 
 
-def integrate_strings(old , edited, new):
+def integrate_strings(old, edited, new):
     old = old.split()
     edited = edited.split()
     new = new.split()
     print(len(old))
-    pos = len(old)-1
+    pos = len(old) - 1
     data = new[pos:]
     edited.extend(data)
     integrate = ''
     for i in edited:
         integrate += i + ' '
-    print("============= ",integrate)
+    print("============= ", integrate)
 
 
 # =============================== scroll Functions definition ===============================================================================================================
@@ -888,6 +959,8 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
 
 
 prevy = 0
+
+
 def on_touch_scroll(widget, event):
     global prevy
 
@@ -933,9 +1006,8 @@ def attach_scroll(widget, color=None):
     widget_scroll_bind(canvas_FRAME_2)  # Bind the mouse wheel event to the canvas
     return canvas_FRAME_2_frame, canvas_FRAME_2
 
+
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 
 def access_keys_info():
@@ -1357,19 +1429,19 @@ def chat(widget):
     paned_window = tk.PanedWindow(chatbot_widget, bg=bg_color, orient=tk.VERTICAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=0.96, relwidth=0.75, rely=0.03, relx=0.0253)
 
-    t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1) # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+    t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)  # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
     t1.tag_configure("ASR", foreground="gray")
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
 
     paned_window.add(t1)
-
     paned_window.add(t2)
     paned_window.add(t3)
 
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
+    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t3,)).start()
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
     entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
@@ -1377,15 +1449,13 @@ def chat(widget):
     title = tk.Frame(entity_section, bg=bg_color, borderwidth=2, border=1)
     title.place(relheight=0.036, relwidth=1, rely=0, relx=0)
     tk.Label(title, text="Field Name", bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.01, rely=0.04, relwidth=0.5, relheight=1)
-    tk.Label(title, text="Type", bg=bg_color,fg=fg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
+    tk.Label(title, text="Type", bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Georgia", 11, 'bold')).place(relx=0.52, rely=0.04, relwidth=0.2, relheight=1)
 
     fr = tk.Frame(entity_section, bg=bg_color, borderwidth=0, border=0)
     fr.place(relheight=0.97, relwidth=1, rely=0.036, relx=0)
     user_page_widget, user_page_canvas = attach_scroll(fr, bg_color)
     fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width * 0.9747 * 0.21))
     fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
-
-
 
     def add(widget):
         global entity_type, entity_widg_list
@@ -1409,7 +1479,6 @@ def chat(widget):
                 entity_type = "STRING"
                 widget.config(text=entity_type)
 
-
         chk_var = tk.BooleanVar(value=False)
 
         new_entity = tk.Frame(widget, bg=bg_color, borderwidth=2, border=1, height=50, width=int(screen_width * 0.9747 * 0.21 - 3))
@@ -1419,8 +1488,8 @@ def chat(widget):
         entity_name.place(relx=0.01, rely=0, relwidth=0.5, relheight=0.9)
         entity_type = tk.Button(new_entity, bg=bg_color, fg=fg_color, text=entity_type, font=("Times New Roman", 10, 'bold'), relief=tk.SUNKEN, activebackground=bg_color, borderwidth=0, border=1, command=lambda: change_type(entity_type))
         entity_type.place(relx=0.52, rely=0, relwidth=0.2, relheight=0.9)
-        entity_requred = tk.Checkbutton(new_entity,  background=bg_color, activebackground=bg_color, variable=chk_var, onvalue=True, offvalue=False)
-        entity_requred.place(relx=0.8,  rely=0, relwidth=0.1, relheight=1)
+        entity_requred = tk.Checkbutton(new_entity, background=bg_color, activebackground=bg_color, variable=chk_var, onvalue=True, offvalue=False)
+        entity_requred.place(relx=0.8, rely=0, relwidth=0.1, relheight=1)
         close_widg = tk.Button(new_entity, bg=bg_color, fg=fg_color, activebackground=bg_color, text="X", borderwidth=0, border=0, font=("Bauhaus 93", 10), command=lambda: delet_widget(new_entity))
         close_widg.place(relx=0.95, rely=0, relwidth=0.05, relheight=1)
         change_fg_OnHover(close_widg, 'red', 'black')
@@ -1430,19 +1499,17 @@ def chat(widget):
         for child in children:
             child.bind("<MouseWheel>", lambda e: on_mouse_wheel(user_page_canvas, e))
 
-
         entity_widg_list.append((new_entity, entity_name, entity_type, chk_var))
 
         return entity_name, entity_type, chk_var
 
     def custom_add(widget):
-            defalt_entities_list = [('Symptoms', 'STRING'), ('Disease', 'STRING'), ('Treatment', 'STRING'), ('Diagnosis', 'STRING'), ('Medication', 'STRING')
-                , ('Medical History', 'STRING'), ('Docter Name', 'STRING'), ('Patient Name', 'STRING'), ('Allergy', 'STRING'), ('Vitals', 'STRING'), ('Lifestyle', 'STRING')]
-            for i in defalt_entities_list:
-                e_name, e_type, chk_var = add(fr2)
-                e_name.insert(0, i[0])
-                e_type.config(text= i[1])
-                chk_var.set(False)
+        defalt_entities_list = [('Symptoms', 'STRING'), ('Diagnosis', 'STRING')]
+        for i in defalt_entities_list:
+            e_name, e_type, chk_var = add(fr2)
+            e_name.insert(0, i[0])
+            e_type.config(text=i[1])
+            chk_var.set(False)
 
     custom_add(fr2)
 
@@ -1465,8 +1532,7 @@ def chat(widget):
     upload_audio_wid_btn = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
     upload_audio_wid_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
-
-    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3) )
+    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
@@ -1474,12 +1540,7 @@ def chat(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-
-    #change_fg_OnHover(upload_audio_wid, 'red', fg_color)
-
-
-
-
+    # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
     return chatbot_widget
 
@@ -1646,11 +1707,11 @@ def RAG_page(widget):
     paned_window.place(relheight=0.60, relwidth=0.96, rely=0.03, relx=0.01)
 
     t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
-    #t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
+    # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
     t1.config(state=tk.DISABLED)
 
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=3)
-    #t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
+    # t2.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.505)
     t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
     t2.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
     t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
@@ -1662,7 +1723,7 @@ def RAG_page(widget):
     tk.Button(conversation_widget, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
 
     tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
-    tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3,  command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
+    tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
 
     status_widg = tk.Label(conversation_widget, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
@@ -1719,6 +1780,7 @@ def settings(widget):
         print("assemblyai_access_key", assemblyai_access_key)
         llm_chain = None
         rag_initialize()
+
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
 
@@ -1802,6 +1864,7 @@ def chat_me(widget):
     num_height = 0.05
     current = 130
     previous = 0
+
     def on_key_press(event, widget, widget1):
         global current, num_y, num_height, previous
 
@@ -1810,15 +1873,14 @@ def chat_me(widget):
 
         print("- ", num_lines, " - ", current)
 
-
-        if num_lines > current and  num_lines > previous:
+        if num_lines > current and num_lines > previous:
             num_y = num_y - 0.02
             num_height = num_height + 0.02
             widget.forget()
             widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
             current = current + 130
 
-        elif (num_lines < current) and (num_lines > 130) and  (num_lines < previous):
+        elif (num_lines < current) and (num_lines > 130) and (num_lines < previous):
             num_y = num_y + 0.02
             num_height = num_height - 0.02
             widget.forget()
@@ -1839,10 +1901,10 @@ def chat_me(widget):
     out_put_widget.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
     out_put_widget.config(state=tk.DISABLED)
 
-    search_lable = tk.Frame(chatbot_widget, bg=bg_color,  borderwidth=0, border=0)
+    search_lable = tk.Frame(chatbot_widget, bg=bg_color, borderwidth=0, border=0)
     search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
 
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color,  fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0,                                                                                                                                                                                                                                                                                                                                                                                                              relx=0.1)
+    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0, relx=0.1)
     tk.Label(search_lable, bg=bg_color, text='◜', fg=fg_color, anchor="nw", font=('Century Gothic', 20), borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◟', fg=fg_color, font=('Century Gothic', 20), anchor='sw', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0)
     tk.Label(search_lable, bg=bg_color, text='◝', fg=fg_color, font=('Century Gothic', 20), anchor='ne', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0.95)
@@ -1926,15 +1988,11 @@ def User_Home_page(widget):
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.place(relx=0, rely=0)
     container1 = tk.Frame(Home_page_frame, bg=bg_color)
-    container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1)-20))
+    container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1) - 20))
     container2 = tk.Frame(Home_page_frame, bg=bg_color)
-    container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int((screen_height * 1)-20))  # place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
+    container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int((screen_height * 1) - 20))  # place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
-
-
-    
     # PROFILE_widget = profile(Home_page_frame)
- 
 
     CALL_Widget = call(Home_page_frame)
 
@@ -1943,8 +2001,9 @@ def User_Home_page(widget):
 
     rag_widget = RAG_page(Home_page_frame)
     CHAT_Widget = chat(Home_page_frame)
+
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
- 
+
     def active(widget):
         global widget_list, fg_hovercolor
         for i in widget_list:
@@ -1953,12 +2012,9 @@ def User_Home_page(widget):
             else:
                 i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
-
-
-
     side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
-    #side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
+    # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
@@ -2006,7 +2062,6 @@ def User_Home_page(widget):
     widget_list.append(st8_bt)
 
     return container2
-
 
 
 def Welcome_Page(wiget):
@@ -2063,6 +2118,17 @@ def resize(widget, width, heigh):
     print("resized")
 
 
+def on_closing():
+    global root, closed
+    print("clossing")
+    closed = True
+    root.destroy()
+
+    sys.exit()
+    # for thread in threading.enumerate():
+    #   print(thread.name)
+
+
 def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
@@ -2092,14 +2158,15 @@ def main():
 
     User_Home_page(root)
 
-    def on_closing():
-        global session, root, closed
-        closed = True
-        root.destroy()
-
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
 
+
+
 if __name__ == "__main__":
-    main()
+    #main()
+    t = Thread(ThreadStart(main))
+    t.ApartmentState = ApartmentState.STA
+    t.Start()
+    t.Join()

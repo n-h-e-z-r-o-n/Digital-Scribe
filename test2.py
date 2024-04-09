@@ -1,29 +1,13 @@
-import tkinter as tk
+import psutil
 
-def highlight_words(widget):
-    widget.tag_configure("highlight", background="#737000")  # Configure a tag for highlighting
+def is_power_connected():
+    return psutil.sensors_battery().power_plugged if psutil.sensors_battery() else None
 
-    words_to_highlight = ["Python", "Tkinter"]  # List of words to highlight
-
-    for word in words_to_highlight:
-        start = 1.0
-        while True:
-            start = widget.search(word, start, stopindex=tk.END)
-            if not start:
-                break
-            end = f"{start}+{len(word)}c"
-            widget.tag_add("highlight", start, end)
-            start = end
-
-root = tk.Tk()
-root.title("Text Highlighter")
-
-text = tk.Text(root, wrap="word", bg='black', fg='white')
-text.pack(expand=True, fill="both")
-
-text.insert("1.0", "This is a simple Python script using Tkinter for GUI.")
-text.insert(tk.END, "\n\nThis is another example of highlighting Tkinter in Python.")
-
-highlight_words(text)
-
-root.mainloop()
+power_status = is_power_connected()
+if power_status is not None:
+    if power_status:
+        print("Power cable is connected.")
+    else:
+        print("Power cable is not connected.")
+else:
+    print("Unable to determine power status.")
