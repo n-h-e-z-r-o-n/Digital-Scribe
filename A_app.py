@@ -70,7 +70,7 @@ def main():
     video_box.place(relheight=1, relwidth=1, relx=0, rely=0)
     frame2 = WebView2(video_box, 500, 500)
     frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-    frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
+    #frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
     root.mainloop()
 
 if __name__ == "__main__":
