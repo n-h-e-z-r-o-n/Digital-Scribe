@@ -548,6 +548,12 @@ def Upload_file(widget, widget2):
 
     if file_path:
         print(file_path)
+        frame2 = WebView2(widget, 500, 500)
+        url_file = "file:///" + f"{file_path}"
+        print(url_file)
+        frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
+
+
         """
         widget.config(state=tk.NORMAL)
         widget.delete(1.0, tk.END)
