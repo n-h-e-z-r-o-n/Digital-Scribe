@@ -1,26 +1,25 @@
-
-
-
 import ctypes
 import tkinter as tk
+from tkinter import Frame
 from webview.window import Window
 from webview.platforms.edgechromium import EdgeChrome
-#from System import IntPtr, Int32, Func, Type, Environment
 from System.Windows.Forms import Control
-#from System.Threading import Thread, ApartmentState, ThreadStart, SynchronizationContext, SendOrPostCallback
-from threading import Thread
+from System.Threading import Thread, ApartmentState, ThreadStart, SynchronizationContext, SendOrPostCallback
 
+import clr
+clr.AddReference('System.Windows.Forms')
+clr.AddReference('System.Threading')
 user32 = ctypes.windll.user32
 
-class WebView2(tk.Frame):
+class WebView2(Frame):
     def __init__(self, parent, width: int, height: int, url: str = '', **kw):
-        tk.Frame.__init__(self, parent, width=width, height=height, **kw)
+        Frame.__init__(self, parent, width=width, height=height, **kw)
         control = Control()
         uid = 'master'
         window = Window(uid, str(id(self)), url=None, html=None, js_api=None, width=width, height=height, x=None, y=None,
                         resizable=True, fullscreen=False, min_size=(200, 100), hidden=False,
                         frameless=False, easy_drag=True,
-                        minimized=False, on_top=False, confirm_close=False, background_color='black',
+                        minimized=False, on_top=False, confirm_close=False, background_color='#FFFFFF',
                         transparent=False, text_select=True, localization=None,
                         zoomable=True, draggable=True, vibrancy=False)
         self.window = window
@@ -67,17 +66,42 @@ class WebView2(tk.Frame):
     def reload(self):
         self.core.Reload()
 
+def have_runtime():  # 检测是否含有webview2 runtime
+    from webview.platforms.winforms import _is_chromium
+    return _is_chromium()
+
+
+def install_runtime():  # 安装webview2 runtime
+    from urllib import request
+    import subprocess
+    import os
+    url = r'https://go.microsoft.com/fwlink/p/?LinkId=2124703'
+    path = os.getcwd() + '\\webview2runtimesetup.exe'
+    unit = request.urlopen(url).read()
+    with open(path, mode='wb') as uf:
+        uf.write(unit)
+    cmd = path
+    p = subprocess.Popen(cmd, shell=True)
+    return_code = p.wait()  # 等待子进程结束
+    os.remove(path)
+    return return_code
+
 def main():
+    if not have_runtime():  # 没有webview2 runtime
+        install_runtime()
     root = tk.Tk()
     video_box = tk.Frame(root)
     video_box.place(relheight=1, relwidth=1, relx=0, rely=0)
-    frame2 = WebView2(video_box, 500, 500)
-    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-    #frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
+
+    def run():
+        frame2 = WebView2(video_box, 500, 500)
+        frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
+        frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
+    tk.Button(video_box, command=run).pack()
     root.mainloop()
 
 if __name__ == "__main__":
-    main()
+
     t = Thread(ThreadStart(main))
     t.ApartmentState = ApartmentState.STA
     t.Start()

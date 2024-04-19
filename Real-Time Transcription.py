@@ -68,16 +68,15 @@ def RUN_OFFLINE_speech_recognition(widget=None):
         while not messages.empty():
             if closed:
                 break
-            frames = recordings.get()
 
+            frames = recordings.get()
             rec.AcceptWaveform(b''.join(frames))
             result = rec.Result()
             text = json.loads(result)["text"]
             if text == "the" or text == "" :
-
                 continue
 
-            #print("----", text)
+            print("----", text)
 
             save(frames)
             #print('------------------------------- wisper end -------------------------------')
