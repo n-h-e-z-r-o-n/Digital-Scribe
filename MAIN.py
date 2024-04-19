@@ -551,7 +551,6 @@ def Upload_file(widget, widget2):
         print(file_path)
         frame2 = WebView2(widget, 500, 500)
         frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-
         url_file = "file:///" + f"{file_path}"
         print(url_file)
         frame2.load_url(url_file)
