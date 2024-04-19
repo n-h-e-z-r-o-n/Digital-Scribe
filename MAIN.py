@@ -1754,11 +1754,11 @@ def RAG_page(widget):
     paned_window.add(t1)
     paned_window.add(t2)
 
-    tk.Button(t2, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.01)
+    tk.Button(t2, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
 
     #tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     #tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
-
+   
     status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
@@ -1766,7 +1766,7 @@ def RAG_page(widget):
     t3.place(relheight=0.05, relwidth=0.96, rely=0.945, relx=0.01)
 
     bng = tk.Button(t2, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda: rag_chat(t3.get("1.0", tk.END), t2, bng))
-    bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
+    bng.place(relheight=0.06, relwidth=0.02, rely=0.945, relx=0.973)
 
     return conversation_widget
 
