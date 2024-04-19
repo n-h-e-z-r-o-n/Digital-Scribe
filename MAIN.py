@@ -1733,7 +1733,7 @@ def RAG_page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
 
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
-    conversation_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    conversation_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     paned_window = tk.PanedWindow(conversation_widget, bg=bg_color, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2023,19 +2023,17 @@ def User_Home_page(widget):
     Home_page_frame.place(relx=0, rely=0)
     container1 = tk.Frame(Home_page_frame, bg=bg_color)
     container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1) - 20))
-    container2 = tk.Frame(Home_page_frame, bg=bg_color)
+    container2 = tk.Frame(Home_page_frame, bg="green")
     container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int((screen_height * 1) - 20))  # place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
+
 
     # PROFILE_widget = profile(Home_page_frame)
 
-    CALL_Widget = call(Home_page_frame)
-
-    SETTINGS_Widget = settings(Home_page_frame)
-    chat_me_Widget = chat_me(Home_page_frame)
-
-
-    CHAT_Widget = chat(Home_page_frame)
-    rag_widget = RAG_page(Home_page_frame)
+    CALL_Widget = call(container2)
+    SETTINGS_Widget = settings(container2)
+    chat_me_Widget = chat_me(container2)
+    CHAT_Widget = chat(container2)
+    rag_widget = RAG_page(container2)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
