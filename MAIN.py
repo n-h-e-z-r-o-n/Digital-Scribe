@@ -548,7 +548,7 @@ def Upload_file(widget, widget2):
 
     if file_path:
         print(file_path)
-        frame2 = WebView2(widget, bg=bg_color)
+        frame2 = WebView2(widget, bg=bg_color, 500, 500)
         frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
 
         url_file = "file:///" + f"{file_path}"
