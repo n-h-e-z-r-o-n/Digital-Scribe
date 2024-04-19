@@ -10,7 +10,6 @@ class Example(tk.Frame):
         f2.pack(side="bottom", fill="both", expand=True)
 
 class GradientFrame(tk.Canvas):
-    '''A gradient frame which uses a canvas to draw the background'''
     def __init__(self, parent, color1="red", color2="black", **kwargs):
         tk.Canvas.__init__(self, parent, **kwargs)
         self._color1 = color1
