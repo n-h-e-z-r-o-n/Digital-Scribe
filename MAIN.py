@@ -542,13 +542,13 @@ def rag_chat(question, widget, widget1):
 
 
 def Upload_file(widget, widget2):
-    global rag_data, rag_widget
+    global rag_data, rag_widget, bg_color
     widget2.config(fg='black')
     file_path = filedialog.askopenfilename()
 
     if file_path:
         print(file_path)
-        frame2 = WebView2(widget, 500, 500)
+        frame2 = WebView2(widget, bg=bg_color)
         frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
 
         url_file = "file:///" + f"{file_path}"
