@@ -1738,7 +1738,7 @@ def RAG_page(widget):
     paned_window = tk.PanedWindow(conversation_widget, bg=bg_color, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    t1 = tk.Frame(paned_window, bg='blue', relief=tk.FLAT, width=600, borderwidth=0, border=0)
+    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=600, borderwidth=0, border=0)
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
 
 
