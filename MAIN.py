@@ -1759,7 +1759,7 @@ def RAG_page(widget):
     #tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     #tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
 
-    tk.Text(t2,  bg=bg_color,fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.5, relwidth=0.99, rely=0.2, relx=0.05)
+    tk.Text(t2,  bg=bg_color,fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.5, relwidth=0.99, rely=0.2, relx=0.01)
 
     status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
