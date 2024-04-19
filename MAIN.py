@@ -549,6 +549,8 @@ def Upload_file(widget, widget2):
     if file_path:
         print(file_path)
         frame2 = WebView2(widget, 500, 500)
+        frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
+
         url_file = "file:///" + f"{file_path}"
         print(url_file)
         frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
@@ -2194,7 +2196,7 @@ def main():
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
-main()
+#main()
 
 if __name__ == "__main__":
 
