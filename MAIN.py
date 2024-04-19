@@ -107,13 +107,14 @@ user32 = ctypes.windll.user32
 
 class WebView2(tk.Frame):
     def __init__(self, parent, width: int, height: int, url: str = '', **kw):
+        global  bg_color
         tk.Frame.__init__(self, parent, width=width, height=height, **kw)
         control = Control()
         uid = 'master'
         window = Window(uid, str(id(self)), url=None, html=None, js_api=None, width=width, height=height, x=None, y=None,
                         resizable=True, fullscreen=False, min_size=(200, 100), hidden=False,
                         frameless=False, easy_drag=True,
-                        minimized=False, on_top=False, confirm_close=False, background_color='#FFFFFF',
+                        minimized=False, on_top=False, confirm_close=False, background_color=bg_color,
                         transparent=False, text_select=True, localization=None,
                         zoomable=True, draggable=True, vibrancy=False)
         self.window = window
@@ -548,7 +549,7 @@ def Upload_file(widget, widget2):
 
     if file_path:
         print(file_path)
-        frame2 = WebView2(widget, bg=bg_color, 500, 500)
+        frame2 = WebView2(widget, 500, 500)
         frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
 
         url_file = "file:///" + f"{file_path}"
