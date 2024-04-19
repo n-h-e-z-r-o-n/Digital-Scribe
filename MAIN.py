@@ -553,7 +553,7 @@ def Upload_file(widget, widget2):
 
         url_file = "file:///" + f"{file_path}"
         print(url_file)
-        frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
+        frame2.load_url(url_file)
 
 
         """
