@@ -1763,7 +1763,7 @@ def RAG_page(widget):
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
     t3 = tk.Text(t2, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
-    t3.place(relheight=0.06, relwidth=0.96, rely=0.7, relx=0.01)
+    t3.place(relheight=0.05, relwidth=0.96, rely=0.945, relx=0.01)
 
     bng = tk.Button(t2, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda: rag_chat(t3.get("1.0", tk.END), t2, bng))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.7, relx=0.973)
