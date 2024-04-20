@@ -1,13 +1,10 @@
 def modify_css(css_file_path):
     # Read the content of the CSS file
 
-    css_style = """
-    /* Your CSS styles go here */
-    body {
-        background-color: #f0f0f0;
-        color: white
-    }
-    """
+    css_style = " /* Your CSS styles go here */ \n" +
+                "body {\nbackground-color: blue;\n color: white\n }"
+
+
 
     # Write the modified content back to the CSS file
     with open(css_file_path, 'w') as file:
