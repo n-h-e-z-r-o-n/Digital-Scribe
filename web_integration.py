@@ -66,7 +66,7 @@ class WebView2(tk.Frame):
 
     def reload(self):
         self.core.Reload()
-
+import os
 def main():
 
     root = tk.Tk()
@@ -74,7 +74,9 @@ def main():
     video_box.place(relheight=1, relwidth=1, relx=0, rely=0)
     frame2 = WebView2(video_box, 500, 500)
     frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-    frame2.load_url(f'file:///C:/Users/HEZRON%20WEKESA/Downloads/Lecture%207%20-%20Cloud%20Computing%20System%20III.ppt.pdf')
+    path = os.getcwd()
+    path = "file:///" + path + "./html/index.html"
+    frame2.load_url(f'')
     frame2.load_url("./html/index.html")
     root.mainloop()
 
