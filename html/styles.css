@@ -1,7 +1,6 @@
+ /* Your CSS styles go here */ 
 
-    /* Your CSS styles go here */
-    body {
-        background-color: #f0f0f0;
-        color: white
-    }
-    
+body {
+	background-color:blue;
+	color: red
+ }
