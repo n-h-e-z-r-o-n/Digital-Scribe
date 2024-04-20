@@ -34,6 +34,7 @@ from langchain.prompts import PromptTemplate
 from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
+
 # ------------------------------- Speech recogniation libraries --------------------------------------------------------------------------------------------
 from queue import Queue
 from threading import Thread
@@ -545,7 +546,8 @@ def rag_chat(question, widget, widget1):
 def Upload_file(widget, widget2):
     global rag_data, rag_widget, bg_color
     widget2.config(fg='black')
-    file_path = filedialog.askopenfilename()
+    filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
+    file_path = filedialog.askopenfilename(filetypes=filetypes)
 
     if file_path:
         print(file_path)
@@ -1667,7 +1669,7 @@ def call(widget):
 
     widgets_bg_color = '#DFDFD5'
     call_widget = tk.Frame(widget, bg="#F2F7FD", borderwidth=0, border=0)
-    call_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    call_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     # ===========================  Display contacts ================================
 
@@ -1713,7 +1715,7 @@ def profile(widget):
     back_ground_color = "#F5FEFD"
     for_ground_color = "black"
     profile_widget = tk.Frame(widget, bg=back_ground_color, borderwidth=0, border=0)
-    profile_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    profile_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     user_profile_widget = tk.Label(profile_widget, bg=back_ground_color, fg=for_ground_color)
     user_profile_widget.place(relheight=0.11, relwidth=0.09, relx=0.02, rely=0.02)
@@ -1730,7 +1732,7 @@ def profile(widget):
 
 
 def RAG_page(widget):
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, screen_width
 
     conversation_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     conversation_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -1738,7 +1740,7 @@ def RAG_page(widget):
     paned_window = tk.PanedWindow(conversation_widget, bg=bg_color, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=600, borderwidth=0, border=0)
+    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width/4), borderwidth=0, border=0)
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
 
 
@@ -1754,7 +1756,7 @@ def RAG_page(widget):
     paned_window.add(t1)
     paned_window.add(t2)
 
-    tk.Button(t2, text="Upload doc", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
+    tk.Button(t2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
 
     #tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     #tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
@@ -1818,7 +1820,7 @@ def settings(widget):
         rag_initialize()
 
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
-    setting_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    setting_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     # ======================================================= Section 1 ===========================================================================================================================================
 
@@ -1928,7 +1930,7 @@ def chat_me(widget):
         previous = num_lines
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
-    chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     out_put_widget = tk.Text(chatbot_widget, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
     out_put_widget.place(relheight=0.85, relwidth=0.62, rely=0.02, relx=0.19)
@@ -2051,47 +2053,47 @@ def User_Home_page(widget):
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
-    profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
 
-    st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
 
-    st3_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
+    st3_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
 
-    st7_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⚙ ', font=("Calibri", 17), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
@@ -2185,9 +2187,7 @@ def main():
     root.geometry("1920x1280")
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
-    content_height = root.winfo_height()
 
-    print(str(screen_width) + "\n" + str(screen_height))
 
     title_bar_color(bg_color)
 
