@@ -45,11 +45,11 @@
 
          function reloadCSS() {
             var link = document.querySelector('link[href="styles.css"]');
-            link.href = "styles.css?" + new Date().getTime(); // Add a query parameter to force reload
+            link.href = ".\styles.css?" + new Date().getTime(); // Add a query parameter to force reload
         }
 
         // Reload the CSS file every 5 seconds
-        setInterval(reloadCSS, 5000);
+        setInterval(reloadCSS, 1000);
         }
     </script>
 </body>
