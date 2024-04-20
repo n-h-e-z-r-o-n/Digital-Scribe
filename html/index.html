@@ -26,9 +26,8 @@
                         var response = JSON.parse(xhr.responseText);
                         displayData(response.processed_data);
                     } else {
-                        var response = JSON.parse(xhr.responseText);
                         console.error('Error:', xhr.status);
-                        displayData(response.processed_data);
+                        displayData(xhr.status);
 
                     }
                 }
