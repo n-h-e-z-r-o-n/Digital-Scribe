@@ -22,6 +22,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             response_data = {'message': 'Data received and processed successfully', 'processed_data': processed_data}
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
+            self.send_header('Access-Control-Allow-Origin', '*')  # Allow requests from any origin
             self.end_headers()
             self.wfile.write(json.dumps(response_data).encode('utf-8'))
         else:
