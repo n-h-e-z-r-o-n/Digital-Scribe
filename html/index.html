@@ -44,13 +44,30 @@
 
 
 
-     function reloadStylesheets() {
-    var queryString = '?reload=' + new Date().getTime();
-    $('link[rel="stylesheet"]').each(function () {
-        this.href = this.href.replace(/\?.*|$/, queryString);
-    });
+        function reloadCSS() {
+          const link = document.querySelector('link[rel="stylesheet"]');
+          const url = new URL(link.href);
+          url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
+          link.href = url.toString();
+        }
 
-    setInterval(reloadStylesheets, 5000); // Reload every 5 seconds
+        // Call the function initially to ensure the latest CSS is loaded
+        reloadCSS();
+
+        // Set an interval to reload CSS every 5 seconds
+        setInterval(reloadCSS, 5000);
+
+        async function fetchUpdatedCSS() {
+          const response = await fetch('style.css');
+          const cssText = await response.text();
+          return cssText;
+        }
+
+        async function updateDynamicCSS() {
+          const css = await fetchUpdatedCSS();
+          const styleElement = document.getElementById('dynamic-css');
+          styleElement.textContent = css;
+        }
 
         }
     </script>
