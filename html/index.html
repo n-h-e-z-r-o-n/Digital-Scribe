@@ -28,11 +28,12 @@
                     } else {
                         console.error('Error:', xhr.status);
                         displayData('Error: Unable to receive data from the server');
+                        var response = JSON.parse(xhr.responseText);
+                        displayData(response.processed_data);
                     }
                 }
             };
             xhr.send(JSON.stringify(requestData));
-            displayData('hello')
         }
 
         function displayData(data) {
