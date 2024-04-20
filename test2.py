@@ -5,6 +5,7 @@ def modify_css(css_file_path):
     /* Your CSS styles go here */
     body {
         background-color: #f0f0f0;
+        color: white
     }
     """
 
@@ -13,5 +14,5 @@ def modify_css(css_file_path):
         file.write(css_style)
 
 # Example usage:
-css_file_path = 'styles.css'  # Path to your CSS file
+css_file_path = './html/styles.css'  # Path to your CSS file
 modify_css(css_file_path)

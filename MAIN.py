@@ -179,9 +179,6 @@ def modify_css(css_file_path):
     with open(css_file_path, 'w') as file:
         file.write(css_style)
 
-# Example usage:
-css_file_path = './html/styles.css'  # Path to your CSS file
-modify_css(css_file_path)
 
 
 
