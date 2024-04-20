@@ -1,11 +1,41 @@
- <html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Receive and Display Data</title>
+</head>
 <body>
+    <h1>Receive and Display Data</h1>
+    <form id="dataForm">
+        <label for="data">Enter Data:</label><br>
+        <input type="text" id="data" name="data"><br>
+        <button type="button" onclick="sendData()">Send Data</button>
+    </form>
+    <p id="displayWidget">sdsd</p>
 
-<p id="p1">Hello World!</p>
+    <script>
+        function sendData() {
+            var formData = new FormData(document.getElementById('dataForm'));
+            var requestData = { 'data': formData.get('data') };
 
-<script>
-document.getElementById("p1").innerHTML = "New text!";
-</script>
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:8080', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        displayData(response.processed_data);
+                    } else {
+                        console.error('Error:', xhr.status);
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(requestData));
+        }
 
+        function displayData(data) {
+             document.getElementById('displayWidget').innerHTML = 'Processed Data: ' + data ;
+        }
+    </script>
 </body>
-</html> 
+</html>
