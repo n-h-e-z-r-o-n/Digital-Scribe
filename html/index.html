@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Receive and Display Data</title>
-    <link rel="stylesheet" type="text/css" href=".\styles.css" />
+    <link rel="stylesheet" type="text/css" href=".\styles.css" id="dynamic-css" />
 
 </head>
 <body>
@@ -40,31 +40,20 @@
 
         function displayData(data) {
              document.getElementById('displayWidget').innerHTML = 'Processed Data: ' + data ;
-
-
-        const reloadCss = () => {
-          const links = document.getElementsByTagName("link");
-          for (const link of links) {
-            if (link.rel === "stylesheet") {
-              link.href += "";
-            }
-          }
-        };
-
-         setInterval(reloadCSS, 5000); // Reload CSS every 5 seconds
-
-        function reloadCSS() {
-        const link = document.querySelector('link[rel="stylesheet"]');
-        const url = new URL(link.href);
-        url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
-        link.href = url.toString();
         }
 
-        // Call the function initially to ensure the latest CSS is loaded
-        reloadCSS();
 
-        // Set an interval to reload CSS every 5 seconds
-        setInterval(reloadCSS, 5000);
+        setInterval(reloadCSS, 5000); // Reload CSS every 5 seconds
+
+        function reloadCSS() {
+            var link = document.getElementById('dynamic-css');
+            var newLink = document.createElement('link');
+
+            newLink.rel = 'stylesheet';
+            newLink.type = 'text/css';
+            newLink.href = 'styles.css?' + new Date().getTime(); // Add timestamp to force browser to reload CSS
+
+            link.parentNode.replaceChild(newLink, link);
         }
     </script>
 </body>
