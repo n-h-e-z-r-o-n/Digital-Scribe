@@ -4,9 +4,7 @@ def modify_css(css_file_path):
     css_style = """
     /* Your CSS styles go here */
     body {
-        font-family: Arial, sans-serif;
         background-color: #f0f0f0;
-        color: #333;
     }
     """
 
