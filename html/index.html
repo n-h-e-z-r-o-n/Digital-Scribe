@@ -33,8 +33,7 @@
                 }
             };
             xhr.send(JSON.stringify(requestData));
-            var response = JSON.parse(xhr.responseText);
-            displayData(response.processed_data);
+            xhr.open('GET', 'http://localhost:8080, true)
 
         }
 
