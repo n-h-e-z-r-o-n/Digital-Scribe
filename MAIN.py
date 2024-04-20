@@ -165,11 +165,13 @@ class WebView2(tk.Frame):
 
 def modify_css(css_file_path):
     # Read the content of the CSS file
+    global bg_color, fg_color
 
     css_style = """
     /* Your CSS styles go here */
     body {
         background-color: #f0f0f0;
+        
     }
     """
 
