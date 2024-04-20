@@ -20,10 +20,11 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             # Send a response back to the client
             response_data = {'message': 'Data received and processed successfully', 'processed_data': processed_data}
-            self.send_response(200)
+
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps(response_data).encode('utf-8'))
+            self.send_response(200)
         else:
             self.send_error(404, "Not found")
 
