@@ -1059,7 +1059,6 @@ def attach_scroll(widget, color=None):
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
-    modify_css()
     try:
         with open('keys.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
@@ -1982,62 +1981,8 @@ def chat_me(widget):
     return chatbot_widget
 
 
-def connect_to_server():
-    pass
-    """
-    def connect():
-        global connection_status
-        global client_socket, server_IP4v_address, Server_listening_port, closed
-        global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
-        while not closed:
-            try:
-                client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
-                client_socket.connect((server_IP4v_address, Server_listening_port))
-
-                if user_id is not None:
-                    user_data = f"{user_id}~{First_name} {Second_Name} {Last_Name}~{user_Photo}"
-                    client_socket.send(f"active~{len(user_data)}".encode("utf-8"))
-                    client_socket.send(user_data.encode("utf-8"))
-
-                print(" Connection Established ")
-                connection_status = True
-                break
-            except:
-                pass
-
-    threading.Thread(target=connect).start()
-    """
 
 
-def fetch_info():
-    pass
-    """
-    list_hold = []  # clear the list
-    global client_socket, user_id
-    print("fetching")
-
-    m = f'infoRequest~{user_id}'
-    time.sleep(2)
-
-    client_socket.send(m.encode("utf-8")[:1024])  # send message
-    while True:
-        print("starting")
-        buffer_size = client_socket.recv(500).decode("utf-8")
-        print("buffer_size, ", buffer_size)
-        if buffer_size == "end":
-            break
-        info = client_socket.recv(int(buffer_size)).decode("utf-8")
-
-        info = info.split("~")
-        #if int(info[0]) == int(user_id):
-        #    continue
-
-        list_hold.append((info[0], info[1], info[2]))
-
-    print("finished fetching")
-
-    return list_hold
-    """
 
 
 def User_Home_page(widget):
