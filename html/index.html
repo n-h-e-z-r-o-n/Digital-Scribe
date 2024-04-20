@@ -16,6 +16,9 @@
     <p id="displayWidget">sdsd</p>
 
     <script>
+    
+        //---------------  Server Communication --code block-----------------------------------------
+
         function sendData() {
             var formData = new FormData(document.getElementById('dataForm'));
             var requestData = { 'data': formData.get('data') };
@@ -42,7 +45,7 @@
         }
 
 
-
+        //--------------- auto refresh CSS --code block-----------------------------------------
         function reloadCSS() {
           const link = document.querySelector('link[rel="stylesheet"]');
           const url = new URL(link.href);
@@ -53,7 +56,7 @@
 
         reloadCSS();
 
-        // Set an interval to reload CSS every 5 seconds
+
         setInterval(reloadCSS, 1000);
 
     </script>
