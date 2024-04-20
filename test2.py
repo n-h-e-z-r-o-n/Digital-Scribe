@@ -16,7 +16,7 @@ class MyHttpRequestHandler(http.server.SimpleHTTPRequestHandler):
         self.wfile.write(b"<body><h1>Welcome to the Simple HTTP Server!</h1></body></html>")
 
 # Set the port number
-PORT = 8000
+PORT = 80
 
 # Create an instance of the server
 with socketserver.TCPServer(("", PORT), MyHttpRequestHandler) as httpd:
