@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Send and Receive Data</title>
+    <title>Receive and Display Data</title>
 </head>
 <body>
-    <h1>Send Data to Python and Receive Response</h1>
+    <h1>Receive and Display Data</h1>
     <form id="dataForm">
         <label for="data">Enter Data:</label><br>
         <input type="text" id="data" name="data"><br>
         <button type="button" onclick="sendData()">Send Data</button>
     </form>
-
-    <div id="response"></div>
+    <div id="displayWidget"></div>
 
     <script>
         function sendData() {
@@ -25,13 +24,18 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        document.getElementById('response').innerHTML = 'Response from Python: ' + response.processed_data;
+                        displayData(response.processed_data);
                     } else {
                         console.error('Error:', xhr.status);
                     }
                 }
             };
             xhr.send(JSON.stringify(requestData));
+        }
+
+        function displayData(data) {
+            var displayWidget = document.getElementById('displayWidget');
+            displayWidget.innerHTML = '<p>Processed Data: ' + data + '</p>';
         }
     </script>
 </body>
