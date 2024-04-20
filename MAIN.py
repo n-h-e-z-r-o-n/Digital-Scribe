@@ -1932,9 +1932,9 @@ def chat_me(widget):
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
     path = os.getcwd()
-    path = 'file:///'
-    ""
-    chatbot_widget.load_url('file:///C:/Users/HEZRON%20WEKESA/Desktop/python%20Project/Mental_health%20Ai/Mental_App/html/index.html?data=')
+    path = 'file:///' + path + "\html\index.html"
+
+    chatbot_widget.load_url(path)
 
 
 
