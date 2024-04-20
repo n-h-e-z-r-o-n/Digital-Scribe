@@ -42,23 +42,11 @@
         function displayData(data) {
              document.getElementById('displayWidget').innerHTML = 'Processed Data: ' + data ;
 
-
-        const reloadCss = () => {
-          const links = document.getElementsByTagName("link");
-          for (const link of links) {
-            if (link.rel === "stylesheet") {
-              link.href += "";
-            }
-          }
-        };
-
-        setInterval(reloadCSS, 5000); // Reload CSS every 5 seconds
-
         function reloadCSS() {
-            const link = document.querySelector('link[rel="stylesheet"]');
-            const url = new URL(link.href);
-            url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
-            link.href = url.toString();
+          const link = document.querySelector('link[rel="stylesheet"]');
+          const url = new URL(link.href);
+          url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
+          link.href = url.toString();
         }
 
         // Call the function initially to ensure the latest CSS is loaded
@@ -66,6 +54,7 @@
 
         // Set an interval to reload CSS every 5 seconds
         setInterval(reloadCSS, 5000);
+
         }
     </script>
 </body>
