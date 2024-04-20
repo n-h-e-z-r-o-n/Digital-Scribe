@@ -10,7 +10,7 @@
         <input type="text" id="data" name="data"><br>
         <button type="button" onclick="sendData()">Send Data</button>
     </form>
-    <div id="displayWidget"></div>
+    <p id="displayWidget">hello</p>
 
     <script>
         function sendData() {
@@ -34,8 +34,9 @@
         }
 
         function displayData(data) {
-            var displayWidget = document.getElementById('displayWidget');
-            displayWidget.innerHTML = '<p>Processed Data: ' + data + '</p>';
+             console.log('Displaying data:', data); // Log the data for debugging
+             var displayWidget = document.getElementById('displayWidget');
+             displayWidget.innerHTML = '<p>Processed Data: ' + data + '</p>';
         }
     </script>
 </body>
