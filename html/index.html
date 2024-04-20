@@ -24,7 +24,7 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        document.write(5 + 6);
+
                         displayData(response.processed_data);
                     } else {
                         console.error('Error:', xhr.status);
