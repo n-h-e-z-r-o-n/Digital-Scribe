@@ -27,6 +27,7 @@
                         displayData(response.processed_data);
                     } else {
                         console.error('Error:', xhr.status);
+                        displayData('Error: Unable to receive data from the server');
                     }
                 }
             };
