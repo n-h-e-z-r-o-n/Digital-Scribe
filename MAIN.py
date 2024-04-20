@@ -1929,8 +1929,11 @@ def chat_me(widget):
 
         previous = num_lines
 
-    chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
+    chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
+    chatbot_widget.load_url('google.com')
+
+
 
 
     """"
