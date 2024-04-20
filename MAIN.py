@@ -1932,6 +1932,8 @@ def chat_me(widget):
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
+
+    """"
     out_put_widget = tk.Text(chatbot_widget, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
     out_put_widget.place(relheight=0.85, relwidth=0.62, rely=0.02, relx=0.19)
     out_put_widget.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
@@ -1956,7 +1958,7 @@ def chat_me(widget):
     entry.bind("<Return>", lambda e: Chat_bot_inference(entry, search_lable, out_put_widget))
 
     tk.Button(chatbot_widget, text='⇱', font=("Times New Roman", 14), bg=bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda: Chat_bot_inference(entry, search_lable, out_put_widget)).place(relheight=0.03, relwidth=0.02, rely=0.92, relx=0.8)
-
+    """
     return chatbot_widget
 
 
