@@ -171,7 +171,7 @@ def modify_css(css_file_path):
     /* Your CSS styles go here */
     body {
         background-color: #f0f0f0;
-        
+        color: 
     }
     """
 
