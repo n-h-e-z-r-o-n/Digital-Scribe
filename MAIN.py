@@ -1931,7 +1931,7 @@ def chat_me(widget):
 
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
-    chatbot_widget.load_url('https://fmoviesz.to/home')
+    chatbot_widget.load_url('file:///C:/Users/HEZRON%20WEKESA/Desktop/python%20Project/Mental_health%20Ai/Mental_App/html/index.html?data=')
 
 
 
