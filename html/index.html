@@ -3,7 +3,7 @@
 <head>
     <title>Receive and Display Data</title>
     <link rel="stylesheet" type="text/css" href=".\styles.css" />
-
+    <meta http-equiv="refresh" content="1" >
 </head>
 <body>
     <h1>Receive and Display Data</h1>
@@ -40,16 +40,10 @@
 
         function displayData(data) {
              document.getElementById('displayWidget').innerHTML = 'Processed Data: ' + data ;
+             
 
 
 
-         function reloadCSS() {
-            var link = document.querySelector('link[href="styles.css"]');
-            link.href = ".\styles.css?" + new Date().getTime(); // Add a query parameter to force reload
-        }
-
-        // Reload the CSS file every 5 seconds
-        setInterval(reloadCSS, 1000);
         }
     </script>
 </body>
