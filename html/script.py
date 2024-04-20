@@ -4,7 +4,8 @@ print()
 print('<html>')
 print('<body>')
 
-import cgi,cgitb
+import cgi
+import cgitb
 cgitb.enable()
 form = cgi.FieldStorage()
 #receive  values from user form and trim white spaces
