@@ -7,14 +7,17 @@ class RequestHandler(BaseHTTPRequestHandler):
         post_data = self.rfile.read(content_length)
         data = json.loads(post_data.decode('utf-8'))
 
-        # Process the received data
-        response_data = {'message': 'Data received successfully', 'data': data}
+        # Extract the data received from the HTML form
+        received_data = data.get('data')
 
+        # Print the received data
+        print("Data received from HTML:", received_data)
+
+        # Send a response back to the client
+        response_data = {'message': 'Data received successfully'}
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
-
-        # Send response back to the client
         self.wfile.write(json.dumps(response_data).encode('utf-8'))
 
 def run_server():

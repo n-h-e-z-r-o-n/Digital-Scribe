@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Python Communication</title>
+    <title>Send Data to Python</title>
 </head>
 <body>
-    <h1>Communicating with Python</h1>
-    <button onclick="getData()">Get Data from Python</button>
-    <div id="dataDisplay"></div>
+    <h1>Send Data to Python</h1>
+    <form id="dataForm">
+        <label for="data">Enter Data:</label><br>
+        <input type="text" id="data" name="data"><br>
+        <button type="button" onclick="sendData()">Send Data</button>
+    </form>
 
     <script>
-        function getData() {
-            var requestData = {key: 'value'}; // Data to be sent to Python
+        function sendData() {
+            var formData = new FormData(document.getElementById('dataForm'));
+            var requestData = { 'data': formData.get('data') };
+
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:8080', true);
             xhr.setRequestHeader('Content-Type', 'application/json');
@@ -18,7 +23,7 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        document.getElementById('dataDisplay').innerHTML = 'Response from Python: ' + JSON.stringify(response);
+                        alert(response.message);
                     } else {
                         console.error('Error:', xhr.status);
                     }
