@@ -62,9 +62,6 @@ class WebView2(tk.Frame):
         self.web_view.load_url(url)
 
     def load_html(self, content, base_uri=None):
-        # 加载HTML代码
-        # content=HTML内容
-        # base_uri=基本URL，默认为启动程序的目录
         self.web_view.load_html(content, base_uri)
 
     def reload(self):
