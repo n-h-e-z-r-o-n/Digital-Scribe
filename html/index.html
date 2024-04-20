@@ -40,8 +40,16 @@
 
         function displayData(data) {
              document.getElementById('displayWidget').innerHTML = 'Processed Data: ' + data ;
-             
 
+
+        const reloadCss = () => {
+          const links = document.getElementsByTagName("link");
+          for (const link of links) {
+            if (link.rel === "stylesheet") {
+              link.href += "";
+            }
+          }
+        };
 
 
         }
