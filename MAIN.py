@@ -1450,7 +1450,7 @@ def chat(widget):
     nav_bar_bg_color = bg_color
 
     chatbot_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
-    chatbot_widget.place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253)
+    chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     # ================================ Navbar ==============================================================================================================================================================
 
