@@ -51,6 +51,7 @@
           }
         };
 
+        setInterval(reloadCSS, 5000); // Reload CSS every 5 seconds
         function reloadCSS() {
             // Get the CSS link element by its ID
             var cssLink = document.getElementById('css-link');
@@ -59,7 +60,7 @@
             // Set the new href attribute
             cssLink.setAttribute('href', newHref);
         }
-        
+
         }
     </script>
 </body>
