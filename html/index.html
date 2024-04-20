@@ -57,8 +57,20 @@
         // Set an interval to reload CSS every 5 seconds
         setInterval(reloadCSS, 5000);
 
+        async function fetchUpdatedCSS() {
+          const response = await fetch('style.css');
+          const cssText = await response.text();
+          return cssText;
+        }
 
+        async function updateDynamicCSS() {
+          const css = await fetchUpdatedCSS();
+          const styleElement = document.getElementById('dynamic-css');
+          styleElement.textContent = css;
+        }
 
+        updateDynamicCSS();
+        setInterval(updateDynamicCSS, 5000);
 
         }
     </script>
