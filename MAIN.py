@@ -297,6 +297,8 @@ def change_color(widget, button):
         with open("keys.json", "w") as outfile:
             outfile.write(json_object)
 
+    modify_css()
+
     threading.Thread(target=change_all).start()
 
 
