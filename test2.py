@@ -1,20 +1,18 @@
 def modify_css(css_file_path):
     # Read the content of the CSS file
-    try:
-    with open(css_file_path, 'r') as file:
-        css_content = file.read()
-    
-    # Modify the CSS content (for demonstration, let's add a new style)
-    new_style = "\n/* New Style */\n"
-    new_style += "h2 {\n"
-    new_style += "    color: green;\n"
-    new_style += "}\n"
 
-    modified_css_content = css_content + new_style
+    css_style = """
+    /* Your CSS styles go here */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        color: #333;
+    }
+    """
 
     # Write the modified content back to the CSS file
     with open(css_file_path, 'w') as file:
-        file.write(modified_css_content)
+        file.write(css_style)
 
 # Example usage:
 css_file_path = 'styles.css'  # Path to your CSS file
