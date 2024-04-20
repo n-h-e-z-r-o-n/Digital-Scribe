@@ -51,16 +51,19 @@
           }
         };
 
-        setInterval(reloadCSS, 5000); // Reload CSS every 5 seconds
-        function reloadCSS() {
-            // Get the CSS link element by its ID
-            var cssLink = document.getElementById('css-link');
-            // Generate a new timestamp to append to the CSS file URL to force the browser to reload it
-            var newHref = cssLink.getAttribute('href') + '?timestamp=' + new Date().getTime();
-            // Set the new href attribute
-            cssLink.setAttribute('href', newHref);
-        }
+         setInterval(reloadCSS, 5000); // Reload CSS every 5 seconds
 
+        function reloadCSS() {
+            var link = document.getElementById('dynamic-css');
+            var newLink = document.createElement('link');
+
+            newLink.rel = 'stylesheet';
+            newLink.type = 'text/css';
+            newLink.href = 'styles.css?' + new Date().getTime(); // Add timestamp to force browser to reload CSS
+
+            link.parentNode.replaceChild(newLink, link);
+
+        };
         }
     </script>
 </body>
