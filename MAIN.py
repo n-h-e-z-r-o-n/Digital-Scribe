@@ -1059,6 +1059,7 @@ def attach_scroll(widget, color=None):
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    modify_css()
     try:
         with open('keys.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
@@ -1084,9 +1085,10 @@ def access_keys_info():
             os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
             print(bg_color)
-
+            modify_css()
     except Exception as e:
         print("access_keys_info Function:", e)
+        modify_css()
         pass
 
 
@@ -2222,7 +2224,7 @@ def go():
     except Exception as e:
         print(e)
 
-#main()
+
 
 if __name__ == "__main__":
 
