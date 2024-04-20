@@ -75,9 +75,9 @@ def main():
     frame2 = WebView2(video_box, 500, 500)
     frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
     path = os.getcwd()
-    path = "file:///" + path + "./html/index.html"
-    frame2.load_url(f'')
-    frame2.load_url("./html/index.html")
+    path = "file:///" + path + "\html\index.html"
+    print(path)
+    frame2.load_url(path)
     root.mainloop()
 
 if __name__ == "__main__":
