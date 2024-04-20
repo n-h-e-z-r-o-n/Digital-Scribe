@@ -35,8 +35,6 @@
                 }
             };
             xhr.send(JSON.stringify(requestData));
-
-
         }
 
         function displayData(data) {
@@ -52,11 +50,11 @@
           link.href = url.toString();
         }
 
-        // Call the function initially to ensure the latest CSS is loaded
+
         reloadCSS();
 
         // Set an interval to reload CSS every 5 seconds
-        setInterval(reloadCSS, 5000);
+        setInterval(reloadCSS, 1000);
 
     </script>
 </body>
