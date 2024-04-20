@@ -51,7 +51,15 @@
           }
         };
 
-
+        function reloadCSS() {
+            // Get the CSS link element by its ID
+            var cssLink = document.getElementById('css-link');
+            // Generate a new timestamp to append to the CSS file URL to force the browser to reload it
+            var newHref = cssLink.getAttribute('href') + '?timestamp=' + new Date().getTime();
+            // Set the new href attribute
+            cssLink.setAttribute('href', newHref);
+        }
+        
         }
     </script>
 </body>
