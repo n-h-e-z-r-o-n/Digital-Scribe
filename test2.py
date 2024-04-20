@@ -1,3 +1,4 @@
+import tkwebview2
 def modify_css(css_file_path):
     # Read the content of the CSS file
 
