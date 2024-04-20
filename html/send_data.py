@@ -23,8 +23,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             self.send_header('Content-type', 'application/json')
             self.end_headers()
-            self.wfile.write(json.dumps(response_data).encode('utf-8'))
             self.send_response(200)
+            self.wfile.write(json.dumps(response_data).encode('utf-8'))
+
         else:
             self.send_error(404, "Not found")
 
