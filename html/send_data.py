@@ -83,7 +83,6 @@ class RequestHandler(BaseHTTPRequestHandler):
 def run_server():
     server_address = ('localhost', 8080)
     httpd = HTTPServer(server_address, RequestHandler)
-    print('Python server is running...')
     httpd.serve_forever()
 
 if __name__ == '__main__':
