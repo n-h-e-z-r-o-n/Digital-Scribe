@@ -81,10 +81,12 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
 def run_server():
-    def 
-    server_address = ('localhost', 8080)
-    httpd = HTTPServer(server_address, RequestHandler)
-    httpd.serve_forever()
+    def run():
+        server_address = ('localhost', 8080)
+        httpd = HTTPServer(server_address, RequestHandler)
+        httpd.serve_forever()
+    threading.Thread(target=run).start()
 
 if __name__ == '__main__':
     run_server()
+    print("hezron")

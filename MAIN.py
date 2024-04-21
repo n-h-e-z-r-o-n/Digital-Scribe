@@ -228,7 +228,7 @@ def run_server():
         httpd = HTTPServer(server_address, RequestHandler)
         httpd.serve_forever()
 
-    threading.Thread(target=run()).start()
+    threading.Thread(target=run).start()
 
 
 
