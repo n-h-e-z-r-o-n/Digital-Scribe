@@ -186,17 +186,17 @@ import json
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
+        global llm_chain
         if self.path == '/':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
             data = json.loads(post_data.decode('utf-8'))
 
-            # Extract the data received from the HTML form
-            received_data = data.get('data')
+            received_data = data.get('data') # Extract the data received from the HTML form
+
 
             Answer = llm_chain.invoke(input=f"{received_data}")
 
-            # Process the received data (for demonstration, just echoing it back)
             processed_data = Answer['text']
 
             # Print the received data and the processed data
