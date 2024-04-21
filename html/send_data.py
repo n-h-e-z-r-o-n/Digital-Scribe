@@ -1,3 +1,46 @@
+
+
+from langchain.chains import LLMChain
+from langchain_community.llms import GradientLLM
+from langchain.prompts import PromptTemplate
+from langchain.memory import ConversationBufferMemory
+import os
+from gradientai import Gradient
+
+os.environ['GRADIENT_ACCESS_TOKEN'] = "IuQrYCURHsRzzk1BgSDy3xn3V97walUO"
+os.environ['GRADIENT_WORKSPACE_ID'] = "d87be754-5abb-4085-97f9-556d00e71fbd_workspace" #"1b99bbdd-1360-4321-a152-fc8822334cd0_workspace"
+
+fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  #  initializes a GradientLLM with our fine-tuned model by specifying our model ID.
+
+gradient =  Gradient()
+
+base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
+print(base_model.id)
+
+
+llm = GradientLLM(
+    model=base_model.id,
+    model_kwargs=dict(max_generated_token_count=128),
+)
+
+
+
+
+#template = """### Instruction: {Instruction} \n\n### Response:"""
+
+template = """You are a AI having a conversation with a human.
+{chat_history}
+Human: {Instruction}
+Chatbot:"""
+
+prompt = PromptTemplate(template=template, input_variables=["Instruction", 'chat_history'])
+
+memory = ConversationBufferMemory(memory_key="chat_history")
+
+llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
+
+
+
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
@@ -11,8 +54,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             # Extract the data received from the HTML form
             received_data = data.get('data')
 
+            Answer = llm_chain.invoke(input=f"{received_data}")
+
             # Process the received data (for demonstration, just echoing it back)
-            processed_data = received_data.upper()
+            processed_data = Answer
 
             # Print the received data and the processed data
             print("Data received from HTML:", received_data)
