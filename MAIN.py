@@ -223,6 +223,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 def run_server():
     def run():
+        print("server_running")
         server_address = ('localhost', 8080)
         httpd = HTTPServer(server_address, RequestHandler)
         httpd.serve_forever()
