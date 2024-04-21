@@ -90,7 +90,7 @@
                   msgerInput.value = "";
                   console.log(msgText);
                   botResponse();
-                  botResponse2();
+                  botResponse2(msgText);
         });
 
         function appendMessage(name, img, side, text) {
@@ -140,7 +140,7 @@
                     }
                 }
             };
-            xhr.send(JSON.stringify(requestData));
+            xhr.send(JSON.stringify(user_msg));
 
             appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
 
