@@ -6,7 +6,7 @@
      <style id="dynamic-css"></style>
 
 </head>
-<body background="blue">
+<body>
     <h1>Receive and Display Data</h1>
     <form id="dataForm">
         <label for="data">Enter Data:</label><br>
@@ -22,7 +22,7 @@
         function sendData() {
             var formData = new FormData(document.getElementById('dataForm'));
             var requestData = { 'data': formData.get('data') };
-            console.log(myVariable);
+            console.log(requestData);
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:8080', true);
