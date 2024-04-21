@@ -76,21 +76,21 @@
         ];
 
         // Icons made by Freepik from www.flaticon.com
-        const BOT_IMG = "https://github.com/ice-black/assets/blob/aa830934551eff8064620cb9b373d9935dde4213/sckall.png";
-        const PERSON_IMG = "https://github.com/ice-black/assets/blob/aa830934551eff8064620cb9b373d9935dde4213/sckall.png";
+        //const BOT_IMG = "https://github.com/ice-black/assets/blob/aa830934551eff8064620cb9b373d9935dde4213/sckall.png";
+        //const PERSON_IMG = "https://github.com/ice-black/assets/blob/aa830934551eff8064620cb9b373d9935dde4213/sckall.png";
         const BOT_NAME = "BOT";
         const PERSON_NAME = "Sajad";
 
         msgerForm.addEventListener("submit", event => {
-          event.preventDefault();
+                  event.preventDefault();
 
-          const msgText = msgerInput.value;
-          if (!msgText) return;
+                  const msgText = msgerInput.value;
+                  if (!msgText) return;
 
-          appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
-          msgerInput.value = "";
+                  appendMessage(PERSON_NAME, PERSON_IMG, "right", msgText);
+                  msgerInput.value = "";
 
-          botResponse();
+                  botResponse();
         });
 
         function appendMessage(name, img, side, text) {
