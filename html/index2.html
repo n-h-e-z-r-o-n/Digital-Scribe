@@ -133,8 +133,9 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
-                        displayData(response.processed_data);
+                        console.log(response);
+                        appendMessage(BOT_NAME, BOT_IMG, "left", response);
+
                     } else {
                         displayData(xhr.status);
 
