@@ -106,11 +106,13 @@ body {
 .right-msg {
   flex-direction: row-reverse;
 }
+
 .right-msg .msg-bubble {
   background: var(--right-msg-bg);
   color: #fff;
   border-bottom-right-radius: 0;
 }
+
 .right-msg .msg-img {
   margin: 0 0 0 10px;
 }
@@ -121,17 +123,20 @@ body {
   border-top: 2px solid var(--global-color-bg);;
   background: var(--global-color-bg);
 }
+
 .msger-inputarea * {
   padding: 10px;
   border: none;
   border-radius: 3px;
   font-size: 1em;
 }
+
 .msger-input {
   flex: 1;
   background: var(--global-color-bg);
-  color :  var--global-color-fg);
+  color :  var(--global-color-fg);
 }
+
 .msger-send-btn {
   margin-left: 10px;
   background: rgb(0, 196, 65);
@@ -140,6 +145,7 @@ body {
   cursor: pointer;
   transition: background 0.23s;
 }
+
 .msger-send-btn:hover {
   background: rgb(0, 180, 50);
 }
