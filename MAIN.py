@@ -168,7 +168,7 @@ def modify_css():
     global bg_color, fg_color
 
     css_files = ['./html/styles.css']
-    css_style = ":root { \n --global-color-bg:" + bg_color  + ";\n  --global-color-fg:" + fg_color + ";\n}"
+    css_style = ":root { \n --global-color-bg:" + bg_color + ";\n  --global-color-fg:" + fg_color + ";\n}"
 
     for i in css_files:
         # Write the modified content back to the CSS file
