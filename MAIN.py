@@ -11,10 +11,9 @@ from PIL import Image, ImageTk
 import io
 import base64
 
-
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
-#import docx
+# import docx
 import ctypes
 # ------------------------------ pip install gradient_haystack==0.2.0
 from gradient_haystack.embedders.gradient_document_embedder import GradientDocumentEmbedder
@@ -41,7 +40,7 @@ from threading import Thread
 import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
-import whisper #pip install -U openai-whisper
+import whisper  # pip install -U openai-whisper
 
 import wave
 
@@ -94,7 +93,6 @@ Recording_summary = ''
 audio_frames = None
 downloading_audio = False
 
-
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -104,14 +102,15 @@ from webview.window import Window
 from webview.platforms.edgechromium import EdgeChrome
 from System import IntPtr, Int32, Func, Type, Environment
 from System.Windows.Forms import Control
-from System.Threading import  ApartmentState, ThreadStart, SynchronizationContext, SendOrPostCallback
+from System.Threading import ApartmentState, ThreadStart, SynchronizationContext, SendOrPostCallback
 from System.Threading import Thread as System_Thread
 
 user32 = ctypes.windll.user32
 
+
 class WebView2(tk.Frame):
     def __init__(self, parent, width: int, height: int, url: str = '', **kw):
-        global  bg_color
+        global bg_color
         tk.Frame.__init__(self, parent, width=width, height=height, **kw)
         control = Control()
         uid = 'master'
@@ -184,6 +183,7 @@ def modify_css():
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 
+
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         if self.path == '/':
@@ -220,15 +220,14 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.send_header('Access-Control-Allow-Headers', 'Content-Type')
         self.end_headers()
 
+
 def run_server():
     def run():
         server_address = ('localhost', 8080)
         httpd = HTTPServer(server_address, RequestHandler)
         httpd.serve_forever()
+
     threading.Thread(target=run()).start()
-
-
-
 
 
 # =============================== Functions definition ============================================================================================
@@ -354,12 +353,6 @@ def change_color(widget, button):
     modify_css()
 
     threading.Thread(target=change_all).start()
-
-
-
-
-
-
 
 
 # ============================================= NLP  ==========================================================================================
@@ -628,7 +621,6 @@ def Upload_file(widget, widget2):
         url_file = "file:///" + f"{file_path}"
         print(url_file)
         frame2.load_url(url_file)
-
 
         """
         widget.config(state=tk.NORMAL)
@@ -1813,10 +1805,8 @@ def RAG_page(widget):
     paned_window = tk.PanedWindow(conversation_widget, bg=bg_color, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width/4), borderwidth=0, border=0)
+    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
-
-
 
     t2 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, borderwidth=0, border=0)
 
@@ -1831,10 +1821,10 @@ def RAG_page(widget):
 
     tk.Button(t2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
 
-    #tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
-    #tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
+    # tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
+    # tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
 
-    tk.Text(t2,  bg=bg_color,fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1).place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
+    tk.Text(t2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1).place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
 
     status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
@@ -2009,9 +1999,6 @@ def chat_me(widget):
 
     chatbot_widget.load_url(path)
 
-
-
-
     """"
     out_put_widget = tk.Text(chatbot_widget, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
     out_put_widget.place(relheight=0.85, relwidth=0.62, rely=0.02, relx=0.19)
@@ -2041,10 +2028,6 @@ def chat_me(widget):
     return chatbot_widget
 
 
-
-
-
-
 def User_Home_page(widget):
     global user_id, widget_list, Home_page_frame
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
@@ -2056,7 +2039,6 @@ def User_Home_page(widget):
     container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1) - 20))
     container2 = tk.Frame(Home_page_frame, bg="green")
     container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int((screen_height * 1) - 20))  # place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
-
 
     # PROFILE_widget = profile(Home_page_frame)
 
@@ -2215,13 +2197,13 @@ def main():
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
 
-
     title_bar_color(bg_color)
 
     User_Home_page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
+
 
 def go():
     try:
@@ -2230,9 +2212,7 @@ def go():
         print(e)
 
 
-
 if __name__ == "__main__":
-
     t = System_Thread(ThreadStart(go))
     t.ApartmentState = ApartmentState.STA
     t.Start()
