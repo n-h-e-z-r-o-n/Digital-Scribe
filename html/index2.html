@@ -124,14 +124,26 @@
           }, delay);
         }
 
-         function botResponse2() {
-          const r = random(0, BOT_MSGS.length - 1);
-          const msgText = BOT_MSGS[r];
-          const delay = msgText.split(" ").length * 100;
+         function botResponse2(user_msg) {
 
-          setTimeout(() => {
-            appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
-          }, delay);
+          var xhr = new XMLHttpRequest();
+          xhr.open('POST', 'http://localhost:8080', true);
+          xhr.setRequestHeader('Content-Type', 'application/json');
+          xhr.onreadystatechange = function() {
+              if (xhr.readyState === XMLHttpRequest.DONE) {
+                  if (xhr.status === 200) {
+                      var response = JSON.parse(xhr.responseText);
+                      displayData(response.processed_data);
+                  } else {
+                      displayData(xhr.status);
+
+                  }
+              }
+          };
+          xhr.send(JSON.stringify(requestData));
+
+         appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
+
         }
 
 
