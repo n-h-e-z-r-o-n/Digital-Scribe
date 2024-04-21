@@ -58,13 +58,6 @@
         const msgerInput = get(".msger-input");
         const msgerChat = get(".msger-chat");
 
-        const BOT_MSGS = [
-          "Hi, how are you?",
-          "Ohh... I can't understand what you trying to say. Sorry!",
-          "I like to play games... But I don't know how to play!",
-          "Sorry if my answers are not relevant. :))",
-          "I feel sleepy! :("
-        ];
 
         // Icons made by Freepik from www.flaticon.com
         const BOT_IMG = "https://github.com/ice-black/assets/blob/aa830934551eff8064620cb9b373d9935dde4213/sckall.png";
@@ -88,8 +81,7 @@
           //   Simple solution for small apps
           const msgHTML = `
             <div class="msg ${side}-msg">
-              <div class="msg-img" style="background-image: url(${img})"></div>
-
+              
               <div class="msg-bubble">
                 <div class="msg-info">
                   <div class="msg-info-name">${name}</div>
@@ -105,15 +97,7 @@
           msgerChat.scrollTop += 500;
         }
 
-        function botResponse() {
-          const r = random(0, BOT_MSGS.length - 1);
-          const msgText = BOT_MSGS[r];
-          const delay = msgText.split(" ").length * 100;
 
-          setTimeout(() => {
-            appendMessage(BOT_NAME, BOT_IMG, "left", msgText);
-          }, delay);
-        }
 
          function botResponse2(user_msg) {
             user_msg = { 'data': user_msg };
