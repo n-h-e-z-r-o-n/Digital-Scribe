@@ -57,7 +57,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             Answer = llm_chain.invoke(input=f"{received_data}")
 
             # Process the received data (for demonstration, just echoing it back)
-            processed_data = Answer
+            processed_data = Answer['text']
 
             # Print the received data and the processed data
             print("Data received from HTML:", received_data)
