@@ -166,8 +166,9 @@ class WebView2(tk.Frame):
 def modify_css():
     # Read the content of the CSS file
     global bg_color, fg_color
+
     css_files = ['./html/styles.css']
-    css_style = " /* Your CSS styles go here */ \n\n" + "body {\n\tbackground-color:" + f"{bg_color};\n\tcolor: {fg_color}\n;" + "}"
+    css_style = ":root { \n --global-color-bg: #718000 " + ";]n  --global-color-fg: white;\n}"
 
     for i in css_files:
         # Write the modified content back to the CSS file

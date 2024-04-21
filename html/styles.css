@@ -1,6 +1,4 @@
- /* Your CSS styles go here */ 
-
-body {
-	background-color:#253529;
-	color: white
-;}
+:root {
+  --global-color-bg: #718000;
+  --global-color-fg: white;
+}
