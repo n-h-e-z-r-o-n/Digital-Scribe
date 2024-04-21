@@ -231,7 +231,7 @@ def run_server():
     threading.Thread(target=run()).start()
 
 
-run_server()
+
 
 
 # =============================== Functions definition ============================================================================================
@@ -2187,6 +2187,7 @@ def main():
     print("main started")
 
     access_keys_info()
+    run_server()
 
     root = tk.Tk()
 

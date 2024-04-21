@@ -42,7 +42,7 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
-import json
+import json, threading
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -81,6 +81,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         self.end_headers()
 
 def run_server():
+    def 
     server_address = ('localhost', 8080)
     httpd = HTTPServer(server_address, RequestHandler)
     httpd.serve_forever()
