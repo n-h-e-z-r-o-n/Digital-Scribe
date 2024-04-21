@@ -1945,7 +1945,7 @@ def chat_me(widget):
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
     path = os.getcwd()
-    path = 'file:///' + path + "\html\index.html"
+    path = 'file:///' + path + "/html/MedBot.html"
 
     chatbot_widget.load_url(path)
 
