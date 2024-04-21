@@ -1,6 +1,6 @@
  /* Your CSS styles go here */ 
 
-body {
-	background-color:#253529;
-	color: white
-;}
+:root {
+  --global-color-bg: #118000;
+  --left-msg-bg: #ececec;
+}
