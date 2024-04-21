@@ -1,3 +1,4 @@
+# pip install Spire.Doc
 from spire.doc import *
 
 
