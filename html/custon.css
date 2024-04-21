@@ -129,7 +129,8 @@ body {
 }
 .msger-input {
   flex: 1;
-  background: var(--global-color-bg);
+  background: blue;
+  color :  var--global-color-fg);
 }
 .msger-send-btn {
   margin-left: 10px;
