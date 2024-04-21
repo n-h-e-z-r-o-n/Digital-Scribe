@@ -194,10 +194,10 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             received_data = data.get('data') # Extract the data received from the HTML form
 
-            if llm_chain:
-                Answer = llm_chain.invoke(input=f"{received_data}")
-            else:
+            if llm_chain is None:
                 llm_inference_initializ()
+
+            Answer = llm_chain.invoke(input=f"{received_data}")
             processed_data = Answer['text']
 
             # Print the received data and the processed data
