@@ -9,8 +9,8 @@ from langchain.memory import ConversationBufferMemory
 import os
 from gradientai import Gradient
 
-os.environ['GRADIENT_ACCESS_TOKEN'] = "MU96F09nGNZC8R1B3d4XfbKqgyKrfqIs"
-os.environ['GRADIENT_WORKSPACE_ID'] = "25d151aa-cfde-4c6e-b001-98abd11687cc_workspace" #"1b99bbdd-1360-4321-a152-fc8822334cd0_workspace"
+os.environ['GRADIENT_ACCESS_TOKEN'] = "IuQrYCURHsRzzk1BgSDy3xn3V97walUO"
+os.environ['GRADIENT_WORKSPACE_ID'] = "d87be754-5abb-4085-97f9-556d00e71fbd_workspace" #"1b99bbdd-1360-4321-a152-fc8822334cd0_workspace"
 
 fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  #  initializes a GradientLLM with our fine-tuned model by specifying our model ID.
 
