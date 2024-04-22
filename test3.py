@@ -1,12 +1,3 @@
-from spire.doc import *
-from spire.doc.common import *
+from docx2pdf import convert
 
-inputFile = r"C:\Users\HEZRON WEKESA\Desktop\kotlin.docx"
-outputFile = "output/ToPDF.pdf"
-
-#Create word document
-document = Document()
-document.LoadFromFile(inputFile)
-#Save the document to a PDF file.
-document.SaveToFile(outputFile, FileFormat.PDF)
-document.Close()
+convert(r"C:\Users\HEZRON WEKESA\Desktop\l.docx", "output.pdf")
