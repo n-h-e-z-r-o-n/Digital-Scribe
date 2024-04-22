@@ -639,6 +639,7 @@ def Upload_file(widget, widget2):
                     print(url_file)
                     frame2.load_url(url_file)
                 elif file_path.endswith('.txt'):
+                    pass
                 """
                 widget.config(state=tk.NORMAL)
                 widget.delete(1.0, tk.END)
