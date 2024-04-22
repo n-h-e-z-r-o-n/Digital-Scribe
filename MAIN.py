@@ -545,7 +545,7 @@ def rag_initialize(data=None, widget=None):
             # model_adapter_id=fine_tuned_Model_Id,
             base_model_slug="nous-hermes2",
             max_generated_token_count=350,
-        )
+        ) 
 
         prompt = """You are helpful assistant ment to answer questions to help in clinical documentation. Answer the query, based on the
         content in the documents. if you dont know the answer say you don't know.
