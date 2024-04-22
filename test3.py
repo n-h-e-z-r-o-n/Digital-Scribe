@@ -28,3 +28,5 @@ def create_pdf(input_file):
         merger.append(PdfFileReader(open(template_pdf, 'rb')))
         merger.append(PdfFileReader(open('output.pdf', 'rb')))
         merger.write('merged_output.pdf')
+
+create_pdf("C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt")
