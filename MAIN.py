@@ -612,44 +612,55 @@ def rag_chat(question, widget, widget1):
 
     threading.Thread(target=run_function).start()
 
+from docx2pdf import convert # pip install docx2pdf
 
 def Upload_file(widget, widget2):
-    global rag_data, rag_widget, bg_color
-    widget2.config(fg='black')
-    filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
-    file_path = filedialog.askopenfilename(filetypes=filetypes)
+    def run():
+            global rag_data, rag_widget, bg_color
+            widget2.config(fg='black')
+            filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
+            file_path = filedialog.askopenfilename(filetypes=filetypes)
 
-    if file_path:
-        print(file_path)
-        frame2 = WebView2(widget, 500, 500)
-        frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-        url_file = "file:///" + f"{file_path}"
-        print(url_file)
-        frame2.load_url(url_file)
+            if file_path:
+                if file_path.endswith('.doc') or file_path.endswith('.docx'):
+                    convert(rf"{file_path}", "./uploaded.pdf")
+                    print(file_path)
+                    frame2 = WebView2(widget, 500, 500)
+                    path = os.getcwd()
+                    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
+                    url_file = "file:///" + path + "/uploaded.pdf"
+                    print(url_file)
+                    frame2.load_url(url_file)
+                elif file_path.endswith('.pdf'):
+                    print(file_path)
+                    frame2 = WebView2(widget, 500, 500)
+                    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
+                    url_file = "file:///" + f"{file_path}"
+                    print(url_file)
+                    frame2.load_url(url_file)
+                elif file_path.endswith('.txt'):
+                """
+                widget.config(state=tk.NORMAL)
+                widget.delete(1.0, tk.END)
+                document = docx.Document(file_path)
+                data = ""
+                for paragraph in document.paragraphs:
+                    data += paragraph.text + "\n"
+                    if paragraph.style.name == 'List Paragraph':
+        
+                        widget.insert(tk.END, f"\t •{paragraph.text}")
+                    elif paragraph.style.name == 'Normal':
+                        widget.insert(tk.END, f"{paragraph.text} \n")
+        
+                widget.config(state=tk.DISABLED)
+                rag_data = data
+                rag_widget = widget2
+                threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
+                """
+            else:
+                print("No file selected")
 
-        """
-        widget.config(state=tk.NORMAL)
-        widget.delete(1.0, tk.END)
-        document = docx.Document(file_path)
-        data = ""
-        for paragraph in document.paragraphs:
-            data += paragraph.text + "\n"
-            if paragraph.style.name == 'List Paragraph':
-
-                widget.insert(tk.END, f"\t •{paragraph.text}")
-            elif paragraph.style.name == 'Normal':
-                widget.insert(tk.END, f"{paragraph.text} \n")
-
-        widget.config(state=tk.DISABLED)
-        rag_data = data
-        rag_widget = widget2
-        threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
-        """
-
-
-
-    else:
-        print("No file selected")
+    threading.Thread(target=run).start()
 
 
 def llm_inference_initializ():
