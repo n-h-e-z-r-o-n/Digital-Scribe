@@ -504,8 +504,8 @@ def D_Summary(widget1, widget=None):
     threading.Thread(target=run_f).start()
 
 
-def rag_initialize(data=None, widget=None):
-    global rag_pipeline, rag_data, rag_widget
+def rag_initialize(data=None):
+    global rag_pipeline, rag_data
     rag_pipeline = None
 
     if rag_widget == None or rag_data == None:
@@ -513,8 +513,7 @@ def rag_initialize(data=None, widget=None):
 
     if data == None:
         data = rag_data
-    if widget == None:
-        widget = rag_widget
+
 
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
@@ -568,9 +567,9 @@ def rag_initialize(data=None, widget=None):
         rag_pipeline.connect("text_embedder", "retriever")
         rag_pipeline.connect("retriever", "prompt_builder.documents")
         rag_pipeline.connect("prompt_builder", "generator")
-        widget.config(fg='green')
+        #widget.config(fg='green')
     except:
-        widget.config(fg='red')
+        #widget.config(fg='red')
         rag_pipeline = None
         return
 
@@ -626,7 +625,8 @@ def extract_pdf_text(path = None):
             for page in pdf.pages:
                 text += page.extract_text()
         print(text)
-        return text
+        rag_initialize(data=text)
+
     threading.Thread(target=run).start()
 
 def Upload_file(widget, pdf_view_frame):
@@ -689,6 +689,9 @@ def Upload_file(widget, pdf_view_frame):
                 extract_pdf_text(path_r)
 
                 pdf_view_frame.load_url(url_file)
+
+
+
 
             else:
                 print("No file selected")
