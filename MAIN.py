@@ -639,7 +639,7 @@ def extract_pdf_text(path=None):
     threading.Thread(target=run).start()
 
 
-def Upload_file(widget, pdf_view_frame):
+def Upload_file(pdf_view_frame):
     pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
 
     def run(pdf_view_frame=pdf_view_frame):
@@ -1883,7 +1883,8 @@ def RAG_page(widget):
     paned_window.add(frame_view1)
     paned_window.add(frame_view2)
 
-    tk.Button(frame_view2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(frame_view1, pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
+    tk.Button(frame_view2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file( pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
+    tk.Button(frame_view2, text="clear", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: clear_rag_file(pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.08)
 
     # tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     # tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
