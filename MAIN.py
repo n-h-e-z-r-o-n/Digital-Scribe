@@ -613,18 +613,22 @@ def rag_chat(question, widget, widget1):
     threading.Thread(target=run_function).start()
 
 from docx2pdf import convert # pip install docx2pdf
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph
+
 
 def Upload_file(widget, widget2):
     def run():
             global rag_data, rag_widget, bg_color
-            rawdata = ''
+            raw_text_data = ''
+            pdf_file_name = 'uploaded.pdf'
             widget2.config(fg='black')
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
             if file_path:
                 if file_path.endswith('.doc') or file_path.endswith('.docx'):
-                    convert(rf"{file_path}", "./uploaded.pdf")
+                    convert(rf"{file_path}", "./")
                     print(file_path)
                     frame2 = WebView2(widget, 500, 500)
                     path = os.getcwd()
@@ -641,9 +645,22 @@ def Upload_file(widget, widget2):
                     frame2.load_url(url_file)
                 elif file_path.endswith('.txt'):
                     f = open(rf"{file_path}", "r")
-                    text = ''
                     for x in f:
-                        text += x
+                        raw_text_data += x
+                        pdf_document = SimpleDocTemplate(file_name)
+                        pdf_elements = []
+
+                        # Create a stylesheet for styling
+                        styles = getSampleStyleSheet()
+
+                        # Parse the HTML-like text into a Paragraph
+                        paragraph = Paragraph(text, styles["Normal"])
+
+                        # Add the Paragraph to the PDF elements
+                        pdf_elements.append(paragraph)
+
+                        # Build the PDF document
+                        pdf_document.build(pdf_elements)
 
                     pass
                 """
