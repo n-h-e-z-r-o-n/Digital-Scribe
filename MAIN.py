@@ -625,6 +625,7 @@ def extract_pdf_text(path = None):
             text = ''
             for page in pdf.pages:
                 text += page.extract_text()
+        print(text)
         return text
     threading.Thread(target=run).start()
 
@@ -683,6 +684,8 @@ def Upload_file(widget, widget2):
                 pdf_view_frame = WebView2(widget, 500, 500)
                 pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
                 pdf_view_frame.load_url(url_file)
+                path += '/uploaded.pdf'
+                extract_pdf_text(path)
 
 
 
