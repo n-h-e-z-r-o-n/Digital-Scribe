@@ -8,6 +8,6 @@ def extract_text_from_pdf(pdf_path):
     return text
 
 # Example usage
-pdf_path = 'uploaded.pdf'  # Replace with the path to your PDF file
+pdf_path = r'C:\Users\HEZRON WEKESA\Downloads\x.pdf'  # Replace with the path to your PDF file
 text = extract_text_from_pdf(pdf_path)
 print(text)

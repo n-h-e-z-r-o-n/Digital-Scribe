@@ -613,6 +613,7 @@ def rag_chat(question, widget, widget1):
     threading.Thread(target=run_function).start()
 
 from docx2pdf import convert # pip install docx2pdf
+import pdfplumber # used for extracting data from pdf
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 
