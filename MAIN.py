@@ -504,10 +504,8 @@ def D_Summary(widget1, widget=None):
 def rag_initialize(data=None):
     print("rag_initializ_start")
     global rag_pipeline, rag_data
-    rag_pipeline = None
-    if rag_widget is None or rag_data is None:
-        return
 
+    rag_pipeline = None
     if data == None:
         data = rag_data
 
@@ -571,10 +569,12 @@ def rag_initialize(data=None):
         return
 
 
-def rag_chat(question, widget, widget1):
+def rag_chat(question_widget, widget, widget1):
     global rag_pipeline, rag_data
+    print(rag_pipeline)
 
-    def run_function(question=question, widget=widget, widget1=widget1):
+    def run_function(question_widget=question_widget, widget=widget, widget1=widget1):
+        question = question_widget.get("1.0", tk.END)
         widget1.config(text='▫▫▫▫')
         question = question.strip()
         if question == '' or rag_pipeline == None:
@@ -582,8 +582,10 @@ def rag_chat(question, widget, widget1):
             return
 
         widget.config(state=tk.NORMAL)
-        widget.insert(tk.END, f" {question}\n", 'user_config')
+        widget.insert(tk.END, f"🆈🅾🆄\n{question}\n\n")
         widget.config(state=tk.DISABLED)
+
+
         try:
             result = rag_pipeline.run(
                 {
@@ -593,12 +595,14 @@ def rag_chat(question, widget, widget1):
                 }
             )
             widget.config(state=tk.NORMAL)
-            widget.insert(tk.END, f'{result["answer_builder"]["answers"][0].data}\n\n\n', 'llm_config')
+            widget.insert(tk.END, f'🅱🅾🆃\n{result["answer_builder"]["answers"][0].data}\n\n', 'llm_config')
             widget.see(tk.END)  # Scroll to the end of the text widget
             widget.config(state=tk.DISABLED)
+            question_widget.delete(1.0, tk.END)
             widget1.config(text='▶')
             # return result["answer_builder"]["answers"][0].data
         except Exception as e:
+            print(e)
             widget.config(state=tk.NORMAL)
             widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
             widget1.config(text='▶')
@@ -616,15 +620,18 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph
 
 
 def extract_pdf_text(path=None):
+
     if path is None:
         return
 
     def run():
+        global rag_data
         with pdfplumber.open(path) as pdf:
             text = ''
             for page in pdf.pages:
                 text += page.extract_text()
         print(text)
+        rag_data = text
         rag_initialize(data=text)
 
     threading.Thread(target=run).start()
@@ -634,7 +641,7 @@ def Upload_file(widget, pdf_view_frame):
     pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
 
     def run(pdf_view_frame=pdf_view_frame):
-        global rag_data, rag_widget, bg_color, path_exe
+        global  bg_color, path_exe
 
         filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
         file_path = filedialog.askopenfilename(filetypes=filetypes)
@@ -1858,12 +1865,12 @@ def RAG_page(widget):
     paned_window = tk.PanedWindow(conversation_widget, bg=bg_color, orient=tk.HORIZONTAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
-    pdf_view_frame = WebView2(t1, 500, 500)
+    frame_view1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
+    pdf_view_frame = WebView2(frame_view1, 500, 500)
     pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
 
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
-    t2 = tk.Frame(paned_window, bg="bl", relief=tk.FLAT, borderwidth=0, border=0)
+    frame_view2 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, borderwidth=0, border=0)
 
     """
     t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
@@ -1871,23 +1878,24 @@ def RAG_page(widget):
     t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
     t2.config(state=tk.DISABLED)
     """
-    paned_window.add(t1)
-    paned_window.add(t2)
+    paned_window.add(frame_view1)
+    paned_window.add(frame_view2)
 
-    tk.Button(t2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(t1, pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
+    tk.Button(frame_view2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(frame_view1, pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
 
     # tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     # tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
 
-    tk.Text(t2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1).place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
+    chat_display_widget = tk.Text(frame_view2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1)
+    chat_display_widget.place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
 
-    status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
-    status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
+    #status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
+    #status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
-    t3 = tk.Text(t2, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
-    t3.place(relheight=0.05, relwidth=0.96, rely=0.945, relx=0.01)
+    input_widget_ = tk.Text(frame_view2, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
+    input_widget_.place(relheight=0.05, relwidth=0.96, rely=0.945, relx=0.01)
 
-    bng = tk.Button(t2, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda: rag_chat(t3.get("1.0", tk.END), t2, bng))
+    bng = tk.Button(frame_view2, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda: rag_chat(input_widget_, chat_display_widget, bng))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.945, relx=0.973)
 
     return conversation_widget
