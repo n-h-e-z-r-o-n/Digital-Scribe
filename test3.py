@@ -1,3 +1,12 @@
+
+f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
+
+# insert the texts in pdf
+text = ''
+for x in f:
+    text += x
+     x)
+    print(,
 from reportlab.pdfgen import canvas
 
 # Example of a sentence
