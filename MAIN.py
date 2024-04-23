@@ -501,7 +501,7 @@ def D_Summary(widget1, widget=None):
     threading.Thread(target=run_f).start()
 
 
-def rag_initialize(data=None):
+def rag_initialize(  =None):
     print("rag_initializ_start")
     global rag_pipeline, rag_data
 
