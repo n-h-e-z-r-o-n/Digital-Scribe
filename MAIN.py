@@ -192,7 +192,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             post_data = self.rfile.read(content_length)
             data = json.loads(post_data.decode('utf-8'))
 
-            received_data = data.get('data') # Extract the data received from the HTML form
+            received_data = data.get('data')  # Extract the data received from the HTML form
 
             if llm_chain is None:
                 llm_inference_initializ()
@@ -230,9 +230,6 @@ def run_server():
         httpd.serve_forever()
 
     threading.Thread(target=run).start()
-
-
-
 
 
 # =============================== Functions definition ============================================================================================
@@ -505,15 +502,14 @@ def D_Summary(widget1, widget=None):
 
 
 def rag_initialize(data=None):
+    print("rag_initializ_start")
     global rag_pipeline, rag_data
     rag_pipeline = None
-
-    if rag_widget == None or rag_data == None:
+    if rag_widget is None or rag_data is None:
         return
 
     if data == None:
         data = rag_data
-
 
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
@@ -567,9 +563,10 @@ def rag_initialize(data=None):
         rag_pipeline.connect("text_embedder", "retriever")
         rag_pipeline.connect("retriever", "prompt_builder.documents")
         rag_pipeline.connect("prompt_builder", "generator")
-        #widget.config(fg='green')
-    except:
-        #widget.config(fg='red')
+        # widget.config(fg='green')
+    except Exception as e:
+        print(e)
+        # widget.config(fg='red')
         rag_pipeline = None
         return
 
@@ -611,14 +608,17 @@ def rag_chat(question, widget, widget1):
 
     threading.Thread(target=run_function).start()
 
-from docx2pdf import convert # pip install docx2pdf
-import pdfplumber # used for extracting data from pdf
+
+from docx2pdf import convert  # pip install docx2pdf
+import pdfplumber  # used for extracting data from pdf
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 
-def extract_pdf_text(path = None):
+
+def extract_pdf_text(path=None):
     if path is None:
         return
+
     def run():
         with pdfplumber.open(path) as pdf:
             text = ''
@@ -629,76 +629,75 @@ def extract_pdf_text(path = None):
 
     threading.Thread(target=run).start()
 
+
 def Upload_file(widget, pdf_view_frame):
     pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
-    def run(pdf_view_frame =pdf_view_frame):
-            global rag_data, rag_widget, bg_color, path_exe
 
-            filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
-            file_path = filedialog.askopenfilename(filetypes=filetypes)
+    def run(pdf_view_frame=pdf_view_frame):
+        global rag_data, rag_widget, bg_color, path_exe
 
-            if file_path:
+        filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
+        file_path = filedialog.askopenfilename(filetypes=filetypes)
 
+        if file_path:
 
-                raw_text_data = ''
-                pdf_file_name = 'uploaded.pdf'
-                path = path_exe
-                url_file = "file:///" + path
-                path_r = path +'/uploaded.pdf'
+            raw_text_data = ''
+            pdf_file_name = 'uploaded.pdf'
+            path = path_exe
+            url_file = "file:///" + path
+            path_r = path + '/uploaded.pdf'
 
-                if file_path.endswith('.doc') or file_path.endswith('.docx'):
-                    convert(rf"{file_path}", f"./{pdf_file_name}")
+            if file_path.endswith('.doc') or file_path.endswith('.docx'):
+                convert(rf"{file_path}", f"./{pdf_file_name}")
 
-                    url_file += f"/{pdf_file_name}"
-                    print(url_file)
+                url_file += f"/{pdf_file_name}"
+                print(url_file)
 
-                elif file_path.endswith('.pdf'):
-                    url_file = "file:///" + f"{file_path}"
-                    path_r = file_path
-                    print(url_file)
-
-
-                elif file_path.endswith('.txt'):
-                    f = open(rf"{file_path}", "r")
-                    for x in f:
-                        raw_text_data += x
-                    print("raw_text_data - ", raw_text_data)
-
-                    pdf_document = SimpleDocTemplate(pdf_file_name)
-                    pdf_elements = []
-                    styles = getSampleStyleSheet()
-                    paragraph = Paragraph(raw_text_data, styles["Normal"])
-                    pdf_elements.append(paragraph)
-                    pdf_document.build(pdf_elements)
-
-                    pdf_document = SimpleDocTemplate(pdf_file_name)
-                    pdf_elements = []
-                    styles = getSampleStyleSheet()
-                    paragraph = Paragraph(raw_text_data, styles["Normal"])
-                    pdf_elements.append(paragraph)
-                    pdf_document.build(pdf_elements)
-
-                    url_file += f"/{pdf_file_name}"
-                    print(file_path)
-                    print(url_file)
-                else:
-                    return
+            elif file_path.endswith('.pdf'):
+                url_file = "file:///" + f"{file_path}"
+                path_r = file_path
+                print(url_file)
 
 
+            elif file_path.endswith('.txt'):
+                f = open(rf"{file_path}", "r")
+                for x in f:
+                    raw_text_data += x
+                print("raw_text_data - ", raw_text_data)
 
-                extract_pdf_text(path_r)
+                pdf_document = SimpleDocTemplate(pdf_file_name)
+                pdf_elements = []
+                styles = getSampleStyleSheet()
+                paragraph = Paragraph(raw_text_data, styles["Normal"])
+                pdf_elements.append(paragraph)
+                pdf_document.build(pdf_elements)
 
-                pdf_view_frame.load_url(url_file)
+                pdf_document = SimpleDocTemplate(pdf_file_name)
+                pdf_elements = []
+                styles = getSampleStyleSheet()
+                paragraph = Paragraph(raw_text_data, styles["Normal"])
+                pdf_elements.append(paragraph)
+                pdf_document.build(pdf_elements)
 
-
-
-
+                url_file += f"/{pdf_file_name}"
+                print(file_path)
+                print(url_file)
             else:
-                print("No file selected")
+                return
+
+            extract_pdf_text(path_r)
+
+            pdf_view_frame.load_url(url_file)
+
+
+
+
+        else:
+            print("No file selected")
 
     run()
 
-    #threading.Thread(target=run).start()
+    # threading.Thread(target=run).start()
 
 
 def llm_inference_initializ():
@@ -1860,7 +1859,7 @@ def RAG_page(widget):
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
-    pdf_view_frame = WebView2(t1 , 500, 500)
+    pdf_view_frame = WebView2(t1, 500, 500)
     pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
 
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
@@ -2050,7 +2049,6 @@ def chat_me(widget):
 
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
-
 
     chatbot_widget.load_url('file:///' + path_exe + "/html/MedBot.html")
 
