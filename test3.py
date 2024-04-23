@@ -1,22 +1,19 @@
-from fpdf import FPDF
+from reportlab.pdfgen import canvas
 
-# save FPDF() class into
-# a variable pdf
-pdf = FPDF()
+# Example of a sentence
+input_text = "This is an example of a simple sentence."
 
-# Add a page
-pdf.add_page()
+# Output PDF file
+file_name = "example.pdf"
 
-# set style and size of font
-# that you want in the pdf
-pdf.set_font("Arial", size=15)
+# Create a PDF document
+pdf_canvas = canvas.Canvas(file_name)
 
-# open the text file in read mode
-f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
+# Set font and size
+pdf_canvas.setFont("Courier", 12)
 
-# insert the texts in pdf
-for x in f:
-    pdf.cell(20, 4, txt=x, ln=1, align='l')
+# Define the position of the text in the PDF
+pdf_canvas.drawString(100, 750, input_text)
 
-# save the pdf with name .pdf
-pdf.output("mygfg.pdf")
+# Save the PDF
+pdf_canvas.save()
