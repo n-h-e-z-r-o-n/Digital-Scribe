@@ -643,6 +643,7 @@ def Upload_file(widget, widget2):
                 pdf_file_name = 'uploaded.pdf'
                 path = os.getcwd()
                 url_file = "file:///" + path
+                path_r = path +'/uploaded.pdf'
 
                 if file_path.endswith('.doc') or file_path.endswith('.docx'):
                     convert(rf"{file_path}", f"./{pdf_file_name}")
@@ -684,7 +685,7 @@ def Upload_file(widget, widget2):
                 pdf_view_frame = WebView2(widget, 500, 500)
                 pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
                 pdf_view_frame.load_url(url_file)
-                path += '/uploaded.pdf'
+                path +=
                 extract_pdf_text(path)
 
 
