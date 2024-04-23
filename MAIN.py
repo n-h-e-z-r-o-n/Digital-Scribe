@@ -630,13 +630,12 @@ def extract_pdf_text(path = None):
     threading.Thread(target=run).start()
 
 
-def Upload_file(widget, widget2):
-    global pdf_view_frame
-    pdf_view_frame = WebView2(widget, 500, 500)
-    pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
+def Upload_file(widget, widget2, pdf_view_frame):
+
+
 
     def run():
-            global rag_data, rag_widget, bg_color, pdf_view_frame
+            global rag_data, rag_widget, bg_color,
 
             widget2.config(fg='black')
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
