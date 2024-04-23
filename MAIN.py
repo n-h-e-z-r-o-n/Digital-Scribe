@@ -501,14 +501,18 @@ def D_Summary(widget1, widget=None):
     threading.Thread(target=run_f).start()
 
 
-def rag_initialize(  =None):
+def rag_initialize(data=None):
     print("rag_initializ_start")
     global rag_pipeline, rag_data
 
     rag_pipeline = None
 
+    if data is None and rag_data is None:
+        return
+
     if data is None and rag_data is not None:
         data = rag_data
+
     else:
         return
 
