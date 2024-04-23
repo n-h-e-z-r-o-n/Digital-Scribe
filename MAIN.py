@@ -1857,6 +1857,8 @@ def RAG_page(widget):
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
+    pdf_view_frame = WebView2(widget, 500, 500)
+    pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
 
     t2 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, borderwidth=0, border=0)
