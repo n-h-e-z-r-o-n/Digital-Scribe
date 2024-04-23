@@ -625,6 +625,8 @@ def Upload_file(widget, widget2):
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
+
+
             if file_path:
                 raw_text_data = ''
                 pdf_file_name = 'uploaded.pdf'
@@ -637,11 +639,10 @@ def Upload_file(widget, widget2):
                     url_file += f"/{pdf_file_name}"
                     print(url_file)
 
-
-
                 elif file_path.endswith('.pdf'):
                     url_file = "file:///" + f"{file_path}"
                     print(url_file)
+
 
                 elif file_path.endswith('.txt'):
                     f = open(rf"{file_path}", "r")
@@ -654,15 +655,13 @@ def Upload_file(widget, widget2):
                     paragraph = Paragraph(raw_text_data, styles["Normal"])
                     pdf_elements.append(paragraph)
                     pdf_document.build(pdf_elements)
-                    url_file += f"/{pdf_file_name}"
+                    url_file += f"./{pdf_file_name}"
                     print(url_file)
                 else:
                     return
 
 
-                frame2 = WebView2(widget, 500, 500)
-                frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-                frame2.load_url(url_file)
+
 
 
 
