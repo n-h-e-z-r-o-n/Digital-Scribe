@@ -10,10 +10,7 @@ for x in f:
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 
-# Example text using HTML-like tags
-input_text = """<b>Hello,</b> this is an <font color='red'>example text</font>  
-that will be <i>converted to PDF.</i> 
-This sentence is quite long, and we want it to wrap to the next line."""
+
 
 # Output PDF file
 file_name = "example.pdf"

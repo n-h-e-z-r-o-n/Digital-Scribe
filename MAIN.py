@@ -653,6 +653,14 @@ def Upload_file(widget, widget2):
                     paragraph = Paragraph(raw_text_data, styles["Normal"])
                     pdf_elements.append(paragraph)
                     pdf_document.build(pdf_elements)
+
+                    pdf_document = SimpleDocTemplate(file_name)
+                    pdf_elements = []
+                    styles = getSampleStyleSheet()
+                    paragraph = Paragraph(raw_text_data, styles["Normal"])
+                    pdf_elements.append(paragraph)
+                    pdf_document.build(pdf_elements)
+
                     url_file += f"./{pdf_file_name}"
                     print(url_file)
                 else:
