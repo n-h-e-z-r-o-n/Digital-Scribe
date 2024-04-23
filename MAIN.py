@@ -636,7 +636,7 @@ def Upload_file(widget, widget2):
     pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
 
     def run():
-            global rag_data, rag_widget, bg_color
+            global rag_data, rag_widget, bg_color, pdf_view_frame
 
             widget2.config(fg='black')
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
@@ -688,31 +688,10 @@ def Upload_file(widget, widget2):
                     return
 
 
-                pdf_view_frame.load_url(url_file)
+
                 extract_pdf_text(path_r)
+                #pdf_view_frame.load_url(url_file)
 
-
-
-
-
-                """
-                widget.config(state=tk.NORMAL)
-                widget.delete(1.0, tk.END)
-                document = docx.Document(file_path)
-                data = ""
-                for paragraph in document.paragraphs:
-                    data += paragraph.text + "\n"
-                    if paragraph.style.name == 'List Paragraph':
-        
-                        widget.insert(tk.END, f"\t •{paragraph.text}")
-                    elif paragraph.style.name == 'Normal':
-                        widget.insert(tk.END, f"{paragraph.text} \n")
-        
-                widget.config(state=tk.DISABLED)
-                rag_data = data
-                rag_widget = widget2
-                threading.Thread(target=rag_initialize, args=(data, widget2,)).start()
-                """
             else:
                 print("No file selected")
 
