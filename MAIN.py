@@ -656,17 +656,11 @@ def Upload_file(widget, widget2):
 
                     pdf_document = SimpleDocTemplate(pdf_file_name)
                     pdf_elements = []
-
-                    # Create a stylesheet for styling
                     styles = getSampleStyleSheet()
-
-                    # Parse the HTML-like text into a Paragraph
                     paragraph = Paragraph(raw_text_data, styles["Normal"])
-
-                    # Add the Paragraph to the PDF elements
                     pdf_elements.append(paragraph)
-                    # Build the PDF document
                     pdf_document.build(pdf_elements)
+                    url_file += "{}"
 
                     pass
                 """
