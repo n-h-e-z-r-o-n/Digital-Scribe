@@ -1,4 +1,4 @@
-imp
+import tkinter as tk
 import ctypes
 from webview.window import Window
 from webview.platforms.edgechromium import EdgeChrome
@@ -65,3 +65,9 @@ class WebView2(tk.Frame):
 
     def reload(self):
         self.core.Reload()
+
+root =tk.Tk()
+pdf_view_frame = WebView2(t1 , 500, 500)
+pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
+
+root.mainloop()_
