@@ -629,11 +629,11 @@ def extract_pdf_text(path = None):
         return text
     threading.Thread(target=run).start()
 
-
 def Upload_file(widget, pdf_view_frame):
 
     def run(pdf_view_frame =pdf_view_frame):
             global rag_data, rag_widget, bg_color
+            pdf_view_frame.
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
@@ -691,6 +691,7 @@ def Upload_file(widget, pdf_view_frame):
                 print("No file selected")
 
     run()
+
     #threading.Thread(target=run).start()
 
 
