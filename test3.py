@@ -5,14 +5,11 @@ f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
 text = ''
 for x in f:
     text += x
-     x)
-    print(,
+
+print(text)
+
 from reportlab.pdfgen import canvas
 
-# Example of a sentence
-input_text = "This is an example of a simple sentence."
-
-# Output PDF file
 file_name = "example.pdf"
 
 # Create a PDF document
