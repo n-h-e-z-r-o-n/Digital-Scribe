@@ -1890,7 +1890,7 @@ def RAG_page(widget):
 
     chat_display_widget = tk.Text(frame_view2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1)
     chat_display_widget.place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
-    chat_display_widget.tag_configure("error_config", foreground="red",  font=('italic', 7), justify=tk.LEFT)  # llm responses config's
+    chat_display_widget.tag_configure("error_config", foreground="red",  font=('italic', 7, 'Baskerville Old Face') , justify=tk.LEFT)  # llm responses config's
 
     #status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     #status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
