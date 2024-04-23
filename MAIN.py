@@ -92,7 +92,7 @@ entity_widg_list = []
 Recording_summary = ''
 audio_frames = None
 downloading_audio = False
-
+path_exe = os.getcwd()
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -630,17 +630,18 @@ def extract_pdf_text(path = None):
     threading.Thread(target=run).start()
 
 def Upload_file(widget, pdf_view_frame):
-
     def run(pdf_view_frame =pdf_view_frame):
-            global rag_data, rag_widget, bg_color
-            pdf_view_frame.load_url('')
+            global rag_data, rag_widget, bg_color, path_exe
+
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
             if file_path:
+                pdf_view_frame.load_url('file:///' + path_exe + "/LoadFile_Animation.html")
+                time.sleep(10)
                 raw_text_data = ''
                 pdf_file_name = 'uploaded.pdf'
-                path = os.getcwd()
+                path = path_exe
                 url_file = "file:///" + path
                 path_r = path +'/uploaded.pdf'
 
@@ -2010,7 +2011,7 @@ def settings(widget):
 
 def chat_me(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
-    global num_y, num_height, current
+    global num_y, num_height, current, path_exe
     num_y = 0.9
     num_height = 0.05
     current = 130
@@ -2044,10 +2045,9 @@ def chat_me(widget):
 
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
-    path = os.getcwd()
-    path = 'file:///' + path + "/html/MedBot.html"
 
-    chatbot_widget.load_url(path)
+
+    chatbot_widget.load_url('file:///' + path_exe + "/html/MedBot.html")
 
     """"
     out_put_widget = tk.Text(chatbot_widget, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
