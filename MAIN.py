@@ -579,6 +579,8 @@ def rag_chat(question_widget, widget, widget1):
         question = question.strip()
         if question == '' or rag_pipeline == None:
             widget1.config(text='▶')
+            widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
+
             return
 
         widget.config(state=tk.NORMAL)
@@ -1875,7 +1877,7 @@ def RAG_page(widget):
     """
     t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
     t2.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
-    t2.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
+    t2.tag_configure("error_config", foreground="red",  justify=tk.LEFT)  # llm responses config's
     t2.config(state=tk.DISABLED)
     """
     paned_window.add(frame_view1)
@@ -1888,6 +1890,7 @@ def RAG_page(widget):
 
     chat_display_widget = tk.Text(frame_view2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1)
     chat_display_widget.place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
+    chat_display_widget.tag_configure("error_config", foreground="red",  font=('italic', 7), justify=tk.LEFT)  # llm responses config's
 
     #status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     #status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
