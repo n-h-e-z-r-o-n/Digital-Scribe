@@ -646,6 +646,7 @@ def Upload_file(widget, widget2):
                     f = open(rf"{file_path}", "r")
                     for x in f:
                         raw_text_data += x
+                    print("raw_text_data - ", raw_text_data)
 
                     pdf_document = SimpleDocTemplate(pdf_file_name)
                     pdf_elements = []
@@ -654,14 +655,14 @@ def Upload_file(widget, widget2):
                     pdf_elements.append(paragraph)
                     pdf_document.build(pdf_elements)
 
-                    pdf_document = SimpleDocTemplate(file_name)
+                    pdf_document = SimpleDocTemplate(pdf_file_name)
                     pdf_elements = []
                     styles = getSampleStyleSheet()
                     paragraph = Paragraph(raw_text_data, styles["Normal"])
                     pdf_elements.append(paragraph)
                     pdf_document.build(pdf_elements)
 
-                    url_file += f"./{pdf_file_name}"
+                    url_file += f"/{pdf_file_name}"
                     print(url_file)
                 else:
                     return
