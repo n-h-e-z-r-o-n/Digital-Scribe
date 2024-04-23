@@ -617,6 +617,17 @@ import pdfplumber # used for extracting data from pdf
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 
+def extract_pdf_text(path = None):
+    if path is None:
+        return
+    def run():
+        with pdfplumber.open(path) as pdf:
+            text = ''
+            for page in pdf.pages:
+                text += page.extract_text()
+        return text
+    threading.Thread(target=run).start()
+
 
 def Upload_file(widget, widget2):
     def run():
