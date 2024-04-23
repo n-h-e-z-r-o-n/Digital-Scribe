@@ -510,11 +510,10 @@ def rag_initialize(data=None):
     if data is None and rag_data is None:
         return
 
-    if data is None and rag_data is not None:
+    elif data is None and rag_data is not None:
         data = rag_data
 
-    else:
-        return
+  
 
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
