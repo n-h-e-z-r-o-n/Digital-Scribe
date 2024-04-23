@@ -2,11 +2,12 @@
 f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
 
 # insert the texts in pdf
+print(f)
 text = ''
 for x in f:
-    text += x
+    text += x.strip()
 
-print(text)
+#print(text)
 
 from reportlab.pdfgen import canvas
 
@@ -19,7 +20,7 @@ pdf_canvas = canvas.Canvas(file_name)
 pdf_canvas.setFont("Courier", 12)
 
 # Define the position of the text in the PDF
-pdf_canvas.drawString(100, 750, input_text)
+pdf_canvas.drawString(100, 750, text)
 
 # Save the PDF
 pdf_canvas.save()
