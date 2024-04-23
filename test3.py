@@ -1,32 +1,22 @@
 from fpdf import FPDF
-from PyPDF2 import PdfFileMerger
 
-def create_pdf(input_file):
-    # Create a new FPDF object
-    pdf = FPDF()
+# save FPDF() class into
+# a variable pdf
+pdf = FPDF()
 
-    # Open the text file and read its contents
-    with open(input_file, 'r') as f:
-        text = f.read()
+# Add a page
+pdf.add_page()
 
-    # Add a new page to the PDF
-    pdf.add_page()
+# set style and size of font
+# that you want in the pdf
+pdf.set_font("Arial", size=15)
 
-    # Set the font and font size
-    pdf.set_font('Arial', size=12)
+# open the text file in read mode
+f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
 
-    # Write the text to the PDF
-    pdf.write(5, text)
+# insert the texts in pdf
+for x in f:
+    pdf.cell(20, 4, txt=x, ln=1, align='l')
 
-    # Save the PDF
-    pdf.output('output.pdf')
-
-    # If a template PDF is specified, merge it with the new PDF
-    merger = PdfFileMerger()
-    template_pdf = 'template.pdf'
-    if template_pdf:
-        merger.append(PdfFileReader(open(template_pdf, 'rb')))
-        merger.append(PdfFileReader(open('output.pdf', 'rb')))
-        merger.write('merged_output.pdf')
-
-create_pdf("C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt")
+# save the pdf with name .pdf
+pdf.output("mygfg.pdf")
