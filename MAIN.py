@@ -2032,63 +2032,12 @@ def chat_me(widget):
     current = 130
     previous = 0
 
-    def on_key_press(event, widget, widget1):
-        global current, num_y, num_height, previous
-
-        text_content = widget1.get("1.0", "end-1c")
-        num_lines = len(text_content)  # Count the number of lines
-
-        print("- ", num_lines, " - ", current)
-
-        if num_lines > current and num_lines > previous:
-            num_y = num_y - 0.02
-            num_height = num_height + 0.02
-            widget.forget()
-            widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
-            current = current + 130
-
-        elif (num_lines < current) and (num_lines > 130) and (num_lines < previous):
-            num_y = num_y + 0.02
-            num_height = num_height - 0.02
-            widget.forget()
-            widget.place(relheight=num_height, relwidth=0.6, rely=num_y, relx=0.2)
-            current = current - 130
-        else:
-            pass
-
-        previous = num_lines
 
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     chatbot_widget.load_url('file:///' + path_exe + "/html/MedBot.html")
 
-    """"
-    out_put_widget = tk.Text(chatbot_widget, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
-    out_put_widget.place(relheight=0.85, relwidth=0.62, rely=0.02, relx=0.19)
-    out_put_widget.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
-    out_put_widget.tag_configure("llm_config", foreground="black", justify=tk.LEFT)  # llm responses config's
-    out_put_widget.tag_configure("error_config", foreground="red", justify=tk.LEFT)  # llm responses config's
-    out_put_widget.config(state=tk.DISABLED)
-
-    search_lable = tk.Frame(chatbot_widget, bg=bg_color, borderwidth=0, border=0)
-    search_lable.place(relheight=0.05, relwidth=0.6, rely=0.9, relx=0.2)
-
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0, relx=0.1)
-    tk.Label(search_lable, bg=bg_color, text='◜', fg=fg_color, anchor="nw", font=('Century Gothic', 20), borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0)
-    tk.Label(search_lable, bg=bg_color, text='◟', fg=fg_color, font=('Century Gothic', 20), anchor='sw', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0)
-    tk.Label(search_lable, bg=bg_color, text='◝', fg=fg_color, font=('Century Gothic', 20), anchor='ne', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0, relx=0.95)
-    tk.Label(search_lable, bg=bg_color, text='◞', fg=fg_color, font=('Century Gothic', 20), anchor='se', borderwidth=0, border=0).place(relheight=0.5, relwidth=0.05, rely=0.5, relx=0.95)
-    tk.Label(search_lable, text='------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ------ ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ----- ', bg=bg_color, anchor='s', fg=fg_color, borderwidth=0, border=0).place(relheight=0.15, relwidth=0.8, rely=0.85,
-                                                                                                                                                                                                                                                                                                                                                                                                                       relx=0.1)
-
-    entry = tk.Text(search_lable, wrap='word', bg=bg_color, fg=fg_color, font=("Times New Roman", 14), borderwidth=0, border=0)
-    entry.place(relheight=0.7, relwidth=0.96, rely=0.15, relx=0.02)
-    entry.bind("<Key>", lambda e: on_key_press(e, search_lable, entry))
-    entry.bind("<Return>", lambda e: Chat_bot_inference(entry, search_lable, out_put_widget))
-
-    tk.Button(chatbot_widget, text='⇱', font=("Times New Roman", 14), bg=bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda: Chat_bot_inference(entry, search_lable, out_put_widget)).place(relheight=0.03, relwidth=0.02, rely=0.92, relx=0.8)
-    """
     return chatbot_widget
 
 
