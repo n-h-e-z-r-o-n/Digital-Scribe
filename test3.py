@@ -1,32 +1,13 @@
+import pdfplumber
 
-f = open(r"C:/Users/HEZRON WEKESA/Desktop/medical conversation .txt", "r")
+def extract_text_from_pdf(pdf_path):
+    with pdfplumber.open(pdf_path) as pdf:
+        text = ''
+        for page in pdf.pages:
+            text += page.extract_text()
+    return text
 
-# insert the texts in pdf
-print(f)
-text = ''
-for x in f:
-    text += x
-
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph
-
-
-
-# Output PDF file
-file_name = "example.pdf"
-
-# Create a PDF document
-pdf_document = SimpleDocTemplate(file_name)
-pdf_elements = []
-
-# Create a stylesheet for styling
-styles = getSampleStyleSheet()
-
-# Parse the HTML-like text into a Paragraph
-paragraph = Paragraph(text, styles["Normal"])
-
-# Add the Paragraph to the PDF elements
-pdf_elements.append(paragraph)
-
-# Build the PDF document
-pdf_document.build(pdf_elements)
+# Example usage
+pdf_path = 'example.pdf'  # Replace with the path to your PDF file
+text = extract_text_from_pdf(pdf_path)
+print(text)
