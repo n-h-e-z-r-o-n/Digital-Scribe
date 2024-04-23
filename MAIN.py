@@ -630,6 +630,7 @@ def extract_pdf_text(path = None):
     threading.Thread(target=run).start()
 
 def Upload_file(widget, pdf_view_frame):
+    pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
     def run(pdf_view_frame =pdf_view_frame):
             global rag_data, rag_widget, bg_color, path_exe
 
@@ -637,8 +638,8 @@ def Upload_file(widget, pdf_view_frame):
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
             if file_path:
-                pdf_view_frame.load_url('file:///' + path_exe + "/LoadFile_Animation.html")
-                time.sleep(10)
+
+
                 raw_text_data = ''
                 pdf_file_name = 'uploaded.pdf'
                 path = path_exe
@@ -686,7 +687,8 @@ def Upload_file(widget, pdf_view_frame):
 
 
                 extract_pdf_text(path_r)
-                pdf_view_frame.load_url(url_file)
+
+                #pdf_view_frame.load_url(url_file)
 
             else:
                 print("No file selected")
