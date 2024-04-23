@@ -1,6 +1,5 @@
 
 :root {
-	--fg: #6c;
 	--shade1: var(--global-color-bg);
 	--shade2: var(--global-color-bg);
 	--shade3: var(--global-color-bg);
