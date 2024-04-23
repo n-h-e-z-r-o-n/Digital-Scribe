@@ -637,17 +637,10 @@ def Upload_file(widget, widget2):
                     print(file_path)
                     url_file += f"/{pdf_file_name}"
 
-                    frame2 = WebView2(widget, 500, 500)
-                    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-                    frame2.load_url(url_file)
+
 
                 elif file_path.endswith('.pdf'):
                     url_file = "file:///" + f"{file_path}"
-
-
-                    frame2 = WebView2(widget, 500, 500)
-                    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-                    frame2.load_url(url_file)
 
                 elif file_path.endswith('.txt'):
                     f = open(rf"{file_path}", "r")
@@ -660,9 +653,15 @@ def Upload_file(widget, widget2):
                     paragraph = Paragraph(raw_text_data, styles["Normal"])
                     pdf_elements.append(paragraph)
                     pdf_document.build(pdf_elements)
-                    url_file += "{}"
+                    url_file += f"/{pdf_file_name}"
 
-                    pass
+
+                frame2 = WebView2(widget, 500, 500)
+                frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
+                frame2.load_url(url_file)
+
+
+
                 """
                 widget.config(state=tk.NORMAL)
                 widget.delete(1.0, tk.END)
