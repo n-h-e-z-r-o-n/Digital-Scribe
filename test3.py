@@ -5,22 +5,31 @@ f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
 print(f)
 text = ''
 for x in f:
-    text += x.strip()
+    text += x
 
-#print(text)
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph
 
-from reportlab.pdfgen import canvas
+# Example text using HTML-like tags
+input_text = """<b>Hello,</b> this is an <font color='red'>example text</font>  
+that will be <i>converted to PDF.</i> 
+This sentence is quite long, and we want it to wrap to the next line."""
 
+# Output PDF file
 file_name = "example.pdf"
 
 # Create a PDF document
-pdf_canvas = canvas.Canvas(file_name)
+pdf_document = SimpleDocTemplate(file_name)
+pdf_elements = []
 
-# Set font and size
-pdf_canvas.setFont("Courier", 12)
+# Create a stylesheet for styling
+styles = getSampleStyleSheet()
 
-# Define the position of the text in the PDF
-pdf_canvas.drawString(100, 750, text)
+# Parse the HTML-like text into a Paragraph
+paragraph = Paragraph(text, styles["Normal"])
 
-# Save the PDF
-pdf_canvas.save()
+# Add the Paragraph to the PDF elements
+pdf_elements.append(paragraph)
+
+# Build the PDF document
+pdf_document.build(pdf_elements)

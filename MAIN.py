@@ -617,6 +617,7 @@ from docx2pdf import convert # pip install docx2pdf
 def Upload_file(widget, widget2):
     def run():
             global rag_data, rag_widget, bg_color
+            rawdata = ''
             widget2.config(fg='black')
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
@@ -639,6 +640,11 @@ def Upload_file(widget, widget2):
                     print(url_file)
                     frame2.load_url(url_file)
                 elif file_path.endswith('.txt'):
+                    f = open(rf"{file_path}", "r")
+                    text = ''
+                    for x in f:
+                        text += x
+
                     pass
                 """
                 widget.config(state=tk.NORMAL)
