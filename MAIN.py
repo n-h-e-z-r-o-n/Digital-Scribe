@@ -1898,7 +1898,7 @@ def RAG_page(widget):
     # tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     # tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
 
-    chat_display_widget = tk.Text(frame_view2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=1, border=1)
+    chat_display_widget = tk.Text(frame_view2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=0, border=0)
     chat_display_widget.place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
     chat_display_widget.tag_configure("error_config", foreground="red",  font=('Baskerville Old Face', 7, 'italic') , justify=tk.LEFT)  # llm responses config's
 
