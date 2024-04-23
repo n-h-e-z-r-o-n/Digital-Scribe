@@ -647,20 +647,20 @@ def Upload_file(widget, widget2):
                     f = open(rf"{file_path}", "r")
                     for x in f:
                         raw_text_data += x
-                        pdf_document = SimpleDocTemplate(file_name)
-                        pdf_elements = []
 
-                        # Create a stylesheet for styling
-                        styles = getSampleStyleSheet()
+                    pdf_document = SimpleDocTemplate(pdf_file_name)
+                    pdf_elements = []
 
-                        # Parse the HTML-like text into a Paragraph
-                        paragraph = Paragraph(text, styles["Normal"])
+                    # Create a stylesheet for styling
+                    styles = getSampleStyleSheet()
 
-                        # Add the Paragraph to the PDF elements
-                        pdf_elements.append(paragraph)
+                    # Parse the HTML-like text into a Paragraph
+                    paragraph = Paragraph(raw_text_data, styles["Normal"])
 
-                        # Build the PDF document
-                        pdf_document.build(pdf_elements)
+                    # Add the Paragraph to the PDF elements
+                    pdf_elements.append(paragraph)
+                    # Build the PDF document
+                    pdf_document.build(pdf_elements)
 
                     pass
                 """
