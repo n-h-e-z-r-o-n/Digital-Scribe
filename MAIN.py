@@ -633,7 +633,7 @@ def Upload_file(widget, pdf_view_frame):
 
     def run(pdf_view_frame =pdf_view_frame):
             global rag_data, rag_widget, bg_color
-            pdf_view_frame.
+            pdf_view_frame.load_url('')
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
