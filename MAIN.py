@@ -624,6 +624,8 @@ def Upload_file(widget, widget2):
             raw_text_data = ''
             pdf_file_name = 'uploaded.pdf'
             path = os.getcwd()
+            url_file = "file:///" + path
+
             widget2.config(fg='black')
 
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
@@ -633,19 +635,20 @@ def Upload_file(widget, widget2):
                 if file_path.endswith('.doc') or file_path.endswith('.docx'):
                     convert(rf"{file_path}", f"./{pdf_file_name}")
                     print(file_path)
+                    url_file += f"/{pdf_file_name}"
 
-                    url_file = "file:///" + path + "/uploaded.pdf"
-                    print(url_file)
                     frame2 = WebView2(widget, 500, 500)
                     frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
                     frame2.load_url(url_file)
+
                 elif file_path.endswith('.pdf'):
-                    print(file_path)
+                    url_file = "file:///" + f"{file_path}"
+
+
                     frame2 = WebView2(widget, 500, 500)
                     frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
-                    url_file = "file:///" + f"{file_path}"
-                    print(url_file)
                     frame2.load_url(url_file)
+
                 elif file_path.endswith('.txt'):
                     f = open(rf"{file_path}", "r")
                     for x in f:
