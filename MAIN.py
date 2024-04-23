@@ -631,6 +631,9 @@ def extract_pdf_text(path = None):
 
 
 def Upload_file(widget, widget2):
+    pdf_view_frame = WebView2(widget, 500, 500)
+    pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
+
     def run():
             global rag_data, rag_widget, bg_color
 
@@ -683,8 +686,7 @@ def Upload_file(widget, widget2):
                 else:
                     return
 
-                pdf_view_frame = WebView2(widget, 500, 500)
-                pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
+
                 pdf_view_frame.load_url(url_file)
                 extract_pdf_text(path_r)
 
@@ -713,8 +715,8 @@ def Upload_file(widget, widget2):
             else:
                 print("No file selected")
 
-    run()
-    #threading.Thread(target=run).start()
+    #run()
+    threading.Thread(target=run).start()
 
 
 def llm_inference_initializ():
