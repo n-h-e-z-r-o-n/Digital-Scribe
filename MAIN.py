@@ -1863,7 +1863,7 @@ def RAG_page(widget):
     pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
 
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
-    t2 = tk.Frame(paned_window, bg="", relief=tk.FLAT, borderwidth=0, border=0)
+    t2 = tk.Frame(paned_window, bg="bl", relief=tk.FLAT, borderwidth=0, border=0)
 
     """
     t2.tag_configure("user_config", foreground="gray", justify=tk.LEFT)  # user queries  config's
