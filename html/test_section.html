@@ -1,12 +1,39 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>PDF Viewer</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Drag and Drop Example</title>
+<style>
+  #drop-zone {
+    width: 300px;
+    height: 200px;
+    border: 2px dashed #ccc;
+    text-align: center;
+    line-height: 200px;
+  }
+</style>
 </head>
 <body>
-    <h1>PDF Viewer</h1>
-    <embed src='C:\Users\HEZRON WEKESA\Downloads\x.pdf' type="application/pdf" width="100%" height="600px" />
-    <!-- Or use <object> tag instead -->
-    <!-- <object data="example.pdf" type="application/pdf" width="100%" height="600px"></object> -->
+
+<div id="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+  Drop files here
+</div>
+
+<script>
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function drop(event) {
+  event.preventDefault();
+  var files = event.dataTransfer.files;
+  // Handle dropped files
+  for (var i = 0; i < files.length; i++) {
+    console.log('File:', files[i].name);
+  }
+}
+</script>
+
 </body>
 </html>
