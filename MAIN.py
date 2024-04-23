@@ -663,6 +663,7 @@ def Upload_file(widget, widget2):
                     pdf_document.build(pdf_elements)
 
                     url_file += f"/{pdf_file_name}"
+                    print(file_path)
                     print(url_file)
                 else:
                     return

@@ -1,5 +1,5 @@
 
-f = open(r"C:\Users\HEZRON WEKESA\Desktop\New Text Document.txt", "r")
+f = open(r"C:/Users/HEZRON WEKESA/Desktop/medical conversation .txt", "r")
 
 # insert the texts in pdf
 print(f)
