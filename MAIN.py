@@ -620,9 +620,12 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph
 def Upload_file(widget, widget2):
     def run():
             global rag_data, rag_widget, bg_color
+
             raw_text_data = ''
             pdf_file_name = 'uploaded.pdf'
+            path = os.getcwd()
             widget2.config(fg='black')
+
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
@@ -630,11 +633,11 @@ def Upload_file(widget, widget2):
                 if file_path.endswith('.doc') or file_path.endswith('.docx'):
                     convert(rf"{file_path}", f"./{pdf_file_name}")
                     print(file_path)
-                    frame2 = WebView2(widget, 500, 500)
-                    path = os.getcwd()
-                    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
+
                     url_file = "file:///" + path + "/uploaded.pdf"
                     print(url_file)
+                    frame2 = WebView2(widget, 500, 500)
+                    frame2.place(relheight=1, relwidth=1, relx=0, rely=0)
                     frame2.load_url(url_file)
                 elif file_path.endswith('.pdf'):
                     print(file_path)
