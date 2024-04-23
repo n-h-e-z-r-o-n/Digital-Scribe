@@ -688,7 +688,7 @@ def Upload_file(widget, pdf_view_frame):
 
                 extract_pdf_text(path_r)
 
-                #pdf_view_frame.load_url(url_file)
+                pdf_view_frame.load_url(url_file)
 
             else:
                 print("No file selected")
