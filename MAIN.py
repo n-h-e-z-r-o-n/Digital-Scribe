@@ -657,7 +657,7 @@ def Upload_file(widget, widget2):
                     url_file += f"/{pdf_file_name}"
                     print(url_file)
                 else:
-                    re
+                    return
 
 
                 frame2 = WebView2(widget, 500, 500)
