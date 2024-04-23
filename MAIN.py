@@ -643,7 +643,7 @@ def extract_pdf_text(path=None):
 
 
 def Upload_rag_file(pdf_view_frame):
-    pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
+    pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation1.html")
 
     def run(pdf_view_frame=pdf_view_frame):
         global  bg_color, path_exe
@@ -669,7 +669,6 @@ def Upload_rag_file(pdf_view_frame):
                 url_file = "file:///" + f"{file_path}"
                 path_r = file_path
                 print(url_file)
-
 
             elif file_path.endswith('.txt'):
                 f = open(rf"{file_path}", "r")
@@ -698,13 +697,10 @@ def Upload_rag_file(pdf_view_frame):
                 return
 
             extract_pdf_text(path_r)
-
             pdf_view_frame.load_url(url_file)
 
-
-
-
         else:
+            pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
             print("No file selected")
 
     run()
@@ -1879,6 +1875,7 @@ def RAG_page(widget):
     frame_view1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
     pdf_view_frame = WebView2(frame_view1, 500, 500)
     pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
+    pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
 
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
     frame_view2 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, borderwidth=0, border=0)
