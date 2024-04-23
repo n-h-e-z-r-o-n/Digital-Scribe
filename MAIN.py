@@ -630,14 +630,10 @@ def extract_pdf_text(path = None):
     threading.Thread(target=run).start()
 
 
-def Upload_file(widget, widget2, pdf_view_frame):
+def Upload_file(widget, pdf_view_frame):
 
-
-
-    def run():
-            global rag_data, rag_widget, bg_color,
-
-            widget2.config(fg='black')
+    def run(pdf_view_frame =pdf_view_frame):
+            global rag_data, rag_widget, bg_color
             filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
             file_path = filedialog.askopenfilename(filetypes=filetypes)
 
@@ -689,7 +685,7 @@ def Upload_file(widget, widget2, pdf_view_frame):
 
 
                 extract_pdf_text(path_r)
-                #pdf_view_frame.load_url(url_file)
+                pdf_view_frame.load_url(url_file)
 
             else:
                 print("No file selected")
@@ -1857,7 +1853,7 @@ def RAG_page(widget):
     paned_window.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     t1 = tk.Frame(paned_window, bg=bg_color, relief=tk.FLAT, width=int(screen_width / 4), borderwidth=0, border=0)
-    pdf_view_frame = WebView2(widget, 500, 500)
+    pdf_view_frame = WebView2(t1 , 500, 500)
     pdf_view_frame.place(relheight=1, relwidth=1, relx=0, rely=0)
     # t1.place(relheight=0.60, relwidth=0.485, rely=0.03, relx=0.01)
 
@@ -1872,7 +1868,7 @@ def RAG_page(widget):
     paned_window.add(t1)
     paned_window.add(t2)
 
-    tk.Button(t2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(t1, status_widg)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
+    tk.Button(t2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_file(t1, pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
 
     # tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
     # tk.Button(conversation_widget, text="Record", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3, command=lambda: RUN_OFFLINE_speech_recognition(t1)).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.152)
