@@ -628,7 +628,7 @@ def Upload_file(widget, widget2):
 
             if file_path:
                 if file_path.endswith('.doc') or file_path.endswith('.docx'):
-                    convert(rf"{file_path}", "./")
+                    convert(rf"{file_path}", f"./{pdf_file_name}")
                     print(file_path)
                     frame2 = WebView2(widget, 500, 500)
                     path = os.getcwd()
