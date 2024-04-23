@@ -506,8 +506,11 @@ def rag_initialize(data=None):
     global rag_pipeline, rag_data
 
     rag_pipeline = None
-    if data == None:
+
+    if data is None and rag_data is not None:
         data = rag_data
+    else:
+        return
 
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
@@ -639,7 +642,7 @@ def extract_pdf_text(path=None):
     threading.Thread(target=run).start()
 
 
-def Upload_file(pdf_view_frame):
+def Upload_rag_file(pdf_view_frame):
     pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
 
     def run(pdf_view_frame=pdf_view_frame):
@@ -707,6 +710,12 @@ def Upload_file(pdf_view_frame):
     run()
 
     # threading.Thread(target=run).start()
+
+def clear_rag_file(pdf_view_frame):
+    global rag_pipeline, rag_data
+    pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation.html")
+    rag_pipeline = None
+    rag_data = None
 
 
 def llm_inference_initializ():
