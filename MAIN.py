@@ -690,8 +690,8 @@ def Upload_file(widget, pdf_view_frame):
             else:
                 print("No file selected")
 
-    #run()
-    threading.Thread(target=run).start()
+    run()
+    #threading.Thread(target=run).start()
 
 
 def llm_inference_initializ():
