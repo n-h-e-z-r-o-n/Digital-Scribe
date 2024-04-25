@@ -266,6 +266,7 @@ def title_bar_color(color):
 
 def change_color(widget, button):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg, nav_widg
+    print("color_change")
     button_text = button.cget("text")
 
     if button_text == 'window(light)':
