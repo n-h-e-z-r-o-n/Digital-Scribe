@@ -274,6 +274,7 @@ def change_color(widget, button):
         fg_color = 'white'
         current_theme = 'window(dark)'
         title_bar_color(bg_color)
+        nav_bg = "red"
 
     elif button_text == 'window(dark_gray)':
         button.config(text='window(dark_blue)')
@@ -282,24 +283,30 @@ def change_color(widget, button):
         current_theme = 'window(dark_blue)'
         title_bar_color(bg_color)
         nav_bg = "#344148"
+
     elif button_text == 'window(dark_blue)':
         button.config(text='window(Blackberry)')
         bg_color = '#3A3A38'
         fg_color = 'white'
         current_theme = 'window(Blackberry)'
         title_bar_color(bg_color)
+        nav_bg ="red"
+
     elif button_text == 'window(Blackberry)':
         button.config(text='window(dark_green)')
         bg_color = '#555D50'
         fg_color = 'white'
         current_theme = 'window(dark_green)'
         title_bar_color(bg_color)
+        nav_bg = "red"
+
     elif button_text == 'window(dark_green)':
         button.config(text='window(Jacket)')
         bg_color = '#253529'
         fg_color = 'white'
         current_theme = 'window(Jacket)'
         title_bar_color(bg_color)
+        nav_bg = "red"
 
     elif button_text == 'window(Jacket)':
         button.config(text='window(light)')
@@ -307,6 +314,8 @@ def change_color(widget, button):
         fg_color = 'black'
         current_theme = 'window(light)'
         title_bar_color(bg_color)
+        nav_bg = "red"
+
     else:
         return
 
@@ -341,10 +350,7 @@ def change_color(widget, button):
         for child in children:
             change_all(child)
 
-        for wd in nav_widg:
-            children = wd.winfo_children()
-            for child in children:
-                child.config(bg=nav_bg)
+
 
 
         Home_page_frame.config(bg=fg_color)
@@ -2292,7 +2298,11 @@ def go():
 
 
 if __name__ == "__main__":
+
+    main()
+    """
     t = System_Thread(ThreadStart(go))
     t.ApartmentState = ApartmentState.STA
     t.Start()
     t.Join()
+    """
