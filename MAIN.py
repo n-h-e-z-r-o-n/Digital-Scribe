@@ -2052,9 +2052,11 @@ def User_Home_page(widget):
     global root, screen_width, screen_height
 
     def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
+        global pop_nav
         pop_nav = "blue"
 
         def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
+            global pop_nav
             pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
             widget_bn.config(bg=pop_nav)
 
@@ -2074,7 +2076,7 @@ def User_Home_page(widget):
 
             def leave():
                 pop_side_bar.place_forget()
-                widget.config(bg=bg_color)
+                widget_bn.config(bg=bg_color)
 
                 solid_side_bat.config(bg=bg_color)
                 children = solid_side_bat.winfo_children()
@@ -2088,8 +2090,8 @@ def User_Home_page(widget):
             pop_side_bar.bind("<Enter>", func=lambda e: enter())
             pop_side_bar.bind("<Leave>", func=lambda e: leave())
 
-        widget_bn.bind("<Enter>", func=lambda e: (show(pop_side_bar)))
-        widget_bn.bind("<Leave>", func=lambda e: (hide(pop_side_bar)))
+        widget_bn.bind("<Enter>", func=lambda e: show())
+        widget_bn.bind("<Leave>", func=lambda e: hide())
 
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.place(relx=0, rely=0)
