@@ -83,7 +83,7 @@ fg_color = 'black'
 fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
 current_theme = 'window(light)'
-pop_nav = "blue"
+nav_bg = "blue"
 Home_page_frame = None
 setting_status = False
 rag_data = None
@@ -264,7 +264,7 @@ def title_bar_color(color):
 
 
 def change_color(widget, button):
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, pop_nav
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     button_text = button.cget("text")
 
     if button_text == 'window(light)':
@@ -274,12 +274,13 @@ def change_color(widget, button):
         current_theme = 'window(dark)'
         title_bar_color(bg_color)
 
-    elif button_text == 'window(dark)':
+    elif button_text == 'window(dark_gray)':
         button.config(text='window(dark_blue)')
         bg_color = '#36454F'
         fg_color = 'white'
         current_theme = 'window(dark_blue)'
         title_bar_color(bg_color)
+        nav_bg = "#344148"
     elif button_text == 'window(dark_blue)':
         button.config(text='window(Blackberry)')
         bg_color = '#3A3A38'
@@ -2049,18 +2050,18 @@ def Clinical_Image(widget):
 
 def User_Home_page(widget):
     global user_id, widget_list, Home_page_frame
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor
-    global root, screen_width, screen_height
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, nav_bg
+    global root, screen_width, screen_height, nav_widg
 
     def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
 
 
         def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
-            global pop_nav
+            global nav_bg
             pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
-            widget_bn.config(bg=pop_nav)
+            widget_bn.config(bg=nav_bg)
 
-            solid_side_bat.config(bg=pop_nav)
+            solid_side_bat.config(bg=nav_bg)
             children = solid_side_bat.winfo_children()
             for child in children:
                 if isinstance(child, tk.Button):
@@ -2076,15 +2077,15 @@ def User_Home_page(widget):
 
             def leave():
                 pop_side_bar.place_forget()
-                widget_bn.config(bg=bg_color)
+                widget_bn.config(bg=nav_bg)
 
-                solid_side_bat.config(bg=bg_color)
+                solid_side_bat.config(bg=nav_bg)
                 children = solid_side_bat.winfo_children()
                 for child in children:
                     if isinstance(child, tk.Button):
-                        child.config(bg=bg_color, activebackground=bg_color)
+                        child.config(bg=bg_color, activebackground=nav_bg)
                     elif isinstance(child, tk.Label):
-                        child.config(bg=bg_color)
+                        child.config(bg=nav_bg)
 
             id = pop_side_bar.after(300, pop_side_bar.place_forget)
             pop_side_bar.bind("<Enter>", func=lambda e: enter())
@@ -2121,9 +2122,9 @@ def User_Home_page(widget):
             else:
                 i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
-    side_bar = tk.Frame(container1, bg="#344148", borderwidth=0, border=0)
+    side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
-    side_bar_full = tk.Frame(Home_page_frame, bg="blue", borderwidth=0, border=0)
+    side_bar_full = tk.Frame(Home_page_frame, bg=nav_bg, borderwidth=0, border=0)
 
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
