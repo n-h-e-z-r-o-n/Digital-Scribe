@@ -352,6 +352,7 @@ def change_color(widget, button):
             change_all(child)
 
         for iw in nav_widg:
+            iw.config(bg=nav_bg)
             children = iw.winfo_children()
             for child in children:
                 child.config(bg=nav_bg)
@@ -2079,33 +2080,17 @@ def User_Home_page(widget):
         def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
             global nav_bg
             pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
-            widget_bn.config(bg=nav_bg)
 
-            solid_side_bat.config(bg=nav_bg)
-            children = solid_side_bat.winfo_children()
-            for child in children:
-                if isinstance(child, tk.Button):
-                    child.config(bg="blue", activebackground="blue")
-                elif isinstance(child, tk.Label):
-                    child.config(bg="blue")
 
         def hide(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
-            global bg_color
+            global nav_bg
 
             def enter():
                 pop_side_bar.after_cancel(id)
 
             def leave():
                 pop_side_bar.place_forget()
-                widget_bn.config(bg=nav_bg)
 
-                solid_side_bat.config(bg=nav_bg)
-                children = solid_side_bat.winfo_children()
-                for child in children:
-                    if isinstance(child, tk.Button):
-                        child.config(bg=bg_color, activebackground=nav_bg)
-                    elif isinstance(child, tk.Label):
-                        child.config(bg=nav_bg)
 
             id = pop_side_bar.after(300, pop_side_bar.place_forget)
             pop_side_bar.bind("<Enter>", func=lambda e: enter())
@@ -2135,12 +2120,12 @@ def User_Home_page(widget):
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     def active(widget):
-        global widget_list, fg_hovercolor
+        global widget_list, fg_hovercolor, nav_bg
         for i in widget_list:
             if i != widget:
-                i.config(bg=bg_color, relief=tk.FLAT, border=0, fg=fg_color)
+                i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg=fg_color)
             else:
-                i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
+                i.config(bg=nav_bg, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2148,48 +2133,48 @@ def User_Home_page(widget):
     nav_widg = (side_bar,side_bar_full )
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
-    profile_widget = tk.Label(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Label(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
 
-    st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
 
-    st2_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
+    st2_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
 
-    st3_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
+    st3_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
 
-    st4_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
+    st4_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='img', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='img', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
 
-    st6_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
 
-    st7_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
 
-    st8_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
