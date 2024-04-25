@@ -41,8 +41,13 @@ import pyaudio
 import json
 from vosk import Model, KaldiRecognizer
 import whisper  # pip install -U openai-whisper
-
 import wave
+
+
+from PIL import Image
+
+import pytesseract
+
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
