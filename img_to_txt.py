@@ -7,8 +7,8 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 # Example tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
 
 # Simple image to string
-image_path = r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\AdmissionLetter.png")
-print(pytesseract.image_to_string(Image.open(image_path)
+image_path = r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\AdmissionLetter.png"
+print(pytesseract.image_to_string(Image.open(image_path)))
 
 # In order to bypass the image conversions of pytesseract, just use relative or absolute image path
 # NOTE: In this case you should provide tesseract supported images or tesseract will return error
@@ -32,7 +32,7 @@ except RuntimeError as timeout_error:
     pass
 
 # Get bounding box estimates
-print(pytesseract.image_to_boxes(Image.open('test.png')))
+print(pytesseract.image_to_boxes(Image.open(image_path)))
 
 # Get verbose data including boxes, confidences, line and page numbers
 print(pytesseract.image_to_data(Image.open('test.png')))
