@@ -202,10 +202,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             if llm_chain is None:
                 llm_inference_initializ()
-
+            print(received_data)
             Answer = llm_chain.invoke(input=f"{received_data}")
-            processed_data = Answer['text']
-
+            processed_data = Answer['text'].replace("\n", "<br>")
             # Print the received data and the processed data
             print("Data received from HTML:", received_data)
             print("Processed data:", processed_data)
@@ -365,7 +364,10 @@ def change_color(widget, button):
 
 # ============================================= NLP  ==========================================================================================
 
-def image_text_extract
+
+
+
+
 def entity_highlight_words(widget):
     def Run():
         global found_entities, fg_color
@@ -1116,6 +1118,11 @@ def integrate_strings(old, edited, new):
         integrate += i + ' '
     print("============= ", integrate)
 
+# =============================== OCR Functions definition ===============================================================================================================
+
+def image_text_extract_printed(image_path):
+    etracted_clincal_text = pytesseract.image_to_string(Image.open(image_path))
+    print(etracted_clincal_text)
 
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -2047,39 +2054,42 @@ def User_Home_page(widget):
     global root, screen_width, screen_height
 
     def change_Widget_Attribute_OnHover(widget, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
-        def show(widg):
-            widg.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
-            widget.config(bg="blue")
-            children = widget.winfo_children()
+        pop_nav = "blue"
+
+        def show(pop_side_bar = pop_side_bar, solid_side_bat=solid_side_bat):
+            pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
+            widget.config(bg=pop_nav)
+
+            solid_side_bat.config(bg=pop_nav)
+            children = solid_side_bat.winfo_children()
             for child in children:
                 if isinstance(child, tk.Button):
                     child.config(bg="blue", activebackground="blue")
                 elif isinstance(child, tk.Label):
                     child.config(bg="blue")
 
-        def hide(widg):
+
+        def hide(pop_side_bar = pop_side_bar, solid_side_bat = solid_side_bat):
             global bg_color
 
             def enter():
-                widg.after_cancel(id)
+                pop_side_bar.after_cancel(id)
 
             def leave():
-                global ac
-                if ac == False:
-                    widg.place_forget()
-                    widget.config(bg=bg_color)
-                    children = widget.winfo_children()
-                    for child in children:
-                        if isinstance(child, tk.Button):
-                            child.config(bg=bg_color, activebackground=bg_color)
-                        elif isinstance(child, tk.Label):
-                            child.config(bg=bg_color)
+                pop_side_bar.place_forget()
+                widget.config(bg=bg_color)
 
+                solid_side_bat.config(bg=bg_color)
+                children = solid_side_bat.winfo_children()
+                for child in children:
+                    if isinstance(child, tk.Button):
+                        child.config(bg=bg_color, activebackground=bg_color)
+                    elif isinstance(child, tk.Label):
+                        child.config(bg=bg_color)
 
-
-            id = widg.after(300, widg.place_forget)
-            widg.bind("<Enter>", func=lambda e: enter())
-            widg.bind("<Leave>", func=lambda e: leave())
+            id = pop_side_bar.after(300, pop_side_bar.place_forget)
+            pop_side_bar.bind("<Enter>", func=lambda e: enter())
+            pop_side_bar.bind("<Leave>", func=lambda e: leave())
 
         widget.bind("<Enter>", func=lambda e:  (show(pop_side_bar)))
         widget.bind("<Leave>", func=lambda e:  (hide(pop_side_bar)))

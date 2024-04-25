@@ -47,7 +47,32 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 #print(Answer['text'])
 
 while True:
-    Question = input()
+    Question = """could you structure  and make grammatical correction on the below text extracted from an image:
 
-    Answer = llm_chain.invoke(input=f"{Question}")
+
+our enty into the
+ creation inplimentation
+ and felsvising
+ speciangation Sports
+ events has gwen our best
+ t oppertunity for
+ doing this for showing The systems
+ feel it.Theseevents often inolved a
+ coordirated effort among five or six of
+ owr comypanies.Each events vaniesfrom
+ the next,and Thowgh we have yet to
+ create q structre to define what They
+ are who's doing them or how They are
+ supposed to worh
+ J.sewa
+ Kuma
+ IRE
+ 2 6
+ St.JOeph>MATSEL
+ ASchoul
+
+"""
+
+    Answer = llm_chain.invoke(input=f"{str(Question)}")
     print(Answer['text'])
+    break
