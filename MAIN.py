@@ -365,6 +365,7 @@ def change_color(widget, button):
 
 # ============================================= NLP  ==========================================================================================
 
+def image_text_extract
 def entity_highlight_words(widget):
     def Run():
         global found_entities, fg_color
