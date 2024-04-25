@@ -369,7 +369,8 @@ def change_color(widget, button):
             "fg_color": fg_color,
             "fg_hovercolor": fg_hovercolor,
             "bg_hovercolor": bg_hovercolor,
-            "current_theme": current_theme
+            "current_theme": current_theme,
+            "nav_bg": nav_bg
         }
 
         json_object = json.dumps(dic, indent=4)
@@ -1212,7 +1213,7 @@ def attach_scroll(widget, color=None):
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
         with open('keys.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
@@ -1229,6 +1230,7 @@ def access_keys_info():
             fg_hovercolor = keys['fg_hovercolor']
             bg_hovercolor = keys['bg_hovercolor']
             current_theme = keys['current_theme']
+            nav_bg = keys['nav_bg']
 
             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
             print('gradient_ai_access_key:', gradient_ai_access_key)
@@ -1932,6 +1934,7 @@ def settings(widget):
     def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys, setting_status
         global llm_chain
+        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
         setting_status = True
         gradient_ai_access_key = str(g_access).strip()
         gradient_ai_workspace_id = str(g_workkey).strip()
@@ -1950,7 +1953,8 @@ def settings(widget):
             "fg_color": fg_color,
             "fg_hovercolor": fg_hovercolor,
             "bg_hovercolor": bg_hovercolor,
-            "current_theme": current_theme
+            "current_theme": current_theme,
+            "nav_bg": nav_bg
         }
 
         json_object = json.dumps(dic, indent=4)
