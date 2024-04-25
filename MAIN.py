@@ -2121,7 +2121,7 @@ def User_Home_page(widget):
             else:
                 i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
-    side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
+    side_bar = tk.Frame(container1, bg="#343434", borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg="blue", borderwidth=0, border=0)
 
