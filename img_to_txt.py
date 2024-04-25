@@ -26,9 +26,3 @@ pdf = pytesseract.image_to_pdf_or_hocr(image_path, extension='pdf')
 with open('test.pdf', 'w+b') as f:
     f.write(pdf) # pdf type is bytes by default
 
-# Get HOCR output
-hocr = pytesseract.image_to_pdf_or_hocr(image_path, extension='hocr')
-print(hocr)
-# Get ALTO XML output
-xml = pytesseract.image_to_alto_xml(image_path)
-hocr(xml)
