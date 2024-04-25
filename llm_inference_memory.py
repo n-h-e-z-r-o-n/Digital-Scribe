@@ -47,7 +47,7 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 #print(Answer['text'])
 
 while True:
-    Question = """ Extract Clinical infomation form bellow text
+    Question = """Extract Clinical information form bellow text:-
 
 
 No Mut Herts Hurts Hons
