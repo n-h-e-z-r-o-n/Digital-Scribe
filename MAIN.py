@@ -83,6 +83,7 @@ fg_color = 'black'
 fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
 current_theme = 'window(light)'
+pop_nav = "blue"
 Home_page_frame = None
 setting_status = False
 rag_data = None
@@ -263,7 +264,7 @@ def title_bar_color(color):
 
 
 def change_color(widget, button):
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, pop_nav
     button_text = button.cget("text")
 
     if button_text == 'window(light)':
@@ -2052,8 +2053,7 @@ def User_Home_page(widget):
     global root, screen_width, screen_height
 
     def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
-        global pop_nav
-        pop_nav = "blue"
+
 
         def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
             global pop_nav
@@ -2121,7 +2121,7 @@ def User_Home_page(widget):
             else:
                 i.config(bg=bg_color, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
-    side_bar = tk.Frame(container1, bg="#343434", borderwidth=0, border=0)
+    side_bar = tk.Frame(container1, bg="#344148", borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg="blue", borderwidth=0, border=0)
 
