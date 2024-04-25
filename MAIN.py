@@ -84,6 +84,7 @@ fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
 current_theme = 'window(light)'
 nav_bg = "blue"
+nav_widg = None
 Home_page_frame = None
 setting_status = False
 rag_data = None
@@ -264,7 +265,7 @@ def title_bar_color(color):
 
 
 def change_color(widget, button):
-    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg, nav_widg
     button_text = button.cget("text")
 
     if button_text == 'window(light)':
@@ -339,6 +340,13 @@ def change_color(widget, button):
         children = wdget.winfo_children()
         for child in children:
             change_all(child)
+
+        for wd in nav_widg:
+            children = wd.winfo_children()
+            for child in children:
+                child.config(bg=nav_bg)
+
+
         Home_page_frame.config(bg=fg_color)
         dic = {
             '_GA_': gradient_ai_access_key,
@@ -357,6 +365,8 @@ def change_color(widget, button):
 
         with open("keys.json", "w") as outfile:
             outfile.write(json_object)
+
+
 
     modify_css()
 
@@ -2125,7 +2135,7 @@ def User_Home_page(widget):
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg=nav_bg, borderwidth=0, border=0)
-
+    nav_widg = (side_bar,side_bar_full )
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Label(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
