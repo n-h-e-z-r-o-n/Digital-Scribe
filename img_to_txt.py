@@ -35,18 +35,18 @@ except RuntimeError as timeout_error:
 print(pytesseract.image_to_boxes(Image.open(image_path)))
 
 # Get verbose data including boxes, confidences, line and page numbers
-print(pytesseract.image_to_data(Image.open('test.png')))
+print(pytesseract.image_to_data(Image.open(image_path)))
 
 # Get information about orientation and script detection
-print(pytesseract.image_to_osd(Image.open('test.png')))
+print(pytesseract.image_to_osd(Image.open(image_path)))
 
 # Get a searchable PDF
-pdf = pytesseract.image_to_pdf_or_hocr('test.png', extension='pdf')
+pdf = pytesseract.image_to_pdf_or_hocr(image_path, extension='pdf')
 with open('test.pdf', 'w+b') as f:
     f.write(pdf) # pdf type is bytes by default
 
 # Get HOCR output
-hocr = pytesseract.image_to_pdf_or_hocr('test.png', extension='hocr')
+hocr = pytesseract.image_to_pdf_or_hocr(image_path, extension='hocr')
 
 # Get ALTO XML output
-xml = pytesseract.image_to_alto_xml('test.png')
+xml = pytesseract.image_to_alto_xml(image_path)
