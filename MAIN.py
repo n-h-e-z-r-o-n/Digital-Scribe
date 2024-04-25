@@ -1216,26 +1216,9 @@ def access_keys_info():
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 
-def show(widg):
-    widg.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
 
 
-def hide(widg):
-    def enter():
-        widg.after_cancel(id)
 
-    def leave():
-        widg.place_forget()
-        return
-
-    id = widg.after(300, widg.place_forget)
-    widg.bind("<Enter>", func=lambda e: enter())
-    widg.bind("<Leave>", func=lambda e: leave())
-
-
-def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave, function):  # Color change bg on Mouse Hover
-    widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=colorOnHover), show(function)))
-    widget.bind("<Leave>", func=lambda e: (widget.config(text=Text_On_Leave, background=colorOnLeave), hide(function)))
 
 
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
@@ -2056,11 +2039,53 @@ def User_Home_page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
     global root, screen_width, screen_height
 
+    def change_Widget_Attribute_OnHover(widget, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
+        def show(widg):
+            widg.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
+            widget.config(bg="blue")
+            children = widget.winfo_children()
+            for child in children:
+                if isinstance(child, tk.Button):
+                    child.config(bg="blue", activebackground="blue")
+                elif isinstance(child, tk.Label):
+                    child.config(bg="blue")
+
+        def hide(widg):
+            global bg_color
+
+            def enter():
+                widg.after_cancel(id)
+
+            def leave():
+                global ac
+                if ac == False:
+                    widg.place_forget()
+                    widget.config(bg=bg_color)
+                    children = widget.winfo_children()
+                    for child in children:
+                        if isinstance(child, tk.Button):
+                            child.config(bg=bg_color, activebackground=bg_color)
+                        elif isinstance(child, tk.Label):
+                            child.config(bg=bg_color)
+
+
+
+            id = widg.after(300, widg.place_forget)
+            widg.bind("<Enter>", func=lambda e: enter())
+            widg.bind("<Leave>", func=lambda e: leave())
+
+        widget.bind("<Enter>", func=lambda e:  (show(pop_side_bar)))
+        widget.bind("<Leave>", func=lambda e:  (hide(pop_side_bar)))
+
+
+
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.place(relx=0, rely=0)
+
     container1 = tk.Frame(Home_page_frame, bg=bg_color)
     container1.place(rely=0, relx=0, width=int(screen_width * 0.025), height=int((screen_height * 1) - 20))
-    container2 = tk.Frame(Home_page_frame, bg="green")
+
+    container2 = tk.Frame(Home_page_frame, bg=bg_color)
     container2.place(rely=0, relx=0.0253, width=int(screen_width * 0.9747), height=int((screen_height * 1) - 20))  # place(relheight=0.96, relwidth=0.9747, rely=0.02, relx=0.0253, )
 
     # PROFILE_widget = profile(Home_page_frame)
@@ -2083,12 +2108,18 @@ def User_Home_page(widget):
 
     side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
+    side_bar_full = tk.Frame(Home_page_frame, bg="blue", borderwidth=0, border=0)
+
+
+
+
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
-    profile_widget = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
+    profile_widget = tk.Label(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
+    change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
 
     st1_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
@@ -2224,6 +2255,7 @@ def main():
     title_bar_color(bg_color)
 
     User_Home_page(root)
+    #Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
