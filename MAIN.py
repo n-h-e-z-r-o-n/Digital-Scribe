@@ -46,8 +46,11 @@ import wave
 # ------------------------------- img-to-text --------------------------------------------------------------------------------------------
 from PIL import Image
 import pytesseract
-
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+from paddleocr import PaddleOCR, draw_ocr # pip install paddlepaddle
+import os
+ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -1142,7 +1145,9 @@ def image_text_extract_printed(image_path):
     etracted_clincal_text = pytesseract.image_to_string(Image.open(image_path))
     print(etracted_clincal_text)
 
-
+def image_text_extract_Handwriten(image_path):
+    global ocr_model
+    result = ocr_model.ocr(m)
 # =============================== scroll Functions definition ===============================================================================================================
 
 
