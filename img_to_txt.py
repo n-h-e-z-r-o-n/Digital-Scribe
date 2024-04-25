@@ -28,6 +28,6 @@ with open('test.pdf', 'w+b') as f:
 
 # Get HOCR output
 hocr = pytesseract.image_to_pdf_or_hocr(image_path, extension='hocr')
-
+print(hocr)
 # Get ALTO XML output
 xml = pytesseract.image_to_alto_xml(image_path)
