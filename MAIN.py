@@ -1145,9 +1145,20 @@ def image_text_extract_printed(image_path):
     etracted_clincal_text = pytesseract.image_to_string(Image.open(image_path))
     print(etracted_clincal_text)
 
+
 def image_text_extract_Handwriten(image_path):
     global ocr_model
-    result = ocr_model.ocr(m)
+    image_path =rf"{image_path}"
+    result = ocr_model.ocr(image_path)
+    print("-----------", len(result[0]))
+    # print("-----------", len(result[0]))
+    text = ''
+    for idx in range(len(result)):
+        res = result[idx]
+        for line in res:
+            text += line[1][0] + "\n "
+    print(text)
+
 # =============================== scroll Functions definition ===============================================================================================================
 
 
