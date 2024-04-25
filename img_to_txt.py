@@ -15,27 +15,17 @@ print(pytesseract.image_to_string(Image.open(image_path)))
 
 
 # List of available languages
-print(pytesseract.get_languages(config=''))
+print("-languages ------------------------------------------------------- \n", pytesseract.get_languages(config=''))
 
-# French text image to string
-print("-------------------------------------------------------- \n", pytesseract.image_to_string(Image.open(image_path), lang='eng'))
+
+print(" eng -------------------------------------------------------- \n", pytesseract.image_to_string(Image.open(image_path), lang='eng'))
 
 # Batch processing with a single file containing the list of multiple image file paths
 print(pytesseract.image_to_string(image_path))
 
 # Timeout/terminate the tesseract job after a period of time
-try:
-    print("2 -------------------------------------------------------- \n", pytesseract.image_to_string(image_path, timeout=2)) # Timeout after 2 seconds
-    print("0.5 -------------------------------------------------------- \n", pytesseract.image_to_string(image_path, timeout=0.5)) # Timeout after half a second
-except RuntimeError as timeout_error:
-    # Tesseract processing is terminated
-    pass
 
-# Get bounding box estimates
-print("bounding -------------------------------------------------------- \n", pytesseract.image_to_boxes(Image.open(image_path)))
 
-# Get verbose data including boxes, confidences, line and page numbers
-print("verbose -------------------------------------------------------- \n", pytesseract.image_to_data(Image.open(image_path)))
 
 # Get information about orientation and script detection
 print("script -------------------------------------------------------- \n", pytesseract.image_to_osd(Image.open(image_path)))
