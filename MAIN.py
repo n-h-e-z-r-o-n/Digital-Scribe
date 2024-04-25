@@ -266,14 +266,14 @@ def title_bar_color(color):
 
 def change_color(widget, button):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg, nav_widg
-    print("color_change")
-    button_text = button.cget("text")
 
+    button_text = button.cget("text")
+    print("color_change: ", button_text)
     if button_text == 'window(light)':
         button.config(text='window(dark)')
         bg_color = '#353839'
         fg_color = 'white'
-        current_theme = 'window(dark)'
+        current_theme = 'window(dark_gray)'
         title_bar_color(bg_color)
         nav_bg = "red"
 
@@ -351,7 +351,10 @@ def change_color(widget, button):
         for child in children:
             change_all(child)
 
-
+        for iw in nav_widg:
+            children = iw.winfo_children()
+            for child in children:
+                child.config(bg=nav_bg)
 
 
         Home_page_frame.config(bg=fg_color)
