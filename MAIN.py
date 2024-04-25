@@ -43,12 +43,11 @@ from vosk import Model, KaldiRecognizer
 import whisper  # pip install -U openai-whisper
 import wave
 
-
 # ------------------------------- img-to-text --------------------------------------------------------------------------------------------
 from PIL import Image
 import pytesseract
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -365,9 +364,6 @@ def change_color(widget, button):
 # ============================================= NLP  ==========================================================================================
 
 
-
-
-
 def entity_highlight_words(widget):
     def Run():
         global found_entities, fg_color
@@ -522,8 +518,6 @@ def rag_initialize(data=None):
     elif data is None and rag_data is not None:
         data = rag_data
 
-  
-
     document_store = InMemoryDocumentStore()
     writer = DocumentWriter(document_store=document_store)
 
@@ -602,7 +596,6 @@ def rag_chat(question_widget, widget, widget1):
         widget.insert(tk.END, f"🆈🅾🆄\n{question}\n\n")
         widget.config(state=tk.DISABLED)
 
-
         try:
             result = rag_pipeline.run(
                 {
@@ -637,7 +630,6 @@ from reportlab.platypus import SimpleDocTemplate, Paragraph
 
 
 def extract_pdf_text(path=None):
-
     if path is None:
         return
 
@@ -658,7 +650,7 @@ def Upload_rag_file(pdf_view_frame):
     pdf_view_frame.load_url('file:///' + path_exe + "/html/LoadFile_Animation1.html")
 
     def run(pdf_view_frame=pdf_view_frame):
-        global  bg_color, path_exe
+        global bg_color, path_exe
 
         filetypes = [("File_type", "*.pdf;*.doc;*.docx;*.txt")]
         file_path = filedialog.askopenfilename(filetypes=filetypes)
@@ -718,6 +710,7 @@ def Upload_rag_file(pdf_view_frame):
     run()
 
     # threading.Thread(target=run).start()
+
 
 def clear_rag_file(pdf_view_frame):
     global rag_pipeline, rag_data
@@ -1118,11 +1111,13 @@ def integrate_strings(old, edited, new):
         integrate += i + ' '
     print("============= ", integrate)
 
+
 # =============================== OCR Functions definition ===============================================================================================================
 
 def image_text_extract_printed(image_path):
     etracted_clincal_text = pytesseract.image_to_string(Image.open(image_path))
     print(etracted_clincal_text)
+
 
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -1228,11 +1223,6 @@ def access_keys_info():
 
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
-
 
 
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
@@ -1889,7 +1879,7 @@ def RAG_page(widget):
     paned_window.add(frame_view1)
     paned_window.add(frame_view2)
 
-    tk.Button(frame_view2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_rag_file( pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
+    tk.Button(frame_view2, text="Upload", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: Upload_rag_file(pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.01)
     tk.Button(frame_view2, text="clear", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 8), borderwidth=2, border=3, command=lambda: clear_rag_file(pdf_view_frame)).place(relheight=0.03, relwidth=0.07, rely=0.0, relx=0.08)
 
     # tk.Button(conversation_widget, text="Audio File", bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 13), borderwidth=2, border=3).place(relheight=0.03, relwidth=0.07, rely=0.65, relx=0.081)
@@ -1897,10 +1887,10 @@ def RAG_page(widget):
 
     chat_display_widget = tk.Text(frame_view2, bg=bg_color, fg=fg_color, font=("Times New Roman", 13), wrap='word', borderwidth=0, border=0)
     chat_display_widget.place(relheight=0.8, relwidth=0.98, rely=0.1, relx=0.01)
-    chat_display_widget.tag_configure("error_config", foreground="red",  font=('Baskerville Old Face', 7, 'italic') , justify=tk.LEFT)  # llm responses config's
+    chat_display_widget.tag_configure("error_config", foreground="red", font=('Baskerville Old Face', 7, 'italic'), justify=tk.LEFT)  # llm responses config's
 
-    #status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
-    #status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
+    # status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
+    # status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
     input_widget_ = tk.Text(frame_view2, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
     input_widget_.place(relheight=0.05, relwidth=0.96, rely=0.945, relx=0.01)
@@ -2039,7 +2029,6 @@ def chat_me(widget):
     current = 130
     previous = 0
 
-
     chatbot_widget = WebView2(widget, 500, 500)
     chatbot_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -2062,12 +2051,12 @@ def User_Home_page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
     global root, screen_width, screen_height
 
-    def change_Widget_Attribute_OnHover(widget, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
+    def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
         pop_nav = "blue"
 
-        def show(pop_side_bar = pop_side_bar, solid_side_bat=solid_side_bat):
+        def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
             pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
-            widget.config(bg=pop_nav)
+            widget_bn.config(bg=pop_nav)
 
             solid_side_bat.config(bg=pop_nav)
             children = solid_side_bat.winfo_children()
@@ -2077,8 +2066,7 @@ def User_Home_page(widget):
                 elif isinstance(child, tk.Label):
                     child.config(bg="blue")
 
-
-        def hide(pop_side_bar = pop_side_bar, solid_side_bat = solid_side_bat):
+        def hide(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
             global bg_color
 
             def enter():
@@ -2100,10 +2088,8 @@ def User_Home_page(widget):
             pop_side_bar.bind("<Enter>", func=lambda e: enter())
             pop_side_bar.bind("<Leave>", func=lambda e: leave())
 
-        widget.bind("<Enter>", func=lambda e:  (show(pop_side_bar)))
-        widget.bind("<Leave>", func=lambda e:  (hide(pop_side_bar)))
-
-
+        widget_bn.bind("<Enter>", func=lambda e: (show(pop_side_bar)))
+        widget_bn.bind("<Leave>", func=lambda e: (hide(pop_side_bar)))
 
     Home_page_frame = tk.Frame(widget, bg=fg_color, width=screen_width, height=screen_height)
     Home_page_frame.place(relx=0, rely=0)
@@ -2136,9 +2122,6 @@ def User_Home_page(widget):
     side_bar = tk.Frame(container1, bg=bg_color, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg="blue", borderwidth=0, border=0)
-
-
-
 
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
@@ -2282,7 +2265,7 @@ def main():
     title_bar_color(bg_color)
 
     User_Home_page(root)
-    #Welcome_Page(root)
+    # Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
