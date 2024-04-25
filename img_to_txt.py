@@ -32,13 +32,13 @@ except RuntimeError as timeout_error:
     pass
 
 # Get bounding box estimates
-print(pytesseract.image_to_boxes(Image.open(image_path)))
+print("bounding -------------------------------------------------------- \n", pytesseract.image_to_boxes(Image.open(image_path)))
 
 # Get verbose data including boxes, confidences, line and page numbers
-print(pytesseract.image_to_data(Image.open(image_path)))
+print("verbose -------------------------------------------------------- \n", pytesseract.image_to_data(Image.open(image_path)))
 
 # Get information about orientation and script detection
-print(pytesseract.image_to_osd(Image.open(image_path)))
+print("script -------------------------------------------------------- \n", pytesseract.image_to_osd(Image.open(image_path)))
 
 # Get a searchable PDF
 pdf = pytesseract.image_to_pdf_or_hocr(image_path, extension='pdf')
