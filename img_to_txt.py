@@ -7,7 +7,7 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 # Example tesseract_cmd = r'C:\Program Files (x86)\Tesseract-OCR\tesseract'
 
 # Simple image to string
-image_path = r"C:\Users\HEZRON WEKESA\Downloads\feature2-216988770.jpg"
+image_path = r"C:\Users\HEZRON WEKESA\Downloads\Nursing-Clinical-Progress-Note-.jpeg"
 print(pytesseract.image_to_string(Image.open(image_path)))
 
 # In order to bypass the image conversions of pytesseract, just use relative or absolute image path
