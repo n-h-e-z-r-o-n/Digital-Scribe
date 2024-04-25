@@ -20,13 +20,6 @@ print("-languages ------------------------------------------------------- \n", p
 
 print(" eng -------------------------------------------------------- \n", pytesseract.image_to_string(Image.open(image_path), lang='eng'))
 
-# Batch processing with a single file containing the list of multiple image file paths
-print(pytesseract.image_to_string(image_path))
-
-# Timeout/terminate the tesseract job after a period of time
-
-
-
 # Get information about orientation and script detection
 print("script -------------------------------------------------------- \n", pytesseract.image_to_osd(Image.open(image_path)))
 
