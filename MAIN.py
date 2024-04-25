@@ -83,7 +83,7 @@ fg_color = 'black'
 fg_hovercolor = 'red'
 bg_hovercolor = 'lightgreen'
 current_theme = 'window(light)'
-nav_bg = "blue"
+nav_bg = "white"
 nav_widg = None
 Home_page_frame = None
 setting_status = False
@@ -275,7 +275,7 @@ def change_color(widget, button):
         fg_color = 'white'
         current_theme = 'window(dark_gray)'
         title_bar_color(bg_color)
-        nav_bg = "red"
+        nav_bg = bg_color
 
     elif button_text == 'window(dark_gray)':
         button.config(text='window(dark_blue)')
@@ -283,7 +283,7 @@ def change_color(widget, button):
         fg_color = 'white'
         current_theme = 'window(dark_blue)'
         title_bar_color(bg_color)
-        nav_bg = "#344148"
+        nav_bg = bg_color
 
     elif button_text == 'window(dark_blue)':
         button.config(text='window(Blackberry)')
@@ -291,7 +291,7 @@ def change_color(widget, button):
         fg_color = 'white'
         current_theme = 'window(Blackberry)'
         title_bar_color(bg_color)
-        nav_bg ="red"
+        nav_bg = bg_color
 
     elif button_text == 'window(Blackberry)':
         button.config(text='window(dark_green)')
@@ -299,7 +299,7 @@ def change_color(widget, button):
         fg_color = 'white'
         current_theme = 'window(dark_green)'
         title_bar_color(bg_color)
-        nav_bg = "red"
+        nav_bg = bg_color
 
     elif button_text == 'window(dark_green)':
         button.config(text='window(Jacket)')
@@ -307,7 +307,7 @@ def change_color(widget, button):
         fg_color = 'white'
         current_theme = 'window(Jacket)'
         title_bar_color(bg_color)
-        nav_bg = "red"
+        nav_bg = bg_color
 
     elif button_text == 'window(Jacket)':
         button.config(text='window(light)')
@@ -315,7 +315,7 @@ def change_color(widget, button):
         fg_color = 'black'
         current_theme = 'window(light)'
         title_bar_color(bg_color)
-        nav_bg = "red"
+        nav_bg = bg_color
 
     else:
         return
@@ -2067,7 +2067,7 @@ def chat_me(widget):
 def Clinical_Image(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
 
-    Clinical_widg_page = WebView2(widget, 500, 500)
+    Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     return Clinical_widg_page
