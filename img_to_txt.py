@@ -17,10 +17,8 @@ print(pytesseract.image_to_string(Image.open(image_path)))
 # List of available languages
 print("-languages ------------------------------------------------------- \n", pytesseract.get_languages(config=''))
 
-
 print(" eng -------------------------------------------------------- \n", pytesseract.image_to_string(Image.open(image_path), lang='eng'))
 
-# Get information about orientation and script detection
 print("script -------------------------------------------------------- \n", pytesseract.image_to_osd(Image.open(image_path)))
 
 # Get a searchable PDF
