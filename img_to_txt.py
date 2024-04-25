@@ -18,7 +18,7 @@ print(pytesseract.image_to_string(Image.open(image_path)))
 print(pytesseract.get_languages(config=''))
 
 # French text image to string
-print(pytesseract.image_to_string(Image.open(image_path), lang='fra'))
+print("-------------------------------------------------------- \n", pytesseract.image_to_string(Image.open(image_path), lang='eng'))
 
 # Batch processing with a single file containing the list of multiple image file paths
 print(pytesseract.image_to_string('images.txt'))
