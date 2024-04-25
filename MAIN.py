@@ -44,8 +44,10 @@ import whisper  # pip install -U openai-whisper
 import wave
 
 
+# ------------------------------- img-to-text --------------------------------------------------------------------------------------------
 from PIL import Image
 import pytesseract
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 
 # =============================== Global variable decoration  ============================================================================================
