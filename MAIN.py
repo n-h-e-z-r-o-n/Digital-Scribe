@@ -311,7 +311,7 @@ def change_color(widget, button):
 
     elif button_text == 'window(Jacket)':
         button.config(text='window(light)')
-        bg_color = '#FFFFFF'
+        bg_color = '#F5F5F5'
         fg_color = 'black'
         current_theme = 'window(light)'
         title_bar_color(bg_color)
