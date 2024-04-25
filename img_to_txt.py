@@ -21,7 +21,7 @@ print(pytesseract.get_languages(config=''))
 print("-------------------------------------------------------- \n", pytesseract.image_to_string(Image.open(image_path), lang='eng'))
 
 # Batch processing with a single file containing the list of multiple image file paths
-print(pytesseract.image_to_string('images.txt'))
+print(pytesseract.image_to_string(image_path))
 
 # Timeout/terminate the tesseract job after a period of time
 try:
