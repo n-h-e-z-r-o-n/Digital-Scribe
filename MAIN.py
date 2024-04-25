@@ -2048,6 +2048,15 @@ def chat_me(widget):
     return chatbot_widget
 
 
+def Clinical_Image(widget):
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+
+    Clinical_widg_page = WebView2(widget, 500, 500)
+    Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
+
+    return Clinical_widg_page
+
+
 def User_Home_page(widget):
     global user_id, widget_list, Home_page_frame
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
@@ -2112,6 +2121,7 @@ def User_Home_page(widget):
     chat_me_Widget = chat_me(container2)
     CHAT_Widget = chat(container2)
     rag_widget = RAG_page(container2)
+    img_extract = Clinical_Image(container2)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2158,7 +2168,7 @@ def User_Home_page(widget):
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
 
-    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st5_bt)))
+    st5_bt = tk.Button(side_bar, bg=bg_color, activebackground=bg_color, activeforeground=fg_color, text='img', font=("Calibri", 15), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
