@@ -47,29 +47,54 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 #print(Answer['text'])
 
 while True:
-    Question = """could you structure  and make grammatical correction on the below text extracted from an image:
+    Question = """ Extract Clinical infomation form bellow text
 
 
-our enty into the
- creation inplimentation
- and felsvising
- speciangation Sports
- events has gwen our best
- t oppertunity for
- doing this for showing The systems
- feel it.Theseevents often inolved a
- coordirated effort among five or six of
- owr comypanies.Each events vaniesfrom
- the next,and Thowgh we have yet to
- create q structre to define what They
- are who's doing them or how They are
- supposed to worh
- J.sewa
- Kuma
- IRE
- 2 6
- St.JOeph>MATSEL
- ASchoul
+No Mut Herts Hurts Hons
+Latle Be Lite More Even More Whole Lot
+
+VA NORTH COUNTRY
+HealthCare
+
+5
+Huet
+Wort
+
+REVIEW OF SYMPTOMS: (Circle if present, X-outif absent, blank if not asked
+
+Constitutional: fever chills sweats weakness fatigue weight fT _ weight |
+Eyes: diplopia blurry vision eye pain
+ENT: sore throat coryza vision A _postnasal drip ear pain __ hearing loss
+Cardiac: chest pain / pressure palpitations orthopnea DOE PND A Exercise tolerance pedal edema
+Respiratory: short of breath cough wheezing
+GI: nausea vomiting fatty-food intolerance reflux heart burn_dysphagia_melena
+diarrhea constipation A bowel or bladder _abd pain
+GU: frequency urgency dysuria hesitancy nocturia dribbling ED hematuria
+irregular menses heavy menses discharge _ menopausal symptoms
+Musculoskeletal: myalgias joint pain focal weakness _ back pain
+Skin: bruising rashes atypical / changing moles _ hives _ hair loss
+Neuro: syncope scizures numbness / tingling / weakness falling headache vertigo light-headed
+Psych: Ainsleep appetite energy concentration mood _ ideation
+anxicty depression
+Endocrine: hot / cold intolerance _skin/hair changes polyuria _polydipsia__polyphagia
+Hematologic / Lymphatic: swollen glands night sweats _casy bruising
+Rheum: joint pain myalgias joint swelling Raynauds
+
+Family History: CAD DM _ Sudden Death HTN Cholesterol Thyroid Asthma Breast / Ovarian CA _ other:
+
+Social History: married single partner separated divorced _ widowed children:
+retired occupation exercise? living will?
+
+Surgeries: choly TAH BSO_appy tonsils _ hernia
+Additional Notes:
+
+Signature: Date:
+
+- revised 7/08
+
+
+
+Process finished with exit code 0
 
 """
 
