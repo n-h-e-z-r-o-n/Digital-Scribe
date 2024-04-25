@@ -25,8 +25,8 @@ print(pytesseract.image_to_string(image_path))
 
 # Timeout/terminate the tesseract job after a period of time
 try:
-    print(pytesseract.image_to_string(image_path, timeout=2)) # Timeout after 2 seconds
-    print(pytesseract.image_to_string(image_path, timeout=0.5)) # Timeout after half a second
+    print("2 -------------------------------------------------------- \n", pytesseract.image_to_string(image_path, timeout=2)) # Timeout after 2 seconds
+    print("0.5 -------------------------------------------------------- \n", pytesseract.image_to_string(image_path, timeout=0.5)) # Timeout after half a second
 except RuntimeError as timeout_error:
     # Tesseract processing is terminated
     pass
