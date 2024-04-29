@@ -1195,13 +1195,15 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             extraced_img_data = text
             print(text)
 
-            Answer = llm_chain2.invoke(input=f"{str(extraced_img_data)}")
-
-            print("--------- \n", Answer['text'])
-
             displ_widg.delete(1.0, tk.END)
-            displ_widg.insert(tk.END,  Answer['text'])
 
+            try:
+                Answer = llm_chain2.invoke(input=f"{str(extraced_img_data)}")
+                llm_analysis =  Answer['text']
+            except Exception as e:
+                llm_analysis = extraced_img_data
+
+            displ_widg.insert(tk.END, llm_analysis)
 
             font_path = "./Assets/latin.ttf"
 
@@ -2192,7 +2194,7 @@ def Clinical_Image(widget):
     display_img.load_url("https://github.com/ice-black")
     #display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
 
-    Display_text_ = tk.Text(Clinical_widg_page)
+    Display_text_ = tk.Text(Clinical_widg_page, bg=bg_color, fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
     tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
