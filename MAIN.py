@@ -1166,6 +1166,12 @@ def image_text_extract_printed(image_path):
 
 
 def image_text_extract_Handwriten(view_wid):
+    def run1():
+        global llm_chain2
+        if llm_chain2 == None:
+            llm_inference_initializ()
+    threading.Thread(target=run1).start()
+
     global ocr_model, extraced_img_data, llm_chain2
     file_url = "file:///" + os.getcwd()
     filetypes = [("Images", "*.png;*.jpg")]
@@ -2181,6 +2187,9 @@ def Clinical_Image(widget):
     display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
     #display_img.load_url("https://github.com/ice-black")
     #display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
+
+    Display_text_ = tk.Text(Clinical_widg_page)
+    Display_text_.place()
 
     tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
