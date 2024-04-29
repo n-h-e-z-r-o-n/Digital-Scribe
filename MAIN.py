@@ -2174,8 +2174,9 @@ def Clinical_Image(widget):
         <!DOCTYPE html>
         <html lang="en">
         <head>
-            <link rel="stylesheet" type="text/css" href=".\styles.css" />
-            <style id="dynamic-css"></style>
+                <link rel="stylesheet" type="text/css" href="./styles.css" />
+                <link rel="stylesheet" type="text/css" href="./Analyzed_Output_.css" />
+                <style id="dynamic-css"></style>
         </head>
         <body> 
         """ + processed_data + """
