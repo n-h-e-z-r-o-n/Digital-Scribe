@@ -25,4 +25,18 @@
 </div>
 
 </body>
+<script>
+    //--------------- auto refresh CSS --code block-----------------------------------------
+
+         function reloadCSS() {
+          const link = document.querySelector('link[rel="stylesheet"]');
+          const url = new URL(link.href);
+          url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
+          link.href = url.toString();
+        }
+
+        reloadCSS();
+
+        setInterval(reloadCSS, 1000);
+</script>
 </html>
