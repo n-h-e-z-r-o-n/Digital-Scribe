@@ -92,6 +92,7 @@ Home_page_frame = None
 setting_status = False
 rag_data = None
 rag_widget = None
+extraced_img_data = None
 sammary_data = None
 Recording = False
 Recording_paused = False
@@ -792,9 +793,9 @@ def llm_inference_initializ():
         model_kwargs=dict(max_generated_token_count=510),
     )
 
-    template2 = """Rewite the conversation with correct grammar
-                conversation: "{conversation}"
-                Chatbot:"""
+    template2 = """You are a AI that analyzes data exacted from images and present it in a formatted way. 
+    Human: {Instruction}
+    Chatbot:"""
 
     prompt2 = PromptTemplate(template=template2, input_variables=["conversation"])
     llm_chain2 = LLMChain(prompt=prompt2, llm=llm2)
@@ -1164,12 +1165,13 @@ def image_text_extract_printed(image_path):
 
 
 def image_text_extract_Handwriten(view_wid):
-    global ocr_model
+    global ocr_model, extraced_img_data
     file_url = "file:///" + os.getcwd()
     filetypes = [("Images", "*.png;*.jpg")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
-    view_wid.load_url("https://github.com/ice-black")
+
     if file_path:
+            view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
             image_path =rf"{file_path}"
             result = ocr_model.ocr(image_path)
 
@@ -1183,6 +1185,7 @@ def image_text_extract_Handwriten(view_wid):
                 res = result[idx]
                 for line in res:
                     text += line[1][0] + "\n"
+            extraced_img_data = extraced_img_data
             print(text)
 
             font_path = "./Assets/latin.ttf"
@@ -2127,16 +2130,46 @@ def chat_me(widget):
 def Clinical_Image(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
 
+    def Analyzed_Output_(display_frame):
+        global extraced_img_data
+
+        html_content = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>My HTML File</title>
+        </head>
+        <body>
+            <h1>Hello, world!</h1>
+            <p>This is a dynamically generated HTML file using Python.</p>
+        </body>
+        </html>
+        """
+        file_path = "./html/Analyzed_Output_.html"
+
+        # Write the HTML content to the file
+        with open(file_path, "w") as html_file:
+            html_file.write(html_content)
+
+        print(f"HTML file '{file_path}' created successfully.")
+        display_frame.load_url('file:///' + path_exe + "/html/Analyzed_Output_.html")
+
+
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-
-
-    tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
-
     display_img = WebView2(Clinical_widg_page, 500, 500)
     display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
-    display_img.load_url("https://github.com/ice-black")
+    #display_img.load_url("https://github.com/ice-black")
+    display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
+
+    tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
+    tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
+
+
+
 
 
     return Clinical_widg_page
@@ -2315,7 +2348,7 @@ def on_closing():
     closed = True
     root.destroy()
 
-    
+
     sys.exit()
 
 
