@@ -1203,6 +1203,7 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
                 """
                 Answer = llm_chain2.invoke(input=f"{str(Question)}")
                 llm_analysis =  Answer['text']
+                extraced_img_data =  llm_analysis
             except Exception as e:
                 llm_analysis = extraced_img_data
 
@@ -2154,6 +2155,21 @@ def Clinical_Image(widget):
 
         global extraced_img_data, llm_chain2
 
+        processed_data = extraced_img_data.replace("\n", "<br>")
+        if "|" in processed_data:
+            table = "<table>"
+            rows = processed_data.split("<br>")
+            headers = "<tr>" + "<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
+            table_rows = ''
+            for row in rows[1:]:
+                table_rows += "<tr>"
+                table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
+                table_rows += "</tr>"
+
+            table += headers + table_rows
+            table += "</table>"
+            processed_data = table
+
         html_content = """
         <!DOCTYPE html>
         <html lang="en">
@@ -2161,8 +2177,8 @@ def Clinical_Image(widget):
             <link rel="stylesheet" type="text/css" href=".\styles.css" />
             <style id="dynamic-css"></style>
         </head>
-        <body>
-            
+        <body> 
+        """ + processed_data + """
         </body>
         
         <script>
