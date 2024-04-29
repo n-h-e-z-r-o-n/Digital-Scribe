@@ -1208,7 +1208,7 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             except Exception as e:
                 llm_analysis = extraced_img_data
 
-            displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2)
+            displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
 
             font_path = "./Assets/latin.ttf"
 
