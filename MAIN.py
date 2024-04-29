@@ -10,6 +10,7 @@ import threading
 from PIL import Image, ImageTk
 import io
 import base64
+from PIL import Image
 
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
@@ -48,8 +49,7 @@ from PIL import Image
 import pytesseract
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-from paddleocr import PaddleOCR, draw_ocr # pip install paddlepaddle
-import os
+from paddleocr import PaddleOCR, draw_ocr
 ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
 
 # =============================== Global variable decoration  ============================================================================================
@@ -208,7 +208,24 @@ class RequestHandler(BaseHTTPRequestHandler):
                 llm_inference_initializ()
             print(received_data)
             Answer = llm_chain.invoke(input=f"{received_data}")
-            processed_data = Answer['text'].replace("\n", "<br>")
+            Answer = Answer['text']
+
+
+            processed_data = Answer.replace("\n", "<br>")
+            if "|" in processed_data:
+                table =   "<table>"
+                rows = processed_data.split("<br>")
+                headers =  "<tr>" +"<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
+                table_rows = ''
+                for row in rows[1:]:
+                    table_rows += "<tr>"
+                    table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
+                    table_rows += "</tr>"
+
+                table += headers + table_rows
+                table +=  "</table>"
+                processed_data = table
+
             # Print the received data and the processed data
             print("Data received from HTML:", received_data)
             print("Processed data:", processed_data)
@@ -1146,18 +1163,45 @@ def image_text_extract_printed(image_path):
     print(etracted_clincal_text)
 
 
-def image_text_extract_Handwriten(image_path):
+def image_text_extract_Handwriten(view_wid):
     global ocr_model
-    image_path =rf"{image_path}"
-    result = ocr_model.ocr(image_path)
-    print("-----------", len(result[0]))
-    # print("-----------", len(result[0]))
-    text = ''
-    for idx in range(len(result)):
-        res = result[idx]
-        for line in res:
-            text += line[1][0] + "\n "
-    print(text)
+    file_url = "file:///" + os.getcwd()
+    filetypes = [("Images", "*.png;*.jpg")]
+    file_path = filedialog.askopenfilename(filetypes=filetypes)
+    view_wid.load_url("https://github.com/ice-black")
+    if file_path:
+            image_path =rf"{file_path}"
+            result = ocr_model.ocr(image_path)
+
+            boxes = [res[0] for res in result[0]]  #
+            texts = [res[1][0] for res in result[0]]
+            scores = [res[1][1] for res in result[0]]
+
+
+            text = ''
+            for idx in range(len(result)):
+                res = result[idx]
+                for line in res:
+                    text += line[1][0] + "\n"
+            print(text)
+
+            font_path = "./Assets/latin.ttf"
+
+            image = Image.open(image_path).convert('RGB')
+            annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
+
+            # show the image using matplotlib
+
+            im_show = Image.fromarray(annotated)
+            im_show.save('result.jpg')
+            file_url += "\\result.jpg"
+
+            print(file_url)
+            view_wid.load_url(file_url)
+    else:
+        pass
+
+
 
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -2086,6 +2130,15 @@ def Clinical_Image(widget):
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
+
+
+    tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
+
+    display_img = WebView2(Clinical_widg_page, 500, 500)
+    display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
+    display_img.load_url("https://github.com/ice-black")
+
+
     return Clinical_widg_page
 
 
@@ -2262,9 +2315,9 @@ def on_closing():
     closed = True
     root.destroy()
 
+    
     sys.exit()
-    # for thread in threading.enumerate():
-    #   print(thread.name)
+
 
 
 def main():

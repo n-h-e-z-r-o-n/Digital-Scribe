@@ -22,7 +22,7 @@ print(base_model.id)
 
 llm = GradientLLM(
     model=base_model.id,
-    model_kwargs=dict(max_generated_token_count=128),
+    model_kwargs=dict(max_generated_token_count=250),
 )
 
 
@@ -47,55 +47,8 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 #print(Answer['text'])
 
 while True:
-    Question = """Extract Clinical information form bellow text:-
-
-
-No Mut Herts Hurts Hons
-Latle Be Lite More Even More Whole Lot
-
-VA NORTH COUNTRY
-HealthCare
-
-5
-Huet
-Wort
-
-REVIEW OF SYMPTOMS: (Circle if present, X-outif absent, blank if not asked
-
-Constitutional: fever chills sweats weakness fatigue weight fT _ weight |
-Eyes: diplopia blurry vision eye pain
-ENT: sore throat coryza vision A _postnasal drip ear pain __ hearing loss
-Cardiac: chest pain / pressure palpitations orthopnea DOE PND A Exercise tolerance pedal edema
-Respiratory: short of breath cough wheezing
-GI: nausea vomiting fatty-food intolerance reflux heart burn_dysphagia_melena
-diarrhea constipation A bowel or bladder _abd pain
-GU: frequency urgency dysuria hesitancy nocturia dribbling ED hematuria
-irregular menses heavy menses discharge _ menopausal symptoms
-Musculoskeletal: myalgias joint pain focal weakness _ back pain
-Skin: bruising rashes atypical / changing moles _ hives _ hair loss
-Neuro: syncope scizures numbness / tingling / weakness falling headache vertigo light-headed
-Psych: Ainsleep appetite energy concentration mood _ ideation
-anxicty depression
-Endocrine: hot / cold intolerance _skin/hair changes polyuria _polydipsia__polyphagia
-Hematologic / Lymphatic: swollen glands night sweats _casy bruising
-Rheum: joint pain myalgias joint swelling Raynauds
-
-Family History: CAD DM _ Sudden Death HTN Cholesterol Thyroid Asthma Breast / Ovarian CA _ other:
-
-Social History: married single partner separated divorced _ widowed children:
-retired occupation exercise? living will?
-
-Surgeries: choly TAH BSO_appy tonsils _ hernia
-Additional Notes:
-
-Signature: Date:
-
-- revised 7/08
-
-
-
-Process finished with exit code 0
-
+    Question = """extracted data from an image: "NORTH COUNTRY HealthCare NOH creating healthier communities LaieMo Hurt REVIEWOFSYMPTOMS: Circle if present, X-out if absent blank if not asked Constitutional: fever chills sweats weakness fatigue weight weight Eyes:diplopia blurry vision eye pain ENT: sore throat coryza vision postnasal drip ear pain hearing loss Cardiac: chest pain/pressure palpitations orthopnea DOE PND Exercise tolerance pedal edema Respiratory: short of breath cough wheezing GI: nausea vomiting fatty-food intolerance reflux heart burn dysphagia melena diarrhea constipation bowel or bladder abd pain GU: frequency urgency dysuria hesitancy nocturia dribblingED hematuria irregular menses discharge heavy menses menopausal symptoms Musculoskeletal: myalgias joint pain focal weakness back pain Skin: bruising rashes atypical /changing moles hives hair loss Neuro:syncope seizures numbness/tingling/weakness falling headache vertigo light-headed Psych: in sleep appetite energy concentration mood ideation anxiety depression Endocrine:hot/cold intolerance skin/hair changes polyuria polydipsia polyphagia Hematologic/Lymphatic:swollen glands night sweats easy bruising Rheum: joint pain myalgiasjoint swellingRaynauds Family History:CAD DMSudden Death HTNCholesterol Thyroid Asthma Breast/Ovarian CA other: Social History: married single partner divorced widowed children: separated retired occupation exercise? living will? Surgeries: choly TAH BSO appy tonsils hernia Additional Notes: Signature: Date: -revised 7/08"
+    Dont explain the data, just analyze the extracted data and present it in a formatted way. 
 """
 
     Answer = llm_chain.invoke(input=f"{str(Question)}")
