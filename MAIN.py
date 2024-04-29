@@ -1165,7 +1165,7 @@ def image_text_extract_printed(image_path):
     print(etracted_clincal_text)
 
 
-def image_text_extract_Handwriten(view_wid):
+def image_text_extract_Handwriten(view_wid, displ_widg):
     def run1():
         global llm_chain2
         if llm_chain2 == None:
@@ -1198,6 +1198,10 @@ def image_text_extract_Handwriten(view_wid):
             Answer = llm_chain2.invoke(input=f"{str(extraced_img_data)}")
 
             print("--------- \n", Answer['text'])
+
+            displ_widg.delete(1.0, tk.END)
+            displ_widg.insert(tk.END,  Answer['text'])
+
 
             font_path = "./Assets/latin.ttf"
 
@@ -2185,13 +2189,13 @@ def Clinical_Image(widget):
 
     display_img = WebView2(Clinical_widg_page, 500, 500)
     display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
-    #display_img.load_url("https://github.com/ice-black")
+    display_img.load_url("https://github.com/ice-black")
     #display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
 
     Display_text_ = tk.Text(Clinical_widg_page)
-    Display_text_.place()
+    Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
-    tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
+    tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
 
 
