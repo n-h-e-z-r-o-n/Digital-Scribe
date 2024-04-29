@@ -1176,9 +1176,8 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
     file_url = "file:///" + os.getcwd()
     filetypes = [("Images", "*.png;*.jpg")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
-
+    view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
     if file_path:
-            view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
             image_path =rf"{file_path}"
             result = ocr_model.ocr(image_path)
 
@@ -1224,6 +1223,7 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             print(file_url)
             view_wid.load_url(file_url)
     else:
+        view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
         pass
 
 
