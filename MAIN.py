@@ -797,8 +797,9 @@ def llm_inference_initializ():
     Human: {Instruction}
     Chatbot:"""
 
-    prompt2 = PromptTemplate(template=template2, input_variables=["conversation"])
+    prompt2 = PromptTemplate(template=template2, input_variables=["Instruction"])
     llm_chain2 = LLMChain(prompt=prompt2, llm=llm2)
+
 
 
 def Chat_bot_inference(widget0, widget1, widget2):
@@ -1165,7 +1166,7 @@ def image_text_extract_printed(image_path):
 
 
 def image_text_extract_Handwriten(view_wid):
-    global ocr_model, extraced_img_data
+    global ocr_model, extraced_img_data, llm_chain2
     file_url = "file:///" + os.getcwd()
     filetypes = [("Images", "*.png;*.jpg")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
@@ -1185,8 +1186,12 @@ def image_text_extract_Handwriten(view_wid):
                 res = result[idx]
                 for line in res:
                     text += line[1][0] + "\n"
-            extraced_img_data = extraced_img_data
+            extraced_img_data = text
             print(text)
+
+            Answer = llm_chain2.invoke(input=f"{str(extraced_img_data)}")
+
+            print("--------- \n", Answer['text'])
 
             font_path = "./Assets/latin.ttf"
 
@@ -2131,20 +2136,32 @@ def Clinical_Image(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
 
     def Analyzed_Output_(display_frame):
-        global extraced_img_data
+
+        global extraced_img_data, llm_chain2
 
         html_content = """
         <!DOCTYPE html>
         <html lang="en">
         <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>My HTML File</title>
+            <link rel="stylesheet" type="text/css" href=".\styles.css" />
+            <style id="dynamic-css"></style>
         </head>
         <body>
-            <h1>Hello, world!</h1>
-            <p>This is a dynamically generated HTML file using Python.</p>
+            
         </body>
+        
+        <script>
+        
+        //--------------- auto refresh CSS --code block-----------------------------------------
+        function reloadCSS() {
+          const link = document.querySelector('link[rel="stylesheet"]');
+          const url = new URL(link.href);
+          url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
+          link.href = url.toString();
+        }
+        reloadCSS();
+        setInterval(reloadCSS, 1000);
+        </script>
         </html>
         """
         file_path = "./html/Analyzed_Output_.html"
@@ -2163,7 +2180,7 @@ def Clinical_Image(widget):
     display_img = WebView2(Clinical_widg_page, 500, 500)
     display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
     #display_img.load_url("https://github.com/ice-black")
-    display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
+    #display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
 
     tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)

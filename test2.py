@@ -36,7 +36,7 @@ Chatbot:"""
 
 prompt = PromptTemplate(template=template, input_variables=["Instruction"])
 
-memory = ConversationBufferMemory(memory_key="chat_history")
+
 
 llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True)
 
