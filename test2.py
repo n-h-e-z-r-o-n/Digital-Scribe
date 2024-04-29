@@ -46,8 +46,124 @@ llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True)
 #print(Answer['text'])
 
 while True:
-    Question = """extracted data from an image: "NORTH COUNTRY HealthCare NOH creating healthier communities LaieMo Hurt REVIEWOFSYMPTOMS: Circle if present, X-out if absent blank if not asked Constitutional: fever chills sweats weakness fatigue weight weight Eyes:diplopia blurry vision eye pain ENT: sore throat coryza vision postnasal drip ear pain hearing loss Cardiac: chest pain/pressure palpitations orthopnea DOE PND Exercise tolerance pedal edema Respiratory: short of breath cough wheezing GI: nausea vomiting fatty-food intolerance reflux heart burn dysphagia melena diarrhea constipation bowel or bladder abd pain GU: frequency urgency dysuria hesitancy nocturia dribblingED hematuria irregular menses discharge heavy menses menopausal symptoms Musculoskeletal: myalgias joint pain focal weakness back pain Skin: bruising rashes atypical /changing moles hives hair loss Neuro:syncope seizures numbness/tingling/weakness falling headache vertigo light-headed Psych: in sleep appetite energy concentration mood ideation anxiety depression Endocrine:hot/cold intolerance skin/hair changes polyuria polydipsia polyphagia Hematologic/Lymphatic:swollen glands night sweats easy bruising Rheum: joint pain myalgiasjoint swellingRaynauds Family History:CAD DMSudden Death HTNCholesterol Thyroid Asthma Breast/Ovarian CA other: Social History: married single partner divorced widowed children: separated retired occupation exercise? living will? Surgeries: choly TAH BSO appy tonsils hernia Additional Notes: Signature: Date: -revised 7/08"
-    Dont explain the data, just analyze the extracted data and present it in a formatted way. 
+    nn = """NORTH COUNTRY
+HealthCare
+NOH
+creating healthier communities
+LaieMo
+Hurt
+REVIEWOFSYMPTOMS:
+Circle if present,
+X-out if absent
+blank if not asked
+Constitutional:
+fever
+chills
+sweats
+weakness
+fatigue
+weight 
+weight 
+Eyes:diplopia
+blurry vision
+eye pain
+ENT:
+sore throat
+coryza
+vision
+postnasal drip
+ear pain
+hearing loss
+Cardiac: chest pain/pressure palpitations orthopnea
+DOE PND  Exercise tolerance pedal edema
+Respiratory: short of breath cough
+wheezing
+GI:
+nausea
+vomiting fatty-food intolerance
+reflux
+heart burn
+dysphagia
+melena
+diarrhea
+constipation
+ bowel or bladder
+abd pain
+GU:
+frequency
+urgency
+dysuria hesitancy
+nocturia
+dribblingED
+hematuria
+irregular menses
+discharge
+heavy menses
+menopausal symptoms
+Musculoskeletal:
+myalgias
+joint pain
+focal weakness
+back pain
+Skin:
+bruising
+rashes
+atypical /changing moles
+hives
+hair loss
+Neuro:syncope
+seizures
+numbness/tingling/weakness
+falling headache vertigo light-headed
+Psych:
+ in sleep
+appetite
+energy
+concentration
+mood
+ideation
+anxiety
+depression
+Endocrine:hot/cold intolerance skin/hair changes
+polyuria
+polydipsia
+polyphagia
+Hematologic/Lymphatic:swollen glands night sweats
+easy bruising
+Rheum: joint pain
+myalgiasjoint swellingRaynauds
+Family History:CAD
+DMSudden Death HTNCholesterol
+Thyroid
+Asthma
+Breast/Ovarian CA
+other:
+Social History:
+married
+single
+partner
+divorced
+widowed
+children:
+separated
+retired
+occupation
+exercise?
+living will?
+Surgeries:
+choly
+TAH
+BSO
+appy
+tonsils
+hernia
+Additional Notes:
+Signature:
+Date:
+-revised 7/08
+"""
+    Question = f"""extracted data from an image: "{nn}"
+    Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
 """
 
     Answer = llm_chain.invoke(input=f"{str(Question)}")
