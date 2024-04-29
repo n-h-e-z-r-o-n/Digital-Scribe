@@ -1,10 +1,10 @@
 body {
   font-family: sans-serif;
-  background-color: #eeeeee;
+  background-color: var(--global-color-bg);
 }
 
 .file-upload {
-  background-color: #ffffff;
+  background-color: var(--global-color-bg);
   width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -13,8 +13,8 @@ body {
 .file-upload-btn {
   width: 100%;
   margin: 0;
-  color: #fff;
-  background: #1FB264;
+  color: var(--global-color-fg);
+  background: var(--global-color-bg);
   border: none;
   padding: 10px;
   border-radius: 4px;
