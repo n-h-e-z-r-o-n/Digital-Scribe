@@ -1198,16 +1198,17 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             displ_widg.delete(1.0, tk.END)
 
             try:
-                Question = f"""extracted data from an image: "{text}"
+                Question1 = f"""extracted data from an image: "{text}"
                     Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
                 """
-                Answer = llm_chain2.invoke(input=f"{str(Question)}")
+                Answer = llm_chain2.invoke(input=f"{str(Question1)}")
+                Answer2 = llm_chain2.invoke(input=f"{str(text)}")
                 llm_analysis =  Answer['text']
                 extraced_img_data =  llm_analysis
             except Exception as e:
                 llm_analysis = extraced_img_data
 
-            displ_widg.insert(tk.END, llm_analysis)
+            displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2)
 
             font_path = "./Assets/latin.ttf"
 
