@@ -2243,10 +2243,16 @@ def chat_me(widget):
 def Clinical_Image(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
     global clinical_Note_upload_btn
-
+    global view_track
+    view_track = 0
     def Analyzed_Output_(display_frame):
-
-        display_frame.load_url('file:///' + path_exe + "/html/Analyzed_Output_.html")
+        global view_track
+        if view_track == 0:
+            display_frame.load_url('file:///' + path_exe + "/html/Analyzed_Output_.html")
+            view_track = 1
+        else:
+            display_frame.load_url('file:///' + path_exe + "/temp_files/extraced_img.jpg")
+            view_track = 0
 
 
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
