@@ -1252,10 +1252,7 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
 
     global ocr_model, extraced_img_data, llm_chain2, proccessed_img_url
 
-
     view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
-
-
     file_url = "file:///" + os.getcwd()
 
     if proccessed_img_url != None:
@@ -1314,8 +1311,8 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             print(file_url)
             view_wid.load_url(file_url)
     else:
-        view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
-        pass
+        displ_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
+
 
 
 
