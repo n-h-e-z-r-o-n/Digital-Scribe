@@ -1308,8 +1308,8 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             # show the image using matplotlib
 
             im_show = Image.fromarray(annotated)
-            im_show.save('result.jpg')
-            file_url += "\\result.jpg"
+            im_show.save('./temp_files/extraced_img.jpg')
+            file_url += "\\temp_files\\extraced_img.jpg"
 
             print(file_url)
             view_wid.load_url(file_url)
