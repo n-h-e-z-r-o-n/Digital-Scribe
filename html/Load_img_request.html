@@ -21,16 +21,10 @@
 <script>
 
     function sendData(input) {
-      var dropContainer = document.getElementById("id_im")
-      var fileInput = document.getElementById("container")
-
-      fileInput.files = e.dataTransfer.files
-
-
-     console.log(dropContainer);
-     console.log(fileInput)
-
-    };
+      const file = input.files[0];
+      const filePath = URL.createObjectURL(file);
+      console.log(filePath);
+    }
 
     //--------------- auto refresh CSS --code block-----------------------------------------
 
