@@ -2249,15 +2249,14 @@ def Clinical_Image(widget):
 
     display_img = WebView2(Clinical_widg_page, 500, 500)
     display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
-    display_img.load_url("https://github.com/ice-black")
-    #display_img.load_url('file:///' + path_exe + "/html/load_anmation2.html")
+    display_img.load_url('file:///' + path_exe + "/html/Load_img_request.html")
 
     Display_text_ = tk.Text(Clinical_widg_page, bg=bg_color, fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
     clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_))
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
-    tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
+    tk.Button(Clinical_widg_page, text="Change View", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
 
 
 
