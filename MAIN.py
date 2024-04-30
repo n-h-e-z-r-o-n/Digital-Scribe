@@ -2191,7 +2191,8 @@ def Clinical_Image(widget):
 
     def Analyzed_Output_(display_frame):
 
-        global extraced_img_data, llm_chain2
+        def view_data():
+        global extraced_img_data,
 
         processed_data = extraced_img_data.replace("\n", "<br>")
         if "|" in processed_data:
