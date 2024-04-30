@@ -11,8 +11,8 @@
 
 <div class="file-upload">
   <div class="image-upload-wrap">
-    <input class="file-upload-input" type='file' onchange="sendData(this)" accept="image/*" />
-    <div class="drag-text">
+    <input class="file-upload-input" id='id_im' type='file' onchange="sendData(this)" accept="image/*" />
+    <div class="drag-text" id="container">
       <h3>Drag and drop a file or select add Image</h3>
     </div>
   </div>
@@ -21,10 +21,12 @@
 <script>
 
     function sendData(input) {
-     var fileInput = document.getElementById('file-upload-input');
-     var file = fileInput.files[0];
-     console.log(fileInput);
-     console.log(file)
+      var dropContainer = document.getElementById("id_im")
+      var fileInput = document.getElementById("container")
+
+
+     console.log(dropContainer);
+     console.log(fileInput)
 
     };
 
