@@ -24,6 +24,8 @@
       var dropContainer = document.getElementById("id_im")
       var fileInput = document.getElementById("container")
 
+      fileInput.files = e.dataTransfer.files
+
 
      console.log(dropContainer);
      console.log(fileInput)
