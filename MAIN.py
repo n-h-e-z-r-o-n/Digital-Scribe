@@ -1190,6 +1190,59 @@ def image_text_extract_printed(image_path):
     print(etracted_clincal_text)
 
 
+def view_data_update():
+    def run_function():
+            global extraced_img_data
+
+            processed_data = extraced_img_data.replace("\n", "<br>")
+            if "|" in processed_data:
+                table = "<table>"
+                rows = processed_data.split("<br>")
+                headers = "<tr>" + "<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
+                table_rows = ''
+                for row in rows[1:]:
+                    table_rows += "<tr>"
+                    table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
+                    table_rows += "</tr>"
+
+                table += headers + table_rows
+                table += "</table>"
+                processed_data = table
+
+            html_content = """
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                    <link rel="stylesheet" type="text/css" href="./styles.css" />
+                    <link rel="stylesheet" type="text/css" href="./Analyzed_Output_.css" />
+                    <style id="dynamic-css"></style>
+            </head>
+            <body> 
+            """ + processed_data + """
+            </body>
+        
+            <script>
+        
+            //--------------- auto refresh CSS --code block-----------------------------------------
+            function reloadCSS() {
+              const link = document.querySelector('link[rel="stylesheet"]');
+              const url = new URL(link.href);
+              url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
+              link.href = url.toString();
+            }
+            reloadCSS();
+            setInterval(reloadCSS, 1000);
+            </script>
+            </html>
+            """
+            file_path = "./html/Analyzed_Output_.html"
+
+            # Write the HTML content to the file
+            with open(file_path, "w") as html_file:
+                html_file.write(html_content)
+    threading.Thread(target=run_function).start()
+
+
 def image_text_extract_Handwriten(view_wid, displ_widg):
     def run1():
         global llm_chain2
@@ -1240,8 +1293,10 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
                 Answer2 = llm_chain2.invoke(input=f"{str(text)}")
                 llm_analysis =  Answer['text']
                 extraced_img_data =  llm_analysis
+                view_data_update()
             except Exception as e:
                 llm_analysis = extraced_img_data
+                view_data_update()
 
             displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
 
@@ -2191,57 +2246,6 @@ def Clinical_Image(widget):
 
     def Analyzed_Output_(display_frame):
 
-        def view_data():
-        global extraced_img_data,
-
-        processed_data = extraced_img_data.replace("\n", "<br>")
-        if "|" in processed_data:
-            table = "<table>"
-            rows = processed_data.split("<br>")
-            headers = "<tr>" + "<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
-            table_rows = ''
-            for row in rows[1:]:
-                table_rows += "<tr>"
-                table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
-                table_rows += "</tr>"
-
-            table += headers + table_rows
-            table += "</table>"
-            processed_data = table
-
-        html_content = """
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-                <link rel="stylesheet" type="text/css" href="./styles.css" />
-                <link rel="stylesheet" type="text/css" href="./Analyzed_Output_.css" />
-                <style id="dynamic-css"></style>
-        </head>
-        <body> 
-        """ + processed_data + """
-        </body>
-        
-        <script>
-        
-        //--------------- auto refresh CSS --code block-----------------------------------------
-        function reloadCSS() {
-          const link = document.querySelector('link[rel="stylesheet"]');
-          const url = new URL(link.href);
-          url.searchParams.set('v', Math.random()); // Or use Date.now() for timestamps
-          link.href = url.toString();
-        }
-        reloadCSS();
-        setInterval(reloadCSS, 1000);
-        </script>
-        </html>
-        """
-        file_path = "./html/Analyzed_Output_.html"
-
-        # Write the HTML content to the file
-        with open(file_path, "w") as html_file:
-            html_file.write(html_content)
-
-        print(f"HTML file '{file_path}' created successfully.")
         display_frame.load_url('file:///' + path_exe + "/html/Analyzed_Output_.html")
 
 
