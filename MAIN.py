@@ -2254,6 +2254,11 @@ def Clinical_Image(widget):
             display_frame.load_url('file:///' + path_exe + "/temp_files/extraced_img.jpg")
             view_track = 0
 
+    def clear_dd(web_widg, text_tk_widg):
+        web_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
+        text_tk_widg.delete(1.0, tk.END)
+
+
 
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2268,6 +2273,7 @@ def Clinical_Image(widget):
     clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_))
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="Change View", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
+    tk.Button(Clinical_widg_page, text="Clear", command=lambda : clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
 
 
 
