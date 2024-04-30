@@ -19,21 +19,16 @@
 </div>
 </body>
 <script>
-
-    function sendData(input) {
-      const file = input.files[0];
-      const filePath = URL.createObjectURL(file);
-      console.log(filePath);
-    }
-
-    // Assuming you have an input element with id="fileInput"
-    var fileInput = document.getElementById('id_im');
-
-    fileInput.addEventListener('change', function() {
-      var file = fileInput.files[0];
-      var absolutePath = URL.createObjectURL(file);
-      console.log(absolutePath);
-    });
+    window.addEventListener("load", function() {
+      document.getElementById("id_im").onchange = function(event) {
+        var reader = new FileReader();
+        reader.readAsDataURL(event.srcElement.files[0]);
+        var me = this;
+        reader.onload = function () {
+          var fileContent = reader.result;
+          console.log(fileContent);
+        }
+    }})
 
     //--------------- auto refresh CSS --code block-----------------------------------------
 
