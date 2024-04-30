@@ -39,7 +39,9 @@ memory = ConversationBufferMemory(memory_key="chat_history")
 
 llm_chain = LLMChain(prompt=prompt, llm=llm, verbose=True,   memory=memory )
 
-
+import base64
+from PIL import Image
+from io import BytesIO
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json, threading
@@ -56,11 +58,23 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             print(received_data)
 
-            if received_data.startswith("image_Bit data:"):
+            if received_data.startswith("image_Bit"):
+                received_data = received_data.replace("image_Bit", '')
+
+                base64_data = received_data.replace('data:image/jpeg;base64,', '')
+
+                # Decode the base64 data
+                image_data = base64.b64decode(base64_data)
+
+                # Open the image using PIL
+                image = Image.open(BytesIO(image_data))
+
+                # Save the image to the specified output path
+                image.save("./local_img.jpg")
+
 
 
             """
-
             Answer = llm_chain.invoke(input=f"{received_data}")
 
             # Process the received data (for demonstration, just echoing it back)
