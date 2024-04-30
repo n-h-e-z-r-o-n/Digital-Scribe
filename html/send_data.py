@@ -54,6 +54,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             # Extract the data received from the HTML form
             received_data = data.get('data')
 
+            print(received_data)
+
+            """
+
             Answer = llm_chain.invoke(input=f"{received_data}")
 
             # Process the received data (for demonstration, just echoing it back)
@@ -62,7 +66,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             # Print the received data and the processed data
             print("Data received from HTML:", received_data)
             print("Processed data:", processed_data)
-
+            """
+            processed_data = " Img Recived"
             # Send a response back to the client
             response_data = {'message': 'Data received and processed successfully', 'processed_data': processed_data}
             self.send_response(200)

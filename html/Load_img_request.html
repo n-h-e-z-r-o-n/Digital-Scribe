@@ -30,11 +30,14 @@
         reader.onload = function () {
           var fileContent = reader.result;
           console.log(fileContent);
+          sendData(fileContent)
         }
     }})
 
 
     function sendData(input_data) {
+
+            let result = "image_Bit" + " " + input_data;
 
             var xhr = new XMLHttpRequest();
             xhr.open('POST', 'http://localhost:8080', true);
@@ -43,14 +46,15 @@
                 if (xhr.readyState === XMLHttpRequest.DONE) {
                     if (xhr.status === 200) {
                         var response = JSON.parse(xhr.responseText);
-                        displayData(response.processed_data);
+                        console.log(response);
                     } else {
-                        displayData(xhr.status);
+                        console.log(xhr.status);
+
 
                     }
                 }
             };
-            xhr.send(JSON.stringify(requestData));
+            xhr.send(JSON.stringify(result));
         }
 
     //--------------- auto refresh CSS --code block-----------------------------------------
