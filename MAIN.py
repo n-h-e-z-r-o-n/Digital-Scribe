@@ -215,6 +215,8 @@ class RequestHandler(BaseHTTPRequestHandler):
                 received_data = received_data.replace("image_Bit", '')
 
                 base64_data = received_data.replace('data:image/jpeg;base64,', '')
+                base64_data = base64_data.replace('data:image/png;base64,', '')
+                base64_data = base64_data.replace('data:image/jpg;base64,', '')
 
                 # Decode the base64 data
                 image_data = base64.b64decode(base64_data)
@@ -224,8 +226,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
                 # Save the image to the specified output path
                 image.save("./local_img.jpg")
+                proccessed_img_url = "file:///" + os.getcwd() + "/local_img.jpg"
                 clinical_Note_upload_btn.invoke()
-                proccessed_img_url = os.getcwd() + "/local_img.jpg"
                 processed_data = " Img Recived"
             else:
                 if llm_chain is None:
@@ -1196,60 +1198,63 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
     threading.Thread(target=run1).start()
 
     global ocr_model, extraced_img_data, llm_chain2, proccessed_img_url
-
-    if proccessed_img_url
-    file_url = "file:///" + os.getcwd()
-    filetypes = [("Images", "*.png;*.jpg")]
-    file_path = filedialog.askopenfilename(filetypes=filetypes)
     view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
-    if file_path:
-            image_path =rf"{file_path}"
-            result = ocr_model.ocr(image_path)
 
-            boxes = [res[0] for res in result[0]]  #
-            texts = [res[1][0] for res in result[0]]
-            scores = [res[1][1] for res in result[0]]
-
-
-            text = ''
-            for idx in range(len(result)):
-                res = result[idx]
-                for line in res:
-                    text += line[1][0] + "\n"
-            extraced_img_data = text
-            print(text)
-
-            displ_widg.delete(1.0, tk.END)
-
-            try:
-                Question1 = f"""extracted data from an image: "{text}"
-                    Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
-                """
-                Answer = llm_chain2.invoke(input=f"{str(Question1)}")
-                Answer2 = llm_chain2.invoke(input=f"{str(text)}")
-                llm_analysis =  Answer['text']
-                extraced_img_data =  llm_analysis
-            except Exception as e:
-                llm_analysis = extraced_img_data
-
-            displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
-
-            font_path = "./Assets/latin.ttf"
-
-            image = Image.open(image_path).convert('RGB')
-            annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
-
-            # show the image using matplotlib
-
-            im_show = Image.fromarray(annotated)
-            im_show.save('result.jpg')
-            file_url += "\\result.jpg"
-
-            print(file_url)
-            view_wid.load_url(file_url)
+    if proccessed_img_url != None:
+            view_wid.load_url(proccessed_img_url)
+            proccessed_img_url = None
     else:
-        view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
-        pass
+            file_url = "file:///" + os.getcwd()
+            filetypes = [("Images", "*.png;*.jpg")]
+            file_path = filedialog.askopenfilename(filetypes=filetypes)
+            if file_path:
+                    image_path =rf"{file_path}"
+                    result = ocr_model.ocr(image_path)
+
+                    boxes = [res[0] for res in result[0]]  #
+                    texts = [res[1][0] for res in result[0]]
+                    scores = [res[1][1] for res in result[0]]
+
+
+                    text = ''
+                    for idx in range(len(result)):
+                        res = result[idx]
+                        for line in res:
+                            text += line[1][0] + "\n"
+                    extraced_img_data = text
+                    print(text)
+
+                    displ_widg.delete(1.0, tk.END)
+
+                    try:
+                        Question1 = f"""extracted data from an image: "{text}"
+                            Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
+                        """
+                        Answer = llm_chain2.invoke(input=f"{str(Question1)}")
+                        Answer2 = llm_chain2.invoke(input=f"{str(text)}")
+                        llm_analysis =  Answer['text']
+                        extraced_img_data =  llm_analysis
+                    except Exception as e:
+                        llm_analysis = extraced_img_data
+
+                    displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
+
+                    font_path = "./Assets/latin.ttf"
+
+                    image = Image.open(image_path).convert('RGB')
+                    annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
+
+                    # show the image using matplotlib
+
+                    im_show = Image.fromarray(annotated)
+                    im_show.save('result.jpg')
+                    file_url += "\\result.jpg"
+
+                    print(file_url)
+                    view_wid.load_url(file_url)
+            else:
+                view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
+                pass
 
 
 
@@ -2244,7 +2249,7 @@ def Clinical_Image(widget):
     Display_text_ = tk.Text(Clinical_widg_page, bg=bg_color, fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
-    clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_))\
+    clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_))
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
 
