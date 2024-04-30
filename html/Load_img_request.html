@@ -20,20 +20,7 @@
 </body>
 <script>
 
-    function sendData(input) {
-      const file = input.files[0];
-      const filePath = URL.createObjectURL(file);
-      console.log(filePath);
-    }
 
-    // Assuming you have an input element with id="fileInput"
-    var fileInput = document.getElementById('id_im');
-
-    fileInput.addEventListener('change', function() {
-      var file = fileInput.files[0];
-      var absolutePath = URL.createObjectURL(file);
-      console.log(absolutePath);
-    });
 
     window.addEventListener("load", function() {
       document.getElementById("id_im").onchange = function(event) {
@@ -45,6 +32,26 @@
           console.log(fileContent);
         }
     }})
+
+
+    function sendData(input_data) {
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', 'http://localhost:8080', true);
+            xhr.setRequestHeader('Content-Type', 'application/json');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        displayData(response.processed_data);
+                    } else {
+                        displayData(xhr.status);
+
+                    }
+                }
+            };
+            xhr.send(JSON.stringify(requestData));
+        }
 
     //--------------- auto refresh CSS --code block-----------------------------------------
 
