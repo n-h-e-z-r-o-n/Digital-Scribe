@@ -104,6 +104,9 @@ Recording_summary = ''
 audio_frames = None
 downloading_audio = False
 path_exe = os.getcwd()
+
+clinical_Note_upload_btn = None
+proccessed_img_url = None
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -199,7 +202,7 @@ from io import BytesIO
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
-        global llm_chain
+        global llm_chain, clinical_Note_upload_btn, proccessed_img_url
         if self.path == '/':
             content_length = int(self.headers['Content-Length'])
             post_data = self.rfile.read(content_length)
@@ -221,6 +224,8 @@ class RequestHandler(BaseHTTPRequestHandler):
 
                 # Save the image to the specified output path
                 image.save("./local_img.jpg")
+                clinical_Note_upload_btn.invoke()
+                proccessed_img_url = os.getcwd() + "/local_img.jpg"
                 processed_data = " Img Recived"
             else:
                 if llm_chain is None:
@@ -1190,7 +1195,9 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             llm_inference_initializ()
     threading.Thread(target=run1).start()
 
-    global ocr_model, extraced_img_data, llm_chain2
+    global ocr_model, extraced_img_data, llm_chain2, proccessed_img_url
+
+    if proccessed_img_url
     file_url = "file:///" + os.getcwd()
     filetypes = [("Images", "*.png;*.jpg")]
     file_path = filedialog.askopenfilename(filetypes=filetypes)
@@ -2169,6 +2176,7 @@ def chat_me(widget):
 
 def Clinical_Image(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
+    global clinical_Note_upload_btn
 
     def Analyzed_Output_(display_frame):
 
@@ -2236,7 +2244,8 @@ def Clinical_Image(widget):
     Display_text_ = tk.Text(Clinical_widg_page, bg=bg_color, fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
-    tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
+    clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_))\
+    clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="View 0utPut", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
 
 
