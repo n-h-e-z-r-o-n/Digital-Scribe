@@ -21,9 +21,11 @@
 <script>
 
     function sendData(input) {
-     var fileInput = document.getElementById('drag-text');
-
+     var fileInput = document.getElementById('file-upload-input');
+     var file = fileInput.files[0];
      console.log(fileInput);
+     console.log(file)
+
     };
 
     //--------------- auto refresh CSS --code block-----------------------------------------
