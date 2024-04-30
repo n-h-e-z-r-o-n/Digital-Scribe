@@ -193,7 +193,9 @@ def modify_css():
 
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
-
+import base64
+from PIL import Image
+from io import BytesIO
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -204,31 +206,47 @@ class RequestHandler(BaseHTTPRequestHandler):
             data = json.loads(post_data.decode('utf-8'))
 
             received_data = data.get('data')  # Extract the data received from the HTML form
+            print("Data received from HTML:", received_data)
 
-            if llm_chain is None:
-                llm_inference_initializ()
-            print(received_data)
-            Answer = llm_chain.invoke(input=f"{received_data}")
-            Answer = Answer['text']
+            if received_data.startswith("image_Bit"):
+                received_data = received_data.replace("image_Bit", '')
+
+                base64_data = received_data.replace('data:image/jpeg;base64,', '')
+
+                # Decode the base64 data
+                image_data = base64.b64decode(base64_data)
+
+                # Open the image using PIL
+                image = Image.open(BytesIO(image_data))
+
+                # Save the image to the specified output path
+                image.save("./local_img.jpg")
+                processed_data = " Img Recived"
+            else:
+                if llm_chain is None:
+                    llm_inference_initializ()
+
+                Answer = llm_chain.invoke(input=f"{received_data}")
+                Answer = Answer['text']
 
 
-            processed_data = Answer.replace("\n", "<br>")
-            if "|" in processed_data:
-                table =   "<table>"
-                rows = processed_data.split("<br>")
-                headers =  "<tr>" +"<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
-                table_rows = ''
-                for row in rows[1:]:
-                    table_rows += "<tr>"
-                    table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
-                    table_rows += "</tr>"
+                processed_data = Answer.replace("\n", "<br>")
+                if "|" in processed_data:
+                    table =   "<table>"
+                    rows = processed_data.split("<br>")
+                    headers =  "<tr>" +"<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
+                    table_rows = ''
+                    for row in rows[1:]:
+                        table_rows += "<tr>"
+                        table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
+                        table_rows += "</tr>"
 
-                table += headers + table_rows
-                table +=  "</table>"
-                processed_data = table
+                    table += headers + table_rows
+                    table +=  "</table>"
+                    processed_data = table
 
             # Print the received data and the processed data
-            print("Data received from HTML:", received_data)
+
             print("Processed data:", processed_data)
 
             # Send a response back to the client

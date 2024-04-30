@@ -1,21 +1,22 @@
-import base64
-from PIL import Image
-from io import BytesIO
+import tkinter as tk
 
-def convert_base64_to_image(base64_data):
-    # Remove the prefix 'data:image/jpeg;base64,' from the base64 string
-    base64_data = base64_data.replace('data:image/jpeg;base64,', '')
+def button_clicked():
+    print("Button clicked!")
 
-    # Decode the base64 data
-    image_data = base64.b64decode(base64_data)
+# Create a Tkinter window
+root = tk.Tk()
 
-    # Open the image using PIL
-    image = Image.open(BytesIO(image_data))
+# Create a button
+button = tk.Button(root, text="Click Me", command=button_clicked)
+button.pack()
 
-    return image
+# Function to programmatically trigger the button
+def trigger_button():
+    button.invoke()
 
-# Example usage
-base64_data = """
-"""
-image = convert_base64_to_image(base64_data)
-image.show()  # Display the image using the default image viewer
+# Create a button to trigger the first button
+trigger_button = tk.Button(root, text="Trigger Button", command=trigger_button)
+trigger_button.pack()
+
+# Run the Tkinter event loop
+root.mainloop()
