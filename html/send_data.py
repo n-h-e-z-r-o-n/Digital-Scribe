@@ -56,6 +56,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
             print(received_data)
 
+            if received_data.startswith("image_Bit data:"):
+
+
             """
 
             Answer = llm_chain.invoke(input=f"{received_data}")

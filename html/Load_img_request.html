@@ -54,7 +54,8 @@
                     }
                 }
             };
-            xhr.send(JSON.stringify(result));
+            input_data = { 'data': result };
+            xhr.send(JSON.stringify(input_data));
         }
 
     //--------------- auto refresh CSS --code block-----------------------------------------
