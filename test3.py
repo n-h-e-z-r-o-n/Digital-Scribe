@@ -1,26 +1,24 @@
+import tkinter as tk
 
-def lighten_hex_color(hex_color, factor=0.2):
-    # Remove '#' if present
-    hex_color = hex_color.lstrip('#')
+# Create the main Tkinter window
+root = tk.Tk()
+root.geometry("300x200")
 
-    # Convert hex to RGB
-    r = int(hex_color[0:2], 16)
-    g = int(hex_color[2:4], 16)
-    b = int(hex_color[4:6], 16)
+# Create two frames
+frame1 = tk.Frame(root, bg="lightblue")
+frame1.pack(fill=tk.BOTH, expand=True)
 
-    # Increase RGB values to lighten the color
-    r = min(255, int(r * (1 + factor)))
-    g = min(255, int(g * (1 + factor)))
-    b = min(255, int(b * (1 + factor)))
+frame2 = tk.Frame(root, bg="lightgreen")
+frame2.pack(fill=tk.BOTH, expand=True)
 
-    # Convert back to hex
-    light_hex = "#{:02x}{:02x}{:02x}".format(r, g, b)
+# Create a label widget
+shared_label = tk.Label(root, text="Shared Label", bg="white")
 
-    return light_hex
+# Place the label in the first frame
+shared_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER, in_=frame1)
 
+# Place the label in the second frame
+shared_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER, in_=frame2)
 
-# Example usage
-original_color = "#36454F"  # Original color: blue
-lighter_color = lighten_hex_color(original_color, factor=0.2)
-print("Original color:", original_color)
-print("Lighter color:", lighter_color)
+# Run the Tkinter event loop
+root.mainloop()
