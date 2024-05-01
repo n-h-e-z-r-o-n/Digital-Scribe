@@ -1447,6 +1447,10 @@ def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on
     widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
+def change_bg_OnHover_light(widget):  # Color change bg on Mouse Hover
+    global bg_color
+    widget.bind("<Enter>", func=lambda e: widget.config(background=lighten_hex_color(bg_color, factor=0.2)))
+    widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
     global fg_color
@@ -2403,49 +2407,50 @@ def User_Home_page(widget):
     profile_widget = tk.Label(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
+
     widget_list.append(profile_widget)
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
     duplicate_widget(profile_widget, side_bar_full, text="Digital Scribe")
 
     st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
-    change_bg_OnHover(st1_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st1_bt)
     widget_list.append(st1_bt)
     duplicate_widget(st1_bt, side_bar_full, text="Digital Scribe")
 
     st2_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
-    change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st2_bt)
     widget_list.append(st2_bt)
     duplicate_widget(st2_bt, side_bar_full, text="Live Entity extract")
 
     st3_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
-    change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st3_bt)
     widget_list.append(st3_bt)
     duplicate_widget(st3_bt, side_bar_full, text="RAG clinical Documents")
 
     st4_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
-    change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st4_bt)
     widget_list.append(st4_bt)
     duplicate_widget(st4_bt, side_bar_full, text="Interactive AI")
 
     st5_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🕮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
-    change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st5_bt)
     widget_list.append(st5_bt)
     duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
     st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
-    change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st6_bt)
     widget_list.append(st6_bt)
     duplicate_widget(st6_bt, side_bar_full, text="Digital Scribe")
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
-    change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
+
     widget_list.append(st7_bt)
     duplicate_widget(st7_bt, side_bar_full, text="Digital Scribe")
 
