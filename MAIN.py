@@ -2372,11 +2372,13 @@ def User_Home_page(widget):
 
             duplicate = widget_type(dest_frame)
 
+            font = ("Calibri", font_size)
+
             try:
                 widget_command = widget.cget("command")
-                duplicate.config(text=widget_text, command=widget_command, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W)
+                duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
             except Exception as e:
-                duplicate.config(text=widget_text, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W)
+                duplicate.config(text=widget_text, font = font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
 
             duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
 
@@ -2413,25 +2415,25 @@ def User_Home_page(widget):
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
-    duplicate_widget(st2_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st2_bt, side_bar_full, text="Live Entity extract")
 
     st3_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
-    duplicate_widget(st3_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st3_bt, side_bar_full, text="RAG clinical Documents")
 
     st4_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
-    duplicate_widget(st4_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st4_bt, side_bar_full, text="Interactive AI")
 
     st5_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🕮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
-    duplicate_widget(st5_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
     st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
