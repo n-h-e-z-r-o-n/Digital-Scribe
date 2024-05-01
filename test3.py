@@ -9,12 +9,12 @@ def duplicate_widget(widget, widget2):
     widget_state = widget.cget("state")
 
     # Create a new instance of the widget with the same properties
-    duplicate = widget_type(widget2.master)
+    duplicate = widget_type(widget2)
     duplicate.config(text=widget_text, command=widget_command, state=widget_state)
 
     # Place the new widget at the same position as the original
-    duplicate.place(x=0, y=0)
-    duplicate.geometry(widget_geometry)
+    duplicate.place(relx=0.4, rely=0.4)
+    #duplicate.geometry(widget_geometry)
 
 
 # Create a Tkinter window
@@ -27,14 +27,13 @@ Frame1.place(relheight=1,relwidth=0.5, rely=0, relx=0)
 Frame2 = tk.Frame(root, bg='green')
 Frame2.place(relheight=1,relwidth=0.5, rely=0, relx=0.5)
 
-button = tk.Button(root, text="Click Me", command=lambda: print("Button clicked!"))
+button = tk.Button(root, text="Click Me", command=lambda: duplicate_widget(duplicate_b, Frame2))
 button.pack()
 
 
-duplicate_b= tk.Button(Frame1, text="Click Me", command=lambda: print("Button clicked!"))
+duplicate_b= tk.Button(Frame1, text="hELLO")
 duplicate_b.place(relwidth=0.1, relheight=0.1, rely=0.2, relx=0.2)
 
 
-duplicate_widget(duplicate_b, Frame2)
 
 root.mainloop()
