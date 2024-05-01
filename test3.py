@@ -1,24 +1,39 @@
 import tkinter as tk
 
-# Create the main Tkinter window
+def duplicate_widget(widget):
+    # Get widget properties
+    widget_type = type(widget)
+    widget_geometry = widget.winfo_geometry()
+    widget_text = widget.cget("text")
+    widget_command = widget.cget("command")
+    widget_state = widget.cget("state")
+
+    # Create a new instance of the widget with the same properties
+    duplicate = widget_type(widget.master)
+    duplicate.config(text=widget_text, command=widget_command, state=widget_state)
+
+    # Place the new widget at the same position as the original
+    duplicate.place(x=0, y=0)
+    duplicate.geometry(widget_geometry)
+
+    return duplicate
+
+# Create a Tkinter window
 root = tk.Tk()
-root.geometry("300x200")
 
-# Create two frames
-frame1 = tk.Frame(root, bg="lightblue")
-frame1.pack(fill=tk.BOTH, expand=True)
+# Create a button widget
+button = tk.Button(root, text="Click Me", command=lambda: print("Button clicked!"))
+button.pack()
 
-frame2 = tk.Frame(root, bg="lightgreen")
-frame2.pack(fill=tk.BOTH, expand=True)
+# Function to duplicate the button
+def duplicate_button():
+    global button
+    button = duplicate_widget(button)
 
-# Create a label widget
-shared_label = tk.Label(root, text="Shared Label", bg="white")
+button = tk.Frame(root)
+button.place(relheight=1,relwidth=0.5, r)
 
-# Place the label in the first frame
-shared_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER, in_=frame1)
+button = tk.Button(root, text="Click Me", command=lambda: print("Button clicked!"))
+button.pack()
 
-# Place the label in the second frame
-shared_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER, in_=frame2)
-
-# Run the Tkinter event loop
 root.mainloop()
