@@ -1,26 +1,25 @@
 import tkinter as tk
 
-
-def duplicate_widget(widget, new_frame):
+def duplicate_widget(widget, widget2):
     # Get widget properties
-    widget_type = widget.winfo_class()
-    widget_config = widget.config()
+    widget_type = type(widget)
+    widget_geometry = widget.winfo_geometry()
+    widget_text = widget.cget("text")
+    widget_command = widget.cget("command")
+    widget_state = widget.cget("state")
 
-    # Create a new instance of the widget
-    duplicate = widget_type(new_frame, **widget_config)
+    # Create a new instance of the widget with the same properties
+    duplicate = widget_type(widget2.master)
+    duplicate.config(text=widget_text, command=widget_command, state=widget_state)
 
-    # Place the duplicated widget into the new frame
-    duplicate.pack()  # You can use pack, grid, or place depending on the layout manager of the new frame
+    # Place the new widget at the same position as the original
+    duplicate.place(x=0, y=0)
+    duplicate.geometry(widget_geometry)
 
 
 # Create a Tkinter window
 root = tk.Tk()
 
-
-# Function to duplicate the button
-def duplicate_button():
-    global duplicate_b, Frame2
-    button2 = duplicate_widget(duplicate_b, Frame2)
 
 Frame1 = tk.Frame(root, bg='red')
 Frame1.place(relheight=1,relwidth=0.5, rely=0, relx=0)
@@ -34,6 +33,7 @@ button.pack()
 
 duplicate_b= tk.Button(Frame1, text="Click Me", command=lambda: print("Button clicked!"))
 duplicate_b.place(relwidth=0.1, relheight=0.1, rely=0.2, relx=0.2)
+
 
 duplicate_widget(duplicate_b, Frame2)
 
