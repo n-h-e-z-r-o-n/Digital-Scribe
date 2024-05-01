@@ -21,19 +21,25 @@ def duplicate_widget(widget):
 # Create a Tkinter window
 root = tk.Tk()
 
-# Create a button widget
-button = tk.Button(root, text="Click Me", command=lambda: print("Button clicked!"))
-button.pack()
 
 # Function to duplicate the button
 def duplicate_button():
     global button
     button = duplicate_widget(button)
 
-button = tk.Frame(root)
-button.place(relheight=1,relwidth=0.5, r)
+Frame1 = tk.Frame(root, bg='red')
+Frame1.place(relheight=1,relwidth=0.5, rely=0, relx=0)
+
+Frame2 = tk.Frame(root, bg='green')
+Frame2.place(relheight=1,relwidth=0.5, rely=0, relx=0.5)
 
 button = tk.Button(root, text="Click Me", command=lambda: print("Button clicked!"))
 button.pack()
+
+
+button2= tk.Button(Frame1, text="Click Me", command=lambda: print("Button clicked!"))
+button2.place(relwidth=0.1, relheight=0.1, rely=0.2, relx=0.2)
+
+
 
 root.mainloop()
