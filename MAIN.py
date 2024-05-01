@@ -2383,6 +2383,7 @@ def User_Home_page(widget):
                 font = ("Bahnschrift Light Condensed", font_size-3)
                 widget_command = widget.cget("command")
                 duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
+                change_bg_OnHover_light(duplicate)
 
 
 
@@ -2450,13 +2451,13 @@ def User_Home_page(widget):
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
-
+    change_bg_OnHover_light(st7_bt)
     widget_list.append(st7_bt)
     duplicate_widget(st7_bt, side_bar_full, text="Digital Scribe")
 
     st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
-    change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover_light(st8_bt)
     widget_list.append(st8_bt)
     duplicate_widget(st8_bt, side_bar_full, text="Settings")
 
