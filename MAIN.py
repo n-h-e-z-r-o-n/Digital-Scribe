@@ -2357,28 +2357,38 @@ def User_Home_page(widget):
                 i.config(bg=nav_bg, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
     def duplicate_widget(widget, dest_frame, text=""):
-        relx = widget.place_info()["relx"]
-        rely = widget.place_info()["rely"]
-        relwidth = widget.place_info()["relwidth"]
-        relheight = widget.place_info()["relheight"]
+        def run_func(widget=widget, dest_frame=dest_frame, text=text):
+            global fg_color, bg_color
 
-        widget_type = type(widget)
-        widget_geometry = widget.winfo_geometry()
-        widget_text = text
+            relx = widget.place_info()["relx"]
+            rely = widget.place_info()["rely"]
+            relwidth = widget.place_info()["relwidth"]
+            relheight = widget.place_info()["relheight"]
 
-        widget_state = widget.cget("state")
-        try:
-            widget_command = widget.cget("command")
-            duplicate.config(text=widget_text, command=widget_command, state=widget_state)
-        except:
-            duplicate.config(text=widget_text, state=widget_state)
+            widget_type = type(widget)
+            widget_geometry = widget.winfo_geometry()
+            widget_text = text
+            widget_state = widget.cget("state")
+
+            duplicate = widget_type(dest_frame)
+
+            try:
+                widget_command = widget.cget("command")
+                duplicate.config(text=widget_text, command=widget_command, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W)
+            except Exception as e:
+                duplicate.config(text=widget_text, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W)
+
+            duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
+
+
+        threading.Thread(target=run_func).start()
 
 
 
-        duplicate = widget_type(dest_frame)
 
 
-        duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
+
+
 
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2397,41 +2407,49 @@ def User_Home_page(widget):
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
+    duplicate_widget(st1_bt, side_bar_full, text="Digital Scribe")
 
     st2_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_fg_OnHover(st2_bt, fg_hovercolor, fg_color)
     widget_list.append(st2_bt)
+    duplicate_widget(st2_bt, side_bar_full, text="Digital Scribe")
 
     st3_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_fg_OnHover(st3_bt, fg_hovercolor, fg_color)
     widget_list.append(st3_bt)
+    duplicate_widget(st3_bt, side_bar_full, text="Digital Scribe")
 
     st4_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_fg_OnHover(st4_bt, fg_hovercolor, fg_color)
     widget_list.append(st4_bt)
+    duplicate_widget(st4_bt, side_bar_full, text="Digital Scribe")
 
     st5_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🕮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_fg_OnHover(st5_bt, fg_hovercolor, fg_color)
     widget_list.append(st5_bt)
+    duplicate_widget(st5_bt, side_bar_full, text="Digital Scribe")
 
     st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_fg_OnHover(st6_bt, fg_hovercolor, fg_color)
     widget_list.append(st6_bt)
+    duplicate_widget(st6_bt, side_bar_full, text="Digital Scribe")
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_fg_OnHover(st7_bt, fg_hovercolor, fg_color)
     widget_list.append(st7_bt)
+    duplicate_widget(st7_bt, side_bar_full, text="Digital Scribe")
 
     st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_fg_OnHover(st8_bt, fg_hovercolor, fg_color)
     widget_list.append(st8_bt)
+    duplicate_widget(st8_bt, side_bar_full, text="Settings")
 
     return container2
 
