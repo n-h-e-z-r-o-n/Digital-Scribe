@@ -2356,6 +2356,30 @@ def User_Home_page(widget):
             else:
                 i.config(bg=nav_bg, relief=tk.RAISED, border=1, fg=fg_hovercolor)
 
+    def duplicate_widget(widget, dest_frame, text=""):
+        relx = widget.place_info()["relx"]
+        rely = widget.place_info()["rely"]
+        relwidth = widget.place_info()["relwidth"]
+        relheight = widget.place_info()["relheight"]
+
+        widget_type = type(widget)
+        widget_geometry = widget.winfo_geometry()
+        widget_text = text
+
+        widget_state = widget.cget("state")
+        try:
+            widget_command = widget.cget("command")
+            duplicate.config(text=widget_text, command=widget_command, state=widget_state)
+        except:
+            duplicate.config(text=widget_text, state=widget_state)
+
+
+
+        duplicate = widget_type(dest_frame)
+
+
+        duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
+
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg=nav_bg, borderwidth=0, border=0)
@@ -2367,6 +2391,7 @@ def User_Home_page(widget):
     change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
     widget_list.append(profile_widget)
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
+    duplicate_widget(profile_widget, side_bar_full, text="Digital Scribe")
 
     st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
