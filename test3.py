@@ -1,6 +1,6 @@
 import tkinter as tk
 
-def duplicate_widget(widget):
+def duplicate_widget(widget, widget2):
     # Get widget properties
     widget_type = type(widget)
     widget_geometry = widget.winfo_geometry()
@@ -9,7 +9,7 @@ def duplicate_widget(widget):
     widget_state = widget.cget("state")
 
     # Create a new instance of the widget with the same properties
-    duplicate = widget_type(widget.master)
+    duplicate = widget_type(widget2.master)
     duplicate.config(text=widget_text, command=widget_command, state=widget_state)
 
     # Place the new widget at the same position as the original
@@ -24,8 +24,8 @@ root = tk.Tk()
 
 # Function to duplicate the button
 def duplicate_button():
-    global button
-    button = duplicate_widget(button)
+    global duplicate_b, Frame2
+    button2 = duplicate_widget(duplicate_b, Frame2)
 
 Frame1 = tk.Frame(root, bg='red')
 Frame1.place(relheight=1,relwidth=0.5, rely=0, relx=0)
@@ -37,8 +37,8 @@ button = tk.Button(root, text="Click Me", command=lambda: print("Button clicked!
 button.pack()
 
 
-button2= tk.Button(Frame1, text="Click Me", command=lambda: print("Button clicked!"))
-button2.place(relwidth=0.1, relheight=0.1, rely=0.2, relx=0.2)
+duplicate_b= tk.Button(Frame1, text="Click Me", command=lambda: print("Button clicked!"))
+duplicate_b.place(relwidth=0.1, relheight=0.1, rely=0.2, relx=0.2)
 
 
 
