@@ -2409,7 +2409,7 @@ def User_Home_page(widget):
 
     st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
-    change_fg_OnHover(st1_bt, fg_hovercolor, fg_color)
+    change_bg_OnHover(st1_bt, fg_hovercolor, fg_color)
     widget_list.append(st1_bt)
     duplicate_widget(st1_bt, side_bar_full, text="Digital Scribe")
 
