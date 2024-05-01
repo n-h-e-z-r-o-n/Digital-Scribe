@@ -1,3 +1,4 @@
+
 def lighten_hex_color(hex_color, factor=0.2):
     # Remove '#' if present
     hex_color = hex_color.lstrip('#')
