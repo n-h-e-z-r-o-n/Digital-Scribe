@@ -2371,14 +2371,16 @@ def User_Home_page(widget):
             widget_state = widget.cget("state")
 
             duplicate = widget_type(dest_frame)
+            if isinstance(duplicate, tk.Label):
+                font = ("Broadway", font_size)
+                duplicate.config(text=widget_text, font=font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W, borderwidth=0, border=0)
 
-            font = ("Calibri", font_size)
-
-            try:
+            elif isinstance(duplicate, tk.Button):
+                font = ("Bahnschrift Light Condensed", font_size-3)
                 widget_command = widget.cget("command")
                 duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
-            except Exception as e:
-                duplicate.config(text=widget_text, font = font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
+
+
 
             duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
 
