@@ -66,7 +66,8 @@ Second_Name = None
 Last_Name = None
 Email = None
 user_Photo = None
-widget_list: list = []
+side_bar_widget_list: list = []
+side_bar_widget_list2:  list = []
 active_users_data: list = []
 connection_status = False
 gradient_ai_access_key = ''
@@ -286,6 +287,7 @@ def run_server():
 
 
 # =============================== Functions definition ============================================================================================
+
 # --------------------------------- Themes --------------------------------------------------------------------------------------------------------
 def title_bar_color(color):
     # import ctypes as ct
@@ -317,7 +319,7 @@ def change_color(widget, button):
     button_text = button.cget("text")
     print("color_change: ", button_text)
     if button_text == 'window(light)':
-        button.config(text='window(dark)')
+        button.config(text='window(dark_gray)')
         bg_color = '#353839'
         fg_color = 'white'
         current_theme = 'window(dark_gray)'
@@ -2331,14 +2333,16 @@ def Clinical_Image(widget):
 
 
 def User_Home_page(widget):
-    global user_id, widget_list, Home_page_frame
+    global user_id, side_bar_widget_list, side_bar_widget_list2, Home_page_frame
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, nav_bg
     global root, screen_width, screen_height, nav_widg, font_size
 
     def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
         def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
-            global nav_bg, bg_color
+            global nav_bg, bg_color, side_bar_widget_list2
             color = darken_hex_color(bg_color)
+            for i in side_bar_widget_list2:
+                i.config(bg=color)
             pop_side_bar.config(bg=color)
             pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
 
@@ -2381,8 +2385,8 @@ def User_Home_page(widget):
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     def active(widget):
-        global widget_list, fg_hovercolor, nav_bg, bg_color
-        for i in widget_list:
+        global side_bar_widget_list, fg_hovercolor, nav_bg, bg_color
+        for i in side_bar_widget_list:
             if i != widget:
                 i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg=fg_color)
             else:
@@ -2390,7 +2394,7 @@ def User_Home_page(widget):
 
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
-            global fg_color, bg_color
+            global fg_color, bg_color, side_bar_widget_list2
 
             relx = widget.place_info()["relx"]
             rely = widget.place_info()["rely"]
@@ -2403,6 +2407,7 @@ def User_Home_page(widget):
             widget_state = widget.cget("state")
 
             duplicate = widget_type(dest_frame)
+            side_bar_widget_list2.append(duplicate)
             if isinstance(duplicate, tk.Label):
                 font = ("Broadway", font_size)
                 duplicate.config(text=widget_text, font=font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W, borderwidth=0, border=0)
@@ -2416,7 +2421,6 @@ def User_Home_page(widget):
 
             duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
 
-
         threading.Thread(target=run_func).start()
 
 
@@ -2429,56 +2433,56 @@ def User_Home_page(widget):
     profile_widget = tk.Label(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
 
-    widget_list.append(profile_widget)
+    side_bar_widget_list.append(profile_widget)
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
     duplicate_widget(profile_widget, side_bar_full, text="Digital Scribe")
 
     st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover_light(st1_bt)
-    widget_list.append(st1_bt)
+    side_bar_widget_list.append(st1_bt)
     duplicate_widget(st1_bt, side_bar_full, text="Digital Scribe")
 
     st2_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
     change_bg_OnHover_light(st2_bt)
-    widget_list.append(st2_bt)
+    side_bar_widget_list.append(st2_bt)
     duplicate_widget(st2_bt, side_bar_full, text="Live Entity extract")
 
     st3_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗐', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st3_bt)))
     st3_bt.place(relheight=0.03, relwidth=1, rely=0.13, relx=0)
     change_bg_OnHover_light(st3_bt)
-    widget_list.append(st3_bt)
+    side_bar_widget_list.append(st3_bt)
     duplicate_widget(st3_bt, side_bar_full, text="RAG clinical Documents")
 
     st4_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧉', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (chat_me_Widget.tkraise(), active(st4_bt)))
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_bg_OnHover_light(st4_bt)
-    widget_list.append(st4_bt)
+    side_bar_widget_list.append(st4_bt)
     duplicate_widget(st4_bt, side_bar_full, text="AI-powered Assistance")
 
     st5_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🕮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
     change_bg_OnHover_light(st5_bt)
-    widget_list.append(st5_bt)
+    side_bar_widget_list.append(st5_bt)
     duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
     st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_bg_OnHover_light(st6_bt)
-    widget_list.append(st6_bt)
+    side_bar_widget_list.append(st6_bt)
     duplicate_widget(st6_bt, side_bar_full, text="Patient Records")
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_bg_OnHover_light(st7_bt)
-    widget_list.append(st7_bt)
+    side_bar_widget_list.append(st7_bt)
     duplicate_widget(st7_bt, side_bar_full, text="Billing & Reimbursement")
 
     st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_bg_OnHover_light(st8_bt)
-    widget_list.append(st8_bt)
+    side_bar_widget_list.append(st8_bt)
     duplicate_widget(st8_bt, side_bar_full, text="Settings")
 
     active(st2_bt)
