@@ -32,11 +32,7 @@ body {
   position: relative;
 }
 
-.image-dropping,
-.image-upload-wrap:hover {
-  background-color: #1FB264;
-  border: 4px dashed var(--global-color-fg);
-}
+
 
 .image-title-wrap {
   padding: 0 15px 15px 15px;

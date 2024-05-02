@@ -47,10 +47,19 @@ import wave
 # ------------------------------- img-to-text --------------------------------------------------------------------------------------------
 from PIL import Image
 import pytesseract
+
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 from paddleocr import PaddleOCR, draw_ocr
+
 ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
+
+# -------------------------------  --------------------------------------------------------------------------------------------
+
+from docx2pdf import convert  # pip install docx2pdf
+import pdfplumber  # used for extracting data from pdf
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -67,7 +76,7 @@ Last_Name = None
 Email = None
 user_Photo = None
 side_bar_widget_list: list = []
-side_bar_widget_list2:  list = []
+side_bar_widget_list2: list = []
 active_users_data: list = []
 connection_status = False
 gradient_ai_access_key = ''
@@ -202,6 +211,7 @@ import base64
 from PIL import Image
 from io import BytesIO
 
+
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
         global llm_chain, clinical_Note_upload_btn, proccessed_img_url
@@ -238,12 +248,11 @@ class RequestHandler(BaseHTTPRequestHandler):
                 Answer = llm_chain.invoke(input=f"{received_data}")
                 Answer = Answer['text']
 
-
                 processed_data = Answer.replace("\n", "<br>")
                 if "|" in processed_data:
-                    table =   "<table>"
+                    table = "<table>"
                     rows = processed_data.split("<br>")
-                    headers =  "<tr>" +"<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
+                    headers = "<tr>" + "<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
                     table_rows = ''
                     for row in rows[1:]:
                         table_rows += "<tr>"
@@ -251,7 +260,7 @@ class RequestHandler(BaseHTTPRequestHandler):
                         table_rows += "</tr>"
 
                     table += headers + table_rows
-                    table +=  "</table>"
+                    table += "</table>"
                     processed_data = table
 
             # Print the received data and the processed data
@@ -406,7 +415,6 @@ def change_color(widget, button):
             for child in children:
                 child.config(bg=nav_bg)
 
-
         Home_page_frame.config(bg=fg_color)
         dic = {
             '_GA_': gradient_ai_access_key,
@@ -427,14 +435,12 @@ def change_color(widget, button):
         with open("keys.json", "w") as outfile:
             outfile.write(json_object)
 
-
-
     modify_css()
 
     threading.Thread(target=change_all).start()
 
 
-# ============================================= NLP  ==========================================================================================
+# --------------------------------- NLP and LLM  --------------------------------------------------------------------------------------------------------
 
 
 def entity_highlight_words(widget):
@@ -696,12 +702,6 @@ def rag_chat(question_widget, widget, widget1):
     threading.Thread(target=run_function).start()
 
 
-from docx2pdf import convert  # pip install docx2pdf
-import pdfplumber  # used for extracting data from pdf
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph
-
-
 def extract_pdf_text(path=None):
     if path is None:
         return
@@ -827,7 +827,6 @@ def llm_inference_initializ():
 
     prompt2 = PromptTemplate(template=template2, input_variables=["Instruction"])
     llm_chain2 = LLMChain(prompt=prompt2, llm=llm2)
-
 
 
 def Chat_bot_inference(widget0, widget1, widget2):
@@ -1195,24 +1194,24 @@ def image_text_extract_printed(image_path):
 
 def view_data_update():
     def run_function():
-            global extraced_img_data
+        global extraced_img_data
 
-            processed_data = extraced_img_data.replace("\n", "<br>")
-            if "|" in processed_data:
-                table = "<table>"
-                rows = processed_data.split("<br>")
-                headers = "<tr>" + "<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
-                table_rows = ''
-                for row in rows[1:]:
-                    table_rows += "<tr>"
-                    table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
-                    table_rows += "</tr>"
+        processed_data = extraced_img_data.replace("\n", "<br>")
+        if "|" in processed_data:
+            table = "<table>"
+            rows = processed_data.split("<br>")
+            headers = "<tr>" + "<th>" + "</th><th>".join(rows[0].split("|")) + "</th>" + "</tr>"
+            table_rows = ''
+            for row in rows[1:]:
+                table_rows += "<tr>"
+                table_rows += "<td>" + "</td><td>".join(row.split("|")) + "</td>"
+                table_rows += "</tr>"
 
-                table += headers + table_rows
-                table += "</table>"
-                processed_data = table
+            table += headers + table_rows
+            table += "</table>"
+            processed_data = table
 
-            html_content = """
+        html_content = """
             <!DOCTYPE html>
             <html lang="en">
             <head>
@@ -1238,11 +1237,12 @@ def view_data_update():
             </script>
             </html>
             """
-            file_path = "./html/Analyzed_Output_.html"
+        file_path = "./html/Analyzed_Output_.html"
 
-            # Write the HTML content to the file
-            with open(file_path, "w") as html_file:
-                html_file.write(html_content)
+        # Write the HTML content to the file
+        with open(file_path, "w") as html_file:
+            html_file.write(html_content)
+
     threading.Thread(target=run_function).start()
 
 
@@ -1251,6 +1251,7 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
         global llm_chain2
         if llm_chain2 == None:
             llm_inference_initializ()
+
     threading.Thread(target=run1).start()
 
     global ocr_model, extraced_img_data, llm_chain2, proccessed_img_url
@@ -1260,63 +1261,60 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
 
     if proccessed_img_url != None:
 
-            file_path = proccessed_img_url
-            proccessed_img_url = None
+        file_path = proccessed_img_url
+        proccessed_img_url = None
     else:
-       filetypes = [("Images", "*.png;*.jpg")]
-       file_path = filedialog.askopenfilename(filetypes=filetypes)
+        filetypes = [("Images", "*.png;*.jpg")]
+        file_path = filedialog.askopenfilename(filetypes=filetypes)
 
     if file_path:
-            image_path =rf"{file_path}"
-            result = ocr_model.ocr(image_path)
+        image_path = rf"{file_path}"
+        result = ocr_model.ocr(image_path)
 
-            boxes = [res[0] for res in result[0]]  #
-            texts = [res[1][0] for res in result[0]]
-            scores = [res[1][1] for res in result[0]]
+        boxes = [res[0] for res in result[0]]  #
+        texts = [res[1][0] for res in result[0]]
+        scores = [res[1][1] for res in result[0]]
 
+        text = ''
+        for idx in range(len(result)):
+            res = result[idx]
+            for line in res:
+                text += line[1][0] + "\n"
+        extraced_img_data = text
+        print(text)
 
-            text = ''
-            for idx in range(len(result)):
-                res = result[idx]
-                for line in res:
-                    text += line[1][0] + "\n"
-            extraced_img_data = text
-            print(text)
+        displ_widg.delete(1.0, tk.END)
 
-            displ_widg.delete(1.0, tk.END)
-
-            try:
-                Question1 = f"""extracted data from an image: "{text}"
+        try:
+            Question1 = f"""extracted data from an image: "{text}"
                     Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
                 """
-                Answer = llm_chain2.invoke(input=f"{str(Question1)}")
-                Answer2 = llm_chain2.invoke(input=f"{str(text)}")
-                llm_analysis =  Answer['text']
-                extraced_img_data =  llm_analysis
-                view_data_update()
-            except Exception as e:
-                llm_analysis = extraced_img_data
-                view_data_update()
+            Answer = llm_chain2.invoke(input=f"{str(Question1)}")
+            Answer2 = llm_chain2.invoke(input=f"{str(text)}")
+            llm_analysis = Answer['text']
+            extraced_img_data = llm_analysis
+            view_data_update()
+        except Exception as e:
+            llm_analysis = extraced_img_data
+            view_data_update()
 
-            displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
+        displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
 
-            font_path = "./Assets/latin.ttf"
+        font_path = "./Assets/latin.ttf"
 
-            image = Image.open(image_path).convert('RGB')
-            annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
+        image = Image.open(image_path).convert('RGB')
+        annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
 
-            # show the image using matplotlib
+        # show the image using matplotlib
 
-            im_show = Image.fromarray(annotated)
-            im_show.save('./temp_files/extraced_img.jpg')
-            file_url += "\\temp_files\\extraced_img.jpg"
+        im_show = Image.fromarray(annotated)
+        im_show.save('./temp_files/extraced_img.jpg')
+        file_url += "\\temp_files\\extraced_img.jpg"
 
-            print(file_url)
-            view_wid.load_url(file_url)
+        print(file_url)
+        view_wid.load_url(file_url)
     else:
         displ_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
-
-
 
 
 # =============================== scroll Functions definition ===============================================================================================================
@@ -1464,6 +1462,7 @@ def darken_hex_color(hex_color, factor=0.2):
 
     return dark_hex
 
+
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
     global bg_color
     widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
@@ -1475,11 +1474,11 @@ def change_bg_OnHover_light(widget):  # Color change bg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: widget.config(background=lighten_hex_color(bg_color, factor=0.2)))
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
+
 def change_bg_OnHover_dark(widget1, widget2):  # Color change bg on Mouse Hover
     global bg_color
     widget1.bind("<Enter>", func=lambda e: (widget1.config(background=lighten_hex_color(bg_color, factor=0.2)), widget2.config(background=lighten_hex_color(bg_color, factor=0.2))))
-    widget1.bind("<Leave>", func=lambda e: (widget1.config(background=darken_hex_color(bg_color, factor=0.2)),  widget2.config(background=bg_color)))
-
+    widget1.bind("<Leave>", func=lambda e: (widget1.config(background=darken_hex_color(bg_color, factor=0.2)), widget2.config(background=bg_color)))
 
 
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
@@ -2295,6 +2294,7 @@ def Clinical_Image(widget):
     global clinical_Note_upload_btn
     global view_track
     view_track = 0
+
     def Analyzed_Output_(display_frame):
         global view_track
         if view_track == 0:
@@ -2308,8 +2308,6 @@ def Clinical_Image(widget):
         web_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
         text_tk_widg.delete(1.0, tk.END)
 
-
-
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -2320,14 +2318,10 @@ def Clinical_Image(widget):
     Display_text_ = tk.Text(Clinical_widg_page, bg=bg_color, fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
-    clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda : image_text_extract_Handwriten(display_img, Display_text_))
+    clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda: image_text_extract_Handwriten(display_img, Display_text_))
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
-    tk.Button(Clinical_widg_page, text="Change View", command=lambda : Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
-    tk.Button(Clinical_widg_page, text="Clear", command=lambda : clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
-
-
-
-
+    tk.Button(Clinical_widg_page, text="Change View", command=lambda: Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
+    tk.Button(Clinical_widg_page, text="Clear", command=lambda: clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
 
     return Clinical_widg_page
 
@@ -2355,7 +2349,6 @@ def User_Home_page(widget):
             def leave():
                 pop_side_bar.config(bg=nav_bg)
                 pop_side_bar.place_forget()
-
 
             id = pop_side_bar.after(300, pop_side_bar.place_forget)
             pop_side_bar.bind("<Enter>", func=lambda e: enter())
@@ -2413,16 +2406,15 @@ def User_Home_page(widget):
                 duplicate.config(text=widget_text, font=font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W, borderwidth=0, border=0)
 
             elif isinstance(duplicate, tk.Button):
-                font = ("Bahnschrift Light Condensed", font_size-3)
+                font = ("Bahnschrift Light Condensed", font_size - 3)
                 widget_command = widget.cget("command")
-                duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
-                #change_bg_OnHover_light(duplicate)
+                duplicate.config(text=widget_text, command=widget_command, font=font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W, borderwidth=0, border=0)
+                # change_bg_OnHover_light(duplicate)
                 change_bg_OnHover_dark(duplicate, widget)
 
             duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
 
         threading.Thread(target=run_func).start()
-
 
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2550,9 +2542,7 @@ def on_closing():
     closed = True
     root.destroy()
 
-
     sys.exit()
-
 
 
 def main():
@@ -2595,7 +2585,6 @@ def go():
 
 
 if __name__ == "__main__":
-
     main()
     """
     t = System_Thread(ThreadStart(go))
