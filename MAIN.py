@@ -1442,15 +1442,18 @@ def lighten_hex_color(hex_color, factor=0.2):
 
     return light_hex
 
+
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
     global bg_color
     widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
+
 def change_bg_OnHover_light(widget):  # Color change bg on Mouse Hover
     global bg_color
     widget.bind("<Enter>", func=lambda e: widget.config(background=lighten_hex_color(bg_color, factor=0.2)))
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
+
 
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
     global fg_color
