@@ -1443,6 +1443,25 @@ def lighten_hex_color(hex_color, factor=0.2):
     return light_hex
 
 
+def darken_hex_color(hex_color, factor=0.2):
+    # Remove '#' if present
+    hex_color = hex_color.lstrip('#')
+
+    # Convert hex to RGB
+    r = int(hex_color[0:2], 16)
+    g = int(hex_color[2:4], 16)
+    b = int(hex_color[4:6], 16)
+
+    # Decrease RGB values to darken the color
+    r = max(0, int(r * (1 - factor)))
+    g = max(0, int(g * (1 - factor)))
+    b = max(0, int(b * (1 - factor)))
+
+    # Convert back to hex
+    dark_hex = "#{:02x}{:02x}{:02x}".format(r, g, b)
+
+    return dark_hex
+
 def change_bg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change bg on Mouse Hover
     global bg_color
     widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
@@ -2311,12 +2330,11 @@ def User_Home_page(widget):
     global root, screen_width, screen_height, nav_widg, font_size
 
     def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
-
-
         def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
-            global nav_bg
+            global nav_bg, bg_color
+            color = darken_hex_color(bg_color)
+            pop_side_bar.config(bg=color)
             pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
-
 
         def hide(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
             global nav_bg
@@ -2325,6 +2343,7 @@ def User_Home_page(widget):
                 pop_side_bar.after_cancel(id)
 
             def leave():
+                pop_side_bar.config(bg=nav_bg)
                 pop_side_bar.place_forget()
 
 
@@ -2399,7 +2418,7 @@ def User_Home_page(widget):
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg=nav_bg, borderwidth=0, border=0)
-    nav_widg = (side_bar,side_bar_full )
+    nav_widg = (side_bar, side_bar_full)
     # side_bar.bind("<Configure>", lambda e: resize(side_bar, side_wdg_width, side_wdg_height))
 
     profile_widget = tk.Label(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
