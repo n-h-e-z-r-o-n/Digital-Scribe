@@ -2353,12 +2353,12 @@ def User_Home_page(widget):
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     def active(widget):
-        global widget_list, fg_hovercolor, nav_bg
+        global widget_list, fg_hovercolor, nav_bg, bg_color
         for i in widget_list:
             if i != widget:
                 i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg=fg_color)
             else:
-                i.config(bg=nav_bg, relief=tk.RAISED, border=1, fg=fg_hovercolor)
+                i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg="red")
 
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
@@ -2401,7 +2401,6 @@ def User_Home_page(widget):
 
     profile_widget = tk.Label(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⍲', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0)  # ,command=lambda: (PROFILE_widget.tkraise(), active(profile_widget)))
     profile_widget.place(relheight=0.03, relwidth=1, rely=0.01, relx=0)
-    change_fg_OnHover(profile_widget, fg_hovercolor, fg_color)
 
     widget_list.append(profile_widget)
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
