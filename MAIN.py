@@ -1473,13 +1473,10 @@ def change_bg_OnHover_light(widget):  # Color change bg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: widget.config(background=lighten_hex_color(bg_color, factor=0.2)))
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
-def change_bg_OnHover_dark(widget, bg_onhouve_color = None):  # Color change bg on Mouse Hover
+def change_bg_OnHover_dark(widget1, widget2):  # Color change bg on Mouse Hover
     global bg_color
-    widget.bind("<Enter>", func=lambda e: widget.config(background=darken_hex_color(bg_color, factor=0.2)))
-    if bg_onhouve_color is not None
-        widget.bind("<Leave>", func=lambda e: widget.config(background=bg_onhouve_color))
-    else:
-        widget.bind("<Leave>", func=lambda e: widget.config(background=bg_onhouve_color))
+    widget1.bind("<Enter>", func=lambda e: (widget1.config(background=lighten_hex_color(bg_color, factor=0.2)), widget2.config(background=lighten_hex_color(bg_color, factor=0.2))))
+    widget1.bind("<Leave>", func=lambda e: (widget1.config(background=darken_hex_color(bg_color, factor=0.2)),  widget2.config(background=lighten_hex_color(bg_color, factor=0.2) ))
 
 
 
@@ -2415,9 +2412,7 @@ def User_Home_page(widget):
                 widget_command = widget.cget("command")
                 duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
                 #change_bg_OnHover_light(duplicate)
-                change_bg_OnHover_dark(duplicate)
-
-
+                change_bg_OnHover_dark(duplicate, widget)
 
             duplicate.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
 
