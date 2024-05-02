@@ -4,7 +4,7 @@ body {
 
 .file-upload {
   background-color: var(--global-color-bg);
-  width: 600px;
+  width: 800px;
   margin: 0 auto;
   padding: 20px;
 }
@@ -27,17 +27,17 @@ body {
 }
 
 .image-upload-wrap {
-  margin-top: 20px;
-  border: 4px dashed #1FB264;
+  margin-top: 60px;
+  border: 2px dashed var(--global-color-fg);
   position: relative;
 }
 
-
-
-.image-title-wrap {
-  padding: 0 15px 15px 15px;
-  color: #222;
+.image-dropping,
+.image-upload-wrap:hover {
+  background-color: gray;
+  border: 3px dashed var(--global-color-fg);
 }
+
 
 .drag-text {
   text-align: center;
@@ -46,7 +46,7 @@ body {
 .drag-text h3 {
   font-weight: 100;
   text-transform: uppercase;
-  color: #15824B;
+  color: var(--global-color-fg);
   padding: 60px 0;
 }
 
@@ -57,29 +57,3 @@ body {
   padding: 20px;
 }
 
-.remove-image {
-  width: 200px;
-  margin: 0;
-  color: #fff;
-  background: #cd4535;
-  border: none;
-  padding: 10px;
-  border-radius: 4px;
-  border-bottom: 4px solid #b02818;
-  transition: all .2s ease;
-  outline: none;
-  text-transform: uppercase;
-  font-weight: 700;
-}
-
-.remove-image:hover {
-  background: #c13b2a;
-  color: #ffffff;
-  transition: all .2s ease;
-  cursor: pointer;
-}
-
-.remove-image:active {
-  border: 0;
-  transition: all .2s ease;
-}
