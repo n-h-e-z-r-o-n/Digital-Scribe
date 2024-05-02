@@ -2393,12 +2393,6 @@ def User_Home_page(widget):
         threading.Thread(target=run_func).start()
 
 
-
-
-
-
-
-
     side_bar = tk.Frame(container1, bg=nav_bg, borderwidth=0, border=0)
     side_bar.place(relheight=1, relwidth=1, rely=0, relx=0)
     side_bar_full = tk.Frame(Home_page_frame, bg=nav_bg, borderwidth=0, border=0)
