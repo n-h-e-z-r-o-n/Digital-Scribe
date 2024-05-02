@@ -1293,12 +1293,13 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             Answer2 = llm_chain2.invoke(input=f"{str(text)}")
             llm_analysis = Answer['text']
             extraced_img_data = llm_analysis
+            llm_analysis = llm_analysis + '\n\n' + Answer2['text']
             view_data_update()
         except Exception as e:
             llm_analysis = extraced_img_data
             view_data_update()
 
-        displ_widg.insert(tk.END, llm_analysis + '\n\n' + Answer2['text'])
+        displ_widg.insert(tk.END, llm_analysis )
 
         font_path = "./Assets/latin.ttf"
 
