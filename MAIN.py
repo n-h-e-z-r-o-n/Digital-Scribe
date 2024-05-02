@@ -1476,7 +1476,7 @@ def change_bg_OnHover_light(widget):  # Color change bg on Mouse Hover
 def change_bg_OnHover_dark(widget1, widget2):  # Color change bg on Mouse Hover
     global bg_color
     widget1.bind("<Enter>", func=lambda e: (widget1.config(background=lighten_hex_color(bg_color, factor=0.2)), widget2.config(background=lighten_hex_color(bg_color, factor=0.2))))
-    widget1.bind("<Leave>", func=lambda e: (widget1.config(background=darken_hex_color(bg_color, factor=0.2)),  widget2.config(background=lighten_hex_color(bg_color, factor=0.2) ))
+    widget1.bind("<Leave>", func=lambda e: (widget1.config(background=darken_hex_color(bg_color, factor=0.2)),  widget2.config(background=bg_color)))
 
 
 
@@ -2467,19 +2467,21 @@ def User_Home_page(widget):
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
     change_bg_OnHover_light(st6_bt)
     widget_list.append(st6_bt)
-    duplicate_widget(st6_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st6_bt, side_bar_full, text="Patient Records")
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_bg_OnHover_light(st7_bt)
     widget_list.append(st7_bt)
-    duplicate_widget(st7_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st7_bt, side_bar_full, text="Billing & Reimbursement")
 
     st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_bg_OnHover_light(st8_bt)
     widget_list.append(st8_bt)
     duplicate_widget(st8_bt, side_bar_full, text="Settings")
+
+    active(st2_bt)
 
     return container2
 
