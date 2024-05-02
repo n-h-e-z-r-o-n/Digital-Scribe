@@ -2326,6 +2326,20 @@ def Clinical_Image(widget):
 
     return Clinical_widg_page
 
+def Recodes_Page(widget):
+    global bg_color, fg_color
+
+    Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
+    Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
+
+
+
+
+    return Recodes_Page
+
+
+
+
 
 def User_Home_page(widget):
     global user_id, side_bar_widget_list, side_bar_widget_list2, Home_page_frame
@@ -2461,7 +2475,7 @@ def User_Home_page(widget):
     duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
     st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
-    st6_bt.place(relheight=0.03, relwidth=1, rely=0.89, relx=0)
+    st6_bt.place(relheight=0.03, relwidth=1, rely=0.25, relx=0)
     change_bg_OnHover_light(st6_bt)
     side_bar_widget_list.append(st6_bt)
     duplicate_widget(st6_bt, side_bar_full, text="Patient Records")
