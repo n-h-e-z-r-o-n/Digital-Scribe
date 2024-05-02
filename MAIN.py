@@ -2390,6 +2390,8 @@ def User_Home_page(widget):
     rag_widget = RAG_page(container2)
     img_extract = Clinical_Image(container2)
 
+    patient_recods = Recodes_Page(container2)
+
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
     def active(widget):
@@ -2474,7 +2476,7 @@ def User_Home_page(widget):
     side_bar_widget_list.append(st5_bt)
     duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
-    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (patient_recods.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.25, relx=0)
     change_bg_OnHover_light(st6_bt)
     side_bar_widget_list.append(st6_bt)
