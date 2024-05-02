@@ -2455,7 +2455,7 @@ def User_Home_page(widget):
     st4_bt.place(relheight=0.03, relwidth=1, rely=0.17, relx=0)
     change_bg_OnHover_light(st4_bt)
     widget_list.append(st4_bt)
-    duplicate_widget(st4_bt, side_bar_full, text="Interactive AI")
+    duplicate_widget(st4_bt, side_bar_full, text="AI-powered Assistance")
 
     st5_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🕮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (img_extract.tkraise(), active(st5_bt)))
     st5_bt.place(relheight=0.03, relwidth=1, rely=0.21, relx=0)
