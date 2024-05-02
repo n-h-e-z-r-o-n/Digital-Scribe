@@ -1473,6 +1473,15 @@ def change_bg_OnHover_light(widget):  # Color change bg on Mouse Hover
     widget.bind("<Enter>", func=lambda e: widget.config(background=lighten_hex_color(bg_color, factor=0.2)))
     widget.bind("<Leave>", func=lambda e: widget.config(background=bg_color))
 
+def change_bg_OnHover_dark(widget, bg_onhouve_color = None):  # Color change bg on Mouse Hover
+    global bg_color
+    widget.bind("<Enter>", func=lambda e: widget.config(background=darken_hex_color(bg_color, factor=0.2)))
+    if bg_onhouve_color is not None
+        widget.bind("<Leave>", func=lambda e: widget.config(background=bg_onhouve_color))
+    else:
+        widget.bind("<Leave>", func=lambda e: widget.config(background=bg_onhouve_color))
+
+
 
 def change_fg_OnHover(widget, colorOnHover, colorOnLeave):  # Color change fg on Mouse Hover
     global fg_color
@@ -2399,13 +2408,14 @@ def User_Home_page(widget):
             duplicate = widget_type(dest_frame)
             if isinstance(duplicate, tk.Label):
                 font = ("Broadway", font_size)
-                duplicate.config(text=widget_text, font=font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W, borderwidth=0, border=0)
+                duplicate.config(text=widget_text, font=font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W, borderwidth=0, border=0)
 
             elif isinstance(duplicate, tk.Button):
                 font = ("Bahnschrift Light Condensed", font_size-3)
                 widget_command = widget.cget("command")
-                duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=bg_color, fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
-                change_bg_OnHover_light(duplicate)
+                duplicate.config(text=widget_text, command=widget_command, font = font, state=widget_state, bg=darken_hex_color(bg_color), fg=fg_color, anchor=tk.W,  borderwidth=0, border=0)
+                #change_bg_OnHover_light(duplicate)
+                change_bg_OnHover_dark(duplicate)
 
 
 
