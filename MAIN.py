@@ -2332,7 +2332,7 @@ def Recodes_Page(widget):
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    def audio_recodings(widget):
+    def audio_recodings(widget, frame_widget):
         folder_path = R"C:\Users\HEZRON WEKESA\OneDrive\Music"
         file_list = []
         if os.path.exists(folder_path):
@@ -2345,19 +2345,26 @@ def Recodes_Page(widget):
                 tk.Label(widget, text= audio_file, bg="blue", borderwidth=0, border=0).place(relheight=0.04, relwidth=1, rely=rely, relx=0)
                 rely += 0.04
 
+            frame_widget.update_idletasks()
+            Audio_recodes_canvas.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
+
         else:
             print("Folder not found.")
 
         return file_list
 
-
-    Audio_recodes_frame =  tk.Frame(Recodes_Page, bg="white", borderwidth=0, border=0)
+    Audio_recodes_frame = tk.Frame(root, bg="blue", borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
-    sBar = tk.Scrollbar(root, orient='vertical', command=Audio_recodes_frame.yview)
-    sBar.grid(row=0, column=1, sticky='ns')
-    Audio_recodes_frame['yscrollcommand'] = sBar.set
+    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame)
+    Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL)
+    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
+    frame = tk.Frame(Audio_recodes_canvas)
+    Audio_recodes_canvas.create_window((0, 0), window=frame, anchor=tk.NW)
+    Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
-    #audio_recodings(Audio_recodes_frame)
+    audio_recodings(frame)
 
 
 
