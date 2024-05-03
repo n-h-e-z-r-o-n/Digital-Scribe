@@ -1,27 +1,27 @@
-import threading
-import time
+import tkinter as tk
+import pygame
 
-# Define a function to print active threads
-def print_active_threads():
-    print("Active Threads:")
-    for thread in threading.enumerate():
-        print("- ", thread.name)
+def play_audio(file_path):
+    pygame.mixer.init()
+    pygame.mixer.music.load(file_path)
+    pygame.mixer.music.play()
 
-# Define a function that will run as a thread
-def my_function():
-    print("Thread started:", threading.current_thread().name)
-    time.sleep(5)
-    print("Thread finished:", threading.current_thread().name)
+def stop_audio():
+    pygame.mixer.music.stop()
 
-# Create a new thread
-thread = threading.Thread(target=my_function, name="MyThread")
-thread.start()
+def main():
+    root = tk.Tk()
+    root.title("Audio Player")
 
-# Print active threads before waiting for the thread to finish
-print_active_threads()
+    file_path = r"C:\Users\HEZRON WEKESA\OneDrive\Music\Air I Breathe .mp3"  # Update with your audio file path
 
-# Wait for the thread to finish
-thread.join()
+    play_button = tk.Button(root, text="Play", command=lambda: play_audio(file_path))
+    play_button.pack()
 
-# Print active threads after the thread has finished
-print_active_threads()
+    stop_button = tk.Button(root, text="Stop", command=stop_audio)
+    stop_button.pack()
+
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()
