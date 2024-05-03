@@ -2,7 +2,7 @@ import tkinter as tk
 import pygame
 
 def play_audio(file_path):
-    pygame.mixer.init()
+
     pygame.mixer.music.load(file_path)
     pygame.mixer.music.play()
 
@@ -10,6 +10,7 @@ def stop_audio():
     pygame.mixer.music.stop()
 
 def main():
+    pygame.mixer.init()
     root = tk.Tk()
     root.title("Audio Player")
 

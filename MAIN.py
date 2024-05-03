@@ -2336,6 +2336,7 @@ def Recodes_Page(widget):
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
 
+    #def sound_play_stop(play_widget, pause_widget, stop_widget, file_name):
 
 
     def audio_recodings(frame_widget, cavas_widget):
