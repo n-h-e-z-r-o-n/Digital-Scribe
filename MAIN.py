@@ -2355,6 +2355,7 @@ def Recodes_Page(widget):
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
     sBar = tk.Scrollbar(root, orient='vertical', command=Audio_recodes_frame.yview)
     sBar.grid(row=0, column=1, sticky='ns')
+    Audio_recodes_frame['yscrollcommand'] = sBar.set
 
     #audio_recodings(Audio_recodes_frame)
 
