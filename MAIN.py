@@ -2603,7 +2603,13 @@ def on_closing():
     closed = True
     root.destroy()
 
-    sys.exit()
+
+    while True:
+        time.sleep(10)
+        for thread in threading.enumerate():
+            print("- ", thread.name)
+
+    #sys.exit()
 
 
 def main():
