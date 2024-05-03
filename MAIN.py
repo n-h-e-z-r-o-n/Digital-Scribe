@@ -2343,7 +2343,9 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
-                audio_wid = tk.Label(frame_widget, text=audio_file, bg="blue", height=int((screen_height-20)*0.9*0.005), borderwidth=0, border=0)
+                audio_wid = tk.Frame(frame_widget, bg="blue", height=int((screen_height-20)*0.9*0.005), borderwidth=0, border=0)
+                audio_Lable = tk.Label(audio_wid, text=audio_file, bg="white", borderwidth=0, border=0)
+                audio_Lable.place(relheight=1, relwidth=0.7, rely=0.02, relx=0.02)
                 audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
                 audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
                 break
