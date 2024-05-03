@@ -2340,10 +2340,11 @@ def Recodes_Page(widget):
                 file_path = os.path.join(folder_path, file_name)
                 if os.path.isfile(file_path):
                     file_list.append(file_name)
-            rely = 0
+
             for audio_file in file_list:
-                tk.Label(frame_widget, text= audio_file, bg="blue", borderwidth=0, border=0, height=50).pack()#.place(relheight=0.04, relwidth=1, rely=rely, relx=0)
-                rely += 0.04
+                audio_wid = tk.Label(frame_widget, text= audio_file, bg="blue", borderwidth=0, border=0, height=10)
+                audio_wid.pack(side=tk.TOP, fill=tk.X)#.place(relheight=0.04, relwidth=1, rely=rely, relx=0)
+                audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
             frame_widget.update_idletasks()
             cavas_widget.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
@@ -2357,8 +2358,7 @@ def Recodes_Page(widget):
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
     Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame)
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    scrollbar = tk.Scrollbar(root, orient=tk.VERTICAL)
-    scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
     frame = tk.Frame(Audio_recodes_canvas)
     Audio_recodes_canvas.create_window((0, 0), window=frame, anchor=tk.NW)
