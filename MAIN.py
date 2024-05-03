@@ -2370,7 +2370,11 @@ def Recodes_Page(widget):
 
                 audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
                 audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-                
+                audio_Lable.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+                audio_play_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+                audio_download_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+                audio_push_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+
 
             frame_widget.update_idletasks()
             cavas_widget.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
@@ -2618,7 +2622,7 @@ def on_closing():
     httpd.server_close()
     root.destroy()
 
-    time.sleep(2)
+    #time.sleep(2)
     """
     while True:
         time.sleep(10)
