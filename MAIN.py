@@ -2328,7 +2328,7 @@ def Clinical_Image(widget):
 
 
 def Recodes_Page(widget):
-    global bg_color, fg_color, screen_height
+    global bg_color, fg_color, screen_height, screen_width
 
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2356,6 +2356,7 @@ def Recodes_Page(widget):
         return file_list
 
     rely = widget.place_info()["rely"]
+    float(widget.place_info()["rely"])
 
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg="blue", borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
@@ -2364,7 +2365,9 @@ def Recodes_Page(widget):
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
     frame = tk.Frame(Audio_recodes_canvas)
-    Audio_recodes_canvas.create_window((0, 0), window=frame, anchor=tk.NW)
+    width = int(screen_width * float(widget.place_info()["relx"]) * 0.3)
+    print("width :",screen_width, "-",width, "-", widget.place_info()["relx"])
+    Audio_recodes_canvas.create_window((0, 0), window=frame, width=width, anchor=tk.NW)
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
     audio_recodings(frame, Audio_recodes_canvas)
