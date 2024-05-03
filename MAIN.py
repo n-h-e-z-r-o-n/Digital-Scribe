@@ -2352,12 +2352,8 @@ def Recodes_Page(widget):
 
 
     Audio_recodes_frame =  tk.Frame(Recodes_Page, bg="white", borderwidth=0, border=0)
-    Audio_recodes_frame.place(relheight=0.8, relwidth=0.3, rely=0.02, relx=0.02)
-    Audio_recodes_frame2 , frame2 = attach_scroll(Audio_recodes_frame, color="yellow")
-    Audio_recodes_frame3 = tk.Frame(Audio_recodes_frame2, bg="blue", borderwidth=0, border=0, width=int(screen_width*0.9747*0.3), height=int(screen_height))
-    Audio_recodes_frame3.place(relheight=0.04, relwidth=1, rely=0, relx=0)
-
-    audio_recodings(Audio_recodes_frame3)
+    Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
+    audio_recodings(Audio_recodes_frame)
 
 
 
