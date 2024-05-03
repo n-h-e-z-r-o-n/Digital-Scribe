@@ -1,6 +1,7 @@
 # ============================================= Used libraries ==========================================================================================
 import sys
 import base64
+import pygame
 import hashlib
 import time
 import socket
@@ -69,7 +70,7 @@ screen_height: int
 session = None
 closed = False
 user_id = None
-
+pygame.mixer.init()
 First_name = None
 Second_Name = None
 Last_Name = None
@@ -2341,6 +2342,11 @@ def Recodes_Page(widget):
 
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
+
+        def Play_Recoding(file_path):
+            pygame.mixer.music.load(file_path)
+            pygame.mixer.music.play()
+
         folder_path = r"C:\Users\HEZRON WEKESA\OneDrive\Music"
         file_list = []
         if os.path.exists(folder_path):
@@ -2350,11 +2356,12 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
+                audio_file_path = folder_path + "/" + audio_file
                 audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height-20)*0.9*0.05),  highlightbackground=fg_color, highlightthickness=1, borderwidth=0, border=0)
 
                 audio_Lable = tk.Label(audio_wid, text=audio_file, bg=bg_color,fg=fg_color, font=("Calibri", font_size),  borderwidth=0, border=0)
                 audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
-                audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+                audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file_path: Play_Recoding(k), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
                 audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
                 audio_download_btn = tk.Button(audio_wid, text="⍊", bg=bg_color, fg=fg_color,  activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
                 audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
@@ -2363,7 +2370,7 @@ def Recodes_Page(widget):
 
                 audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
                 audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-                break
+                
 
             frame_widget.update_idletasks()
             cavas_widget.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
