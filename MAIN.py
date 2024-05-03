@@ -2346,15 +2346,15 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
-                audio_wid = tk.Frame(frame_widget, bg="blue", height=int((screen_height-20)*0.9*0.05), borderwidth=0, border=0)
+                audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height-20)*0.9*0.05),  highlightbackground=fg_color, highlightthickness=1, borderwidth=0, border=0)
 
-                audio_Lable = tk.Label(audio_wid, text=audio_file, bg="white", font=("Calibri", font_size),  borderwidth=0, border=0)
+                audio_Lable = tk.Label(audio_wid, text=audio_file, bg=bg_color, font=("Calibri", font_size),  borderwidth=0, border=0)
                 audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
-                audio_play_btn = tk.Button(audio_wid, text="▶", bg="white", activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+                audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
                 audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
-                audio_download_btn = tk.Button(audio_wid, text="⍊", bg="white", activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+                audio_download_btn = tk.Button(audio_wid, text="⍊", bg=bg_color, fg=fg_color,  activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
                 audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
-                audio_push_btn = tk.Button(audio_wid, text="⌥", bg="white", activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+                audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color,  fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
                 audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
 
                 audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
@@ -2372,19 +2372,17 @@ def Recodes_Page(widget):
     rely = widget.place_info()["rely"]
     float(widget.place_info()["rely"])
 
-    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground="blue", highlightthickness=2, border=0)
+    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground="yellow", highlightthickness=1, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
-
-    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, bg=bg_color, borderwidth=0, border=0)
+    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame,  highlightthickness=0, bg=bg_color, borderwidth=0, border=0)
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
-    """
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
     frame = tk.Frame(Audio_recodes_canvas, bg=bg_color,  borderwidth=0, border=0)
     Audio_recodes_canvas.create_window((0, 0), window=frame, width=int(screen_width * 0.9747 * 0.3), anchor=tk.NW)
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-    """
-    #audio_recodings(frame, Audio_recodes_canvas)
+
+    audio_recodings(frame, Audio_recodes_canvas)
 
     return Recodes_Page
 
