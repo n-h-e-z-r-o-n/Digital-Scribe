@@ -2353,7 +2353,10 @@ def Recodes_Page(widget):
 
     Audio_recodes_frame =  tk.Frame(Recodes_Page, bg="white", borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
-    audio_recodings(Audio_recodes_frame)
+    sBar = tk.Scrollbar(root, orient='vertical', command=Audio_recodes_frame.yview)
+    sBar.grid(row=0, column=1, sticky='ns')
+
+    #audio_recodings(Audio_recodes_frame)
 
 
 
