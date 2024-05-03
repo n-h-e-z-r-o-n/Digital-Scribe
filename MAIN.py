@@ -204,7 +204,7 @@ def modify_css():
 
 
 # ---------------------------------------------- HTTP_ Local Server  -------------------------------------------------------------------------
-
+httpd = None
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import base64
@@ -286,13 +286,15 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 
 def run_server():
-    def run():
+    def run_server_thread():
+        global httpd
         print("server_running")
         server_address = ('localhost', 8080)
         httpd = HTTPServer(server_address, RequestHandler)
         httpd.serve_forever()
+        print("server_stopped")
 
-    threading.Thread(target=run).start()
+    threading.Thread(target=run_server_thread).start()
 
 
 # =============================== Functions definition ============================================================================================
@@ -2598,18 +2600,21 @@ def resize(widget, width, heigh):
 
 
 def on_closing():
-    global root, closed
+    global root, closed, httpd
     print("clossing")
     closed = True
+    httpd.shutdown()
+    httpd.server_close()
     root.destroy()
 
-
+    time.sleep(2)
+    """
     while True:
         time.sleep(10)
         for thread in threading.enumerate():
             print("- ", thread.name)
-
-    #sys.exit()
+    """
+    sys.exit()
 
 
 def main():
