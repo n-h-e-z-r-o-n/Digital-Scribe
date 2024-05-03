@@ -16,12 +16,13 @@ Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 scrollbar = ttk.Scrollbar(root, orient=tk.VERTICAL)
 scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
 Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
-frame = ttk.Frame(Audio_recodes_canvas)
-Audio_recodes_canvas.create_window((0, 0), window=frame, anchor=tk.NW)
+frame = tk.Frame(Audio_recodes_canvas, bg="yellow")
+Audio_recodes_canvas.create_window((0, 0), window=frame, width=Audio_recodes_canvas.winfo_width(), height=Audio_recodes_canvas.winfo_height(), anchor=tk.NW)
 Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 # Update canvas scrolling region
 
-
+print(Audio_recodes_canvas.winfo_width())
+print(Audio_recodes_canvas.winfo_height())
 
 
 for i in range(50):
