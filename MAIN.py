@@ -2332,6 +2332,10 @@ def Clinical_Image(widget):
 
 def Recodes_Page(widget):
     global bg_color, fg_color, screen_height, screen_width
+    global active_sound_widget_file, active_sound_widget, font_size
+
+    active_sound_widget_file = None
+    active_sound_widget = None
 
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2342,10 +2346,68 @@ def Recodes_Page(widget):
 
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
+        global active_sound_widget_file
 
-        def Play_Recoding(file_path):
-            pygame.mixer.music.load(file_path)
-            pygame.mixer.music.play()
+
+        def create_audio_widget(audio_file):
+             global playing, active_sound_widget_file
+
+             playing = 0
+
+             def Play_Recoding(file_path, widget):
+                global playing, active_sound_widget_file, active_sound_widget
+
+                if active_sound_widget != None:
+                    if active_sound_widget != widget:
+                        pygame.mixer.music.stop()
+                        active_sound_widget.config(text="▶")
+                        playing = 0
+
+
+                active_sound_widget = widget
+
+                if playing == 0:
+                    pygame.mixer.music.load(file_path)
+                    pygame.mixer.music.play()
+                    playing = 1
+                    widget.config(text="||")
+                elif playing == 1 :
+                    pygame.mixer.music.pause()
+                    widget.config(text="≜")
+                    playing = 2
+                elif playing == 2:
+                    pygame.mixer.music.unpause()
+                    widget.config(text="||")
+                    playing = 1
+
+             def stop():
+                 global playing, active_sound_widget
+                 playing = 0
+                 active_sound_widget.config(text="▶")
+                 pygame.mixer.music.stop()
+                 active_sound_widget = None
+
+
+             audio_file_path = folder_path + "/" + audio_file
+
+             audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height - 20) * 0.9 * 0.05), highlightbackground=fg_color, highlightthickness=0, borderwidth=0, border=0)
+
+             audio_Lable = tk.Label(audio_wid, text="  "+audio_file, bg=bg_color, fg=fg_color,  anchor=tk.W, font=("Calibri", font_size-2, 'italic'), borderwidth=0, border=0)
+             audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
+             audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file_path: Play_Recoding(k, audio_play_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+             audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
+             audio_download_btn = tk.Button(audio_wid, text="⍊", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+             audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
+             audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+             audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
+
+             audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
+             audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+             audio_Lable.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+             audio_play_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+             audio_download_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+             audio_push_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+
 
         folder_path = r"C:\Users\HEZRON WEKESA\OneDrive\Music"
         file_list = []
@@ -2356,24 +2418,10 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
-                audio_file_path = folder_path + "/" + audio_file
-                audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height-20)*0.9*0.05),  highlightbackground=fg_color, highlightthickness=1, borderwidth=0, border=0)
+                create_audio_widget(audio_file)
 
-                audio_Lable = tk.Label(audio_wid, text=audio_file, bg=bg_color,fg=fg_color, font=("Calibri", font_size),  borderwidth=0, border=0)
-                audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
-                audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file_path: Play_Recoding(k), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
-                audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
-                audio_download_btn = tk.Button(audio_wid, text="⍊", bg=bg_color, fg=fg_color,  activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
-                audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
-                audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color,  fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
-                audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
 
-                audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
-                audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-                audio_Lable.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-                audio_play_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-                audio_download_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-                audio_push_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+
 
 
             frame_widget.update_idletasks()
@@ -2384,11 +2432,9 @@ def Recodes_Page(widget):
 
         return file_list
 
-    rely = widget.place_info()["rely"]
-    float(widget.place_info()["rely"])
-
-    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground="yellow", highlightthickness=0.5, border=0)
-    Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
+    tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color,  fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
+    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground=fg_color, highlightthickness=0.5, border=0)
+    Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.05, relx=0.02)
     Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame,  highlightthickness=0, bg=bg_color, borderwidth=0, border=0)
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
@@ -2398,6 +2444,14 @@ def Recodes_Page(widget):
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
     audio_recodings(frame, Audio_recodes_canvas)
+
+    x = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
+    x.place(relheight=0.9, relwidth=0.64, rely=0.05, relx=0.35)
+
+    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
+    x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
+
+
 
     return Recodes_Page
 

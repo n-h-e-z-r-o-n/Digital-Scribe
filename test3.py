@@ -8,6 +8,12 @@ def play_audio(file_path):
 def stop_audio():
     pygame.mixer.music.stop()
 
+def pause():
+    pygame.mixer.music.pause()
+
+def unpause():
+    pygame.mixer.music.unpause()
+
 def main():
     pygame.mixer.init()
     root = tk.Tk()
@@ -20,6 +26,10 @@ def main():
 
     stop_button = tk.Button(root, text="Stop", command=stop_audio)
     stop_button.pack()
+
+    tk.Button(root, text="pause", command=pause).pack()
+
+    tk.Button(root, text="unpause", command=unpause).pack()
 
     root.mainloop()
 
