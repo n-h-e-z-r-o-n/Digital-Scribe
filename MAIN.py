@@ -2448,7 +2448,7 @@ def Recodes_Page(widget):
     x = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
     x.place(relheight=0.9, relwidth=0.64, rely=0.05, relx=0.35)
 
-    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
+    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color,  fg=fg_color, relief=tk.SUNKEN, border=0)
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
 
