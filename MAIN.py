@@ -2372,17 +2372,19 @@ def Recodes_Page(widget):
     rely = widget.place_info()["rely"]
     float(widget.place_info()["rely"])
 
-    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, border=0)
+    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground="blue", highlightthickness=2, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
-    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, bg='yellow')
+
+    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, bg=bg_color, borderwidth=0, border=0)
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+    """
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
-    frame = tk.Frame(Audio_recodes_canvas)
+    frame = tk.Frame(Audio_recodes_canvas, bg=bg_color,  borderwidth=0, border=0)
     Audio_recodes_canvas.create_window((0, 0), window=frame, width=int(screen_width * 0.9747 * 0.3), anchor=tk.NW)
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-
-    audio_recodings(frame, Audio_recodes_canvas)
+    """
+    #audio_recodings(frame, Audio_recodes_canvas)
 
     return Recodes_Page
 
