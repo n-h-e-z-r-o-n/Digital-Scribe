@@ -2327,16 +2327,41 @@ def Clinical_Image(widget):
     return Clinical_widg_page
 
 def Recodes_Page(widget):
-    global bg_color, fg_color
+    global bg_color, fg_color, screen_height
 
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
+    def audio_recodings(widget):
+        folder_path = R"C:\Users\HEZRON WEKESA\OneDrive\Music"
+        file_list = []
+        if os.path.exists(folder_path):
+            for file_name in os.listdir(folder_path):
+                file_path = os.path.join(folder_path, file_name)
+                if os.path.isfile(file_path):
+                    file_list.append(file_name)
+            rely = 0
+            for audio_file in file_list:
+                tk.Label(widget, text= audio_file, bg="blue", borderwidth=0, border=0).place(relheight=0.04, relwidth=1, rely=rely, relx=0)
+                rely += 0.04
+
+        else:
+            print("Folder not found.")
+
+        return file_list
+
+
+    Audio_recodes_frame =  tk.Frame(Recodes_Page, bg="white", borderwidth=0, border=0)
+    Audio_recodes_frame.place(relheight=0.8, relwidth=0.3, rely=0.02, relx=0.02)
+    Audio_recodes_frame2 , frame2 = attach_scroll(Audio_recodes_frame, color="yellow")
+    Audio_recodes_frame3 = tk.Frame(Audio_recodes_frame2, bg="blue", borderwidth=0, border=0, width=int(screen_width*0.9747*0.3), height=int(screen_height))
+    Audio_recodes_frame3.place(relheight=0.04, relwidth=1, rely=0, relx=0)
+
+    audio_recodings(Audio_recodes_frame3)
 
 
 
     return Recodes_Page
-
 
 
 
@@ -2389,7 +2414,6 @@ def User_Home_page(widget):
     CHAT_Widget = chat(container2)
     rag_widget = RAG_page(container2)
     img_extract = Clinical_Image(container2)
-
     patient_recods = Recodes_Page(container2)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
@@ -2494,6 +2518,7 @@ def User_Home_page(widget):
     side_bar_widget_list.append(st8_bt)
     duplicate_widget(st8_bt, side_bar_full, text="Settings")
 
+    CHAT_Widget.tkraise()
     active(st2_bt)
 
     return container2
