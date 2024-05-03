@@ -2343,7 +2343,7 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
-                audio_wid = tk.Label(frame_widget, text=audio_file, bg="blue", borderwidth=0, border=0)
+                audio_wid = tk.Label(frame_widget, text=audio_file, bg="blue", height=int((screen_height*0.9*0.04) - 20), borderwidth=0, border=0)
                 audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
                 audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
@@ -2358,16 +2358,14 @@ def Recodes_Page(widget):
     rely = widget.place_info()["rely"]
     float(widget.place_info()["rely"])
 
-    Audio_recodes_frame = tk.Frame(Recodes_Page, bg="blue", borderwidth=0, border=0)
+    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
     Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, bg='yellow')
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
     frame = tk.Frame(Audio_recodes_canvas)
-    width = int(screen_width * float(widget.place_info()["relx"]) * 0.3)
-    print("width :",screen_width, "-",width, "-", widget.place_info()["relx"])
-    Audio_recodes_canvas.create_window((0, 0), window=frame, width=width, anchor=tk.NW)
+    Audio_recodes_canvas.create_window((0, 0), window=frame, width=int(screen_width * 0.9747 * 0.3), anchor=tk.NW)
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
     audio_recodings(frame, Audio_recodes_canvas)
