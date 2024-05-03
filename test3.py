@@ -8,7 +8,7 @@ def on_scroll(*args):
 root = tk.Tk()
 root.title("Scrollbar Example")
 root.config(bg="blue")
-
+root.state("zoom")
 Audio_recodes_frame =  tk.Frame(root, bg="blue", borderwidth=0, border=0)
 Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
 Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame)
@@ -25,7 +25,7 @@ Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_s
 
 
 for i in range(50):
-    ttk.Label(frame, text="Label {}".format(i)).pack()
+    tk.Label(frame, bg="green", text="Label {}".format(i)).pack(side=tk.TOP, fill=tk.X)
 
 frame.update_idletasks()
 Audio_recodes_canvas.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
