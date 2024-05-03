@@ -1299,7 +1299,7 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
             llm_analysis = extraced_img_data
             view_data_update()
 
-        displ_widg.insert(tk.END, llm_analysis )
+        displ_widg.insert(tk.END, llm_analysis)
 
         font_path = "./Assets/latin.ttf"
 
@@ -2326,6 +2326,7 @@ def Clinical_Image(widget):
 
     return Clinical_widg_page
 
+
 def Recodes_Page(widget):
     global bg_color, fg_color, screen_height
 
@@ -2342,8 +2343,8 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
-                audio_wid = tk.Label(frame_widget, text= audio_file, bg="blue", borderwidth=0, border=0, height=10)
-                audio_wid.pack(side=tk.TOP, fill=tk.X)#.place(relheight=0.04, relwidth=1, rely=rely, relx=0)
+                audio_wid = tk.Label(frame_widget, text=audio_file, bg="blue", borderwidth=0, border=0)
+                audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
                 audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
             frame_widget.update_idletasks()
@@ -2356,7 +2357,7 @@ def Recodes_Page(widget):
 
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg="blue", borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
-    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame)
+    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, bg='yellow')
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
@@ -2366,11 +2367,7 @@ def Recodes_Page(widget):
 
     audio_recodings(frame, Audio_recodes_canvas)
 
-
-
     return Recodes_Page
-
-
 
 
 def User_Home_page(widget):
