@@ -2355,6 +2355,8 @@ def Recodes_Page(widget):
 
         return file_list
 
+    rely = widget.place_info()["rely"]
+
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg="blue", borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
     Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, bg='yellow')
