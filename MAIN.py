@@ -2353,12 +2353,7 @@ def Recodes_Page(widget):
 
     Audio_recodes_frame =  tk.Frame(Recodes_Page, bg="white", borderwidth=0, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.02, relx=0.02)
-
-    user_page_widget, user_page_canvas = attach_scroll(Audio_recodes_frame, bg_color)
-    fr2 = tk.Frame(user_page_widget, bg=bg_color, borderwidth=0, border=0, height=4000, width=int(screen_width * 0.9747 * 0.21))
-    fr2.pack(fill=tk.BOTH, side=tk.TOP, expand=True)
-
-    audio_recodings(fr2)
+    audio_recodings(Audio_recodes_frame)
 
 
 
