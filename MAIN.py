@@ -2340,7 +2340,7 @@ def Recodes_Page(widget):
 
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
-        folder_path = R"C:\Users\HEZRON WEKESA\OneDrive\Music"
+        folder_path = r"C:\Users\HEZRON WEKESA\OneDrive\Music"
         file_list = []
         if os.path.exists(folder_path):
             for file_name in os.listdir(folder_path):
