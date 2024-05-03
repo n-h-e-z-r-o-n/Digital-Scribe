@@ -2342,7 +2342,7 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
             rely = 0
             for audio_file in file_list:
-                tk.Label(frame_widget, text= audio_file, bg="blue", borderwidth=0, border=0).pack()#.place(relheight=0.04, relwidth=1, rely=rely, relx=0)
+                tk.Label(frame_widget, text= audio_file, bg="blue", borderwidth=0, border=0, height=50).pack()#.place(relheight=0.04, relwidth=1, rely=rely, relx=0)
                 rely += 0.04
 
             frame_widget.update_idletasks()
