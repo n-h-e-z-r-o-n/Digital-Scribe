@@ -2334,6 +2334,7 @@ def Recodes_Page(widget):
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
     def audio_recodings(frame_widget, cavas_widget):
+        global font_size, screen_height
         folder_path = R"C:\Users\HEZRON WEKESA\OneDrive\Music"
         file_list = []
         if os.path.exists(folder_path):
@@ -2343,9 +2344,13 @@ def Recodes_Page(widget):
                     file_list.append(file_name)
 
             for audio_file in file_list:
-                audio_wid = tk.Frame(frame_widget, bg="blue", height=int((screen_height-20)*0.9*0.005), borderwidth=0, border=0)
-                audio_Lable = tk.Label(audio_wid, text=audio_file, bg="white", borderwidth=0, border=0)
-                audio_Lable.place(relheight=1, relwidth=0.7, rely=0.02, relx=0.02)
+                audio_wid = tk.Frame(frame_widget, bg="blue", height=int((screen_height-20)*0.9*0.05), borderwidth=0, border=0)
+
+                audio_Lable = tk.Label(audio_wid, text=audio_file, bg="white", font=("Calibri", font_size),  borderwidth=0, border=0)
+                audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
+                audio_play_btn = tk.Label(audio_wid, text="⊵", bg="white", font=("Calibri", font_size), borderwidth=0, border=0)
+                audio_play_btn.place(relheight=1, relwidth=0.7, rely=0, relx=0.7)
+
                 audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
                 audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
                 break
