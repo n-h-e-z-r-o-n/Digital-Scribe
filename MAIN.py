@@ -483,6 +483,15 @@ def entity_highlight_words(widget):
                     print("entites word:", g_word)
                     if (g_word == "or") or (g_word == "OR") or (g_word == "and") or (g_word == "AND") or (g_word == "when")  or (g_word == "to"):
                         continue
+                    g_word = g_word.strip(",")
+                    g_word = g_word.strip(".")
+                    while True:
+                        start = widget.search(g_word, start, stopindex=tk.END)
+                        if not start:
+                            break
+                        end = f"{start}+{len(g_word)}c"
+                        widget.tag_add("highlight", start, end)
+                        start = end
                     while True:
                         start = widget.search(g_word, start, stopindex=tk.END)
                         if not start:
