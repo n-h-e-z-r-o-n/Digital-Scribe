@@ -44,7 +44,7 @@ import json
 from vosk import Model, KaldiRecognizer
 import whisper  # pip install -U openai-whisper
 import wave
-
+from pydub import AudioSegment # used for converting .wav to .mp3
 # ------------------------------- img-to-text --------------------------------------------------------------------------------------------
 from PIL import Image
 import pytesseract
@@ -832,8 +832,8 @@ def llm_inference_initializ():
 
     # ================================================ chat bot3 section
 
-    template2 = """You are a AI that extracts useful information from text data exacted from and audio file. 
-        Audio text: {Instruction}
+    template2 = """You are a AI that extracts useful information clinical information from text data. 
+        Text Data: {Instruction}
         Chatbot:"""
 
     prompt2 = PromptTemplate(template=template2, input_variables=["Instruction"])
@@ -1222,7 +1222,13 @@ def save_recoded_conversation(output_file):
 
     threading.Thread(target=save_recoded_conversation_thread).start()
 
+def convert_wav_to_mp3(wav_file, mp3_file):
+    # Load the WAV file
+    audio = AudioSegment.from_wav(wav_file)
 
+    # Export the audio as MP3
+    audio.export(mp3_file, format="mp3")
+    
 def integrate_strings(old, edited, new):
     old = old.split()
     edited = edited.split()
@@ -2405,13 +2411,27 @@ def Recodes_Page(widget):
     x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color,  font=("Calibri", font_size-3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
+    tk.Button(x, text="Summarize", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
+    tk.Button(x, text="Entity_Extract",  bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.8)
+    tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
+
+
     x3 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
-    x3.place(relheight=0.5, relwidth=1, rely=0.5, relx=0)
+    x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
+
+
 
     def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
         global downloading_audio
         downloading_audio = True
-        def visual(bt_widget=an_widget):
+        def visual_analyse_recoding_run(bt_widget=an_widget):
             global downloading_audio
             global fg_color
             color = 'yellow'
@@ -2430,7 +2450,7 @@ def Recodes_Page(widget):
             global downloading_audio
             if llm_chain3 is None:
                 llm_inference_initializ()
-            threading.Thread(target=visual).start()
+            threading.Thread(target=visual_analyse_recoding_run).start()
 
             audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
             result = wisper_model_tiny.transcribe(audio_path_full)

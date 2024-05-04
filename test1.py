@@ -1,21 +1,12 @@
-import tkinter as tk
+from pydub import AudioSegment
 
-def disable_entry():
-    entry_widget.configure(state='disabled', disabledbackground='blue' )
 
-def enable_entry():
-    entry_widget.configure(state='normal')
+def convert_wav_to_mp3(wav_file, mp3_file):
+    # Load the WAV file
+    audio = AudioSegment.from_wav(wav_file)
 
-root = tk.Tk()
-root.geometry("300x100")
+    # Export the audio as MP3
+    audio.export(mp3_file, format="mp3")
 
-entry_widget = tk.Entry(root)
-entry_widget.pack()
 
-disable_button = tk.Button(root, text="Disable Entry", command=disable_entry)
-disable_button.pack()
-
-enable_button = tk.Button(root, text="Enable Entry", command=enable_entry)
-enable_button.pack()
-
-root.mainloop()
+convert_wav_to_mp3(r"C:\Users\HEZRON WEKESA\Desktop\python Project\Mental_health Ai\Mental_App\Audio_Records\ (Saturday May 2024,  06 PM).wav", r"C:\Users\HEZRON WEKESA\Desktop\python Project\Mental_health Ai\Mental_App\Audio_Records\ 123.mp3")
