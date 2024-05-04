@@ -1218,6 +1218,11 @@ def save_recoded_conversation(output_file):
             output_wave.setframerate(sample_rate)
             output_wave.writeframes(b''.join(audio_frames))
 
+        mp3_file = output_file.strip(".wav")
+        mp3_file = mp3_file + ".mp3"
+        convert_wav_to_mp3(output_file, mp3_file)
+        os.remove(output_file)
+
         saving_audio = False
 
     threading.Thread(target=save_recoded_conversation_thread).start()
@@ -1228,7 +1233,7 @@ def convert_wav_to_mp3(wav_file, mp3_file):
 
     # Export the audio as MP3
     audio.export(mp3_file, format="mp3")
-    
+
 def integrate_strings(old, edited, new):
     old = old.split()
     edited = edited.split()
