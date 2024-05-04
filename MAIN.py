@@ -2356,8 +2356,10 @@ def Recodes_Page(widget):
     x3 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.5, relwidth=1, rely=0.5, relx=0)
 
-    def analyse_recoding(audio_path, an_widget, x2 = x2):
-        global wisper_model_tiny, path_exe, llm_chain2
+    def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
+        global wisper_model_tiny, path_exe, llm_chain3
+        if llm_chain3 is None:
+
         audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
         an_widget.config(fg='red')
         result = wisper_model_tiny.transcribe(audio_path_full)
@@ -2366,6 +2368,11 @@ def Recodes_Page(widget):
         x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
         x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
         an_widget.config(fg='green')
+
+        AI_response = llm_chain3.invoke(input=result["text"])
+
+
+        x3.insert(tk.END, AI_response['text'])
 
 
     def audio_recodings(frame_widget, cavas_widget):
