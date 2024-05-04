@@ -122,6 +122,7 @@ clinical_Note_upload_btn = None
 proccessed_img_url = None
 font_size = 15
 ref_btn = None
+text_list_widget = []
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -385,7 +386,7 @@ def change_color(widget, button):
         return
 
     def change_all(wdget=widget):
-        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, Home_page_frame
+        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, Home_page_frame, text_list_widget
 
         if isinstance(wdget, tk.Frame):
             wdget.config(bg=bg_color)
@@ -398,6 +399,9 @@ def change_color(widget, button):
 
         elif isinstance(wdget, tk.Text):
             wdget.config(bg=bg_color, fg=fg_color)
+            for wd in text_list_widget:
+                wd.config(bg=darken_hex_color(bg_color), fg=fg_color)
+
         elif isinstance(wdget, tk.Entry):
             wdget.config(bg=bg_color, fg=fg_color)
         elif isinstance(wdget, tk.Canvas):
@@ -1960,7 +1964,8 @@ def Main_Page(widget):
     t1.tag_configure("ASR", foreground="gray")
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
-    t3 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
+    t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
+    text_list_widget.append(t3)
 
     paned_window.add(t1)
     paned_window.add(t2)
@@ -2459,7 +2464,7 @@ def Clinical_Image(widget):
 def Recodes_Page(widget):
     global bg_color, fg_color, screen_height, screen_width
     global sound_widgets, active_sound_widget, font_size, ref_btn
-    global llm_chain3, llm_chain4
+    global llm_chain3, llm_chain4, text_list_widget
 
 
     sound_widgets = []
@@ -2488,6 +2493,7 @@ def Recodes_Page(widget):
 
     x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
+    text_list_widget.append(x3)
 
     def context_assistant(text_widget, display_widget):
         def context_assistant_run(text_widget=text_widget, display_widget=display_widget):

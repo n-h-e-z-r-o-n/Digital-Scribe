@@ -4,10 +4,10 @@
     "_G_FT_M_": "",
     "_G_B_M_": "nous-hermes2",
     "_AAI_": "1b99bbdd-1360-4321-a152-fc8822334cd0_workspace",
-    "bg_color": "#36454F",
+    "bg_color": "#555D50",
     "fg_color": "white",
     "fg_hovercolor": "red",
     "bg_hovercolor": "lightgreen",
-    "current_theme": "window(dark_blue)",
-    "nav_bg": "#36454F"
+    "current_theme": "window(dark_green)",
+    "nav_bg": "#555D50"
 }
