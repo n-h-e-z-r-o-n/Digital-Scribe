@@ -885,7 +885,7 @@ def Initialize_VOSK():
 threading.Thread(target=Initialize_VOSK).start()
 
 
-def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None):
+def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None, Conversation_Name_widget = None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
     global audio_frames
@@ -899,8 +899,10 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         current_time_struct = time.localtime(current_time_seconds)
         current_time_words = time.strftime("%A %B %Y,  %I %p", current_time_struct)
 
-        output_file = path_exe + '\\Audio_Records\\' + f'hezron ({current_time_words}).wav'
+        file_name = Conversation_Name_widget.get()
+        output_file = path_exe + '\\Audio_Records\\' + f'{file_name} ({current_time_words}).wav'
         save_recoded_conversation(rf"{output_file}")
+        Conversation_Name_widget.configure(state='normal')
         return
 
     def start_recording():
@@ -1063,6 +1065,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         rec.SetWords(True)
         threading.Thread(target=start_recording).start()
         speech_record_time(clock_wideth)
+        Conversation_Name_widget.configure(state='disabled',  disabledbackground=darken_hex_color(bg_color))
         break
 
 
@@ -1820,7 +1823,7 @@ def Login_Section_widget(widget, root_widget):
 
 def Main_Page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
-    global Recording_paused
+    global Recording_paused, font_size
 
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
@@ -1968,11 +1971,11 @@ def Main_Page(widget):
 
     custom_add(fr2)
 
-    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size-5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
-    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t2, t3, Record_btn, clock_lb))
+    Record_btn = tk.Button(chatbot_widget, text='🎙', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 25), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: RUN_OFFLINE_speech_recognition(t1, t2, t3, Record_btn, clock_lb, Conversation_Name_entry))
     Record_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.78)
 
     play_pause_btn = tk.Button(chatbot_widget, text='⏯', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 15), anchor='s', activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: set_recording_paused(play_pause_btn))
@@ -1987,19 +1990,18 @@ def Main_Page(widget):
     upload_audio_wid_btn = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
     upload_audio_wid_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
-    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
+    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size-5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
-    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t2, t3))
+    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size-5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t2, t3))
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    Conversation_Name = tk.Label(chatbot_widget, text='Conv_ Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", 10), activebackground="blue", bg="blue", borderwidth=0, border=0)
+    Conversation_Name = tk.Label(chatbot_widget, text='Conv_ Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size-5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0)
     Conversation_Name.place(relheight=0.03, relwidth=0.05, rely=0.81, relx=0.78)
 
-
-    Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Calibri Light", 10), bg="blue", borderwidth=0, border=0)
+    Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size-2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
 
 

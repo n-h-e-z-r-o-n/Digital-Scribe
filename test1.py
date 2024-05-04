@@ -1,13 +1,21 @@
-import time
+import tkinter as tk
 
-# Get the current time in seconds since the epoch
-current_time_seconds = time.time()
+def disable_entry():
+    entry_widget.configure(state='disabled', disabledbackground='blue' )
 
-# Convert the current time to a struct_time object
-current_time_struct = time.localtime(current_time_seconds)
+def enable_entry():
+    entry_widget.configure(state='normal')
 
-# Format the current time in words
-current_time_words = time.strftime("%A %B %d %Y %I %p", current_time_struct)
+root = tk.Tk()
+root.geometry("300x100")
 
-# Print the current time in words
-print("Current date and time:", current_time_words)
+entry_widget = tk.Entry(root)
+entry_widget.pack()
+
+disable_button = tk.Button(root, text="Disable Entry", command=disable_entry)
+disable_button.pack()
+
+enable_button = tk.Button(root, text="Enable Entry", command=enable_entry)
+enable_button.pack()
+
+root.mainloop()
