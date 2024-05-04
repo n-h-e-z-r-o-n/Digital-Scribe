@@ -895,8 +895,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         Record_btn.config(fg=fg_color)
         clock_wideth.config(text='0:0:0')
         Recording_paused = False
-        current_time = time.strftime("%Y-%m-%d %H:%M", time.localtime())
-        output_file = path_exe + '\\Audio_Records\\' + 'hezron.wav'
+        current_time_seconds = time.time()
+        current_time_struct = time.localtime(current_time_seconds)
+        current_time_words = time.strftime("%A %B %Y,  %I %p", current_time_struct)
+
+        output_file = path_exe + '\\Audio_Records\\' + f'hezron ({current_time_words}).wav'
         save_recoded_conversation(rf"{output_file}")
         return
 
@@ -1991,6 +1994,10 @@ def Main_Page(widget):
     Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t2, t3))
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
+
+    Conversation_Name = tk.Label(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
+    Conversation_Name.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
+    change_fg_OnHover(extract_wid, 'red', fg_color)
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
