@@ -2417,7 +2417,7 @@ def Recodes_Page(widget):
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color,  font=("Calibri", font_size-3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
-    tk.Button(x, text="Summarize", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
+    tk.Button(x, text="Summarize", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract",  bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
