@@ -886,8 +886,11 @@ def llm_inference_initializ():
 
     # ================================================ chat bot3 section
 
-    template4 = """You are a AI Assistant that analyzes doctor-patient conversation, and suggesting relevant follow-up questions, probing for additional details.
-            Doctor-Patient Converastion: {Instruction}
+    template4 = """
+            Doctor-Patient Converastion: "{Instruction}"
+            
+            Analyze the above doctor-patient conversation, and suggesting relevant follow-up questions, the doctor would ask the patient probing for additional details.
+            
             Chatbot:"""
 
     prompt4 = PromptTemplate(template=template4, input_variables=["Instruction"])
