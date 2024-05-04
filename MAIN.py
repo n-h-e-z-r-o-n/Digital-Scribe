@@ -2472,8 +2472,8 @@ def Recodes_Page(widget):
         threading.Thread(target=analyse_recoding_run).start()
 
     def refresh_recodings(frame, Audio_recodes_canvas):
-        global sound_widgets
-
+        global sound_widgets, active_sound_widget
+        active_sound_widget = None
         for wid in sound_widgets:
             wid.destroy()
 
