@@ -92,6 +92,7 @@ wisper_model_tiny = None
 rag_pipeline = None
 llm_chain = None
 llm_chain2 = None
+llm_chain3 = None
 bg_color = '#FFFFFF'
 fg_color = 'black'
 fg_hovercolor = 'red'
@@ -796,13 +797,13 @@ def clear_rag_file(pdf_view_frame):
 
 
 def llm_inference_initializ():
-    global llm_chain, llm_chain2
+    global llm_chain, llm_chain2, llm_chain3
     fine_tuned_Model_Id = "d189f721-ae17-4545-a0ad-f95194e857f5_model_adapter"  # initializes a GradientLLM with our fine-tuned model by specifying our model ID.
 
     gradient = Gradient()
     base_model = gradient.get_base_model(base_model_slug="nous-hermes2")
 
-    # ================================================ chat bot section
+    # ================================================ chat bot1 section
     llm = GradientLLM(
         model=base_model.id,
         model_kwargs=dict(max_generated_token_count=510),
@@ -818,18 +819,24 @@ def llm_inference_initializ():
     memory = ConversationBufferMemory(memory_key="chat_history")
     llm_chain = LLMChain(prompt=prompt, llm=llm, memory=memory)
 
-    # ================================================ chat bot section
-    llm2 = GradientLLM(
-        model=base_model.id,
-        model_kwargs=dict(max_generated_token_count=510),
-    )
+    # ================================================ chat bot2 section
+
 
     template2 = """You are a AI that analyzes data exacted from images and present it in a formatted way. 
     Human: {Instruction}
     Chatbot:"""
 
     prompt2 = PromptTemplate(template=template2, input_variables=["Instruction"])
-    llm_chain2 = LLMChain(prompt=prompt2, llm=llm2)
+    llm_chain2 = LLMChain(prompt=prompt2, llm=llm)
+
+    # ================================================ chat bot3 section
+
+    template2 = """You are a AI that analyzes text data exacted from and audio file. 
+        Audio text: {Instruction}
+        Chatbot:"""
+
+    prompt2 = PromptTemplate(template=template2, input_variables=["Instruction"])
+    llm_chain3 = LLMChain(prompt=prompt2, llm=llm)
 
 
 def Chat_bot_inference(widget0, widget1, widget2):
@@ -2343,18 +2350,21 @@ def Recodes_Page(widget):
     x = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
     x.place(relheight=0.9, relwidth=0.64, rely=0.05, relx=0.35)
 
-    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, relief=tk.SUNKEN, border=1)
+    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
+    x3 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
+    x3.place(relheight=0.5, relwidth=1, rely=0.5, relx=0)
+
     def analyse_recoding(audio_path, an_widget, x2 = x2):
-        global wisper_model_tiny, path_exe
+        global wisper_model_tiny, path_exe, llm_chain2
         audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
         an_widget.config(fg='red')
         result = wisper_model_tiny.transcribe(audio_path_full)
         print(result["text"])
         x2.delete(1.0, tk.END)
         x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
-        x2.insert(tk.END, "\n Conversation : \n" + result["text"])
+        x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
         an_widget.config(fg='green')
 
 
