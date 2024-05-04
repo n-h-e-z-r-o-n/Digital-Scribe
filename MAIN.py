@@ -896,8 +896,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         clock_wideth.config(text='0:0:0')
         Recording_paused = False
         current_time = time.strftime("%Y-%m-%d %H:%M", time.localtime())
-        output_file = path_exe + '\\Audio_Records\\' + 'hezron' + str(current_time)+'.wav'
-        save_recoded_conversation(output_file)
+        output_file = path_exe + '\\Audio_Records\\' + 'hezron.wav'
+        save_recoded_conversation(rf"{output_file}")
         return
 
     def start_recording():
@@ -1187,7 +1187,7 @@ def save_recoded_conversation(output_file):
         global saving_audio
         global fg_color
         color = 'yellow'
-        while downloading_audio:
+        while saving_audio:
             if color == 'yellow':
                 ref_btn.config(fg=color)
                 color = 'gold'
@@ -1198,7 +1198,8 @@ def save_recoded_conversation(output_file):
         ref_btn.config(fg=fg_color)
 
     def save_recoded_conversation_thread(output_file=output_file):
-        global audio_frames
+        global audio_frames, saving_audio
+        print("save_recoded_conversation: ", output_file)
         threading.Thread(target=visual).start()
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
@@ -2531,8 +2532,9 @@ def Recodes_Page(widget):
         return file_list
 
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color,  fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
-    ref_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color,  activeforeground="green", command=lambda :refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
-
+    refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color,  activeforeground="green", command=lambda :refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
+    refresh_btn.place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
+    ref_btn = refresh_btn
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground=fg_color, highlightthickness=0.5, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.05, relx=0.02)
     Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame,  highlightthickness=0, bg=bg_color, borderwidth=0, border=0)
