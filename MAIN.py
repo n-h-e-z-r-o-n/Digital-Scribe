@@ -877,7 +877,7 @@ def llm_inference_initializ():
 
     # ================================================ chat bot3 section
 
-    template3 = """You are a AI that extracts useful information clinical information from text data. 
+    template3 = """You are a AI that extracts useful information clinical information from text data. Extract data from the provided Text.
         Text Data: {Instruction}
         Chatbot:"""
 
@@ -886,8 +886,8 @@ def llm_inference_initializ():
 
     # ================================================ chat bot3 section
 
-    template4 = """You are a AI Assistant doctor that analyzes doctor-patient conversation, and  provide contextual assistance by suggesting relevant follow-up questions, probing for additional details, or offering relevant resources. Consider the patient's medical history, current condition, and any specific concerns or symptoms mentioned in the conversation. Aim to guide the user towards obtaining comprehensive and relevant information to facilitate effective patient care and documentation.
-            Converastion: {Instruction}
+    template4 = """You are a AI Assistant that analyzes doctor-patient conversation, and suggesting relevant follow-up questions, probing for additional details.
+            Doctor-Patient Converastion: {Instruction}
             Chatbot:"""
 
     prompt4 = PromptTemplate(template=template4, input_variables=["Instruction"])
