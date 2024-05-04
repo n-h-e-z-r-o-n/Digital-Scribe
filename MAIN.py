@@ -2340,15 +2340,21 @@ def Recodes_Page(widget):
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
+    x = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
+    x.place(relheight=0.9, relwidth=0.64, rely=0.05, relx=0.35)
 
-    def analyse_recoding(audio_path, an_widget):
+    x2 = tk.Text(x, bg="gray", borderwidth=0, highlightbackground=fg_color, fg=fg_color, relief=tk.SUNKEN, border=0)
+    x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
+
+    def analyse_recoding(audio_path, an_widget, x2 = x2):
         global wisper_model_tiny, path_exe
 
-
+        an_widget.config(fg='red')
         result = wisper_model_tiny.transcribe(audio_path)
         print(result["text"])
-        an_widget.delete(1.0, tk.END)
-        an_widget.insert(tk.END, result["text"])
+        x2.delete(1.0, tk.END)
+        x2.insert(tk.END, result["text"])
+        an_widget.config(fg='green')
 
 
     def audio_recodings(frame_widget, cavas_widget):
@@ -2451,12 +2457,6 @@ def Recodes_Page(widget):
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
     audio_recodings(frame, Audio_recodes_canvas)
-
-    x = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
-    x.place(relheight=0.9, relwidth=0.64, rely=0.05, relx=0.35)
-
-    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color,  fg=fg_color, relief=tk.SUNKEN, border=0)
-    x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
 
 
