@@ -2342,10 +2342,13 @@ def Recodes_Page(widget):
 
 
     def analyse_recoding(audio_path, an_widget):
-        global wisper_model_tiny
+        global wisper_model_tiny, path_exe
 
-        audio_path
-        play_widget
+
+        result = wisper_model_tiny.transcribe(audio_path)
+        print(result["text"])
+        an_widget.delete(1.0, tk.END)
+        an_widget.insert(tk.END, result["text"])
 
 
     def audio_recodings(frame_widget, cavas_widget):
