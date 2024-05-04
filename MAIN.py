@@ -458,7 +458,7 @@ def entity_highlight_words(widget):
 
         for word in found_entities:
             start = 1.0
-            entites = word.split()
+            entites = word.split(",")
             if len(entites) == 1:
                 while True:
                     start = widget.search(word, start, stopindex=tk.END)
@@ -2438,7 +2438,7 @@ def Recodes_Page(widget):
             AI_response = llm_chain3.invoke(input=text)
             display_widget.insert(tk.END, AI_response['text'])
 
-        threading.Thread(target=context_assistant_run)
+        threading.Thread(target=context_assistant_run).start()
 
 
     def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
