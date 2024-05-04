@@ -2464,7 +2464,6 @@ def Recodes_Page(widget):
 
             audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
             result = wisper_model_tiny.transcribe(audio_path_full)
-            print(result["text"])
             x2.delete(1.0, tk.END)
             x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
             x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
