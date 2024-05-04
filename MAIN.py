@@ -832,7 +832,7 @@ def llm_inference_initializ():
 
     # ================================================ chat bot3 section
 
-    template2 = """You are a AI that analyzes text data exacted from and audio file. 
+    template2 = """You are a AI that extracts useful information from text data exacted from and audio file. 
         Audio text: {Instruction}
         Chatbot:"""
 
@@ -2508,9 +2508,9 @@ def Recodes_Page(widget):
              audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
              audio_Lable = tk.Label(audio_wid, text="  "+audio_file, bg=bg_color, fg=fg_color,  anchor=tk.W, font=("Calibri", font_size-2, 'italic'), borderwidth=0, border=0)
              audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
-             audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: Play_Recoding(k, audio_play_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+             audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda k = audio_file: Play_Recoding(k, audio_play_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
-             audio_download_btn = tk.Button(audio_wid, text="⍊", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+             audio_download_btn = tk.Button(audio_wid, text="🛑", bg=bg_color, fg=fg_color, activeforeground='red', activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
              audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
@@ -2702,7 +2702,7 @@ def User_Home_page(widget):
     side_bar_widget_list.append(st5_bt)
     duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
-    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (patient_recods.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗁', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (patient_recods.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.25, relx=0)
     change_bg_OnHover_light(st6_bt)
     side_bar_widget_list.append(st6_bt)
