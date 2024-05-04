@@ -2341,7 +2341,11 @@ def Recodes_Page(widget):
     Recodes_Page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
 
-    #def sound_play_stop(play_widget, pause_widget, stop_widget, file_name):
+    def analyse_recoding(audio_path, an_widget):
+        global wisper_model_tiny
+
+        audio_path
+        play_widget
 
 
     def audio_recodings(frame_widget, cavas_widget):
@@ -2398,7 +2402,7 @@ def Recodes_Page(widget):
              audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
              audio_download_btn = tk.Button(audio_wid, text="⍊", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
-             audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+             audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file_path: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
 
              audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
