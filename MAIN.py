@@ -120,6 +120,7 @@ path_exe = os.getcwd()
 clinical_Note_upload_btn = None
 proccessed_img_url = None
 font_size = 15
+ref_btn = None
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -895,7 +896,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         clock_wideth.config(text='0:0:0')
         Recording_paused = False
         current_time = time.strftime("%Y-%m-%d %H:%M", time.localtime())
-        output_file = path_exe + '\\Audio_Records\\' + 'hezron' + str(current_time)
+        output_file = path_exe + '\\Audio_Records\\' + 'hezron' + str(current_time)+'.wav'
         save_recoded_conversation(output_file)
         return
 
@@ -1179,8 +1180,26 @@ def download_transcribed_audio(widget):
     threading.Thread(target=run).start()
 
 def save_recoded_conversation(output_file):
+    global saving_audio
+    saving_audio = True
+    def visual():
+        global ref_btn
+        global saving_audio
+        global fg_color
+        color = 'yellow'
+        while downloading_audio:
+            if color == 'yellow':
+                ref_btn.config(fg=color)
+                color = 'gold'
+            else:
+                ref_btn.config(fg=color)
+                color = 'yellow'
+            time.sleep(0.1)
+        ref_btn.config(fg=fg_color)
+
     def save_recoded_conversation_thread(output_file=output_file):
         global audio_frames
+        threading.Thread(target=visual).start()
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
         sample_rate = 16000  # Sample rate (Hz)
@@ -1191,6 +1210,7 @@ def save_recoded_conversation(output_file):
             output_wave.setsampwidth(sample_width)
             output_wave.setframerate(sample_rate)
             output_wave.writeframes(b''.join(audio_frames))
+        saving_audio = False
 
     threading.Thread(target=save_recoded_conversation_thread).start()
 
@@ -2353,7 +2373,8 @@ def Clinical_Image(widget):
 
 def Recodes_Page(widget):
     global bg_color, fg_color, screen_height, screen_width
-    global sound_widgets, active_sound_widget, font_size
+    global sound_widgets, active_sound_widget, font_size, ref_btn
+
 
     sound_widgets = []
     active_sound_widget = None
@@ -2510,7 +2531,7 @@ def Recodes_Page(widget):
         return file_list
 
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color,  fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
-    tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color,  activeforeground="green", command=lambda :refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
+    ref_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color,  activeforeground="green", command=lambda :refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
 
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground=fg_color, highlightthickness=0.5, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.05, relx=0.02)
