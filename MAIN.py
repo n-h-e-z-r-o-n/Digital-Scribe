@@ -2357,25 +2357,44 @@ def Recodes_Page(widget):
     x3.place(relheight=0.5, relwidth=1, rely=0.5, relx=0)
 
     def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
-        global wisper_model_tiny, path_exe, llm_chain3
+        global downloading_audio
+        downloading_audio = True
+        def visual(bt_widget=an_widget):
+            global downloading_audio
+            global fg_color
+            color = 'yellow'
+            while downloading_audio:
+                if color == 'yellow':
+                    bt_widget.config(fg=color)
+                    color = 'gold'
+                else:
+                    bt_widget.config(fg=color)
+                    color = 'yellow'
+                time.sleep(0.1)
+            bt_widget.config(fg=fg_color)
 
-        if llm_chain3 is None:
-            llm_inference_initializ()
+        def analyse_recoding_run(audio_path=audio_path, an_widget=an_widget, x2 = x2, x3 = x3):
+            global wisper_model_tiny, path_exe, llm_chain3
+            if llm_chain3 is None:
+                llm_inference_initializ()
+            threading.Thread(target=visual).start()
 
-        audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
-        an_widget.config(fg='red')
-        result = wisper_model_tiny.transcribe(audio_path_full)
-        print(result["text"])
-        x2.delete(1.0, tk.END)
-        x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
-        x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
-        an_widget.config(fg='green')
+            audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
+            an_widget.config(fg='red')
+            result = wisper_model_tiny.transcribe(audio_path_full)
+            print(result["text"])
+            x2.delete(1.0, tk.END)
+            x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
+            x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
+            an_widget.config(fg='green')
+            downloading_audio = False
 
-        AI_response = llm_chain3.invoke(input=result["text"])
+            AI_response = llm_chain3.invoke(input=result["text"])
 
 
-        x3.insert(tk.END, AI_response['text'])
+            x3.insert(tk.END, AI_response['text'])
 
+        threading.Thread(target=analyse_recoding_run).start()
 
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
