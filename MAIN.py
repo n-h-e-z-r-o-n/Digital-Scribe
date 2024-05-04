@@ -894,6 +894,9 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         Record_btn.config(fg=fg_color)
         clock_wideth.config(text='0:0:0')
         Recording_paused = False
+        current_time = time.strftime("%Y-%m-%d %H:%M", time.localtime())
+        output_file = path_exe + '\\Audio_Records\\' + 'hezron' + str(current_time)
+        save_recoded_conversation(output_file)
         return
 
     def start_recording():
@@ -1168,17 +1171,28 @@ def download_transcribed_audio(widget):
                 sample_rate = 16000  # Sample rate (Hz)
                 output_file = rf'{folder_selected}/conversation_scribe.wav'
                 print(folder_selected)
+                save_recoded_conversation(output_file)
 
-                # Open the output file in write mode
-                with wave.open(output_file, 'wb') as output_wave:
-                    # Set audio parameters
-                    output_wave.setnchannels(channels)
-                    output_wave.setsampwidth(sample_width)
-                    output_wave.setframerate(sample_rate)
-                    output_wave.writeframes(b''.join(audio_frames))
+
             downloading_audio = False
 
     threading.Thread(target=run).start()
+
+def save_recoded_conversation(output_file):
+    def save_recoded_conversation_thread(output_file=output_file):
+        global audio_frames
+        channels = 1  # Mono
+        sample_width = 2  # 16-bit audio
+        sample_rate = 16000  # Sample rate (Hz)
+        # Open the output file in write mode
+        with wave.open(output_file, 'wb') as output_wave:
+            # Set audio parameters
+            output_wave.setnchannels(channels)
+            output_wave.setsampwidth(sample_width)
+            output_wave.setframerate(sample_rate)
+            output_wave.writeframes(b''.join(audio_frames))
+
+    threading.Thread(target=save_recoded_conversation_thread).start()
 
 
 def integrate_strings(old, edited, new):
