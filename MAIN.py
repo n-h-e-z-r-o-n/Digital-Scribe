@@ -2341,7 +2341,7 @@ def Recodes_Page(widget):
     global bg_color, fg_color, screen_height, screen_width
     global active_sound_widget_file, active_sound_widget, font_size
 
-    active_sound_widget_file = None
+    active_sound_widget_file = []
     active_sound_widget = None
 
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
@@ -2373,41 +2373,43 @@ def Recodes_Page(widget):
                 time.sleep(0.1)
             bt_widget.config(fg=fg_color)
 
-        def analyse_recoding_run(audio_path=audio_path, an_widget=an_widget, x2 = x2, x3 = x3):
+        def analyse_recoding_run(audio_path=audio_path,  x2 = x2, x3 = x3):
             global wisper_model_tiny, path_exe, llm_chain3
+            global downloading_audio
             if llm_chain3 is None:
                 llm_inference_initializ()
             threading.Thread(target=visual).start()
 
             audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
-            an_widget.config(fg='red')
             result = wisper_model_tiny.transcribe(audio_path_full)
             print(result["text"])
             x2.delete(1.0, tk.END)
             x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
             x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
-            an_widget.config(fg='green')
             downloading_audio = False
 
+            x3.delete(1.0, tk.END)
             AI_response = llm_chain3.invoke(input=result["text"])
-
-
             x3.insert(tk.END, AI_response['text'])
 
         threading.Thread(target=analyse_recoding_run).start()
 
+    def refresh_recodings():
+        active_sound_widget_file
+
+
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
-        global active_sound_widget_file, path_exe
+        global  path_exe
 
 
         def create_audio_widget(audio_file):
-             global playing, active_sound_widget_file, path_exe
+             global playing, path_exe
 
              playing = 0
 
              def Play_Recoding(audio_file_name, widget):
-                global playing, active_sound_widget_file, active_sound_widget, path_exe
+                global playing, active_sound_widget, path_exe
                 file_path = path_exe + '\\Audio_Records\\' + audio_file_name
                 if active_sound_widget != None:
                     if active_sound_widget != widget:
@@ -2485,6 +2487,8 @@ def Recodes_Page(widget):
         return file_list
 
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color,  fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
+    tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
+
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground=fg_color, highlightthickness=0.5, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.05, relx=0.02)
     Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame,  highlightthickness=0, bg=bg_color, borderwidth=0, border=0)
