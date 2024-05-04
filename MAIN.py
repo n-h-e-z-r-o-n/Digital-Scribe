@@ -2620,7 +2620,7 @@ def Recodes_Page(widget):
              audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
              audio_download_btn = tk.Button(audio_wid, text="🛑", bg=bg_color, fg=fg_color, activeforeground='red', activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
-             audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size+3), borderwidth=0, border=0)
+             audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size+5), borderwidth=0, border=0)
              audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
              sound_widgets.append(audio_wid)
 
