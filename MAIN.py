@@ -458,7 +458,7 @@ def entity_highlight_words(widget):
 
         for word in found_entities:
             start = 1.0
-            entites = word.split(",")
+            entites = word.split()
             if len(entites) == 1:
                 while True:
                     start = widget.search(word, start, stopindex=tk.END)
@@ -467,12 +467,21 @@ def entity_highlight_words(widget):
                     end = f"{start}+{len(word)}c"
                     widget.tag_add("highlight", start, end)
                     start = end
+                start = 1.0
+                while True:
+                    start = widget.search(word.capitalize(), start, stopindex=tk.END)
+                    if not start:
+                        break
+                    end = f"{start}+{len(word)}c"
+                    widget.tag_add("highlight", start, end)
+                    start = end
+
             else:
                 print("entites :", entites)
                 for g_word in entites:
                     start = 1.0
                     print("entites word:", g_word)
-                    if (g_word == "or") or (g_word == "OR") or (g_word == "and") or (g_word == "AND") or (g_word == "when"):
+                    if (g_word == "or") or (g_word == "OR") or (g_word == "and") or (g_word == "AND") or (g_word == "when")  or (g_word == "to"):
                         continue
                     while True:
                         start = widget.search(g_word, start, stopindex=tk.END)
