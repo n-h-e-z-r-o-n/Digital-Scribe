@@ -2343,7 +2343,7 @@ def Recodes_Page(widget):
     x = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
     x.place(relheight=0.9, relwidth=0.64, rely=0.05, relx=0.35)
 
-    x2 = tk.Text(x, bg="gray", borderwidth=0, highlightbackground=fg_color, fg=fg_color, relief=tk.SUNKEN, border=0)
+    x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, relief=tk.SUNKEN, border=1)
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
     def analyse_recoding(audio_path, an_widget, x2 = x2):
@@ -2359,11 +2359,11 @@ def Recodes_Page(widget):
 
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
-        global active_sound_widget_file
+        global active_sound_widget_file, path_exe
 
 
         def create_audio_widget(audio_file):
-             global playing, active_sound_widget_file
+             global playing, active_sound_widget_file, path_exe
 
              playing = 0
 
@@ -2422,7 +2422,7 @@ def Recodes_Page(widget):
              audio_push_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
 
-        folder_path = r"C:\Users\HEZRON WEKESA\OneDrive\Music"
+        folder_path = path_exe + "\\Audio_Records"
         file_list = []
         if os.path.exists(folder_path):
             for file_name in os.listdir(folder_path):
