@@ -1995,9 +1995,15 @@ def Main_Page(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    Conversation_Name = tk.Label(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", 10), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
-    Conversation_Name.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
-    change_fg_OnHover(extract_wid, 'red', fg_color)
+    Conversation_Name = tk.Label(chatbot_widget, text='Conv_ Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", 10), activebackground="blue", bg="blue", borderwidth=0, border=0)
+    Conversation_Name.place(relheight=0.03, relwidth=0.05, rely=0.81, relx=0.78)
+
+
+    Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Calibri Light", 10), bg="blue", borderwidth=0, border=0)
+    Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
+
+
+
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
