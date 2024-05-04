@@ -2358,7 +2358,9 @@ def Recodes_Page(widget):
 
     def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
         global wisper_model_tiny, path_exe, llm_chain3
+
         if llm_chain3 is None:
+            llm_inference_initializ()
 
         audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
         an_widget.config(fg='red')
