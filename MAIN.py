@@ -1217,6 +1217,7 @@ def save_recoded_conversation(output_file):
             output_wave.setsampwidth(sample_width)
             output_wave.setframerate(sample_rate)
             output_wave.writeframes(b''.join(audio_frames))
+
         saving_audio = False
 
     threading.Thread(target=save_recoded_conversation_thread).start()
@@ -1998,7 +1999,7 @@ def Main_Page(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    Conversation_Name = tk.Label(chatbot_widget, text='Conv_ Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size-5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0)
+    Conversation_Name = tk.Label(chatbot_widget, text='Patient_Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size-5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0)
     Conversation_Name.place(relheight=0.03, relwidth=0.05, rely=0.81, relx=0.78)
 
     Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size-2), bg=bg_color, borderwidth=0, border=1)
