@@ -2486,7 +2486,7 @@ def Recodes_Page(widget):
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
 
 
-    x3 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
+    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
 
     def context_assistant(text_widget, display_widget):
