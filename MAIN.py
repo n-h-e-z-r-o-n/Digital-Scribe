@@ -477,6 +477,16 @@ def entity_highlight_words(widget):
                     widget.tag_add("highlight", start, end)
                     start = end
 
+                start = 1.0
+                word = word[0].lower() + word[1:]
+                while True:
+                    start = widget.search(word, start, stopindex=tk.END)
+                    if not start:
+                        break
+                    end = f"{start}+{len(word)}c"
+                    widget.tag_add("highlight", start, end)
+                    start = end
+
 
             else:
                 print("entites :", entites)
@@ -499,6 +509,15 @@ def entity_highlight_words(widget):
                     start = 1.0
                     while True:
                         start = widget.search(g_word.capitalize(), start, stopindex=tk.END)
+                        if not start:
+                            break
+                        end = f"{start}+{len(g_word)}c"
+                        widget.tag_add("highlight", start, end)
+                        start = end
+                    start = 1.0
+                    g_word = g_word[0].lower() + g_word[1:]
+                    while True:
+                        start = widget.search(g_word, start, stopindex=tk.END)
                         if not start:
                             break
                         end = f"{start}+{len(g_word)}c"

@@ -1,6 +1,7 @@
 string = "hello world"
 capitalized_string = string.capitalize()
-print(string.strip("d"))  # Output: "Hello world"
+print(string[0].lower()+string[1:])  # Output: "Hello world"
+
 
 import inflect
 
