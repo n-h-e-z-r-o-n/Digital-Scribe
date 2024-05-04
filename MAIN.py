@@ -2418,7 +2418,7 @@ def Recodes_Page(widget):
 
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color,  font=("Calibri", font_size-3), command=lambda : context_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
     tk.Button(x, text="Summarize", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
-    tk.Button(x, text="Entity_Extract",  bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3=None)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
+    tk.Button(x, text="Entity_Extract",  bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
     tk.Button(x, text="Contextual AI", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
@@ -2432,10 +2432,13 @@ def Recodes_Page(widget):
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
 
     def context_assistant(text_widget, display_widget):
-        text = text_widget.get("1.0", "end")
-        display_widget.delete(1.0, tk.END)
-        AI_response = llm_chain3.invoke(input=text)
-        display_widget.insert(tk.END, AI_response['text'])
+        def context_assistant_run(text_widget=text_widget, display_widget=display_widget):
+            text = text_widget.get("1.0", "end")
+            display_widget.delete(1.0, tk.END)
+            AI_response = llm_chain3.invoke(input=text)
+            display_widget.insert(tk.END, AI_response['text'])
+
+        threading.Thread(target=context_assistant_run)
 
 
     def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
