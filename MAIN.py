@@ -1780,7 +1780,7 @@ def Login_Section_widget(widget, root_widget):
     return Login_widget
 
 
-def chat(widget):
+def Main_Page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
     global Recording_paused
 
@@ -2339,9 +2339,9 @@ def Clinical_Image(widget):
 
 def Recodes_Page(widget):
     global bg_color, fg_color, screen_height, screen_width
-    global active_sound_widget_file, active_sound_widget, font_size
+    global sound_widgets, active_sound_widget, font_size
 
-    active_sound_widget_file = []
+    sound_widgets = []
     active_sound_widget = None
 
     Recodes_Page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
@@ -2394,8 +2394,16 @@ def Recodes_Page(widget):
 
         threading.Thread(target=analyse_recoding_run).start()
 
-    def refresh_recodings():
-        active_sound_widget_file
+    def refresh_recodings(frame, Audio_recodes_canvas):
+        global sound_widgets
+
+        for wid in sound_widgets:
+            wid.destroy()
+
+        audio_recodings(frame, Audio_recodes_canvas)
+
+        frame.update_idletasks()
+        Audio_recodes_canvas.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
 
 
     def audio_recodings(frame_widget, cavas_widget):
@@ -2404,7 +2412,7 @@ def Recodes_Page(widget):
 
 
         def create_audio_widget(audio_file):
-             global playing, path_exe
+             global playing, path_exe, sound_widgets
 
              playing = 0
 
@@ -2445,7 +2453,7 @@ def Recodes_Page(widget):
 
 
              audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height - 20) * 0.9 * 0.05), highlightbackground=fg_color, highlightthickness=0, borderwidth=0, border=0)
-
+             audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
              audio_Lable = tk.Label(audio_wid, text="  "+audio_file, bg=bg_color, fg=fg_color,  anchor=tk.W, font=("Calibri", font_size-2, 'italic'), borderwidth=0, border=0)
              audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
              audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: Play_Recoding(k, audio_play_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
@@ -2454,8 +2462,9 @@ def Recodes_Page(widget):
              audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
              audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
              audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
+             sound_widgets.append(audio_wid)
 
-             audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
+
              audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
              audio_Lable.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
              audio_play_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
@@ -2487,7 +2496,7 @@ def Recodes_Page(widget):
         return file_list
 
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color,  fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
-    tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
+    tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color,  activeforeground="green", command=lambda :refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
 
     Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground=fg_color, highlightthickness=0.5, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.05, relx=0.02)
@@ -2551,7 +2560,7 @@ def User_Home_page(widget):
     CALL_Widget = call(container2)
     SETTINGS_Widget = settings(container2)
     chat_me_Widget = chat_me(container2)
-    CHAT_Widget = chat(container2)
+    CHAT_Widget = Main_Page(container2)
     rag_widget = RAG_page(container2)
     img_extract = Clinical_Image(container2)
     patient_recods = Recodes_Page(container2)
