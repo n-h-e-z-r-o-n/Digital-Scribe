@@ -1537,6 +1537,7 @@ def attach_scroll(widget, color=None):
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
+    global User_Name,User_Pass, User_Image,User_Email, User_Phone
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
         with open('./Data_Raw/keys.json', 'r') as openfile:  # Reading from json file
@@ -2697,8 +2698,8 @@ def Profile_Page(widget):
     profile_page_container = tk.Frame(widget, bg='blue', borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    User_imag_widget = tk.Label(profile_page_container)
-    User_imag_widget.place()
+    User_imag_widget = tk.Label(profile_page_container, text="👥", font=(font_size+10))
+    User_imag_widget.place(relheight=0.1, relwidth=0.1, relx=0.05, rely=0.05)
 
 
     return profile_page_container
