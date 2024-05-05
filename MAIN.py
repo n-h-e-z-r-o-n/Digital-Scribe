@@ -1792,52 +1792,20 @@ def encrypt(string):
     return hashed.hexdigest()  # return the Hash
 
 
-def login_Request(email, passw, root_widget):
-    global client_socket, server_IP4v_address, Server_listening_port, session, user_id, First_name, Second_Name, Last_Name, Email, user_Photo
-    if (len(email) and len(passw)) > 3:
-        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  # instantiate
-        try:
-            client_socket.connect((server_IP4v_address, Server_listening_port))  # connect to the server
-        except:
-            print('Error: Unable to connect')
-        login_credentials = f'login_Request~{email}~{encrypt(passw)}'
-        client_socket.send(login_credentials.encode("utf-8")[:1024])  # send message
-        status = client_socket.recv(700000).decode("utf-8", errors="ignore")
-        if status == 'User_Error':
-            print('User_Error')
-            client_socket.close()
-        else:
-            status = status.split('~')
+def login_Request(email, passw, widget):
+    global root
+    User_Home_page(root)
+    widget.destroy()
 
-            user_id = status[0]
-            First_name = status[1]
-            Second_Name = status[2]
-            Last_Name = status[3]
-            Email = status[4]
-            user_Photo = status[5]
 
-            print('User_id: ', user_id)
-            session['logged_in'] = True
-            session['__id__'] = user_id
-            session['__FN__'] = First_name
-            session['__SN__'] = Second_Name
-            session['__LN__'] = Last_Name
-            session['__EM__'] = Email
-            session['__IMG__'] = user_Photo
-
-            root_widget.destroy()
-            User_Home_page(root)
-
-    # root_widget.destroy()
-    # User_Home_page(root)
 
 
 def sign_up_Request(email, passw, root_widget):
     pass
 
 
-def Login_Section_widget(widget, root_widget):
-    global screen_width, screen_height
+def Login_Section_widget(widget, widget2):
+    global screen_width, screen_height, bg_color, fg_color
     nav_bar_color = darken_hex_color(bg_color)
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
 
@@ -1855,16 +1823,15 @@ def Login_Section_widget(widget, root_widget):
         tk.Label(Forgot_password_widget, bg=nav_bar_color,text='Please enter the email address you used to register.\nWe’ll send a link with instructions to reset your password',font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place(relheight=0.12, relwidth=1, rely=0.2,relx=0)
         tk.Label(Forgot_password_widget, bg=nav_bar_color, text='email', anchor='w', font=("Batang", 9), borderwidth=0,border=0).place(relheight=0.03, relwidth=0.8, rely=0.395, relx=0.1)
 
-        email_password_entry_widg = tk.Entry(Forgot_password_widget, bg=nav_bar_color, font=("Courier New", 13),relief="solid", borderwidth=1, border=1)
+        email_password_entry_widg = tk.Entry(Forgot_password_widget, bg=bg_color, font=("Courier New", 13),relief="solid", borderwidth=1, border=1)
         email_password_entry_widg.place(relheight=0.1, relwidth=0.8, rely=0.43, relx=0.1)
-        change_bg_OnHover(email_password_entry_widg, '#F5F5F5', nav_bar_color)
+        change_bg_OnHover(email_password_entry_widg, '#F5F5F5')
 
         password_reset__btn = tk.Button(Forgot_password_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0)
         password_reset__btn.place(relheight=0.1, relwidth=0.8, rely=0.6, relx=0.1)
         change_bg_OnHover(password_reset__btn, '#004830', '#1C352D')
 
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg='black', activebackground='#8A9A5B', text='Need help?',
-                 font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04,relwidth=0.2,rely=0.72,relx=0.1)
+        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg='black', activebackground='#8A9A5B', text='Need help?',font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04,relwidth=0.2,rely=0.72,relx=0.1)
         Customer_support_link = tk.Button(Forgot_password_widget, bg=nav_bar_color, fg='#A8E4A0',activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Customer support', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0)
         Customer_support_link.place(relheight=0.04, relwidth=0.3, rely=0.72, relx=0.31)
         change_fg_OnHover(Customer_support_link, '#00AB66', '#A8E4A0')
@@ -1897,11 +1864,11 @@ def Login_Section_widget(widget, root_widget):
     Forgot_password_login_link.place(relheight=0.03, relwidth=0.1, rely=0.41, relx=0.05)
     change_fg_OnHover(Forgot_password_login_link, '#00AB66', '#A8E4A0')
 
-    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
+    login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), widget2))
     login_btn.place(relheight=0.06, relwidth=0.2, rely=0.5, relx=0.05)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
-    password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
-    Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
+    #password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
+    #Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
 
     tk.Label(Login_widget, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w',borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.6, relx=0.05)
     Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',activebackground=nav_bar_color, text="Sign up", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
@@ -2873,12 +2840,12 @@ def User_Home_page(widget):
 
 def Welcome_Page(wiget):
     global screen_width, screen_height, bg_color, fg_color
-    home_widget, welcome_page_root = attach_scroll(wiget)
 
 
-    def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave, function):  # Color change bg on Mouse Hover
+
+    def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, function):  # Color change bg on Mouse Hover
         def show(widg):
-            widg.place(relheight=0.3, relwidth=1, rely=0.04, relx=0)
+            widg.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
 
         def hide(widg):
             def enter():
@@ -2895,8 +2862,8 @@ def Welcome_Page(wiget):
         widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=lighten_hex_color(bg_color)), show(function)))
         widget.bind("<Leave>", func=lambda e: (widget.config(text=Text_On_Leave, background=lighten_hex_color(bg_color)), hide(function)))
 
-    large_frame_size = screen_height * 2
-    welcome_page_frame = tk.Frame(home_widget, bg=bg_color, width=screen_width, height=large_frame_size)
+
+    welcome_page_frame = tk.Frame(wiget, bg=bg_color, width=screen_width)
     welcome_page_frame.pack(fill=tk.BOTH, expand=True)
 
     App_title = "Digital ScriBe"
@@ -2904,7 +2871,7 @@ def Welcome_Page(wiget):
     nav_bar_btn_hover_color = '#F5F5F5'
 
     nav_bar = tk.Frame(welcome_page_frame, bg=lighten_hex_color(bg_color))
-    nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
+    nav_bar.place(relheight=0.05, relwidth=1, rely=0, relx=0)
 
     nav_bar_title_widget = tk.Label(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
     nav_bar_title_widget.place(relheight=1, relwidth=0.1, rely=0, relx=0)
@@ -2925,12 +2892,12 @@ def Welcome_Page(wiget):
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨',  activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color,Login_Section_widget(welcome_page_frame, welcome_page_root))
+    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨',Login_Section_widget(welcome_page_frame, welcome_page_frame))
 
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
 
-    Login_Section_widget(welcome_page_frame, welcome_page_root)
+
 
 # =============================== Main Function definition ============================================================
 # =====================================================================================================================
