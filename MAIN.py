@@ -2900,21 +2900,21 @@ def User_Home_page(widget):
 
 
 def Welcome_Page(wiget):
-    global screen_width, screen_height
+    global screen_width, screen_height, bg_color, fg_color
     home_widget, welcome_page_root = attach_scroll(wiget)
 
     large_frame_size = screen_height * 2
-    welcome_page_frame = tk.Frame(home_widget, bg='gray', width=screen_width, height=large_frame_size)
+    welcome_page_frame = tk.Frame(home_widget, bg=bg_color, width=screen_width, height=large_frame_size)
     welcome_page_frame.pack(fill=tk.BOTH, expand=True)
 
     App_title = "Digital ScriBe"
     nav_bar_color = "white"
     nav_bar_btn_hover_color = '#F5F5F5'
 
-    nav_bar = tk.Frame(welcome_page_frame, bg=nav_bar_color)
+    nav_bar = tk.Frame(welcome_page_frame, bg=lighten_hex_color(bg_color))
     nav_bar.place(relheight=0.02, relwidth=1, rely=0, relx=0)
 
-    nav_bar_title_widget = tk.Label(nav_bar, bg=nav_bar_color, text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
+    nav_bar_title_widget = tk.Label(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text=App_title, justify=tk.LEFT, anchor="w", font=("Forte", 20), borderwidth=0, border=0)
     nav_bar_title_widget.place(relheight=1, relwidth=0.1, rely=0, relx=0)
 
     """
@@ -2931,13 +2931,11 @@ def Welcome_Page(wiget):
     change_Widget_Attribute_OnHover(nav_bar_bt3_widget, 'For Business ∧', 'For Business ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
     """
 
-    nav_bar_bt4_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Log in ∨', justify=tk.LEFT, anchor="center",
-                                   font=("Calibri", 12), borderwidth=0, border=0)
+    nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨',  activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
     #change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color,Login_Section_widget(welcome_page_frame, welcome_page_root))
 
-    nav_bar_bt5_widget = tk.Button(nav_bar, bg=nav_bar_color, text='Get started', justify=tk.LEFT, anchor="center",
-                                   font=("Calibri", 12), borderwidth=0, border=0)
+    nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
 
 
