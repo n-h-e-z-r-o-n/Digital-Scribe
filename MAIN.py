@@ -2702,6 +2702,7 @@ def Profile_Page(widget):
     User_imag_widget.place(relheight=0.1, relwidth=0.1, relx=0.05, rely=0.05)
 
 
+
     return profile_page_container
 
 def User_Home_page(widget):
@@ -2979,8 +2980,8 @@ def main():
 
     title_bar_color(bg_color)
 
-    #User_Home_page(root)
-    Welcome_Page(root)
+    User_Home_page(root)
+    #Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
