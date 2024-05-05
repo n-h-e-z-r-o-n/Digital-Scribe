@@ -632,7 +632,8 @@ def D_Summary(widget1, widget=None, delete_hist = True):
                 widget.config(state=tk.NORMAL)
                 if delete_hist:
                     widget.delete(1.0, tk.END)
-                widget.insert(tk.END, '\n\n------------------------ CONVERSATION SUMMARY\n' + result['summary']+'\n\n')
+                widget.insert(tk.END, '\n\n------------------------ CONVERSATION SUMMARY ------------------------\n', 'ASR')
+                widget.insert(tk.END, result['summary']+'\n\n')
                 widget.see(tk.END)  # Scroll to the end of the text widget
             else:
                 Recording_summary += result['summary']
@@ -2497,7 +2498,7 @@ def Recodes_Page(widget):
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color,  font=("Calibri", font_size-3), command=lambda : context_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
     tk.Button(x, text="Summarize",     borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract",borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
-    tk.Button(x, text="follow-up Q&A", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3),  command=lambda : AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
+    tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3),  command=lambda : AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
@@ -2506,8 +2507,9 @@ def Recodes_Page(widget):
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
 
 
-    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
+    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, font=(font_size-3),  wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
+    x3.tag_configure("ASR", foreground="gray", font=("Broadway", font_size))
     text_list_widget.append(x3)
 
 
@@ -2520,7 +2522,10 @@ def Recodes_Page(widget):
             print(text)
 
             AI_response = llm_chain3.invoke(input=text)
-            display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions ---------------------------------- \n\n" +AI_response['text']+"\n\n---------------------------------------------------------------------------\n")
+            display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions ----------------------------------\n\n", 'ASR' )
+            display_widget.insert(tk.END, AI_response['text'])
+            display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
+
             display_widget.see(tk.END)  # Scroll to the end of the text widget
         threading.Thread(target=context_assistant_run).start()
 
@@ -2529,7 +2534,9 @@ def Recodes_Page(widget):
             global llm_chain4
             text = text_widget.get("6.0", "end")
             AI_response = llm_chain4.invoke(input=text)
-            display_widget.insert(tk.END, "\n\n------------ Follow Up Question ------------------------------------------ \n\n" + AI_response['text']+"\n\n---------------------------------------------------------------------------\n")
+            display_widget.insert(tk.END, "\n\n------------ Follow Up Question ------------------------------------------ \n\n", 'ASR')
+            display_widget.insert(tk.END,AI_response['text'])
+            display_widget.insert(tk.END, "\n\n---------------------------------------------------------------------------\n", 'ASR')
             display_widget.see(tk.END)  # Scroll to the end of the text widget
 
         threading.Thread(target=AI_doctor_assistant_run).start()
