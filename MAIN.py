@@ -2036,7 +2036,7 @@ def Main_Page(widget):
         return entity_name, entity_type, chk_var
 
     def custom_add(widget):
-        defalt_entities_list = [('Symptoms', 'STRING'), ('Diagnosis', 'STRING')]
+        defalt_entities_list = [('Symptom', 'STRING'), ('Diagnosis', 'STRING')]
         for i in defalt_entities_list:
             e_name, e_type, chk_var = add(fr2)
             e_name.insert(0, i[0])
@@ -2499,9 +2499,9 @@ def Recodes_Page(widget):
         def context_assistant_run(text_widget=text_widget, display_widget=display_widget):
             global llm_chain3
             text = text_widget.get("1.0", "end")
-            display_widget.delete(1.0, tk.END)
+
             AI_response = llm_chain3.invoke(input=text)
-            display_widget.insert(tk.END, AI_response['text'])
+            display_widget.insert(tk.END, "\n------------ AI context-aware suggestions------------------------- \n" +AI_response['text']+"\n\n---------------------------------------------------------------------------")
 
         threading.Thread(target=context_assistant_run).start()
 
