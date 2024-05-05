@@ -896,10 +896,20 @@ def llm_inference_initializ():
     # ================================================ chat bot3 section
 
     template4 = """
-            Doctor-Patient Converastion: "{Instruction}"
+            Your are an AI Chatbot that answers following questions based on the given conversation.
+            Question:
+            1.What are the main symptoms or concerns mentioned by the patient in the conversation?
+            2.Can you identify any specific medical conditions or diagnoses discussed by the patient?
+            3.Are there any medications or treatments mentioned by the patient?
+            4.Can you summarize the overall context or purpose of the conversation?
+            5.What follow-up questions would you suggest to gather more details about the patient's condition?
+            6.Do you detect any emotional cues or concerns expressed by the patient?
+            7.Are there any references to past medical history or previous treatments?
+            8.Can you identify any potential risk factors or red flags mentioned by the patient?
+            9.Do you suggest any specific resources or educational materials based on the conversation?
+            10.Are there any important dates or events mentioned in the conversation, such as appointments or procedures?
             
-            Analyze the above doctor-patient conversation, and suggesting relevant follow-up questions, the doctor would ask the patient probing for additional details.
-            
+            Converastion: "{Instruction}
             Chatbot:"""
 
     prompt4 = PromptTemplate(template=template4, input_variables=["Instruction"])
@@ -2499,15 +2509,7 @@ def Recodes_Page(widget):
     x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
     text_list_widget.append(x3)
-    def load_rag_conv():
 
-        document_store = InMemoryDocumentStore()
-        writer = DocumentWriter(document_store=document_store)
-
-        document_embedder = GradientDocumentEmbedder(
-            access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
-            workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
-        )
 
 
     def context_assistant(text_widget, display_widget):
