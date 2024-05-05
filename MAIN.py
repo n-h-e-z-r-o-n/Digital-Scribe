@@ -87,6 +87,10 @@ gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
+User_Name = ''
+User_Email = ''
+User_Phone = ''
+User_Pass = ''
 keys = None
 vosk_model = None
 wisper_model_base = None
@@ -444,7 +448,7 @@ def change_color(widget, button):
 
         json_object = json.dumps(dic, indent=4)
 
-        with open("keys.json", "w") as outfile:
+        with open("./Data_Raw/keys.json", "w") as outfile:
             outfile.write(json_object)
 
     modify_css()
@@ -1532,7 +1536,7 @@ def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
-        with open('keys.json', 'r') as openfile:  # Reading from json file
+        with open('./Data_Raw/keys.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
 
             gradient_ai_access_key = keys['_GA_']
@@ -2312,7 +2316,7 @@ def settings(widget):
 
         json_object = json.dumps(dic, indent=4)
 
-        with open("keys.json", "w") as outfile:
+        with open("./Data_Raw/keys.json", "w") as outfile:
             outfile.write(json_object)
 
         os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
@@ -2679,6 +2683,16 @@ def Recodes_Page(widget):
 
     return Recodes_Page
 
+def Profile_Page(widget):
+    global bg_color, fg_color
+    profile_page_container = tk.Frame(widget, bg='blue', borderwidth=0, border=0)
+    profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
+
+    User_imag_widget = tk.Label(profile_page_container)
+    User_imag_widget.place()
+
+
+    return profile_page_container
 
 def User_Home_page(widget):
     global user_id, side_bar_widget_list, side_bar_widget_list2, Home_page_frame
@@ -2722,7 +2736,9 @@ def User_Home_page(widget):
 
     # PROFILE_widget = profile(Home_page_frame)
 
-    CALL_Widget = call(container2)
+    Profile_Widget = Profile_Page(container2)
+
+    #CALL_Widget = call(container2)
     SETTINGS_Widget = settings(container2)
     chat_me_Widget = chat_me(container2)
     CHAT_Widget = Main_Page(container2)
@@ -2784,7 +2800,7 @@ def User_Home_page(widget):
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
     duplicate_widget(profile_widget, side_bar_full, text="Digital Scribe")
 
-    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CALL_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (Profile_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover_light(st1_bt)
     side_bar_widget_list.append(st1_bt)
