@@ -62,8 +62,7 @@ import pdfplumber  # used for extracting data from pdf
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+from docx import Document as txt_to_doc
 
 # =============================== Global variable decoration  ============================================================================================
 root = None
@@ -1588,22 +1587,12 @@ def text_pdf_save(btn_widget, widgets:list):
             if folder_selected:
                 raw_text_data = ''
                 for wid in widgets:
-                    raw_text_datawid.get("1.0", "end")
+                    raw_text_data += "\n\n", wid.get("1.0", "end")
                 pdf_file_name = rf'{folder_selected}/Digital_Scribe(Analysis).pdf'
-                threading.Thread(target=text_pdf_save_visual).start()
-                pdf_document = SimpleDocTemplate(pdf_file_name)
-                pdf_elements = []
-                styles = getSampleStyleSheet()
-                paragraph = Paragraph(raw_text_data, styles["Normal"])
-                pdf_elements.append(paragraph)
-                pdf_document.build(pdf_elements)
+                doc = txt_to_doc()
+                doc.add_paragraph(raw_text_data)
+                doc.save(pdf_file_name)
 
-                pdf_document = SimpleDocTemplate(pdf_file_name)
-                pdf_elements = []
-                styles = getSampleStyleSheet()
-                paragraph = Paragraph(raw_text_data, styles["Normal"])
-                pdf_elements.append(paragraph)
-                pdf_document.build(pdf_elements)
 
 
 
@@ -2548,7 +2537,8 @@ def Recodes_Page(widget):
     tk.Button(x, text="Summarize",     borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract",borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3),  command=lambda : AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
-    tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
+    btn_widget = tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : text_pdf_save(btn_widget, [x2, x3]) )
+    btn_widget.place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
     #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
     #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
     #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)

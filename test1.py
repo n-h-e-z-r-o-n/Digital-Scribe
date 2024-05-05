@@ -1,29 +1,14 @@
-from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+from docx import Document
 
-def save_text_to_pdf(text, filename):
-    # Create a canvas object with specified filename
-    c = canvas.Canvas(filename, pagesize=letter)
+def save_text_to_docx(text, filename):
+    # Create a new Document object
+    doc = Document()
 
-    # Set font and size
-    c.setFont("Helvetica", 12)
+    # Add a paragraph with the provided text
+    doc.add_paragraph(text)
 
-    # Set the text color
-    c.setFillColorRGB(0, 0, 0)  # Black color
-
-    # Split the text into lines
-    lines = text.split('\n')
-
-    # Set starting y-coordinate
-    y = 750
-
-    # Write each line of text to the PDF
-    for line in lines:
-        c.drawString(100, y, line)
-        y -= 20  # Move to the next line
-
-    # Save the PDF
-    c.save()
+    # Save the document
+    doc.save(filename)
 
 # Example text
 text_to_save = """
@@ -37,5 +22,5 @@ text_to_save = """
 
 """
 
-# Save text to PDF file
-save_text_to_pdf(text_to_save, "example.pdf")
+# Save text to Word document
+save_text_to_docx(text_to_save, "example.docx")
