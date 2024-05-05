@@ -82,6 +82,7 @@ side_bar_widget_list: list = []
 side_bar_widget_list2: list = []
 active_users_data: list = []
 connection_status = False
+
 gradient_ai_access_key = ''
 gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
@@ -91,6 +92,8 @@ User_Name = ''
 User_Email = ''
 User_Phone = ''
 User_Pass = ''
+User_Image = ''
+
 keys = None
 vosk_model = None
 wisper_model_base = None
@@ -1552,6 +1555,12 @@ def access_keys_info():
             bg_hovercolor = keys['bg_hovercolor']
             current_theme = keys['current_theme']
             nav_bg = keys['nav_bg']
+
+            User_Name =  keys['User_Name']
+            User_Email =  keys['User_Email']
+            User_Phone =  keys['bg_color']
+            User_Pass =  keys['User_Phone']
+            User_Image =  keys['User_Image']
 
             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
             print('gradient_ai_access_key:', gradient_ai_access_key)
