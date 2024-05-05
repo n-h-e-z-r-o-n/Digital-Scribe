@@ -1,27 +1,41 @@
-string = "hello world"
-capitalized_string = string.capitalize()
-print(string[0].lower()+string[1:])  # Output: "Hello world"
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+
+def save_text_to_pdf(text, filename):
+    # Create a canvas object with specified filename
+    c = canvas.Canvas(filename, pagesize=letter)
+
+    # Set font and size
+    c.setFont("Helvetica", 12)
+
+    # Set the text color
+    c.setFillColorRGB(0, 0, 0)  # Black color
+
+    # Split the text into lines
+    lines = text.split('\n')
+
+    # Set starting y-coordinate
+    y = 750
+
+    # Write each line of text to the PDF
+    for line in lines:
+        c.drawString(100, y, line)
+        y -= 20  # Move to the next line
+
+    # Save the PDF
+    c.save()
+
+# Example text
+text_to_save = """
+
+ File Name : Patient 1 (Saturday May 2024,  09 PM).mp3
 
 
-import inflect
+ Conversation : 
 
+ Is this filming? Yes. Here is a doctor today. We just watched my hands going quick. Would you perform a film here? Oh, you can't. That's fine. Great. Once I see you, I see you. Can you tell me why is your day? I have a chair on the head. Oh, it looks really bad. Is there anything else besides your head aches that you want to dress here today? No. Just that except I am concerned, I just recently changed insurance companies and I'm not sure this is going to be covered yet. I was already, um, because what we can do is while we're talking and I'm doing your history in physical. I will have my office secretary and I can do the insurance planning again. So you don't have to worry about that. Sounds great. I'm not sure anything else? No, I just, this is just really bad. So what I like to do today is let's take a look at what's causing your headache. I will go over history for school and then we'll do our gun and physical exam. And then we will look into your insurance policy and make sure that's all okay. I don't think there's that sound like a good plan. Sounds good. Perfect. So tell me a little bit more about this head pain that you're having. Well, um, it started about three days ago and, um, nothing has helped. It, it's, it's just laid me flat. I, um, haven't been able to go to work. Um, it's, um, nothing's helped. I, um, it's, it's all over. Um, I, it was really bad when I moved, so I'm trying not to move too much. And the light is bothering me a lot. Um, and unfortunately, I can't dim the lights in the throat, but so okay. I'll try to go quickly and, um, it would be okay if I took some notes. All right. So you said this head started about three days ago. Okay. Um, was there any, um, anything that brought down anything unusual that happened maybe three days ago? Really? No. Okay. Um, can you tell me, um, anything that makes it better? It's really nothing's made it better. I took some Tylenol, like, okay, Moltenon, nothing, um, I just try not to move too much. All right. Um, was everything that makes it worse? Yeah. Like, movement, movement, and light. Okay. And, um, it's just constant though. There's, you know, it doesn't, it's just constant. It's, it's all over. Okay. Um, so if you had a rate, I'm in a pain scale. Um, zero being your pain, 10 being the worst pain you ever had to attend. Okay. I've never had a headache like this. Okay. Yeah. That sounds really bad. Um, now as far as radiation doesn't move, does it, you said the head, the pain is all up, but you're kind of all over. Okay. Um, but it, it also, I've got this, it's shooting pain down my neck and my neck is, is there a stiff? Okay. Um, but it's, it's, it's, it's, it's the entire head. Okay. Um, as far as, in the, in the time that you said that, you know, it's sort of we do to go to the, the, you said, you've constant. Yeah. Yeah. Yeah. It, it, it, it started gradually, but once, once it got there, it's, it hasn't gone away. It doesn't, get better. It doesn't get worse. Okay. Um, so do, yeah. Yeah. What I want to get is your perception of what you think is going on. Oh, I just, I had hard to think. It's so painful. Just, um, because it's so bad, I was afraid, um, my neighbor had a, had a, and ignored it last year, and suddenly started having seizures and it turns out he had a, um, a brain tumour, so my thought, I just should come in and, you know, you're, you know, you're saying you're concerned, um, what, how is it impacting your daily life? I can't go to work. Okay. I can't do anything. Yeah. Okay. So, so, like, it's really impacting your life. Yeah. Yeah. Okay. Um, okay. If it's okay, I would like to go, so, talk about a little bit about your medical history. Okay. Okay. Um, can you tell me as first your medical history, have, do you have any medical conditions? I should be where. Um, uh, uh, not, um, I was diagnosed with, uh, high blood pressure about three years ago, but, uh, we've been addressing it with diet changes, so it's controlled. And monitor, yeah, I go in nearly, I had been just in, and it's been, well controlled, so. Okay. Okay. I haven't been on medication. It turns for that other than that. I haven't had any problems. Okay. Okay. So, okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Okay. Um, what about family history? Um, do you have any medical history of headaches or, in my family? Right. Um, you know, my mom said she used to get my grades when she was in her 20s and 30s. Um, okay. But I don't know, I've never heard anything else about it. My sister, uh, I've one sister. She's, she's healthy. My dad, uh, you know, I'd like pressure rather than that. He's healthy. And, um, it's about it. I don't, I don't have any kids. Okay. Um, sorry. I, I would like to ask you some social history questions, just for, um, just for, there are records. Um, do smoke. Yeah. Um, yeah. Okay. Um, is it, um, cigarettes or chewing? Yes. It's okay. And how much do smoke? Um, I have a bag of day. Okay. Um, what about alcohol? Uh, I don't drink. Okay. Um, Also, um, are you married? Yeah. Yeah. Okay. And children? No. Okay. And, um, just, um, just, um, just, um, just, the additional questions is, um, um, um, looking at your kind of joint history. Are you, um, last month's trial period? Oh, I'm in a menopause. Okay. Um, so, going back into the history again, um, have you, um, you said your mom had my grades. Um, give me a little bit earlier on. Um, have you been around in, you know, or you haven't been nauseous or have you been? Yeah. Yeah. I've been nauseous. Um, okay. Uh, I, I, I, I grew up twice early on. Okay. Uh, because when I move, it makes me nauseous. Okay. Um, nothing on the ordinary or the past couple weeks have you been on any trips or anything? Um, or, uh, actually, a week ago, I was in, um, North Carolina for a family reunion. Okay. And there was a four year old who was sick there. I don't know what they had, but, I guess, I guess they had to take them. Um, and we're getting ready to take. Um, so let me just, um, summarize you make sure I've got everything straight so far. He is, um, we started in the onset of us to be a headache about three days ago. Um, it's worse with movement and might really make us hurt bad. Um, it's a 10 out of 10 pain. And you're also complaining of a stiff neck with bad. Yes. Um, it came on gradually. It's been constant pain in the frontal area. Um, mental history here in hyper, you have had blood pressure. That's, um, control with diet. Uh, no surgical history, no really hospitalizations. Um, the pain wasn't really impacting your day to day living the daily life. Um, you took trying to found all the more training to help, otherwise the medications. Um, you've got the family history of your mom with migraines. Otherwise your, um, family is healthy. Yeah. You smoke about a half a pack of day. You don't drink. Um, and then you were, you did, you did, you did. You said you took a trip up on a week ago. Yeah. You said, oh, yeah. Okay. So if you're going to hang on in a week ago, I don't know. It's a North Carolina. All right. Um, yeah. I can understand your concern. You're about your friends. She says that you have with having seizures. Um, just never had this kind of pain before. Yeah. And I can understand that. And, you know, um, so what I would like to do is, um, we've pretty much gone around the industry. What I'd like to do is, could, uh, I could say that this is going to be a, um, do some testing. All right. Um, and I want to ask to if there's any other concerns I need to address, um, before we get to the high-end exam. Okay. Yep. That's what's good. Okay. Okay. All right. Hi. I'm Dev. I'm here. I'm a great. Banderized patient. Nice job. Um, I'm going to, uh, give you some feedback on your communication skills. Right. And this encounter. But before I do, how did you feel it went? Um, pretty good. I was nervous at first, I think. And, um, just trying to make sure that, um, I was getting all your education information. So we could, you know, make sure we got the correct test. And, yeah. I don't know. Yeah. How did you feel when you, when you walked in, you feel pretty comfortable? Um, I think I got more comfortable as we found. Yeah. I could see that. Yeah. Okay. Um, well, I thought you did a nice job. Uh, you had an appropriate introduction. Uh, introduced yourself for some last name. Shaken's. Um, I think you have a very warm demeanor and your comfortable, uh, which, uh, makes me as a patient comfortable. You did, um, ex, uh, a less of my chief complaint. And asked about any of, of a concerns. And that's when I told you that I was also concerned about my insurance. So that was another thing on the agenda. So you did set an mutual agenda. Ask me if I agreed. And so we had a clear roadmap going forward. So you did, um, you could all those real well. You, your first question, tell me about this pain or, um, that was a nice open-ended question. So, uh, allowed me to then tell my story. Um, follow up with some more, um, pointed questions just for clarification. Um, um, and you had your an active listener had good contact. I contact and, um, could do a little bit more, um, reflective listening, um, just a little points where you could verify, um, check for actresses, um, maybe paraphrase as I'm going through, um, you did a nice summary, uh, in the middle. Um, and I was just a little bit more reflection on that to let me know. Is it a point that you're hiring me, um, you asked my perspective of what I thought was going on. And then you got the story, um, my fear that we got to bring to him. Oh, no. Yeah. So, um, I thought you had nice flow, logical, uh, sequence of questioning. Um, little bit of eye-inposting. We just covered this. And now we're going to do that. I heard that once, um, and as these, um, interviews get longer, you're going to want to sign post between each, um, section of taking your history. Now I'd like to go into, right, um, a physical exam. Okay. Um, did a nice summary in the middle. Uh, you moved through quickly. So you attended to, um, the timeline. You did ask permission to ask some, um, uh, social questions. Maybe you want to mention, um, social questions may not be of a flag for me that this is, this could be personal or un-loved, right? Maybe I'm going to ask a little more of some personal questions here. Is that all right with you? Just so I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. I'm sorry. Okay. I'm sorry. Okay. Okay. Okay. Questions here? Uh, not, non-judgmental didn't, you know, didn't ban a night when, when I said I smoke half a pack. Um, you have nice, um, local range eye contact, um, comfortable demeanor. So, uh, that, uh, felt real good. And then, um, you, uh, did a summary, uh, at the end. And, um, asked, did you ask?
 
-def get_singular_or_plural(word):
-    p = inflect.engine()
-    singular = p.singular_noun(word)
-    plural = p.plural_noun(word)
+"""
 
-    if singular and plural:
-        return f"Singular: {singular}, Plural: {plural}"
-    elif singular:
-        return f"Singular: {singular}"
-    elif plural:
-        return f"Plural: {plural}"
-    else:
-        return "Not found"
-
-
-# Example usage:
-word = "apple"
-result = get_singular_or_plural(word)
-print(result)
+# Save text to PDF file
+save_text_to_pdf(text_to_save, "example.pdf")

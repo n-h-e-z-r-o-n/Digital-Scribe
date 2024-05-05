@@ -62,6 +62,9 @@ import pdfplumber  # used for extracting data from pdf
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph
 
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+
 # =============================== Global variable decoration  ============================================================================================
 root = None
 screen_width: int
@@ -1561,6 +1564,52 @@ def access_keys_info():
         modify_css()
         pass
 
+def text_pdf_save(btn_widget, widgets:list):
+    def text_pdf_save_visual(bt_widget=btn_widget):
+        global downloading_audio
+        global fg_color
+        color = 'yellow'
+        while downloading_audio:
+            if color == 'yellow':
+                bt_widget.config(fg=color)
+                color = 'gold'
+            else:
+                bt_widget.config(fg=color)
+                color = 'yellow'
+            time.sleep(0.1)
+        bt_widget.config(fg=fg_color)
+
+    def text_pdf_save_run(widgets=widgets):
+        global audio_frames, downloading_audio
+        if not downloading_audio:
+            downloading_audio = True
+
+            folder_selected = filedialog.askdirectory()
+            if folder_selected:
+                raw_text_data = ''
+                for wid in widgets:
+                    raw_text_datawid.get("1.0", "end")
+                pdf_file_name = rf'{folder_selected}/Digital_Scribe(Analysis).pdf'
+                threading.Thread(target=text_pdf_save_visual).start()
+                pdf_document = SimpleDocTemplate(pdf_file_name)
+                pdf_elements = []
+                styles = getSampleStyleSheet()
+                paragraph = Paragraph(raw_text_data, styles["Normal"])
+                pdf_elements.append(paragraph)
+                pdf_document.build(pdf_elements)
+
+                pdf_document = SimpleDocTemplate(pdf_file_name)
+                pdf_elements = []
+                styles = getSampleStyleSheet()
+                paragraph = Paragraph(raw_text_data, styles["Normal"])
+                pdf_elements.append(paragraph)
+                pdf_document.build(pdf_elements)
+
+
+
+            downloading_audio = False
+
+    threading.Thread(target=text_pdf_save_run).start()
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1977,7 +2026,7 @@ def Main_Page(widget):
     paned_window.place(relheight=0.96, relwidth=0.75, rely=0.03, relx=0.0253)
 
     t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)  # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
-    t1.tag_configure("ASR", foreground="gray")
+    #t1.tag_configure("ASR", foreground="gray")
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
@@ -2499,17 +2548,17 @@ def Recodes_Page(widget):
     tk.Button(x, text="Summarize",     borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract",borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3),  command=lambda : AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.8)
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
+    tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
+    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
+    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
+    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)
+    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.8)
+    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
 
 
-    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, font=(font_size-3),  wrap='word', relief=tk.SUNKEN, border=1)
+    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color,  wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
-    x3.tag_configure("ASR", foreground="gray", font=("Broadway", font_size))
+    x3.tag_configure("ASR", foreground="gray", font=("Broadway"))
     text_list_widget.append(x3)
 
 
@@ -2534,7 +2583,7 @@ def Recodes_Page(widget):
             global llm_chain4
             text = text_widget.get("6.0", "end")
             AI_response = llm_chain4.invoke(input=text)
-            display_widget.insert(tk.END, "\n\n------------ Follow Up Question ------------------------------------------ \n\n", 'ASR')
+            display_widget.insert(tk.END, "\n\n------------ Follow Up Analysis ------------------------------------------ \n\n", 'ASR')
             display_widget.insert(tk.END,AI_response['text'])
             display_widget.insert(tk.END, "\n\n---------------------------------------------------------------------------\n", 'ASR')
             display_widget.see(tk.END)  # Scroll to the end of the text widget
