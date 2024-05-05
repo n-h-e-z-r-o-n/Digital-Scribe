@@ -534,8 +534,8 @@ def entity_highlight_words(widget):
     threading.Thread(target=Run).start()
 
 
-def Entity_Extraction(document_widget, widget=None):
-    def run(document_widget=document_widget, widget=widget):
+def Entity_Extraction(document_widget, widget=None, delete_hist = True):
+    def run(document_widget=document_widget, widget=widget, delete_hist = delete_hist):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
         global found_entities, entity_widg_list
 
@@ -559,8 +559,8 @@ def Entity_Extraction(document_widget, widget=None):
                 schema_=dictionary,
             )
             # widget.config(state=tk.NORMAL)
-            widget.delete(1.0, tk.END)
-            Recording_entity = '------------------------ EXTRACTED ENTITIES \n\n'
+
+            Recording_entity = '\n------------------------ EXTRACTED ENTITIES ------------------------ \n\n'
             found_entities = []
             print('result["entity"].items() :', len(result["entity"].items()))
             for key, value in result["entity"].items():
@@ -570,7 +570,10 @@ def Entity_Extraction(document_widget, widget=None):
             entity_highlight_words(document_widget)
 
             if widget is not None:
-                widget.insert(tk.END, Recording_entity)
+                if delete_hist:
+                    widget.delete(1.0, tk.END)
+                widget.insert(tk.END, Recording_entity+"\n\n")
+                widget.see(tk.END)  # Scroll to the end of the text widget
             else:
                 Recording_entity = Recording_entity
 
@@ -607,8 +610,8 @@ def Entity_Extraction(document_widget, widget=None):
     threading.Thread(target=run).start()
 
 
-def D_Summary(widget1, widget=None):
-    def run_f(widget1=widget1, widget=widget):
+def D_Summary(widget1, widget=None, delete_hist = True):
+    def run_f(widget1=widget1, widget=widget, delete_hist=delete_hist):
         global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
 
@@ -618,7 +621,7 @@ def D_Summary(widget1, widget=None):
         if len(document) < 5:
             return
         try:
-            Recording_summary = '\n------------------------ CONVERSATION SUMMARY\n'
+            Recording_summary = '\n------------------------ CONVERSATION SUMMARY ------------------------\n\n'
             summary_length = SummarizeParamsLength.LONG
             result = gradient.summarize(
                 document=document,
@@ -627,8 +630,10 @@ def D_Summary(widget1, widget=None):
 
             if widget is not None:
                 widget.config(state=tk.NORMAL)
-                widget.delete(1.0, tk.END)
+                if delete_hist:
+                    widget.delete(1.0, tk.END)
                 widget.insert(tk.END, '\n------------------------ CONVERSATION SUMMARY\n' + result['summary'])
+                widget.see(tk.END)  # Scroll to the end of the text widget
             else:
                 Recording_summary += result['summary']
 
@@ -2480,7 +2485,7 @@ def Recodes_Page(widget):
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color,  font=("Calibri", font_size-3), command=lambda : context_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
-    tk.Button(x, text="Summarize",     borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
+    tk.Button(x, text="Summarize",     borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract",borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="follow-up Q&A", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3),  command=lambda : AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
     tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
@@ -2502,7 +2507,7 @@ def Recodes_Page(widget):
 
             AI_response = llm_chain3.invoke(input=text)
             display_widget.insert(tk.END, "\n------------ AI context-aware suggestions------------------------- \n" +AI_response['text']+"\n\n---------------------------------------------------------------------------")
-
+            display_widget.see(tk.END)  # Scroll to the end of the text widget
         threading.Thread(target=context_assistant_run).start()
 
     def AI_doctor_assistant(text_widget, display_widget):
@@ -2512,6 +2517,7 @@ def Recodes_Page(widget):
             display_widget.delete(1.0, tk.END)
             AI_response = llm_chain4.invoke(input=text)
             display_widget.insert(tk.END, AI_response['text'])
+            display_widget.see(tk.END)  # Scroll to the end of the text widget
 
         threading.Thread(target=AI_doctor_assistant_run).start()
 
