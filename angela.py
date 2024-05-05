@@ -15,11 +15,22 @@ def imagen(image_path, screen_width, screen_height, widget): # image processing
                 image = Image.open(io.BytesIO(binary_data))
 
         image = image.resize((screen_width, screen_height), Image.LANCZOS)
+
         photo = ImageTk.PhotoImage(image)
-        print("--",photo)
+        print("--", photo)
         #widget.config(image=photo)
         #widget.image = photo  # Keep a reference to the PhotoImage to prevent it from being garbage collected
 
     load_image()
 
-imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\Image.jpg", 50, 50, 0)
+
+def resize(file_location):
+    img = Image.open(file_location)
+    Resized_image = img.resize((100, 100), Image.LANCZOS)
+    new_image = ImageTk.PhotoImage(img)
+    return new_image
+
+#imagen(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\Image.jpg", 500, 500, 0)
+
+
+resize(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\Image.jpg")
