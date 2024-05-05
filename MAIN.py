@@ -2503,20 +2503,21 @@ def Recodes_Page(widget):
     def context_assistant(text_widget, display_widget):
         def context_assistant_run(text_widget=text_widget, display_widget=display_widget):
             global llm_chain3
-            text = text_widget.get("1.0", "end")
+            text = text_widget.get("6.0", "end")
+
+            print(text)
 
             AI_response = llm_chain3.invoke(input=text)
-            display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions------------------------- \n" +AI_response['text']+"\n\n---------------------------------------------------------------------------\n")
+            display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions ---------------------------------- \n\n" +AI_response['text']+"\n\n---------------------------------------------------------------------------\n")
             display_widget.see(tk.END)  # Scroll to the end of the text widget
         threading.Thread(target=context_assistant_run).start()
 
     def AI_doctor_assistant(text_widget, display_widget):
         def AI_doctor_assistant_run(text_widget=text_widget, display_widget=display_widget):
             global llm_chain4
-            text = text_widget.get("1.0", "end")
-            display_widget.delete(1.0, tk.END)
+            text = text_widget.get("6.0", "end")
             AI_response = llm_chain4.invoke(input=text)
-            display_widget.insert(tk.END, "\n\n------------ Follow Up Question------------------------- \n" + AI_response['text']+"\n\n---------------------------------------------------------------------------\n")
+            display_widget.insert(tk.END, "\n\n------------ Follow Up Question ------------------------------------------ \n\n" + AI_response['text']+"\n\n---------------------------------------------------------------------------\n")
             display_widget.see(tk.END)  # Scroll to the end of the text widget
 
         threading.Thread(target=AI_doctor_assistant_run).start()
