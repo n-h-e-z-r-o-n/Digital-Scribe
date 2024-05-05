@@ -1587,8 +1587,8 @@ def text_pdf_save(btn_widget, widgets:list):
             if folder_selected:
                 raw_text_data = ''
                 for wid in widgets:
-                    raw_text_data += "\n\n", wid.get("1.0", "end")
-                pdf_file_name = rf'{folder_selected}/Digital_Scribe(Analysis).pdf'
+                    raw_text_data += "\n\n" + wid.get("1.0", "end")
+                pdf_file_name = rf'{folder_selected}/Digital_Scribe(Analysis).docx'
                 doc = txt_to_doc()
                 doc.add_paragraph(raw_text_data)
                 doc.save(pdf_file_name)
