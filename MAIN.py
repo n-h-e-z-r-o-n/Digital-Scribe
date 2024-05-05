@@ -1832,7 +1832,7 @@ def sign_up_Request(email, passw, root_widget):
 
 def Login_Section_widget(widget, root_widget):
     global screen_width, screen_height
-    nav_bar_color = "white"
+    nav_bar_color = darken_hex_color(bg_color)
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
 
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
@@ -1893,21 +1893,17 @@ def Login_Section_widget(widget, root_widget):
         change_fg_OnHover(Jump_to_login_link, '#00AB66', '#A8E4A0')
         return Forgot_password_widget
 
-    tk.Label(Login_widget, text='Log in to your account', bg=nav_bar_color,
-             font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0).place(relheight=0.05, relwidth=0.25,
-                                                                                          rely=0.05, relx=0.03)
-    tk.Label(Login_widget, text='Log in to continue your therapy journey \ntowards a happier, healthier you.',
-             bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place(
-        relheight=0.051, relwidth=0.25, rely=0.11, relx=0.03)
+    tk.Label(Login_widget, text='Log in to your account', bg=nav_bar_color,font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0).place(relheight=0.05, relwidth=0.25, rely=0.05, relx=0.03)
+    tk.Label(Login_widget, text='Log in to continue your therapy journey \ntowards a happier, healthier you.',bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place( relheight=0.051, relwidth=0.25, rely=0.11, relx=0.03)
 
     tk.Label(Login_widget, bg=nav_bar_color, text='email', font=("Batang", 9), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.07, rely=0.18, relx=0.05)
-    Email_entry_widg = tk.Entry(Login_widget, bg=nav_bar_color, font=("Courier New", 13), relief="solid", borderwidth=1)
+    Email_entry_widg = tk.Entry(Login_widget, bg=bg_color, font=("Courier New", 13), relief="solid", borderwidth=1)
     Email_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.21, relx=0.05)
     change_bg_OnHover(Email_entry_widg, '#F5F5F5', nav_bar_color)
     Email_entry_widg.insert(0, 'm@gmail')
 
     tk.Label(Login_widget, bg=nav_bar_color, text='password', font=("Batang", 9), anchor='w', borderwidth=1, border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
-    password_entry_widg = tk.Entry(Login_widget, bg=nav_bar_color, font=("Courier New", 13), relief="solid", borderwidth=1)
+    password_entry_widg = tk.Entry(Login_widget, bg=bg_color, font=("Courier New", 13), relief="solid", borderwidth=1)
     password_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.33, relx=0.05)
 
     password_entry_widg.insert(0, '12maureen12')
@@ -1924,24 +1920,17 @@ def Login_Section_widget(widget, root_widget):
     password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
     Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
 
-    tk.Label(Login_widget, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), anchor='w',
-             borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.6, relx=0.05)
-    Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',
-                                   activebackground=nav_bar_color, text="Sign up", font=("Aptos Narrow", 11, 'bold'),
-                                   anchor='w', borderwidth=0, border=0)
+    tk.Label(Login_widget, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), anchor='w',borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.6, relx=0.05)
+    Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',activebackground=nav_bar_color, text="Sign up", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
     Sign_up_login_link.place(relheight=0.03, relwidth=0.05, rely=0.6, relx=0.15)
     change_fg_OnHover(Sign_up_login_link, '#00AB66', '#A8E4A0')
 
-    tk.Label(Login_widget, bg=nav_bar_color, text="Therapy Provider?", font=("Aptos Narrow", 10), anchor='w',
-             borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.65, relx=0.05)
-    therapist_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',
-                                     activebackground=nav_bar_color, text="Log in", font=("Aptos Narrow", 11, 'bold'),
-                                     anchor='w', borderwidth=0, border=0)
+    tk.Label(Login_widget, bg=nav_bar_color, text="Therapy Provider?", font=("Aptos Narrow", 10), anchor='w',borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.65, relx=0.05)
+    therapist_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',activebackground=nav_bar_color, text="Log in", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
     therapist_login_link.place(relheight=0.03, relwidth=0.05, rely=0.65, relx=0.15)
     change_fg_OnHover(therapist_login_link, '#00AB66', '#A8E4A0')
 
-    img = tk.Label(Login_widget, bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0,
-                   border=0)
+    img = tk.Label(Login_widget, bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0)
     img.place(relheight=0.9, relwidth=0.65, rely=0.05, relx=0.3)
     # imagen('./login_pic.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
 
@@ -2903,31 +2892,25 @@ def Welcome_Page(wiget):
     global screen_width, screen_height, bg_color, fg_color
     home_widget, welcome_page_root = attach_scroll(wiget)
 
-    def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
-        def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
-            global nav_bg, bg_color, side_bar_widget_list2
-            color = darken_hex_color(bg_color)
-            for i in side_bar_widget_list2:
-                i.config(bg=color)
-            pop_side_bar.config(bg=color)
-            pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
 
-        def hide(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
-            global nav_bg
+    def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, colorOnHover, colorOnLeave, function):  # Color change bg on Mouse Hover
+        def show(widg):
+            widg.place(relheight=0.3, relwidth=1, rely=0.04, relx=0)
 
+        def hide(widg):
             def enter():
-                pop_side_bar.after_cancel(id)
+                widg.after_cancel(id)
 
             def leave():
-                pop_side_bar.config(bg=nav_bg)
-                pop_side_bar.place_forget()
+                widg.place_forget()
+                return
 
-            id = pop_side_bar.after(300, pop_side_bar.place_forget)
-            pop_side_bar.bind("<Enter>", func=lambda e: enter())
-            pop_side_bar.bind("<Leave>", func=lambda e: leave())
+            id = widg.after(300, widg.place_forget)
+            widg.bind("<Enter>", func=lambda e: enter())
+            widg.bind("<Leave>", func=lambda e: leave())
 
-        widget_bn.bind("<Enter>", func=lambda e: show())
-        widget_bn.bind("<Leave>", func=lambda e: hide())
+        widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=lighten_hex_color(bg_color)), show(function)))
+        widget.bind("<Leave>", func=lambda e: (widget.config(text=Text_On_Leave, background=lighten_hex_color(bg_color)), hide(function)))
 
     large_frame_size = screen_height * 2
     welcome_page_frame = tk.Frame(home_widget, bg=bg_color, width=screen_width, height=large_frame_size)
@@ -2959,7 +2942,7 @@ def Welcome_Page(wiget):
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨',  activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    #change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color,Login_Section_widget(welcome_page_frame, welcome_page_root))
+    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', nav_bar_btn_hover_color, nav_bar_color,Login_Section_widget(welcome_page_frame, welcome_page_root))
 
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
