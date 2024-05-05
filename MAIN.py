@@ -2499,6 +2499,16 @@ def Recodes_Page(widget):
     x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
     text_list_widget.append(x3)
+    def load_rag_conv():
+
+        document_store = InMemoryDocumentStore()
+        writer = DocumentWriter(document_store=document_store)
+
+        document_embedder = GradientDocumentEmbedder(
+            access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
+            workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+        )
+
 
     def context_assistant(text_widget, display_widget):
         def context_assistant_run(text_widget=text_widget, display_widget=display_widget):

@@ -29,37 +29,7 @@ with open("./DataSet/Raw_Text_Data.txt", encoding="utf-8") as file:
     text_data = file.read()
 """
 text_data = """
- Good morning, Doctor. I hope you're doing well today.
-
- Good morning! Yes, I'm doing well, thank you. How about yourself?
-
- Not too bad, thank you. I've been having some persistent headaches lately, and I thought it would be best to come in and get them checked out.
-
- I'm glad you came in. Headaches can be quite concerning. Can you tell me more about when they started and how often you've been experiencing them?
-
- Sure. They started about two weeks ago, and they seem to come and go throughout the day. Sometimes they're dull and achy, and other times they're more sharp and intense.
-
- Have you noticed any specific triggers or patterns associated with the headaches?
-
- Well, I've noticed that they tend to worsen when I'm stressed or when I haven't had enough sleep. But other than that, I haven't been able to identify any specific triggers.
-
- Okay, that's helpful to know. Have you experienced any other symptoms along with the headaches, such as nausea, dizziness, or changes in vision?
-
- No, not really. Just the headaches themselves.
-
- Alright. And have you tried taking any over-the-counter medications for the headaches? If so, did they provide any relief?
-
- Yes, I've tried taking ibuprofen a few times, but it only seems to provide temporary relief. The headaches always seem to come back.
-
- I see. Well, based on what you've described, it's possible that these headaches could be tension headaches or migraines. However, I'd like to conduct a thorough examination and possibly some tests to rule out any other underlying causes.
-
- That sounds like a good idea. I just want to make sure there's nothing serious going on.
-
- Of course. Let's start by checking your blood pressure and conducting a neurological examination. Depending on the results, we may need to consider further imaging studies or blood tests.
-
- Sounds good. Thank you, Doctor, for taking the time to listen to me and help figure this out.
-
- You're welcome. It's my job to ensure your health and well-being. Let's work together to get to the bottom of these headaches and find the best course of action moving forward.
+ Hi, Mr. Jones. How are you? I'm good, Dr. Smith, I have to see you. Thanks for seeing you again. What brings you back? Well, my back's been hurting again. I see. I've seen you a number of times for the havenine. You were ever since I got hurt on the job three years ago, and something that just keeps coming back. You'll be fine for a while, and then I'll end out, or I'll move with a weird way, and then, boom, it'll just go out again. Unfortunately, that can happen, and I do have quite a few patients who get reoccurring episodes of back pain. Have you been keeping up with a therapy that we had you on before? Which of the pills? Actually, I was talking about the physical therapy that we had you doing. The pills are only meant for short-term, because they don't actually prevent the back pain from coming back. So, yeah, once my back started feeling better, I was happy not to go to the therapist anymore. Why was that? Well, it started to become kind of a hassle with my work schedule, and the cost was an issue, but I was able to get back to work, so, and I could use the money. Do you think the physical therapy was helping? Yeah, but we're slow-gulling at first. I see physical therapy is a bit slower than medications, but the point is to build up the core muscles in your back and your abdomen. Physical therapy is also less invasive than medications, so that's why we had you doing the therapy. But you mentioned that cost was getting to be a real issue for you. Can you tell me more about that? Well, the insurers I had only covered certain number of sessions, and then they moved my therapy office, because they were trying to work out my schedule work, but that was really far away, and then I had to do with parking, and it just started to get really expensive. Got it, I understand. So, for now I'd like you to try using a heating pad for your back pain, so that should help in the short term. Our goal is to get your back pain under better control without creating additional problems for you like cost. Let's talk about some different options, and the pros and cons of each. So the physical therapy is actually really good for your back pain, but there are other things we can be doing to help. Yes, I definitely don't need to lose any more time to work and just lie around the household day. Okay, was there some alternative therapies like yoga, or Tai Chi classes, or meditation therapies that might be able to help? And they might also be closer to you, and be less expensive with that something you'd be interested in. Sure, that'd be great. Good. Let's talk about some of the other costs of your care. In the past we had you on some tram at all, because the physical therapy alone wasn't working. Yeah, that medicine was working really well, but again, the cost of it got really expensive. Yeah, yeah. So that is something in the future we could order something like a generic medication, and then there are also resources for people to look up the cheapest costs of their medications. But for now, I'd like to stick with the non-prescription medications. And if we can have you go to yoga, or Tai Chi classes like I mentioned, that could alleviate the need for ordering prescriptions. Okay, that sounds great. Great. Are there any other costs that are a problem for you and your care? Well, my insurance isn't going down, but that seems to be the case for everybody that I talk to, but I should be able to make it work, yeah. Unfortunately, that is an issue for a lot of people, but I would encourage you during open season to look at your different insurance options to see which plan is more cost-effective for you. Okay. Yes, that sounds great. Great. Well, I appreciate you talking to me today. Yeah, I'm glad you're able to come in. What I'll do is I'll have my office team research the different things that you and I talked about today. And then looks at a time early next week, say Tuesday, where we can talk over the phone about what we were able to come up with for you and see if those would work.
 """
 docs = [
     Document(content=text_data)
@@ -120,5 +90,5 @@ def LLM_Run(question):
 
 while True:
     query = input()
-    Query = "I noticed some unusual lumps or swellings on one of my cows. Should I be worried?"
+    Query = "What are the main symptoms or concerns mentioned by the patient in the conversation?"
     print(LLM_Run(query))
