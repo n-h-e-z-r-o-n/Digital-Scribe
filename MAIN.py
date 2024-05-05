@@ -2903,6 +2903,32 @@ def Welcome_Page(wiget):
     global screen_width, screen_height, bg_color, fg_color
     home_widget, welcome_page_root = attach_scroll(wiget)
 
+    def change_Widget_Attribute_OnHover(widget_bn, pop_side_bar, solid_side_bat):  # Color change bg on Mouse Hover
+        def show(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
+            global nav_bg, bg_color, side_bar_widget_list2
+            color = darken_hex_color(bg_color)
+            for i in side_bar_widget_list2:
+                i.config(bg=color)
+            pop_side_bar.config(bg=color)
+            pop_side_bar.place(rely=0, relx=0.025, width=int(screen_width * 0.1), height=int((screen_height * 1) - 20))
+
+        def hide(pop_side_bar=pop_side_bar, solid_side_bat=solid_side_bat):
+            global nav_bg
+
+            def enter():
+                pop_side_bar.after_cancel(id)
+
+            def leave():
+                pop_side_bar.config(bg=nav_bg)
+                pop_side_bar.place_forget()
+
+            id = pop_side_bar.after(300, pop_side_bar.place_forget)
+            pop_side_bar.bind("<Enter>", func=lambda e: enter())
+            pop_side_bar.bind("<Leave>", func=lambda e: leave())
+
+        widget_bn.bind("<Enter>", func=lambda e: show())
+        widget_bn.bind("<Leave>", func=lambda e: hide())
+
     large_frame_size = screen_height * 2
     welcome_page_frame = tk.Frame(home_widget, bg=bg_color, width=screen_width, height=large_frame_size)
     welcome_page_frame.pack(fill=tk.BOTH, expand=True)
@@ -2938,6 +2964,7 @@ def Welcome_Page(wiget):
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
 
+    Login_Section_widget(welcome_page_frame, welcome_page_root)
 
 # =============================== Main Function definition ============================================================
 # =====================================================================================================================
