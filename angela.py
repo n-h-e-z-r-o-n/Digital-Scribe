@@ -1,46 +1,53 @@
-from PIL import Image, ImageTk
-import io
-import base64
 import tkinter as tk
 
-def image_to_byte_string(image_path):
-    with open(image_path, "rb") as image_file:
-        byte_string = base64.b64encode(image_file.read()).decode('utf-8')
-    return byte_string
+class RoundedRectangleButton(tk.Canvas):
+    def __init__(self, master=None, **kwargs):
+        super().__init__(master, **kwargs)
+        self.config(highlightthickness=0)
+        self.rounded_rectangle = None
+        self.bind("<Configure>", self._draw_rounded_rectangle)
 
+    def _draw_rounded_rectangle(self, event=None):
+        self.delete("rounded_rectangle")
+        width = self.winfo_width()
+        height = self.winfo_height()
+        radius = min(width, height) // 5  # Adjust the radius as needed for the desired roundness
+        self.rounded_rectangle = self.create_rounded_rectangle(
+            0, 0, width, height, radius, fill="lightgray", outline="black", width=2, tags="rounded_rectangle"
+        )
 
-def imagen(image_path, screen_width, screen_height, widget): # image processing
-    def load_image():
-        global User_Image
-        try:
-            image = Image.open(image_path)
-        except Exception as e:
-            try:
-                image = Image.open(io.BytesIO(image_path))
-            except Exception as e:
-                print(e)
-                binary_data = base64.b64decode(image_path)  # Decode the string
-                image = Image.open(io.BytesIO(binary_data))
+    def create_rounded_rectangle(self, x1, y1, x2, y2, radius, **kwargs):
+        return self.create_polygon(
+            x1 + radius, y1,
+            x1 + radius, y1,
+            x2 - radius, y1,
+            x2 - radius, y1,
+            x2, y1,
+            x2, y1 + radius,
+            x2, y1 + radius,
+            x2, y2 - radius,
+            x2, y2 - radius,
+            x2, y2,
+            x2 - radius, y2,
+            x2 - radius, y2,
+            x1 + radius, y2,
+            x1 + radius, y2,
+            x1, y2,
+            x1, y2 - radius,
+            x1, y2 - radius,
+            x1, y1 + radius,
+            x1, y1 + radius,
+            x1, y1,
+            x1 + radius, y1,
+            smooth=True, **kwargs
+        )
 
-        image = image.resize((screen_width, screen_height), Image.LANCZOS)
-
-        photo = ImageTk.PhotoImage(image)
-
-        widget.config(image=photo)
-        widget.image = photo  # Keep a reference to the PhotoImage to prevent it from being garbage collected
-
-    load_image()
-
-
-
+# Example usage:
 root = tk.Tk()
+root.geometry("200x100")
+root.config(bg="blue")
 
-lanb = tk.Label(root, text="👤", font=("Forte", 100))
-lanb.place(relwidth=1,relheight=1)
-
-User_Image = image_to_byte_string(r"C:\Users\HEZRON WEKESA\OneDrive\Pictures\Image.jpg")
-
-#imagen(str(User_Image), 500, 500,lanb)
-
+button = RoundedRectangleButton(root, width=500, height=500)
+button.pack(pady=20)
 
 root.mainloop()

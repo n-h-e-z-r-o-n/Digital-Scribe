@@ -1864,21 +1864,10 @@ def imagen(image_path, screen_width, screen_height, widget): # image processing
 
 
 # =============================== Pages Functions definition =======================================================================================
-def sign_out(wig):
-    global client_socket, server_IP4v_address, Server_listening_port, session, user_id
-    signout_credentials = f'Sign_out_Request~{user_id}'
-    try:
-        client_socket.send(signout_credentials.encode("utf-8")[:1024])  # send message
-        status = client_socket.recv(1024).decode("utf-8", errors="ignore")
-        if status == 'signed_out_success':
-            client_socket.close()
-            wig.destroy()
-            session.clear()
-            Welcome_Page(root)
-        else:
-            pass
-    except:
-        connect_to_server()
+def sign_out():
+    global Home_page_frame, root
+    Home_page_frame.destroy()
+    Welcome_Page(root)
 
 
 def encrypt(string):
@@ -2737,17 +2726,19 @@ def Recodes_Page(widget):
 
 def Profile_Page(widget):
     global bg_color, fg_color
-    global screen_width, screen_height
+    global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
 
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    User_imag_widget = tk.Label(profile_page_container, text="👤", font=("Forte", 100))
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out",  font=(font_size), command=lambda: sign_out())
+    sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
+
+    User_imag_widget = tk.Label(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100))
     User_imag_widget.place(relheight=0.13, relwidth=0.12, relx=0.05, rely=0.05)
     if User_Image != '':
-        print("")
-       #imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
+       imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
 
     User_Name_widget = tk.Label(profile_page_container, text="NAME     : "+User_Name, anchor=tk.W, bg=bg_color, fg=fg_color)
     User_Name_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.19)
@@ -2809,7 +2800,6 @@ def User_Home_page(widget):
     # PROFILE_widget = profile(Home_page_frame)
 
     Profile_Widget = Profile_Page(container2)
-
     #CALL_Widget = call(container2)
     SETTINGS_Widget = settings(container2)
     chat_me_Widget = chat_me(container2)
