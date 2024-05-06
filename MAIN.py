@@ -1577,6 +1577,53 @@ def access_keys_info():
         modify_css()
         pass
 
+def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
+        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys, setting_status
+        global User_Name, User_Pass, User_Image, User_Email, User_Phone
+        global llm_chain
+        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
+        setting_status = True
+        gradient_ai_access_key = str(g_access).strip()
+        gradient_ai_workspace_id = str(g_workkey).strip()
+        gradient_ai_finetuned_id = str(g_finetuned_id).strip()
+        gradient_ai_base_model_id = str(g_base_model_id).strip()
+
+        assemblyai_access_key = str(Assemly_key).strip()
+
+        dic = {
+            '_GA_': gradient_ai_access_key,
+            '_GW_': gradient_ai_workspace_id,
+            '_G_FT_M_': gradient_ai_finetuned_id,
+            '_G_B_M_': gradient_ai_base_model_id,
+            '_AAI_': assemblyai_access_key,
+            "bg_color": bg_color,
+            "fg_color": fg_color,
+            "fg_hovercolor": fg_hovercolor,
+            "bg_hovercolor": bg_hovercolor,
+            "current_theme": current_theme,
+            "nav_bg": nav_bg,
+            "User_Name": User_Name,
+            "User_Email": User_Email,
+            "User_Phone": User_Phone,
+            "User_Image": User_Image
+        }
+
+        json_object = json.dumps(dic, indent=4)
+
+        with open("./Data_Raw/keys.json", "w") as outfile:
+            outfile.write(json_object)
+
+        os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+        os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+
+        print("saved")
+        print("gradient_ai_access_key", gradient_ai_access_key)
+        print("gradient_ai_workspace_id", gradient_ai_workspace_id)
+        print("assemblyai_access_key", assemblyai_access_key)
+        llm_chain = None
+        rag_initialize()
+
+
 def text_pdf_save(btn_widget, widgets:list):
     def text_pdf_save_visual(bt_widget=btn_widget):
         global downloading_audio
@@ -1780,6 +1827,41 @@ def Service_Section(widget):
 
     return Service_widget
 
+from PIL import Image, ImageTk
+import io
+import base64
+
+def image_to_byte_string(image_path):
+    with open(image_path, "rb") as image_file:
+        byte_string = base64.b64encode(image_file.read()).decode('utf-8')
+    return byte_string
+
+
+def imagen(image_path, screen_width, screen_height, widget): # image processing
+    def load_image():
+        global User_Image
+        try:
+            image = Image.open(image_path)
+        except Exception as e:
+            try:
+                image = Image.open(io.BytesIO(image_path))
+            except Exception as e:
+                print("imagen: ", e)
+                binary_data = base64.b64decode(image_path)  # Decode the string
+                image = Image.open(io.BytesIO(binary_data))
+
+        image = image.resize((screen_width, screen_height), Image.LANCZOS)
+
+        photo = ImageTk.PhotoImage(image)
+
+        widget.config(image=photo)
+        widget.image = photo  # Keep a reference to the PhotoImage to prevent it from being garbage collected
+
+    #load_image()
+    image_thread = threading.Thread(target=load_image)  # Create a thread to load the image asynchronously
+    image_thread.start()
+
+
 
 # =============================== Pages Functions definition =======================================================================================
 def sign_out(wig):
@@ -1810,8 +1892,6 @@ def login_Request(email, passw, widget):
     global root
     User_Home_page(root)
     widget.destroy()
-
-
 
 
 def sign_up_Request(email, passw, root_widget):
@@ -2298,46 +2378,7 @@ def settings(widget):
     global root
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
 
-    def save_keys(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
-        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys, setting_status
-        global llm_chain
-        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
-        setting_status = True
-        gradient_ai_access_key = str(g_access).strip()
-        gradient_ai_workspace_id = str(g_workkey).strip()
-        gradient_ai_finetuned_id = str(g_finetuned_id).strip()
-        gradient_ai_base_model_id = str(g_base_model_id).strip()
 
-        assemblyai_access_key = str(Assemly_key).strip()
-
-        dic = {
-            '_GA_': gradient_ai_access_key,
-            '_GW_': gradient_ai_workspace_id,
-            '_G_FT_M_': gradient_ai_finetuned_id,
-            '_G_B_M_': gradient_ai_base_model_id,
-            '_AAI_': assemblyai_access_key,
-            "bg_color": bg_color,
-            "fg_color": fg_color,
-            "fg_hovercolor": fg_hovercolor,
-            "bg_hovercolor": bg_hovercolor,
-            "current_theme": current_theme,
-            "nav_bg": nav_bg
-        }
-
-        json_object = json.dumps(dic, indent=4)
-
-        with open("./Data_Raw/keys.json", "w") as outfile:
-            outfile.write(json_object)
-
-        os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-        os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-
-        print("saved")
-        print("gradient_ai_access_key", gradient_ai_access_key)
-        print("gradient_ai_workspace_id", gradient_ai_workspace_id)
-        print("assemblyai_access_key", assemblyai_access_key)
-        llm_chain = None
-        rag_initialize()
 
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2693,17 +2734,37 @@ def Recodes_Page(widget):
 
     return Recodes_Page
 
+
 def Profile_Page(widget):
     global bg_color, fg_color
-    profile_page_container = tk.Frame(widget, bg='blue', borderwidth=0, border=0)
+    global screen_width, screen_height
+    global User_Name, User_Pass, User_Image, User_Email, User_Phone
+
+    profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    User_imag_widget = tk.Label(profile_page_container, text="👥", font=(font_size+10))
-    User_imag_widget.place(relheight=0.1, relwidth=0.1, relx=0.05, rely=0.05)
+    User_imag_widget = tk.Label(profile_page_container, text="👤", font=("Forte", 100))
+    User_imag_widget.place(relheight=0.13, relwidth=0.12, relx=0.05, rely=0.05)
+    if User_Image != '':
+        print("")
+       #imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
+
+    User_Name_widget = tk.Label(profile_page_container, text="NAME     : "+User_Name, anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_Name_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.19)
+
+    User_EMAIL_widget = tk.Label(profile_page_container, text="EMAIL    : " + User_Email, anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_EMAIL_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.221)
+
+    User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : " + User_Phone, anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_PHONE_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.252)
+
+    User_PASS_widget = tk.Label(profile_page_container, text="PASS     : " + "  *  *  *  *  *  *  *  * ", anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_PASS_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.283)
 
 
 
     return profile_page_container
+
 
 def User_Home_page(widget):
     global user_id, side_bar_widget_list, side_bar_widget_list2, Home_page_frame
