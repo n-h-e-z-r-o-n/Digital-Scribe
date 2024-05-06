@@ -2728,9 +2728,32 @@ def Profile_Page(widget):
     global bg_color, fg_color
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
+    global chang_status
 
-    def Chang_User_Details(User_N_widget, User_E_widget, User_NO_widget,User_PASS_widget, User):
-        Chang_User_Details(User_Name_widget_lable, User_EMAIL_widget, User_PHONE_widget, User_PASS_widget, User_imag_widget)
+    chang_status = False
+
+    def Chang_User_Details(Button_widget, User_N_widget, User_E_widget, User_NO_widget,User_PASS_widget, User_IMG_widget):
+        global chang_status
+        if chang_status == False:
+            User_N_widget.configure(state='normal')
+            User_E_widget.configure(state='normal')
+            User_NO_widget.configure(state='normal')
+            User_PASS_widget.configure(state='normal')
+            #User_IMG_widget
+
+            Button_widget.config(text="Save")
+            chang_status = True
+        else:
+            User_N_widget.configure(state='disabled')
+            User_E_widget.configure(state='disabled')
+            User_NO_widget.configure(state='disabled')
+            User_PASS_widget.configure(state='disabled')
+            User_IMG_widget.configure(state='disabled')
+            Button_widget.config(text="change")
+            chang_status = False
+
+
+
 
 
         pass
@@ -2772,7 +2795,7 @@ def Profile_Page(widget):
     User_PASS_widget_entry.insert(0,  "  *  *  *  *  *  *  *  * ")
 
 
-    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda :Chang_User_Details(User_Name_widget_lable, User_EMAIL_widget, User_PHONE_widget, User_PASS_widget, User_imag_widget))
+    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda :Chang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget))
     change_profile_detail.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.314)
     change_fg_OnHover(change_profile_detail, 'yellow', fg_color)
 
