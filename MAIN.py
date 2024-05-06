@@ -2732,7 +2732,7 @@ def Profile_Page(widget):
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out",  font=(font_size), command=lambda: sign_out())
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out",  font=(font_size), borderwidth=0, border=0, command=lambda: sign_out())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
 
     User_imag_widget = tk.Label(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100))
@@ -2740,19 +2740,28 @@ def Profile_Page(widget):
     if User_Image != '':
        imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
 
-    User_Name_widget = tk.Label(profile_page_container, text="NAME     : "+User_Name, anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_Name_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.19)
+    User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : "+User_Name, anchor=tk.W, bg='blue', fg=fg_color, font=('Georgia', font_size-5, 'bold'))
+    User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.19)
+
+    User_Name_widget = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color)
+    User_Name_widget.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
 
     User_EMAIL_widget = tk.Label(profile_page_container, text="EMAIL    : " + User_Email, anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_EMAIL_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.221)
+    User_EMAIL_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.221)
 
     User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : " + User_Phone, anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_PHONE_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.252)
+    User_PHONE_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.252)
 
     User_PASS_widget = tk.Label(profile_page_container, text="PASS     : " + "  *  *  *  *  *  *  *  * ", anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_PASS_widget.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.283)
+    User_PASS_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.283)
 
 
+    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color)
+    change_profile_detail.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.314)
+    change_fg_OnHover(change_profile_detail, 'yellow', fg_color)
+
+    #Conversation_Name_widget.configure(state='normal')
+    #Conversation_Name_widget.configure(state='disabled', disabledbackground=darken_hex_color(bg_color))
 
     return profile_page_container
 
@@ -2866,7 +2875,7 @@ def User_Home_page(widget):
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
     duplicate_widget(profile_widget, side_bar_full, text="Digital Scribe")
 
-    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (Profile_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='👥', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (Profile_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover_light(st1_bt)
     side_bar_widget_list.append(st1_bt)
