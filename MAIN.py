@@ -2733,7 +2733,7 @@ def Profile_Page(widget):
     chang_status = False
 
     def Chang_User_Details(Button_widget, User_N_widget, User_E_widget, User_NO_widget,User_PASS_widget, User_IMG_widget):
-        #kk
+        global User_Name, User_Pass, User_Image, User_Email, User_Phone
         # kChang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget)
         global chang_status
         if chang_status == False:
@@ -2746,19 +2746,30 @@ def Profile_Page(widget):
             Button_widget.config(text="Save")
             chang_status = True
         else:
+            User_Name = User_N_widget.get()
+            User_Pass = User_PASS_widget.get()
+            User_Email = User_E_widget.get()
+            User_Phone = User_NO_widget.get()
+
+
+
             User_N_widget.configure(state='disabled', disabledbackground=bg_color)
             User_E_widget.configure(state='disabled', disabledbackground=bg_color)
             User_NO_widget.configure(state='disabled', disabledbackground=bg_color)
             User_PASS_widget.configure(state='disabled', disabledbackground=bg_color)
-            #User_IMG_widget.configure(state='disabled',)
+            User_IMG_widget.configure(state='disabled', disabledbackground=bg_color)
             Button_widget.config(text="change")
             chang_status = False
+            save_keys()
 
+    def change_image(widget):
+        global User_Image
 
+        filetypes = [("pHotos", "*.mp3;*.wav;*.ogg;*.flac;*.aac")]
+        file_path = filedialog.askopenfilename(filetypes=filetype
+        imagen("", int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), widget)
+        User_Image = image_to_byte_string()
 
-
-
-        pass
 
 
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
@@ -2767,33 +2778,35 @@ def Profile_Page(widget):
     sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out",  font=(font_size), borderwidth=0, border=0, command=lambda: sign_out())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
 
-    User_imag_widget = tk.Label(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100))
+    User_imag_widget = tk.Label(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100),  command=lambda: change_image(User_imag_widget), borderwidth=0, border=0)
     User_imag_widget.place(relheight=0.13, relwidth=0.12, relx=0.05, rely=0.05)
     if User_Image != '':
        imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
 
+    User_imag_widget.configure(state='disabled')
+
     User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : ", anchor=tk.W, bg='blue', fg=fg_color, font=('Georgia', font_size-5, 'bold'))
     User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.19)
     User_Name_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size-3), borderwidth=0, border=0)
-    User_Name_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
+    User_Name_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.19)
     User_Name_widget_entry.insert(0, User_Name)
 
     User_EMAIL_widget = tk.Label(profile_page_container, text="EMAIL    : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_EMAIL_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.221)
     User_EMAIL_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0)
-    User_EMAIL_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.2215)
+    User_EMAIL_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2215)
     User_EMAIL_widget_entry.insert(0, User_Email)
 
     User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_PHONE_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.252)
     User_PHONE_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0)
-    User_PHONE_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.2515)
+    User_PHONE_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2515)
     User_PHONE_widget_entry.insert(0, User_Phone)
 
     User_PASS_widget = tk.Label(profile_page_container, text="PASS     : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_PASS_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.283)
     User_PASS_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0)
-    User_PASS_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.2835)
+    User_PASS_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2835)
     User_PASS_widget_entry.insert(0,  "  *  *  *  *  *  *  *  * ")
 
 
