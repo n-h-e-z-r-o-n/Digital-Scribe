@@ -2729,6 +2729,13 @@ def Profile_Page(widget):
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
 
+    def Chang_User_Details(User_N_widget, User_E_widget, User_NO_widget,User_PASS_widget, User):
+        Chang_User_Details(User_Name_widget_lable, User_EMAIL_widget, User_PHONE_widget, User_PASS_widget, User_imag_widget)
+
+
+        pass
+
+
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -2740,23 +2747,32 @@ def Profile_Page(widget):
     if User_Image != '':
        imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
 
-    User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : "+User_Name, anchor=tk.W, bg='blue', fg=fg_color, font=('Georgia', font_size-5, 'bold'))
+    User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : ", anchor=tk.W, bg='blue', fg=fg_color, font=('Georgia', font_size-5, 'bold'))
     User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.19)
+    User_Name_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size-3))
+    User_Name_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
+    User_Name_widget_entry.insert(0, User_Name)
 
-    User_Name_widget = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color)
-    User_Name_widget.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
-
-    User_EMAIL_widget = tk.Label(profile_page_container, text="EMAIL    : " + User_Email, anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_EMAIL_widget = tk.Label(profile_page_container, text="EMAIL    : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_EMAIL_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.221)
+    User_EMAIL_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3))
+    User_EMAIL_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
+    User_EMAIL_widget_entry.insert(0, User_Email)
 
-    User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : " + User_Phone, anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_PHONE_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.252)
+    User_PHONE_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3))
+    User_PHONE_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
+    User_PHONE_widget_entry.insert(0, User_Phone)
 
-    User_PASS_widget = tk.Label(profile_page_container, text="PASS     : " + "  *  *  *  *  *  *  *  * ", anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_PASS_widget = tk.Label(profile_page_container, text="PASS     : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_PASS_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.283)
+    User_PASS_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3))
+    User_PASS_widget_entry.place(relheight=0.03, relwidth=0.13, relx=0.1, rely=0.19)
+    User_PASS_widget_entry.insert(0,  "  *  *  *  *  *  *  *  * ")
 
 
-    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color)
+    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda :Chang_User_Details(User_Name_widget_lable, User_EMAIL_widget, User_PHONE_widget, User_PASS_widget, User_imag_widget))
     change_profile_detail.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.314)
     change_fg_OnHover(change_profile_detail, 'yellow', fg_color)
 
