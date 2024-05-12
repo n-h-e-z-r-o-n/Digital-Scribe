@@ -3038,14 +3038,20 @@ def Welcome_Page(wiget):
     tk.Label(section1, text=" * Update and maintain Medical Conversation",  bg=bg_color,  fg=fg_color,font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.3, relx=0)
     tk.Label(section1, text=" * Administrative Duties ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.4, relx=0)
     tk.Label(section1, text=" * AI Assistant", bg=bg_color,   fg=fg_color,font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.5, relx=0)
-    tk.Label(section1, text=" * ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.6, relx=0)
-    tk.Label(section1, text=" * ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.7, relx=0)
-    tk.Label(section1, text=" * ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.8, relx=0)
+    tk.Label(section1, text=" * Analyze clinical notes", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.6, relx=0)
+    tk.Label(section1, text=" * Summarize Clinical 'info'", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.7, relx=0)
+    tk.Label(section1, text=" * Extract Clinical data from conversations", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.8, relx=0)
     tk.Label(section1, text=" * ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.9, relx=0)
 
+    img3 = tk.Label(welcome_page_frame, bg=bg_color)
+    img3.place(relheight=0.35, relwidth=0.2, rely=0.05, relx=0.8)
+    imagen("./Assets/home_img_1.png", int(screen_width * 0.4), int(screen_height * 0.35), img3)
+
+
+
     img2 = tk.Label(welcome_page_frame, bg=bg_color)
-    img2.place(relheight=0.4, relwidth=1, rely=0.05, relx=0)
-    imagen("./Assets/home_img_2.png", int(screen_width * 0.4), int(screen_height * 0.35), img1)
+    img2.place(relheight=0.5, relwidth=1, rely=0.4, relx=0)
+    imagen("./Assets/home_img_3.png", int(screen_width), int(screen_height * 0.5), img2)
 
     nav_bar = tk.Frame(welcome_page_frame, bg=lighten_hex_color(bg_color))
     nav_bar.place(relheight=0.05, relwidth=1, rely=0, relx=0)
