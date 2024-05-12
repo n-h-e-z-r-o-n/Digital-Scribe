@@ -1884,7 +1884,7 @@ def sign_up_Request(email, passw, root_widget):
     pass
 
 
-def Forgot_pass(widget):
+def Forgot_pass_widget(widget):
         global fg_color, bg_color
         nav_bar_color = darken_hex_color(bg_color)
         def back(widg):
@@ -1934,15 +1934,15 @@ def Login_Section_widget(widget, widget2):
     Email_entry_widg = tk.Entry(Login_widget, fg=fg_color, bg=lighten_hex_color(bg_color), font=("Courier New", 13), relief="solid", borderwidth=1)
     Email_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.21, relx=0.05)
     change_bg_OnHover(Email_entry_widg, 'lightblue', lighten_hex_color(bg_color))
-    Email_entry_widg.insert(0, 'm@gmail')
+    #Email_entry_widg.insert(0, 'm@gmail')
 
     tk.Label(Login_widget, bg=nav_bar_color, text='password',  fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=1, border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
     password_entry_widg = tk.Entry(Login_widget, fg=fg_color, bg=lighten_hex_color(bg_color), font=("Courier New", 13), relief="solid", borderwidth=1)
     password_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.33, relx=0.05)
-    password_entry_widg.insert(0, '12maureen12')
+    #password_entry_widg.insert(0, '12maureen12')
     change_bg_OnHover(password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
-    Forgot_password_login_link = tk.Button(Login_widget, bg=nav_bar_color,  fg='#74C365', activebackground=nav_bar_color, text='Forgot password', font=("Bradley Hand ITC", 12, 'bold'), anchor='w', borderwidth=0, border=0, command=lambda: Forgot_pass(Login_widget).place(relheight=0.7, relwidth=0.25, rely=0.05,relx=0.03))
+    Forgot_password_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#74C365', activebackground=nav_bar_color, text='Forgot password', font=("Bradley Hand ITC", 12, 'bold'), anchor='w', borderwidth=0, border=0, command=lambda: Forgot_pass_widget(Login_widget).place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.03))
     Forgot_password_login_link.place(relheight=0.03, relwidth=0.1, rely=0.41, relx=0.05)
     change_fg_OnHover(Forgot_password_login_link, '#00AB66', '#A8E4A0')
 
@@ -1967,19 +1967,7 @@ def Login_Section_widget(widget, widget2):
     imagen("./Assets/login_img 1.png", int(screen_width * 0.65), int(screen_height*0.5 * 0.9), img)
     # imagen('./login_pic.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
 
-
-
-
-
-
-
-
-
-    Login_widget.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
-
-
-
-
+    #Login_widget.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
     return Login_widget
 
 
@@ -3039,6 +3027,17 @@ def Welcome_Page(wiget):
     nav_bar_color = "white"
     nav_bar_btn_hover_color = '#F5F5F5'
 
+    img1 = tk.Label(welcome_page_frame, bg=bg_color)
+    img1.place(relheight=0.35, relwidth=0.4, rely=0.05, relx=0)
+    imagen("./Assets/home_img_2.png", int(screen_width * 0.4), int(screen_height * 0.35), img1)
+
+    section1 = tk.Frame(welcome_page_frame, bg="blue")
+    section1.place(relheight=0.35, relwidth=0.4, rely=0.05, relx=0.4)
+    tk.Label(section1, text="")
+
+
+
+
     nav_bar = tk.Frame(welcome_page_frame, bg=lighten_hex_color(bg_color))
     nav_bar.place(relheight=0.05, relwidth=1, rely=0, relx=0)
 
@@ -3061,10 +3060,14 @@ def Welcome_Page(wiget):
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨',  activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    #change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', Login_Section_widget(welcome_page_frame, welcome_page_frame))
-    Login_Section_widget(welcome_page_frame, welcome_page_frame)
+
+    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', Login_Section_widget(welcome_page_frame, welcome_page_frame))
+
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
+
+
+
 
 
 
