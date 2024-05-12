@@ -1832,27 +1832,31 @@ def image_to_byte_string(image_path):
 
 def imagen(image_path, screen_width, screen_height, widget): # image processing
     def load_image():
-        global User_Image
-        try:
-            image = Image.open(image_path)
-        except Exception as e:
+        global closed
+        while not closed:
+
+            global User_Image
             try:
-                image = Image.open(io.BytesIO(image_path))
+                image = Image.open(image_path)
             except Exception as e:
-                print("imagen: ", e)
-                binary_data = base64.b64decode(image_path)  # Decode the string
-                image = Image.open(io.BytesIO(binary_data))
+                try:
+                    image = Image.open(io.BytesIO(image_path))
+                except Exception as e:
+                    print("imagen: ", e)
+                    binary_data = base64.b64decode(image_path)  # Decode the string
+                    image = Image.open(io.BytesIO(binary_data))
 
-        image = image.resize((screen_width, screen_height), Image.LANCZOS)
-
-        photo = ImageTk.PhotoImage(image)
-
-        widget.config(image=photo)
-        widget.image = photo  # Keep a reference to the PhotoImage to prevent it from being garbage collected
+            image = image.resize((screen_width, screen_height), Image.LANCZOS)
+            try:
+                photo = ImageTk.PhotoImage(image)
+            except:
+                continue
+            widget.config(image=photo)
+            widget.image = photo  # Keep a reference to the PhotoImage to prevent it from being garbage collected
+            break
 
     #load_image()
-    image_thread = threading.Thread(target=load_image)  # Create a thread to load the image asynchronously
-    image_thread.start()
+    threading.Thread(target=load_image).start()
 
 
 
@@ -1925,13 +1929,13 @@ def Login_Section_widget(widget, widget2):
     tk.Label(Login_widget, text='Log in to continue your medical scribe journey \ntowards a happier you.',  fg=lighten_hex_color(bg_color), bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place( relheight=0.051, relwidth=0.25, rely=0.11, relx=0.03)
 
     tk.Label(Login_widget, bg=nav_bar_color, text='email',  fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.07, rely=0.18, relx=0.05)
-    Email_entry_widg = tk.Entry(Login_widget, bg=bg_color, font=("Courier New", 13), relief="solid", borderwidth=1)
+    Email_entry_widg = tk.Entry(Login_widget, bg=lighten_hex_color(bg_color), font=("Courier New", 13), relief="solid", borderwidth=1)
     Email_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.21, relx=0.05)
     change_bg_OnHover(Email_entry_widg, 'lightblue', lighten_hex_color(bg_color))
     Email_entry_widg.insert(0, 'm@gmail')
 
     tk.Label(Login_widget, bg=nav_bar_color, text='password',  fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=1, border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
-    password_entry_widg = tk.Entry(Login_widget, bg=bg_color, font=("Courier New", 13), relief="solid", borderwidth=1)
+    password_entry_widg = tk.Entry(Login_widget, bg=lighten_hex_color(bg_color), font=("Courier New", 13), relief="solid", borderwidth=1)
     password_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.33, relx=0.05)
     password_entry_widg.insert(0, '12maureen12')
     change_bg_OnHover(password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
@@ -1956,9 +1960,23 @@ def Login_Section_widget(widget, widget2):
     therapist_login_link.place(relheight=0.03, relwidth=0.05, rely=0.65, relx=0.15)
     change_fg_OnHover(therapist_login_link, '#00AB66', '#A8E4A0')
 
-    img = tk.Label(Login_widget, bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0)
+    img = tk.Label(Login_widget, bg="blue", font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0)
     img.place(relheight=0.9, relwidth=0.65, rely=0.05, relx=0.3)
+    imagen("./Assets/login_img 1.png", int(screen_width * 0.65), int(screen_height*0.5 * 0.9), img)
     # imagen('./login_pic.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
+
+
+
+
+
+
+
+
+
+    Login_widget.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
+
+
+
 
     return Login_widget
 
@@ -3041,8 +3059,8 @@ def Welcome_Page(wiget):
 
     nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨',  activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
-    change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨',Login_Section_widget(welcome_page_frame, welcome_page_frame))
-
+    #change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', Login_Section_widget(welcome_page_frame, welcome_page_frame))
+    Login_Section_widget(welcome_page_frame, welcome_page_frame)
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
 
@@ -3102,8 +3120,8 @@ def main():
 
     title_bar_color(bg_color)
 
-    User_Home_page(root)
-    #Welcome_Page(root)
+    #User_Home_page(root)
+    Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
