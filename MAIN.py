@@ -3048,7 +3048,6 @@ def Welcome_Page(wiget):
     imagen("./Assets/home_img_1.png", int(screen_width * 0.4), int(screen_height * 0.35), img3)
 
 
-
     img2 = tk.Label(welcome_page_frame, bg=bg_color)
     img2.place(relheight=0.5, relwidth=1, rely=0.4, relx=0)
     imagen("./Assets/home_img_3.png", int(screen_width), int(screen_height * 0.5), img2)
