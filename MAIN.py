@@ -1049,7 +1049,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                     widget.see(tk.END)
                     if pos == 10:
                         start_idx = index
-                        end_idx = len(audio_frames) - index
+                        end_idx = len(audio_frames) - 1
                         index = end_idx
                         transcribe_audio(audio_frames[start_idx: end_idx], widget1)
                         # transcribe_audio(audio_frames, widget1)
@@ -1059,11 +1059,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
 
                     pos += 1
                 else:
+
                     print("index: ", index)
                     print("index 2 : ", len(audio_frames) - index)
-                    if index != len(audio_frames) - index:
+                    if index != len(audio_frames) - 1:
                         start_idx = index
-                        end_idx = len(audio_frames) - index
+                        end_idx = len(audio_frames) - 1
                         index = end_idx
                         transcribe_audio(audio_frames[start_idx: end_idx], widget1, 1)
 
