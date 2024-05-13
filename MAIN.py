@@ -1062,7 +1062,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         start_idx = index
                         end_idx = len(audio_frames) - index
                         index = end_idx
-                        transcribe_audio(audio_frames[start_idx: end_idx], widget1)
+                        #transcribe_audio(audio_frames[start_idx: end_idx], widget1)
+                        transcribe_audio(audio_frames, widget1)
                         widget2.delete(1.0, tk.END)
                         widget2.insert(tk.END, Recording_entity + Recording_summary)
                         pos = 0
@@ -1099,7 +1100,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
             # Write the audio frames to the file
             output_wave.writeframes(b''.join(frames))
 
-        result = wisper_model_base.transcribe(output_file)
+        result = wisper_model_tiny.transcribe(output_file)
 
         return result["text"]
 
