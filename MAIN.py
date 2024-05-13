@@ -977,22 +977,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
     global audio_frames
-    if Recording:
-        Recording = False
-        miniute = second = hour = 0
 
-        Record_btn.config(fg=fg_color)
-        Recording_paused = False
-        current_time_seconds = time.time()
-        current_time_struct = time.localtime(current_time_seconds)
-        current_time_words = time.strftime("%A %B %Y,  %I %p", current_time_struct)
-
-        file_name = Conversation_Name_widget.get()
-        output_file = path_exe + '\\Audio_Records\\' + f'{file_name} ({current_time_words}).wav'
-        save_recoded_conversation(rf"{output_file}")
-        Conversation_Name_widget.configure(state='normal')
-        transcribe_audio(audio_frames, widget1)
-        return
 
     def start_recording():
         global Recording
@@ -1079,7 +1064,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         start_idx = index
                         end_idx = len(audio_frames) - index
                         index = end_idx
-                        transcribe_audio(audio_frames[start_idx: end_idx], widget1)
+                        transcribe_audio(audio_frames[start_idx: end_idx], widget1, 1)
 
             except Exception as e:
                 print(e)
@@ -1138,6 +1123,24 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         running_scribe = False
 
         # integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
+
+
+    if Recording:
+        Recording = False
+        miniute = second = hour = 0
+
+        Record_btn.config(fg=fg_color)
+        Recording_paused = False
+        current_time_seconds = time.time()
+        current_time_struct = time.localtime(current_time_seconds)
+        current_time_words = time.strftime("%A %B %Y,  %I %p", current_time_struct)
+
+        file_name = Conversation_Name_widget.get()
+        output_file = path_exe + '\\Audio_Records\\' + f'{file_name} ({current_time_words}).wav'
+        save_recoded_conversation(rf"{output_file}")
+        Conversation_Name_widget.configure(state='normal')
+        transcribe_audio(audio_frames, widget1)
+        return
 
     while True:
         """
