@@ -967,7 +967,6 @@ def Initialize_VOSK():
     wisper_model_base = whisper.load_model("base")
     print('SR Initialized')
 
-
 threading.Thread(target=Initialize_VOSK).start()
 
 
@@ -976,10 +975,10 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
     global fg_color, bg_color, miniute, second, hour
     global audio_frames
     if Recording:
-        miniute = second = hour = 0
         Recording = False
+        miniute = second = hour = 0
+
         Record_btn.config(fg=fg_color)
-        clock_wideth.config(text='0:0:0')
         Recording_paused = False
         current_time_seconds = time.time()
         current_time_struct = time.localtime(current_time_seconds)
@@ -1001,7 +1000,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         Thread(target=record_microphone).start()
         Thread(target=speech_recognition, args=(widget,)).start()
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=5):
+    def record_microphone(chunk=1024, RECORD_SECONDS=1):
         global closed, Recording_paused, Recording
 
         p = pyaudio.PyAudio()
@@ -1064,7 +1063,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         end_idx = len(audio_frames) - index
                         index = end_idx
                         transcribe_audio(audio_frames[start_idx: end_idx], widget1)
-                        # D_Summary(widget1)
                         widget2.delete(1.0, tk.END)
                         widget2.insert(tk.END, Recording_entity + Recording_summary)
                         pos = 0
@@ -1090,7 +1088,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
         sample_rate = 16000  # Sample rate (Hz)
-        output_file = 'wisper_model_tiny.wav'
+        output_file = "./temp_files/ASR_real_time_temp.wav"
         # Open the output file in write mode
         with wave.open(output_file, 'wb') as output_wave:
             # Set audio parameters
@@ -1101,9 +1099,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
             # Write the audio frames to the file
             output_wave.writeframes(b''.join(frames))
 
-        # print("Audio file saved successfully.")
-
-        result = wisper_model_tiny.transcribe(output_file)
+        result = wisper_model_base.transcribe(output_file)
 
         return result["text"]
 
@@ -1118,7 +1114,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         channels = 1  # Mono
         sample_width = 2  # 16-bit audio
         sample_rate = 16000  # Sample rate (Hz)
-        output_file = 'wisper_model_tiny.wav'
+        output_file = './temp_files/transcribe_real_time_temp.wav'
         # Open the output file in write mode
         with wave.open(output_file, 'wb') as output_wave:
             # Set audio parameters
@@ -1130,11 +1126,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
             output_wave.writeframes(b''.join(frames))
 
         # print("Audio file saved successfully.")
-        result = wisper_model_tiny.transcribe(output_file)
+        result = wisper_model_base.transcribe(output_file)
         # widget.delete(1.0, tk.END)
-        widget.insert(tk.END, result["text"] + "\n")
+        widget.insert(tk.END, result["text"] + ". ")
         widget.see(tk.END)
-        Entity_Extraction(widget1)
+        Entity_Extraction(widget)
+        D_Summary(widget)
         running_scribe = False
 
         # integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
@@ -1155,15 +1152,12 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         break
 
 
-miniute = 0
-hour = 0
-sec = 0
-
-
 def speech_record_time(widget):
     def Run(widget=widget):
         global closed, Recording, Recording_paused
-        global sec, miniute, hour
+        miniute = 0
+        hour = 0
+        sec = 0
         while True:
             if closed or not Recording:
                 break
@@ -1180,6 +1174,8 @@ def speech_record_time(widget):
                     hour = hour + 1
             widget.config(text=time_text)
             time.sleep(1)
+
+        widget.config(text='0:0:0')
 
     threading.Thread(target=Run).start()
 
@@ -1271,6 +1267,7 @@ def download_transcribed_audio(widget):
 
     threading.Thread(target=run).start()
 
+
 def save_recoded_conversation(output_file):
     global saving_audio
     saving_audio = True
@@ -1313,12 +1310,14 @@ def save_recoded_conversation(output_file):
 
     threading.Thread(target=save_recoded_conversation_thread).start()
 
+
 def convert_wav_to_mp3(wav_file, mp3_file):
     # Load the WAV file
     audio = AudioSegment.from_wav(wav_file)
 
     # Export the audio as MP3
     audio.export(mp3_file, format="mp3")
+
 
 def integrate_strings(old, edited, new):
     old = old.split()
