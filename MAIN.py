@@ -587,7 +587,8 @@ def Entity_Extraction(document_widget, widget=None, delete_hist = True):
                 Recording_entity = Recording_entity
 
         except Exception as e:
-            print(type(e).__name__)
+            #print(type(e).__name__)
+            pass
             """
             if type(e).__name__ == 'BadRequestException':
                 error = "Error :" + str(type(e).__name__) + " -Missing Entity Definitions. Please define your entities properly. If you have already defined them, ensure they adhere to the required format"
@@ -623,7 +624,6 @@ def D_Summary(widget1, widget=None, delete_hist = True):
     def run_f(widget1=widget1, widget=widget, delete_hist=delete_hist):
         global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
-
         document = widget1.get("1.0", "end")
         document = (document.strip())
 
@@ -649,7 +649,8 @@ def D_Summary(widget1, widget=None, delete_hist = True):
 
 
         except Exception as e:
-            print(e)
+            #print(e)
+            pass
 
     threading.Thread(target=run_f).start()
 
@@ -1000,7 +1001,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         Thread(target=record_microphone).start()
         Thread(target=speech_recognition, args=(widget,)).start()
 
-    def record_microphone(chunk=1024, RECORD_SECONDS=1):
+    def record_microphone(chunk=1024, RECORD_SECONDS=2):
         global closed, Recording_paused, Recording
 
         p = pyaudio.PyAudio()
@@ -2038,7 +2039,7 @@ def Main_Page(widget):
     paned_window.place(relheight=0.96, relwidth=0.75, rely=0.03, relx=0.0253)
 
     t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)  # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
-    #t1.tag_configure("ASR", foreground="gray")
+    t1.tag_configure("ASR", foreground="gray")
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
