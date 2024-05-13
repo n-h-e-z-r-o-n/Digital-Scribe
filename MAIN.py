@@ -47,7 +47,7 @@ import json
 from vosk import Model, KaldiRecognizer
 import whisper  # pip install -U openai-whisper
 import wave
-from pydub import AudioSegment # used for converting .wav to .mp3
+from pydub import AudioSegment  # used for converting .wav to .mp3
 # ------------------------------- img-to-text -------------------------------------------------------------------------------------------------------------
 
 from PIL import Image
@@ -58,7 +58,6 @@ pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tessera
 from paddleocr import PaddleOCR, draw_ocr
 
 ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
-
 
 # -------------------------------  ------------------------------------------------------------------------------------------------------------------------
 
@@ -512,7 +511,7 @@ def entity_highlight_words(widget):
                 for g_word in entites:
                     start = 1.0
                     print("entites word:", g_word)
-                    if (g_word == "or") or (g_word == "OR") or (g_word == "and") or (g_word == "AND") or (g_word == "when")  or (g_word == "to"):
+                    if (g_word == "or") or (g_word == "OR") or (g_word == "and") or (g_word == "AND") or (g_word == "when") or (g_word == "to"):
                         continue
                     g_word = g_word.strip(",")
                     g_word = g_word.strip(".")
@@ -543,13 +542,11 @@ def entity_highlight_words(widget):
                         widget.tag_add("highlight", start, end)
                         start = end
 
-
-
     threading.Thread(target=Run).start()
 
 
-def Entity_Extraction(document_widget, widget=None, delete_hist = True):
-    def run(document_widget=document_widget, widget=widget, delete_hist = delete_hist):
+def Entity_Extraction(document_widget, widget=None, delete_hist=True):
+    def run(document_widget=document_widget, widget=widget, delete_hist=delete_hist):
         global Recording, Recording_paused, Recording_entity, Recording_data, Recording_summary
         global found_entities, entity_widg_list
 
@@ -586,13 +583,13 @@ def Entity_Extraction(document_widget, widget=None, delete_hist = True):
             if widget is not None:
                 if delete_hist:
                     widget.delete(1.0, tk.END)
-                widget.insert(tk.END, Recording_entity+"\n\n")
+                widget.insert(tk.END, Recording_entity + "\n\n")
                 widget.see(tk.END)  # Scroll to the end of the text widget
             else:
                 Recording_entity = Recording_entity
 
         except Exception as e:
-            #print(type(e).__name__)
+            # print(type(e).__name__)
             pass
             """
             if type(e).__name__ == 'BadRequestException':
@@ -625,7 +622,7 @@ def Entity_Extraction(document_widget, widget=None, delete_hist = True):
     threading.Thread(target=run).start()
 
 
-def D_Summary(widget1, widget=None, delete_hist = True):
+def D_Summary(widget1, widget=None, delete_hist=True):
     def run_f(widget1=widget1, widget=widget, delete_hist=delete_hist):
         global Recording, Recording_paused, Recording_summary
         gradient = Gradient()
@@ -647,14 +644,14 @@ def D_Summary(widget1, widget=None, delete_hist = True):
                 if delete_hist:
                     widget.delete(1.0, tk.END)
                 widget.insert(tk.END, '\n\n------------------------ CONVERSATION SUMMARY ------------------------\n', 'ASR')
-                widget.insert(tk.END, result['summary']+'\n\n')
+                widget.insert(tk.END, result['summary'] + '\n\n')
                 widget.see(tk.END)  # Scroll to the end of the text widget
             else:
                 Recording_summary += result['summary']
 
 
         except Exception as e:
-            #print(e)
+            # print(e)
             pass
 
     threading.Thread(target=run_f).start()
@@ -892,7 +889,6 @@ def llm_inference_initializ():
 
     # ================================================ chat bot2 section
 
-
     template2 = """You are a AI that analyzes data exacted from images and present it in a formatted way. 
     Human: {Instruction}
     Chatbot:"""
@@ -973,10 +969,11 @@ def Initialize_VOSK():
     wisper_model_base = whisper.load_model("base")
     print('SR Initialized')
 
+
 threading.Thread(target=Initialize_VOSK).start()
 
 
-def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None, Conversation_Name_widget = None):
+def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None, Conversation_Name_widget=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
     global audio_frames
@@ -994,6 +991,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         output_file = path_exe + '\\Audio_Records\\' + f'{file_name} ({current_time_words}).wav'
         save_recoded_conversation(rf"{output_file}")
         Conversation_Name_widget.configure(state='normal')
+        transcribe_audio(audio_frames, widget1)
         return
 
     def start_recording():
@@ -1069,22 +1067,20 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         end_idx = len(audio_frames) - index
                         index = end_idx
                         transcribe_audio(audio_frames[start_idx: end_idx], widget1)
-                        #transcribe_audio(audio_frames, widget1)
+                        # transcribe_audio(audio_frames, widget1)
                         widget2.delete(1.0, tk.END)
                         widget2.insert(tk.END, Recording_entity + Recording_summary)
                         pos = 0
 
                     pos += 1
                 else:
-                    pass
-                    """
+
                     if index != len(audio_frames) - index:
                         start_idx = index
                         end_idx = len(audio_frames) - index
                         index = end_idx
                         transcribe_audio(audio_frames[start_idx: end_idx], widget1)
-                    print("index new:", index)
-                    """
+
             except Exception as e:
                 print(e)
 
@@ -1110,11 +1106,11 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
 
         return result["text"]
 
-    def transcribe_audio(frames, widget):
+    def transcribe_audio(frames, widget, last=None):
         global running_scribe, previous_data
         global wisper_model_tiny, wisper_model_base
 
-        if running_scribe:
+        if running_scribe and last == None:
             return
         running_scribe = True
         # Define audio parameters
@@ -1155,7 +1151,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         rec.SetWords(True)
         threading.Thread(target=start_recording).start()
         speech_record_time(clock_wideth)
-        Conversation_Name_widget.configure(state='disabled',  disabledbackground=darken_hex_color(bg_color))
+        Conversation_Name_widget.configure(state='disabled', disabledbackground=darken_hex_color(bg_color))
         break
 
 
@@ -1269,7 +1265,6 @@ def download_transcribed_audio(widget):
                 print(folder_selected)
                 save_recoded_conversation(output_file)
 
-
             downloading_audio = False
 
     threading.Thread(target=run).start()
@@ -1278,6 +1273,7 @@ def download_transcribed_audio(widget):
 def save_recoded_conversation(output_file):
     global saving_audio
     saving_audio = True
+
     def visual():
         global ref_btn
         global saving_audio
@@ -1543,7 +1539,7 @@ def attach_scroll(widget, color=None):
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
-    global User_Name,User_Pass, User_Image,User_Email, User_Phone
+    global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
         with open('./Data_Raw/keys.json', 'r') as openfile:  # Reading from json file
@@ -1563,11 +1559,11 @@ def access_keys_info():
             current_theme = keys['current_theme']
             nav_bg = keys['nav_bg']
 
-            User_Name =  keys['User_Name']
-            User_Email =  keys['User_Email']
-            User_Phone =  keys['bg_color']
-            User_Pass =  keys['User_Phone']
-            User_Image =  keys['User_Image']
+            User_Name = keys['User_Name']
+            User_Email = keys['User_Email']
+            User_Phone = keys['bg_color']
+            User_Pass = keys['User_Phone']
+            User_Image = keys['User_Image']
 
             print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
             print('gradient_ai_access_key:', gradient_ai_access_key)
@@ -1583,47 +1579,46 @@ def access_keys_info():
         modify_css()
         pass
 
+
 def save_keys():
-        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id
-        global User_Name, User_Pass, User_Image, User_Email, User_Phone
-        global llm_chain
-        global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id
+    global User_Name, User_Pass, User_Image, User_Email, User_Phone
+    global llm_chain
+    global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
+
+    dic = {
+        '_GA_': gradient_ai_access_key,
+        '_GW_': gradient_ai_workspace_id,
+        '_G_FT_M_': gradient_ai_finetuned_id,
+        '_G_B_M_': gradient_ai_base_model_id,
+        '_AAI_': assemblyai_access_key,
+        "bg_color": bg_color,
+        "fg_color": fg_color,
+        "fg_hovercolor": fg_hovercolor,
+        "bg_hovercolor": bg_hovercolor,
+        "current_theme": current_theme,
+        "nav_bg": nav_bg,
+        "User_Name": User_Name,
+        "User_Email": User_Email,
+        "User_Phone": User_Phone,
+        "User_Image": User_Image
+    }
+
+    json_object = json.dumps(dic, indent=4)
+
+    with open("./Data_Raw/keys.json", "w") as outfile:
+        outfile.write(json_object)
+
+    os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+    os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+
+    print("saved")
+
+    llm_chain = None
+    rag_initialize()
 
 
-
-        dic = {
-            '_GA_': gradient_ai_access_key,
-            '_GW_': gradient_ai_workspace_id,
-            '_G_FT_M_': gradient_ai_finetuned_id,
-            '_G_B_M_': gradient_ai_base_model_id,
-            '_AAI_': assemblyai_access_key,
-            "bg_color": bg_color,
-            "fg_color": fg_color,
-            "fg_hovercolor": fg_hovercolor,
-            "bg_hovercolor": bg_hovercolor,
-            "current_theme": current_theme,
-            "nav_bg": nav_bg,
-            "User_Name": User_Name,
-            "User_Email": User_Email,
-            "User_Phone": User_Phone,
-            "User_Image": User_Image
-        }
-
-        json_object = json.dumps(dic, indent=4)
-
-        with open("./Data_Raw/keys.json", "w") as outfile:
-            outfile.write(json_object)
-
-        os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-        os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-
-        print("saved")
-
-        llm_chain = None
-        rag_initialize()
-
-
-def text_pdf_save(btn_widget, widgets:list):
+def text_pdf_save(btn_widget, widgets: list):
     def text_pdf_save_visual(bt_widget=btn_widget):
         global downloading_audio
         global fg_color
@@ -1653,12 +1648,10 @@ def text_pdf_save(btn_widget, widgets:list):
                 doc.add_paragraph(raw_text_data)
                 doc.save(pdf_file_name)
 
-
-
-
             downloading_audio = False
 
     threading.Thread(target=text_pdf_save_run).start()
+
 
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -1702,7 +1695,7 @@ def darken_hex_color(hex_color, factor=0.2):
     return dark_hex
 
 
-def change_bg_OnHover(widget, colorOnHover, colorOnLeave = None):  # Color change bg on Mouse Hover
+def change_bg_OnHover(widget, colorOnHover, colorOnLeave=None):  # Color change bg on Mouse Hover
     global bg_color
     widget.bind("<Enter>", func=lambda e: widget.config(background=colorOnHover))
     if colorOnLeave is not None:
@@ -1833,7 +1826,7 @@ def image_to_byte_string(image_path):
     return byte_string
 
 
-def imagen(image_path, screen_width, screen_height, widget): # image processing
+def imagen(image_path, screen_width, screen_height, widget):  # image processing
     def load_image():
         global closed
         while not closed:
@@ -1858,9 +1851,8 @@ def imagen(image_path, screen_width, screen_height, widget): # image processing
             widget.image = photo  # Keep a reference to the PhotoImage to prevent it from being garbage collected
             break
 
-    #load_image()
+    # load_image()
     threading.Thread(target=load_image).start()
-
 
 
 # =============================== Pages Functions definition =======================================================================================
@@ -1888,38 +1880,39 @@ def sign_up_Request(email, passw, root_widget):
 
 
 def Forgot_pass_widget(widget):
-        global fg_color, bg_color
-        nav_bar_color = darken_hex_color(bg_color)
-        def back(widg):
-            widg.place_forget()
+    global fg_color, bg_color
+    nav_bar_color = darken_hex_color(bg_color)
 
-        Forgot_password_widget = tk.Frame(widget, bg=nav_bar_color, borderwidth=0, border=0)
-        # Forgot_password_widget.place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.34)
+    def back(widg):
+        widg.place_forget()
 
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='🔎', font=("Bahnschrift SemiLight Condensed", 36), borderwidth=0, border=0).place(relheight=0.1, relwidth=1, rely=0, relx=0)
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='Forgot your password?', font=("Bahnschrift SemiLight Condensed", 36), borderwidth=0, border=0).place(relheight=0.1, relwidth=1, rely=0.1, relx=0)
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='Please enter the email address you used to register.\nWe’ll send a link with instructions to reset your password', font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place(relheight=0.12, relwidth=1, rely=0.2, relx=0)
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='email', anchor='w', font=("Batang", 9), borderwidth=0, border=0).place(relheight=0.03, relwidth=0.8, rely=0.395, relx=0.1)
+    Forgot_password_widget = tk.Frame(widget, bg=nav_bar_color, borderwidth=0, border=0)
+    # Forgot_password_widget.place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.34)
 
-        email_password_entry_widg = tk.Entry(Forgot_password_widget, bg=bg_color, fg=fg_color, font=("Courier New", 13), relief="solid", borderwidth=1, border=1)
-        email_password_entry_widg.place(relheight=0.1, relwidth=0.8, rely=0.43, relx=0.1)
-        change_bg_OnHover(email_password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
+    tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='🔎', font=("Bahnschrift SemiLight Condensed", 36), borderwidth=0, border=0).place(relheight=0.1, relwidth=1, rely=0, relx=0)
+    tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='Forgot your password?', font=("Bahnschrift SemiLight Condensed", 36), borderwidth=0, border=0).place(relheight=0.1, relwidth=1, rely=0.1, relx=0)
+    tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='Please enter the email address you used to register.\nWe’ll send a link with instructions to reset your password', font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place(relheight=0.12, relwidth=1, rely=0.2, relx=0)
+    tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), text='email', anchor='w', font=("Batang", 9), borderwidth=0, border=0).place(relheight=0.03, relwidth=0.8, rely=0.395, relx=0.1)
 
-        password_reset__btn = tk.Button(Forgot_password_widget, bg='#1C352D', fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0)
-        password_reset__btn.place(relheight=0.1, relwidth=0.8, rely=0.6, relx=0.1)
-        change_bg_OnHover(password_reset__btn, '#004830', '#1C352D')
+    email_password_entry_widg = tk.Entry(Forgot_password_widget, bg=bg_color, fg=fg_color, font=("Courier New", 13), relief="solid", borderwidth=1, border=1)
+    email_password_entry_widg.place(relheight=0.1, relwidth=0.8, rely=0.43, relx=0.1)
+    change_bg_OnHover(email_password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Need help?', font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0.72, relx=0.1)
-        Customer_support_link = tk.Button(Forgot_password_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Customer support', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0)
-        Customer_support_link.place(relheight=0.04, relwidth=0.3, rely=0.72, relx=0.31)
-        change_fg_OnHover(Customer_support_link, '#00AB66', '#A8E4A0')
+    password_reset__btn = tk.Button(Forgot_password_widget, bg='#1C352D', fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0)
+    password_reset__btn.place(relheight=0.1, relwidth=0.8, rely=0.6, relx=0.1)
+    change_bg_OnHover(password_reset__btn, '#004830', '#1C352D')
 
-        tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Go to Login?', font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0.78, relx=0.1)
-        Jump_to_login_link = tk.Button(Forgot_password_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Login', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0, command=lambda: back(Forgot_password_widget))
-        Jump_to_login_link.place(relheight=0.04, relwidth=0.3, rely=0.78, relx=0.31)
-        change_fg_OnHover(Jump_to_login_link, '#00AB66', '#A8E4A0')
+    tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Need help?', font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0.72, relx=0.1)
+    Customer_support_link = tk.Button(Forgot_password_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Customer support', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0)
+    Customer_support_link.place(relheight=0.04, relwidth=0.3, rely=0.72, relx=0.31)
+    change_fg_OnHover(Customer_support_link, '#00AB66', '#A8E4A0')
 
-        return Forgot_password_widget
+    tk.Label(Forgot_password_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Go to Login?', font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0.78, relx=0.1)
+    Jump_to_login_link = tk.Button(Forgot_password_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Login', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0, command=lambda: back(Forgot_password_widget))
+    Jump_to_login_link.place(relheight=0.04, relwidth=0.3, rely=0.78, relx=0.31)
+    change_fg_OnHover(Jump_to_login_link, '#00AB66', '#A8E4A0')
+
+    return Forgot_password_widget
 
 
 def Login_Section_widget(widget, widget2):
@@ -1929,20 +1922,19 @@ def Login_Section_widget(widget, widget2):
 
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
 
-
     tk.Label(Login_widget, text='Log in to your account', bg=nav_bar_color, fg=lighten_hex_color(bg_color), font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0).place(relheight=0.05, relwidth=0.25, rely=0.05, relx=0.03)
-    tk.Label(Login_widget, text='Log in to continue your medical scribe journey \ntowards a happier you.',  fg=lighten_hex_color(bg_color), bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place( relheight=0.051, relwidth=0.25, rely=0.11, relx=0.03)
+    tk.Label(Login_widget, text='Log in to continue your medical scribe journey \ntowards a happier you.', fg=lighten_hex_color(bg_color), bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place(relheight=0.051, relwidth=0.25, rely=0.11, relx=0.03)
 
-    tk.Label(Login_widget, bg=nav_bar_color, text='email',  fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.07, rely=0.18, relx=0.05)
+    tk.Label(Login_widget, bg=nav_bar_color, text='email', fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.07, rely=0.18, relx=0.05)
     Email_entry_widg = tk.Entry(Login_widget, fg=fg_color, bg=lighten_hex_color(bg_color), font=("Courier New", 13), relief="solid", borderwidth=1)
     Email_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.21, relx=0.05)
     change_bg_OnHover(Email_entry_widg, 'lightblue', lighten_hex_color(bg_color))
-    #Email_entry_widg.insert(0, 'm@gmail')
+    # Email_entry_widg.insert(0, 'm@gmail')
 
-    tk.Label(Login_widget, bg=nav_bar_color, text='password',  fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=1, border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
+    tk.Label(Login_widget, bg=nav_bar_color, text='password', fg=lighten_hex_color(bg_color), font=("Batang", 9), anchor='w', borderwidth=1, border=1).place(relheight=0.03, relwidth=0.07, rely=0.3, relx=0.05)
     password_entry_widg = tk.Entry(Login_widget, fg=fg_color, bg=lighten_hex_color(bg_color), font=("Courier New", 13), relief="solid", borderwidth=1)
     password_entry_widg.place(relheight=0.07, relwidth=0.2, rely=0.33, relx=0.05)
-    #password_entry_widg.insert(0, '12maureen12')
+    # password_entry_widg.insert(0, '12maureen12')
     change_bg_OnHover(password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
     Forgot_password_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#74C365', activebackground=nav_bar_color, text='Forgot password', font=("Bradley Hand ITC", 12, 'bold'), anchor='w', borderwidth=0, border=0, command=lambda: Forgot_pass_widget(Login_widget).place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.03))
@@ -1952,25 +1944,25 @@ def Login_Section_widget(widget, widget2):
     login_btn = tk.Button(Login_widget, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), widget2))
     login_btn.place(relheight=0.06, relwidth=0.2, rely=0.5, relx=0.05)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
-    #password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
-    #Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
+    # password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
+    # Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
 
-    tk.Label(Login_widget, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w',borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.6, relx=0.05)
-    Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',activebackground=nav_bar_color, text="Sign up", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
+    tk.Label(Login_widget, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.6, relx=0.05)
+    Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="Sign up", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
     Sign_up_login_link.place(relheight=0.03, relwidth=0.05, rely=0.6, relx=0.15)
     change_fg_OnHover(Sign_up_login_link, '#00AB66', '#A8E4A0')
 
-    tk.Label(Login_widget, bg=nav_bar_color, text="Provider?", font=("Aptos Narrow", 10),  fg=lighten_hex_color(bg_color),  anchor='w',borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.65, relx=0.05)
-    therapist_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0',activebackground=nav_bar_color, text="Log in", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
+    tk.Label(Login_widget, bg=nav_bar_color, text="Provider?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.65, relx=0.05)
+    therapist_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="Log in", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
     therapist_login_link.place(relheight=0.03, relwidth=0.05, rely=0.65, relx=0.15)
     change_fg_OnHover(therapist_login_link, '#00AB66', '#A8E4A0')
 
     img = tk.Label(Login_widget, bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0)
     img.place(relheight=0.9, relwidth=0.65, rely=0.05, relx=0.3)
-    imagen("./Assets/login_img 1.png", int(screen_width * 0.65), int(screen_height*0.5 * 0.9), img)
+    imagen("./Assets/login_img 1.png", int(screen_width * 0.65), int(screen_height * 0.5 * 0.9), img)
     # imagen('./login_pic.png', int(screen_width * 1 * 0.65), int(screen_height * 2 * 0.3 * 0.9), img)
 
-    #Login_widget.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
+    # Login_widget.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
     return Login_widget
 
 
@@ -2125,7 +2117,7 @@ def Main_Page(widget):
 
     custom_add(fr2)
 
-    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size-5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
+    Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
     Add_new_entity.place(relheight=0.03, relwidth=0.4, rely=0.97, relx=0)
     change_fg_OnHover(Add_new_entity, 'red', fg_color)
 
@@ -2144,22 +2136,19 @@ def Main_Page(widget):
     upload_audio_wid_btn = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
     upload_audio_wid_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
-    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size-5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
+    extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
 
-    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size-5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t2, t3))
+    Summary_wid = tk.Button(chatbot_widget, text='≅Summarize', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: D_Summary(t2, t3))
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    Conversation_Name = tk.Label(chatbot_widget, text='Patient_Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size-5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0)
+    Conversation_Name = tk.Label(chatbot_widget, text='Patient_Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0)
     Conversation_Name.place(relheight=0.03, relwidth=0.05, rely=0.81, relx=0.78)
 
-    Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size-2), bg=bg_color, borderwidth=0, border=1)
+    Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
-
-
-
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
@@ -2371,8 +2360,6 @@ def settings(widget):
     global root
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
 
-
-
     setting_widget = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     setting_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -2426,7 +2413,6 @@ def settings(widget):
         assemblyai_access_key = str(Assemly_key).strip()
 
         save_keys()
-
 
     save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: Want_Save(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
@@ -2514,7 +2500,6 @@ def Recodes_Page(widget):
     global sound_widgets, active_sound_widget, font_size, ref_btn
     global llm_chain3, llm_chain4, text_list_widget
 
-
     sound_widgets = []
     active_sound_widget = None
 
@@ -2527,25 +2512,22 @@ def Recodes_Page(widget):
     x2 = tk.Text(x, bg=bg_color, borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x2.place(relheight=0.5, relwidth=1, rely=0, relx=0)
 
-    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color,  font=("Calibri", font_size-3), command=lambda : context_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
-    tk.Button(x, text="Summarize",     borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : D_Summary(x2 , x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
-    tk.Button(x, text="Entity_Extract",borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda :  Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
-    tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3),  command=lambda : AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
-    btn_widget = tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda : text_pdf_save(btn_widget, [x2, x3]) )
+    tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: context_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0)
+    tk.Button(x, text="Summarize", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: D_Summary(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
+    tk.Button(x, text="Entity_Extract", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
+    tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
+    btn_widget = tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: text_pdf_save(btn_widget, [x2, x3]))
     btn_widget.place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
-    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
-    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
-    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)
-    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.8)
-    #tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
+    # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
+    # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
+    # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)
+    # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.8)
+    # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.9)
 
-
-    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color,  wrap='word', relief=tk.SUNKEN, border=1)
+    x3 = tk.Text(x, bg=darken_hex_color(bg_color), borderwidth=0, highlightbackground=fg_color, fg=fg_color, wrap='word', relief=tk.SUNKEN, border=1)
     x3.place(relheight=0.4, relwidth=1, rely=0.6, relx=0)
     x3.tag_configure("ASR", foreground="gray", font=("Broadway"))
     text_list_widget.append(x3)
-
-
 
     def context_assistant(text_widget, display_widget):
         def context_assistant_run(text_widget=text_widget, display_widget=display_widget):
@@ -2555,11 +2537,12 @@ def Recodes_Page(widget):
             print(text)
 
             AI_response = llm_chain3.invoke(input=text)
-            display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions ----------------------------------\n\n", 'ASR' )
+            display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions ----------------------------------\n\n", 'ASR')
             display_widget.insert(tk.END, AI_response['text'])
             display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
 
             display_widget.see(tk.END)  # Scroll to the end of the text widget
+
         threading.Thread(target=context_assistant_run).start()
 
     def AI_doctor_assistant(text_widget, display_widget):
@@ -2568,16 +2551,16 @@ def Recodes_Page(widget):
             text = text_widget.get("6.0", "end")
             AI_response = llm_chain4.invoke(input=text)
             display_widget.insert(tk.END, "\n\n------------ Follow Up Analysis ------------------------------------------ \n\n", 'ASR')
-            display_widget.insert(tk.END,AI_response['text'])
+            display_widget.insert(tk.END, AI_response['text'])
             display_widget.insert(tk.END, "\n\n---------------------------------------------------------------------------\n", 'ASR')
             display_widget.see(tk.END)  # Scroll to the end of the text widget
 
         threading.Thread(target=AI_doctor_assistant_run).start()
 
-
-    def analyse_recoding(audio_path, an_widget, x2 = x2, x3 = x3 ):
+    def analyse_recoding(audio_path, an_widget, x2=x2, x3=x3):
         global downloading_audio
         downloading_audio = True
+
         def visual_analyse_recoding_run(bt_widget=an_widget):
             global downloading_audio
             global fg_color
@@ -2592,7 +2575,7 @@ def Recodes_Page(widget):
                 time.sleep(0.1)
             bt_widget.config(fg=fg_color)
 
-        def analyse_recoding_run(audio_path=audio_path,  x2 = x2, x3 = x3):
+        def analyse_recoding_run(audio_path=audio_path, x2=x2, x3=x3):
             global wisper_model_tiny, path_exe, llm_chain3
             global downloading_audio
             if llm_chain3 is None:
@@ -2602,7 +2585,7 @@ def Recodes_Page(widget):
             audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
             result = wisper_model_tiny.transcribe(audio_path_full)
             x2.delete(1.0, tk.END)
-            x2.insert(tk.END, "\n File Name : "+ audio_path + "\n\n")
+            x2.insert(tk.END, "\n File Name : " + audio_path + "\n\n")
             x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
             downloading_audio = False
 
@@ -2611,7 +2594,6 @@ def Recodes_Page(widget):
             x3.insert(tk.END, AI_response['text'])
 
         threading.Thread(target=analyse_recoding_run).start()
-
 
     def refresh_recodings(frame, Audio_recodes_canvas):
         global sound_widgets, active_sound_widget
@@ -2624,18 +2606,16 @@ def Recodes_Page(widget):
         frame.update_idletasks()
         Audio_recodes_canvas.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
 
-
     def audio_recodings(frame_widget, cavas_widget):
         global font_size, screen_height, bg_color, fg_color
-        global  path_exe
-
+        global path_exe
 
         def create_audio_widget(audio_file):
-             global playing, path_exe, sound_widgets
+            global playing, path_exe, sound_widgets
 
-             playing = 0
+            playing = 0
 
-             def Play_Recoding(audio_file_name, widget):
+            def Play_Recoding(audio_file_name, widget):
                 global playing, active_sound_widget, path_exe
                 file_path = path_exe + '\\Audio_Records\\' + audio_file_name
                 if active_sound_widget != None:
@@ -2644,7 +2624,6 @@ def Recodes_Page(widget):
                         active_sound_widget.config(text="▶")
                         playing = 0
 
-
                 active_sound_widget = widget
 
                 if playing == 0:
@@ -2652,7 +2631,7 @@ def Recodes_Page(widget):
                     pygame.mixer.music.play()
                     playing = 1
                     widget.config(text="||")
-                elif playing == 1 :
+                elif playing == 1:
                     pygame.mixer.music.pause()
                     widget.config(text="≜")
                     playing = 2
@@ -2661,35 +2640,30 @@ def Recodes_Page(widget):
                     widget.config(text="||")
                     playing = 1
 
-             def stop():
-                 global playing, active_sound_widget
-                 playing = 0
-                 active_sound_widget.config(text="▶")
-                 pygame.mixer.music.stop()
-                 active_sound_widget = None
+            def stop():
+                global playing, active_sound_widget
+                playing = 0
+                active_sound_widget.config(text="▶")
+                pygame.mixer.music.stop()
+                active_sound_widget = None
 
+            audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height - 20) * 0.9 * 0.05), highlightbackground=fg_color, highlightthickness=0, borderwidth=0, border=0)
+            audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
+            audio_Lable = tk.Label(audio_wid, text="  " + audio_file, bg=bg_color, fg=fg_color, anchor=tk.W, font=("Calibri", font_size - 2, 'italic'), borderwidth=0, border=0)
+            audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
+            audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda k=audio_file: Play_Recoding(k, audio_play_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+            audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
+            audio_download_btn = tk.Button(audio_wid, text="🛑", bg=bg_color, fg=fg_color, activeforeground='red', activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
+            audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
+            audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k=audio_file: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size + 5), borderwidth=0, border=0)
+            audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
+            sound_widgets.append(audio_wid)
 
-
-
-             audio_wid = tk.Frame(frame_widget, bg=bg_color, height=int((screen_height - 20) * 0.9 * 0.05), highlightbackground=fg_color, highlightthickness=0, borderwidth=0, border=0)
-             audio_wid.pack(expand=True, fill=tk.X)  # .place(rel height=0.04, relwidth=1, rely=rely, relx=0)
-             audio_Lable = tk.Label(audio_wid, text="  "+audio_file, bg=bg_color, fg=fg_color,  anchor=tk.W, font=("Calibri", font_size-2, 'italic'), borderwidth=0, border=0)
-             audio_Lable.place(relheight=1, relwidth=0.7, rely=0, relx=0.)
-             audio_play_btn = tk.Button(audio_wid, text="▶", bg=bg_color, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda k = audio_file: Play_Recoding(k, audio_play_btn), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
-             audio_play_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.7)
-             audio_download_btn = tk.Button(audio_wid, text="🛑", bg=bg_color, fg=fg_color, activeforeground='red', activebackground=bg_color, command=lambda: stop(), font=("Arial Rounded MT Bold", font_size), borderwidth=0, border=0)
-             audio_download_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.8)
-             audio_push_btn = tk.Button(audio_wid, text="⌥", bg=bg_color, fg=fg_color, activeforeground=fg_color, activebackground=bg_color, command=lambda k = audio_file: analyse_recoding(k, audio_push_btn), font=("Arial Rounded MT Bold", font_size+5), borderwidth=0, border=0)
-             audio_push_btn.place(relheight=1, relwidth=0.1, rely=0, relx=0.9)
-             sound_widgets.append(audio_wid)
-
-
-             audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-             audio_Lable.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-             audio_play_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-             audio_download_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-             audio_push_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
-
+            audio_wid.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+            audio_Lable.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+            audio_play_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+            audio_download_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
+            audio_push_btn.bind("<MouseWheel>", lambda e: cavas_widget.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
         folder_path = path_exe + "\\Audio_Records"
         file_list = []
@@ -2702,10 +2676,6 @@ def Recodes_Page(widget):
             for audio_file in file_list:
                 create_audio_widget(audio_file)
 
-
-
-
-
             frame_widget.update_idletasks()
             cavas_widget.configure(scrollregion=Audio_recodes_canvas.bbox("all"))
 
@@ -2714,23 +2684,21 @@ def Recodes_Page(widget):
 
         return file_list
 
-    tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color,  fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
-    refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color,  activeforeground="green", command=lambda :refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
+    tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color, fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
+    refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", command=lambda: refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
     refresh_btn.place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
     ref_btn = refresh_btn
-    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0,  highlightbackground=fg_color, highlightthickness=0.5, border=0)
+    Audio_recodes_frame = tk.Frame(Recodes_Page, bg=bg_color, borderwidth=0, highlightbackground=fg_color, highlightthickness=0.5, border=0)
     Audio_recodes_frame.place(relheight=0.9, relwidth=0.3, rely=0.05, relx=0.02)
-    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame,  highlightthickness=0, bg=bg_color, borderwidth=0, border=0)
+    Audio_recodes_canvas = tk.Canvas(Audio_recodes_frame, highlightthickness=0, bg=bg_color, borderwidth=0, border=0)
     Audio_recodes_canvas.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
     scrollbar = tk.Scrollbar(Audio_recodes_frame, orient=tk.VERTICAL)
     Audio_recodes_canvas.configure(yscrollcommand=scrollbar.set)
-    frame = tk.Frame(Audio_recodes_canvas, bg=bg_color,  borderwidth=0, border=0)
+    frame = tk.Frame(Audio_recodes_canvas, bg=bg_color, borderwidth=0, border=0)
     Audio_recodes_canvas.create_window((0, 0), window=frame, width=int(screen_width * 0.9747 * 0.3), anchor=tk.NW)
     Audio_recodes_canvas.bind("<MouseWheel>", lambda e: Audio_recodes_canvas.yview_scroll(int(-1 * (e.delta / 120)), "units"))
 
     audio_recodings(frame, Audio_recodes_canvas)
-
-
 
     return Recodes_Page
 
@@ -2743,7 +2711,7 @@ def Profile_Page(widget):
 
     chang_status = False
 
-    def Chang_User_Details(Button_widget, User_N_widget, User_E_widget, User_NO_widget,User_PASS_widget, User_IMG_widget):
+    def Chang_User_Details(Button_widget, User_N_widget, User_E_widget, User_NO_widget, User_PASS_widget, User_IMG_widget):
         global User_Name, User_Pass, User_Image, User_Email, User_Phone
         # kChang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget)
         global chang_status
@@ -2762,8 +2730,6 @@ def Profile_Page(widget):
             User_Email = User_E_widget.get()
             User_Phone = User_NO_widget.get()
 
-
-
             User_N_widget.configure(state='disabled', disabledbackground=bg_color)
             User_E_widget.configure(state='disabled', disabledbackground=bg_color)
             User_NO_widget.configure(state='disabled', disabledbackground=bg_color)
@@ -2778,27 +2744,25 @@ def Profile_Page(widget):
         filetypes = [("pHotos", "*.png;*.jpeg;*.jpg")]
         file_path = filedialog.askopenfilename(filetypes=filetypes)
         if file_path:
-            imagen(file_path, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), widget)
+            imagen(file_path, int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), widget)
             User_Image = image_to_byte_string(file_path)
-
-
 
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out",  font=(font_size-4), borderwidth=0, border=0, command=lambda: sign_out())
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out", font=(font_size - 4), borderwidth=0, border=0, command=lambda: sign_out())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
     change_fg_OnHover(sign_out_widget, 'red')
 
-    User_imag_widget = tk.Button(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100),  command=lambda: change_image(User_imag_widget), borderwidth=0, border=0)
+    User_imag_widget = tk.Button(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100), command=lambda: change_image(User_imag_widget), borderwidth=0, border=0)
     User_imag_widget.place(relheight=0.13, relwidth=0.12, relx=0.05, rely=0.05)
     if User_Image != '':
-       imagen(User_Image, int(screen_width * 0.9747*0.12), int((screen_height-20)*0.13), User_imag_widget)
+        imagen(User_Image, int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), User_imag_widget)
     User_imag_widget.configure(state='disabled', )
 
-    User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size-5, 'bold'))
+    User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
     User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.19)
-    User_Name_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size-3), borderwidth=0, border=0, disabledbackground=bg_color)
+    User_Name_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
     User_Name_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.19)
     User_Name_widget_entry.insert(0, User_Name)
     User_Name_widget_entry.configure(state='disabled')
@@ -2821,16 +2785,15 @@ def Profile_Page(widget):
     User_PASS_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.283)
     User_PASS_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
     User_PASS_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2835)
-    User_PASS_widget_entry.insert(0,  "  *  *  *  *  *  *  *  * ")
+    User_PASS_widget_entry.insert(0, "  *  *  *  *  *  *  *  * ")
     User_PASS_widget_entry.configure(state='disabled')
 
-
-    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda :Chang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget))
+    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda: Chang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget))
     change_profile_detail.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.3145)
     change_fg_OnHover(change_profile_detail, 'yellow', fg_color)
 
-    #Conversation_Name_widget.configure(state='normal')
-    #Conversation_Name_widget.configure(state='disabled', disabledbackground=darken_hex_color(bg_color))
+    # Conversation_Name_widget.configure(state='normal')
+    # Conversation_Name_widget.configure(state='disabled', disabledbackground=darken_hex_color(bg_color))
 
     return profile_page_container
 
@@ -2878,7 +2841,7 @@ def User_Home_page(widget):
     # PROFILE_widget = profile(Home_page_frame)
 
     Profile_Widget = Profile_Page(container2)
-    #CALL_Widget = call(container2)
+    # CALL_Widget = call(container2)
     SETTINGS_Widget = settings(container2)
     chat_me_Widget = chat_me(container2)
     CHAT_Widget = Main_Page(container2)
@@ -3001,8 +2964,6 @@ def User_Home_page(widget):
 def Welcome_Page(wiget):
     global screen_width, screen_height, bg_color, fg_color
 
-
-
     def change_Widget_Attribute_OnHover(widget, Text_On_Hover, Text_On_Leave, function):  # Color change bg on Mouse Hover
         def show(widg):
             widg.place(relheight=0.5, relwidth=1, rely=0.1, relx=0)
@@ -3022,7 +2983,6 @@ def Welcome_Page(wiget):
         widget.bind("<Enter>", func=lambda e: (widget.config(text=Text_On_Hover, background=lighten_hex_color(bg_color)), show(function)))
         widget.bind("<Leave>", func=lambda e: (widget.config(text=Text_On_Leave, background=lighten_hex_color(bg_color)), hide(function)))
 
-
     welcome_page_frame = tk.Frame(wiget, bg=bg_color, width=screen_width)
     welcome_page_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -3036,11 +2996,11 @@ def Welcome_Page(wiget):
 
     section1 = tk.Frame(welcome_page_frame, bg=bg_color)
     section1.place(relheight=0.35, relwidth=0.4, rely=0.05, relx=0.4)
-    tk.Label(section1, text="Responsibilities of Digital Scribe", bg=bg_color,  fg=fg_color,font=("Bauhaus 93", 20), anchor="w"). place(relwidth=1, relheight=0.2, rely=0, relx=0)
-    tk.Label(section1, text=" * Transcribe during appointment", bg=bg_color,  fg=fg_color,font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.2, relx=0)
-    tk.Label(section1, text=" * Update and maintain Medical Conversation",  bg=bg_color,  fg=fg_color,font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.3, relx=0)
-    tk.Label(section1, text=" * Administrative Duties ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.4, relx=0)
-    tk.Label(section1, text=" * AI Assistant", bg=bg_color,   fg=fg_color,font=("Times New Roman", 20), anchor="w"). place(relwidth=1, relheight=0.1, rely=0.5, relx=0)
+    tk.Label(section1, text="Responsibilities of Digital Scribe", bg=bg_color, fg=fg_color, font=("Bauhaus 93", 20), anchor="w").place(relwidth=1, relheight=0.2, rely=0, relx=0)
+    tk.Label(section1, text=" * Transcribe during appointment", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.2, relx=0)
+    tk.Label(section1, text=" * Update and maintain Medical Conversation", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.3, relx=0)
+    tk.Label(section1, text=" * Administrative Duties ", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.4, relx=0)
+    tk.Label(section1, text=" * AI Assistant", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.5, relx=0)
     tk.Label(section1, text=" * Analyze clinical notes", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.6, relx=0)
     tk.Label(section1, text=" * Summarize Clinical 'info'", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.7, relx=0)
     tk.Label(section1, text=" * Extract Clinical data from conversations", bg=bg_color, fg=fg_color, font=("Times New Roman", 20), anchor="w").place(relwidth=1, relheight=0.1, rely=0.8, relx=0)
@@ -3049,7 +3009,6 @@ def Welcome_Page(wiget):
     img3 = tk.Label(welcome_page_frame, bg=bg_color)
     img3.place(relheight=0.35, relwidth=0.2, rely=0.05, relx=0.8)
     imagen("./Assets/home_img_1.png", int(screen_width * 0.4), int(screen_height * 0.35), img3)
-
 
     img2 = tk.Label(welcome_page_frame, bg=bg_color)
     img2.place(relheight=0.5, relwidth=1, rely=0.4, relx=0)
@@ -3075,17 +3034,13 @@ def Welcome_Page(wiget):
     change_Widget_Attribute_OnHover(nav_bar_bt3_widget, 'For Business ∧', 'For Business ∨', nav_bar_btn_hover_color, nav_bar_color, Service_Section(welcome_page_frame))
     """
 
-    nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨',  activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
+    nav_bar_bt4_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Log in ∨', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt4_widget.place(relheight=0.6, relwidth=0.05, rely=0.2, relx=0.87)
 
     change_Widget_Attribute_OnHover(nav_bar_bt4_widget, 'Log in ∧', 'Log in ∨', Login_Section_widget(welcome_page_frame, welcome_page_frame))
 
     nav_bar_bt5_widget = tk.Button(nav_bar, bg=lighten_hex_color(bg_color), fg=darken_hex_color(bg_color), text='Get started', activebackground=lighten_hex_color(bg_color), activeforeground=fg_color, justify=tk.LEFT, anchor="center", font=("Calibri", 12), borderwidth=0, border=0)
     nav_bar_bt5_widget.place(relheight=0.6, relwidth=0.06, rely=0.2, relx=0.935)
-
-
-
-
 
 
 # =============================== Main Function definition ============================================================
@@ -3107,7 +3062,7 @@ def on_closing():
     httpd.server_close()
     root.destroy()
 
-    #time.sleep(2)
+    # time.sleep(2)
     """
     while True:
         time.sleep(10)
@@ -3143,7 +3098,7 @@ def main():
     title_bar_color(bg_color)
 
     User_Home_page(root)
-    #Welcome_Page(root)
+    # Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
