@@ -12,6 +12,9 @@ from PIL import Image, ImageTk
 import io
 import base64
 from PIL import Image
+from PIL import Image, ImageTk
+import io
+import base64
 
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
@@ -45,7 +48,8 @@ from vosk import Model, KaldiRecognizer
 import whisper  # pip install -U openai-whisper
 import wave
 from pydub import AudioSegment # used for converting .wav to .mp3
-# ------------------------------- img-to-text --------------------------------------------------------------------------------------------
+# ------------------------------- img-to-text -------------------------------------------------------------------------------------------------------------
+
 from PIL import Image
 import pytesseract
 
@@ -55,7 +59,8 @@ from paddleocr import PaddleOCR, draw_ocr
 
 ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
 
-# -------------------------------  --------------------------------------------------------------------------------------------
+
+# -------------------------------  ------------------------------------------------------------------------------------------------------------------------
 
 from docx2pdf import convert  # pip install docx2pdf
 import pdfplumber  # used for extracting data from pdf
@@ -1063,8 +1068,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         start_idx = index
                         end_idx = len(audio_frames) - index
                         index = end_idx
-                        #transcribe_audio(audio_frames[start_idx: end_idx], widget1)
-                        transcribe_audio(audio_frames, widget1)
+                        transcribe_audio(audio_frames[start_idx: end_idx], widget1)
+                        #transcribe_audio(audio_frames, widget1)
                         widget2.delete(1.0, tk.END)
                         widget2.insert(tk.END, Recording_entity + Recording_summary)
                         pos = 0
@@ -1821,9 +1826,6 @@ def Service_Section(widget):
 
     return Service_widget
 
-from PIL import Image, ImageTk
-import io
-import base64
 
 def image_to_byte_string(image_path):
     with open(image_path, "rb") as image_file:
