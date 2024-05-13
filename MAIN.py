@@ -976,8 +976,7 @@ threading.Thread(target=Initialize_VOSK).start()
 def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_btn=None, clock_wideth=None, Conversation_Name_widget=None):
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
-    global audio_frames
-
+    global audio_frames, index
 
     def start_recording():
         global Recording
@@ -1022,12 +1021,13 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
     def speech_recognition(widget=widget, widget1=widget1, widget2=widget2):
         global closed, Recording_data, Recording_paused, Recording, audio_frames
         global running_scribe, previous_data, Recording_summary, Recording_entity
+        global index
         running_scribe = False
         print("scanning")
         audio_frames = []
         previous_data = ''
         pos = 0
-        index = 0
+
         while not messages.empty():
             if closed:
                 print('speech_recognition closed')
@@ -1059,7 +1059,8 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
 
                     pos += 1
                 else:
-
+                    print("index: ", index)
+                    print("index 2 : ", len(audio_frames) - index)
                     if index != len(audio_frames) - index:
                         start_idx = index
                         end_idx = len(audio_frames) - index
@@ -1149,6 +1150,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         """
         messages = Queue()
         recordings = Queue()
+        index = 0
         FRAME_RATE = 16000
         rec = KaldiRecognizer(vosk_model, FRAME_RATE)
         rec.SetWords(True)
