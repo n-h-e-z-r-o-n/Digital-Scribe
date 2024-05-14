@@ -1,12 +1,8 @@
-from gradientai import Gradient
+code_string = """
+def boy():
+  print('Hello, world!')
+boy()
+"""
 
-gradient = Gradient()
-
-rag_collection = gradient.create_rag_collection(
-  name="RAG with two sample text files",
-  slug="bge-large",
-  filepaths=[
-    "samples/a.txt",
-    "samples/b.txt",
-  ],
-)
+# Convert string to executable code
+exec(code_string)

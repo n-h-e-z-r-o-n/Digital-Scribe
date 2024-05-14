@@ -2831,6 +2831,9 @@ def EHR_integration_page(widget):
     EHR_page_container = tk.Frame(widget, bg="blue", borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
+    coning_terminal = tk.Text(EHR_page_container)
+    coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.6, rely=0.1)
+
     return EHR_page_container
 
 def User_Home_page(widget):
