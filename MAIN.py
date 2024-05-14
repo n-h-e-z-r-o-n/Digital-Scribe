@@ -2831,6 +2831,8 @@ def EHR_integration_page(widget):
     EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
+    tk.Label(EHR_page_container, text="Data Base  Conncetion Point ", font=()).place(relheight=0.02, relwidth=0.2, rely=0, relx=0)
+
     coning_terminal = tk.Text(EHR_page_container, bg="Black", highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
 
