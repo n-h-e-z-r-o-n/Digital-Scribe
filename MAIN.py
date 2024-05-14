@@ -2828,11 +2828,11 @@ def EHR_integration_page(widget):
         )
         mycursor = mydb.cursor()
 
-    EHR_page_container = tk.Frame(widget, bg="blue", borderwidth=0, border=0)
+    EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    coning_terminal = tk.Text(EHR_page_container)
-    coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.6, rely=0.1)
+    coning_terminal = tk.Text(EHR_page_container, bg="Black", highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
+    coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
 
     return EHR_page_container
 
