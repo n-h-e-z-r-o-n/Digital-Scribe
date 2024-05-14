@@ -2815,19 +2815,19 @@ def EHR_integration_page(widget):
 
     ERH_Systems  = """
 # Define a dictionary to store EHR system configurations
-ehr_systems = {
-            "Epic": {
-                "api_base_url": "https://example.com/epic/api",
-                "api_key": "your_epic_api_key",
-                "api_secret": "your_epic_api_secret"
-            },
-            "Cerner": {
-                "api_base_url": "https://example.com/cerner/api",
-                "api_key": "your_cerner_api_key",
-                "api_secret": "your_cerner_api_secret"
-            },
-            # Add more EHR systems as needed
-        }
+{
+    "Epic": {
+        "api_base_url": "https://example.com/epic/api",
+        "api_key": "your_epic_api_key",
+        "api_secret": "your_epic_api_secret"
+    },
+    "Cerner": {
+        "api_base_url": "https://example.com/cerner/api",
+        "api_key": "your_cerner_api_key",
+        "api_secret": "your_cerner_api_secret"
+    },
+    # Add more EHR systems as needed
+}
     """
     def MySQL_CONNECTION(h_name, u_name, p_key, d_name, port):
         global host_name, user_name,  password_key, database_name
@@ -2877,10 +2877,10 @@ ehr_systems = {
     def ehr_run(widget):
         global ERH_Systems
         string_code = widget.get(1.0, tk.END)
-        exec(string_code)
-        result = ehr_systems
-        print(result)
-        pass
+        dict_obj = eval(string_code)
+
+        print(dict_obj)
+        print(type(dict_obj))
 
 
     EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
