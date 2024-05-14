@@ -2811,8 +2811,25 @@ def EHR_integration_page(widget):
     global bg_color, fg_color
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
-    global chang_status
+    global chang_status, ERH_Systems
 
+    ERH_Systems  = """
+    # Define a dictionary to store EHR system configurations
+    
+        ehr_systems = {
+            "Epic": {
+                "api_base_url": "https://example.com/epic/api",
+                "api_key": "your_epic_api_key",
+                "api_secret": "your_epic_api_secret"
+            },
+            "Cerner": {
+                "api_base_url": "https://example.com/cerner/api",
+                "api_key": "your_cerner_api_key",
+                "api_secret": "your_cerner_api_secret"
+            },
+            # Add more EHR systems as needed
+        }
+    """
     def MySQL_CONNECTION(h_name, u_name, p_key, d_name, port):
         global host_name, user_name,  password_key, database_name
         host_name = host_name
@@ -2887,9 +2904,11 @@ def EHR_integration_page(widget):
     status_widg.place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
     threading.Thread(target=visual_connection_status, args=(status_widg, )).start()
 
+    tk.Label(EHR_page_container, text="connect", bg="blue", fg='gray', font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.4, rely=0, relx=0.59)
 
-    coning_terminal = tk.Text(EHR_page_container, bg="Black", highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
+    coning_terminal = tk.Text(EHR_page_container, bg="Black", fg=fg_color, highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
+    coning_terminal.insert(tk.END, ERH_Systems)
 
     return EHR_page_container
 
