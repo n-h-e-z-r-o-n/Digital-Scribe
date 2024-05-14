@@ -2828,6 +2828,27 @@ def EHR_integration_page(widget):
         )
         mycursor = mydb.cursor()
 
+    def visual_connection_status(widget):
+        global closed
+        DBM_status = False
+        while True:
+            if closed:
+                break
+            if DBM_status == True:
+                widget.config(fg="green")
+                time.sleep(2)
+            else:
+                widget.config(fg="red")
+                time.sleep(2)
+
+    threading.Thread(target=visual_connection_status).start()
+
+
+
+    def connection_status(widget):
+        pass
+
+
     EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -2838,18 +2859,17 @@ def EHR_integration_page(widget):
     tk.Label(EHR_page_container, text="Port CCN :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.03)
     tk.Label(EHR_page_container, text="DBMS :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.03)
 
-
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.13)
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.13)
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.13)
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.13)
     tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
 
-    tk.Label(EHR_page_container, text="connect", bg='blue', fg=fg_color, font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.03)
-    tk.Label(EHR_page_container, text="disconnect", bg='blue', fg=fg_color, font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.09)
+    tk.Label(EHR_page_container, text="connect", bg=bg_color, fg='gray', font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.03)
+    tk.Label(EHR_page_container, text="disconnect", bg=bg_color, fg='gray', font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.09)
 
 
-    tk.Label(EHR_page_container, text="Connection Status :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.2, relx=0.03)
+    tk.Label(EHR_page_container, text="Connection Status :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size-3), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.2, relx=0.03)
     tk.Label(EHR_page_container, text="⊙", bg=bg_color, fg=fg_color,  font=("Broadway", font_size), anchor="w").place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
 
 
