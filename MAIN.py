@@ -1,4 +1,5 @@
 # ============================================= Used libraries ==========================================================================================
+import mysql.connector
 import sys
 import base64
 import pygame
@@ -136,6 +137,8 @@ proccessed_img_url = None
 font_size = 15
 ref_btn = None
 text_list_widget = []
+
+host_name = user_namem = password_key = database_name = None
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -2809,6 +2812,21 @@ def EHR_integration_page(widget):
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global chang_status
+
+    def MySQL_CONNECTION(h_name, u_name, p_key, d_name, port):
+        global host_name, user_name,  password_key, database_name
+        host_name = host_name
+        user_name = user_namem
+        password_key = password_key
+        database_name = database_name
+
+        mydb = mysql.connector.connect(
+            host=host_name,
+            user=user_name,
+            password=password_key,
+            database=database_name
+        )
+        mycursor = mydb.cursor()
 
     EHR_page_container = tk.Frame(widget, bg="blue", borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
