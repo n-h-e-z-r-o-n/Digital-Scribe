@@ -2831,16 +2831,22 @@ def EHR_integration_page(widget):
     EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    tk.Label(EHR_page_container, text="Data Base Conncetion Point " , font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.2, rely=0, relx=0)
-    tk.Label(EHR_page_container, text="D_Name :", font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0)
-    tk.Label(EHR_page_container, text="H_Name :", font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0)
-    tk.Label(EHR_page_container, text="P_Key :", font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0)
-    tk.Label(EHR_page_container, text="Port CCN :", font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0)
+    tk.Label(EHR_page_container, text="Data Base Connection Point " , bg=bg_color, fg=fg_color, font=("Georgia", font_size, 'bold')).place(relheight=0.02, relwidth=0.2, rely=0, relx=0.03)
+    tk.Label(EHR_page_container, text="D_Name :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.03)
+    tk.Label(EHR_page_container, text="H_Name :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.03)
+    tk.Label(EHR_page_container, text="P_Key :",  bg=bg_color, fg=fg_color, font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.03)
+    tk.Label(EHR_page_container, text="Port CCN :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.03)
+    tk.Label(EHR_page_container, text="DBMS :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.03)
 
-    tk.Entry(EHR_page_container,  font=("Time", font_size)).place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.11)
-    tk.Entry(EHR_page_container,  font=("Georgia", font_size)).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.11)
-    tk.Entry(EHR_page_container,  font=("Georgia", font_size)).place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.11)
-    tk.Entry(EHR_page_container, font=("Georgia", font_size)).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.11)
+
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.13)
+    tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
+
+
+
 
 
     coning_terminal = tk.Text(EHR_page_container, bg="Black", highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
