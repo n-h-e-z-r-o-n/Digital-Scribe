@@ -2843,7 +2843,7 @@ def EHR_integration_page(widget):
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.13)
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.13)
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2)).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.13)
-    tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
+    tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, fg=fg_color, borderwidth=0, border=0,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
 
 
 
