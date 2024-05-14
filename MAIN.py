@@ -2831,17 +2831,30 @@ def EHR_integration_page(widget):
     def visual_connection_status(widget):
         global closed
         DBM_status = False
+        color = 'yellow'
         while True:
             if closed:
                 break
             if DBM_status == True:
-                widget.config(fg="green")
-                time.sleep(2)
+                if color == "yellow":
+                    widget.config(fg="green")
+                    color = 'green'
+                    time.sleep(1)
+                else:
+                    widget.config(fg="yellow")
+                    color = 'yellow'
+                    time.sleep(1)
             else:
-                widget.config(fg="red")
-                time.sleep(2)
+                if color == "yellow":
+                    widget.config(fg="red")
+                    color = 'red'
+                    time.sleep(1)
+                else:
+                    widget.config(fg="yellow")
+                    color = 'yellow'
+                    time.sleep(1)
 
-    threading.Thread(target=visual_connection_status).start()
+
 
 
 
@@ -2870,7 +2883,9 @@ def EHR_integration_page(widget):
 
 
     tk.Label(EHR_page_container, text="Connection Status :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size-3), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.2, relx=0.03)
-    tk.Label(EHR_page_container, text="⊙", bg=bg_color, fg=fg_color,  font=("Broadway", font_size), anchor="w").place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
+    status_widg = tk.Label(EHR_page_container, text="⊙", bg=bg_color, fg=fg_color,  font=("Broadway", font_size), anchor="w")
+    status_widg.place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
+    threading.Thread(target=visual_connection_status, args=(status_widg, )).start()
 
 
     coning_terminal = tk.Text(EHR_page_container, bg="Black", highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
