@@ -2804,6 +2804,17 @@ def Profile_Page(widget):
     return profile_page_container
 
 
+def EHR_integration_page(widget):
+    global bg_color, fg_color
+    global screen_width, screen_height, font_size
+    global User_Name, User_Pass, User_Image, User_Email, User_Phone
+    global chang_status
+
+    EHR_page_container = tk.Frame(widget, bg="blue", borderwidth=0, border=0)
+    EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
+
+    return EHR_page_container
+
 def User_Home_page(widget):
     global user_id, side_bar_widget_list, side_bar_widget_list2, Home_page_frame
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, nav_bg
@@ -2854,6 +2865,7 @@ def User_Home_page(widget):
     rag_widget = RAG_page(container2)
     img_extract = Clinical_Image(container2)
     patient_recods = Recodes_Page(container2)
+    integration_page = EHR_integration_page(container2)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -2949,11 +2961,11 @@ def User_Home_page(widget):
     side_bar_widget_list.append(st6_bt)
     duplicate_widget(st6_bt, side_bar_full, text="Patient Records")
 
-    st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='-', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (rag_widget.tkraise(), active(st7_bt)))
+    st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≎', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (integration_page.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
     change_bg_OnHover_light(st7_bt)
     side_bar_widget_list.append(st7_bt)
-    duplicate_widget(st7_bt, side_bar_full, text="Billing & Reimbursement")
+    duplicate_widget(st7_bt, side_bar_full, text="EHR integration")
 
     st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
