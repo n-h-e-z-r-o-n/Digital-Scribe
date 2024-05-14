@@ -2917,7 +2917,7 @@ def User_Home_page(widget):
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover_light(st1_bt)
     side_bar_widget_list.append(st1_bt)
-    duplicate_widget(st1_bt, side_bar_full, text="Digital Scribe")
+    duplicate_widget(st1_bt, side_bar_full, text="Account")
 
     st2_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='⧮', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (CHAT_Widget.tkraise(), active(st2_bt)))
     st2_bt.place(relheight=0.03, relwidth=1, rely=0.09, relx=0)
