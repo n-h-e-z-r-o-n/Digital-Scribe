@@ -2814,9 +2814,8 @@ def EHR_integration_page(widget):
     global chang_status, ERH_Systems
 
     ERH_Systems  = """
-    # Define a dictionary to store EHR system configurations
-    
-        ehr_systems = {
+# Define a dictionary to store EHR system configurations
+ehr_systems = {
             "Epic": {
                 "api_base_url": "https://example.com/epic/api",
                 "api_key": "your_epic_api_key",
@@ -2875,7 +2874,12 @@ def EHR_integration_page(widget):
 
 
 
-    def connection_status(widget):
+    def ehr_run(widget):
+        global ERH_Systems
+        string_code = widget.get(1.0, tk.END)
+        exec(string_code)
+        result = ehr_systems
+        print(result)
         pass
 
 
@@ -2904,11 +2908,15 @@ def EHR_integration_page(widget):
     status_widg.place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
     threading.Thread(target=visual_connection_status, args=(status_widg, )).start()
 
-    tk.Label(EHR_page_container, text="connect", bg="blue", fg='gray', font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.4, rely=0, relx=0.59)
+    E_nav = tk.Frame(EHR_page_container,  bg="blue")
+    E_nav.place(relheight=0.02, relwidth=0.4, rely=0, relx=0.59)
+
+
 
     coning_terminal = tk.Text(EHR_page_container, bg="Black", fg=fg_color, highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
     coning_terminal.insert(tk.END, ERH_Systems)
+    tk.Button(E_nav, text="▶", font=("Georgia", font_size), command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
 
     return EHR_page_container
 
