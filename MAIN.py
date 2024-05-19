@@ -2493,7 +2493,7 @@ def Clinical_Image(widget):
     display_img.place(relheight=0.6, relwidth=1, rely=0.02, relx=0)
     display_img.load_url('file:///' + path_exe + "/html/Load_img_request.html")
 
-    Display_text_ = tk.Text(Clinical_widg_page, bg=bg_color, fg=fg_color, font=("Georgia", 12))
+    Display_text_ = tk.Text(Clinical_widg_page, bg=darken_hex_color(bg_color), fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
 
     clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda: image_text_extract_Handwriten(display_img, Display_text_))
@@ -2806,6 +2806,119 @@ def Profile_Page(widget):
 
     return profile_page_container
 
+import shutil
+from tkinter import ttk, filedialog, messagebox
+
+def Document_Management_page(widget):
+    global bg_color, fg_color
+    global screen_width, screen_height, font_size
+    global User_Name, User_Pass, User_Image, User_Email, User_Phone
+    global chang_status, ERH_Systems
+
+
+    DOCUMENT_PATH = './Document_Managment'  # File system path for storing documents
+
+    def load_documents(tree):
+        for folder, _, files in os.walk(DOCUMENT_PATH):
+            for file in files:
+                file_path = os.path.join(folder, file)
+                file_size = os.path.getsize(file_path)
+                file_date = os.path.getmtime(file_path)
+                tree.insert("", "end", text=file, values=(file, format_file_size(file_size), format_date(file_date)))
+
+    def format_file_size(size):
+        if size < 1024:
+            return f"{size} B"
+        elif size < 1024 ** 2:
+            return f"{size // 1024} KB"
+        elif size < 1024 ** 3:
+            return f"{size // (1024 ** 2)} MB"
+        else:
+            return f"{size // (1024 ** 3)} GB"
+
+    def format_date(timestamp):
+        import datetime
+        return datetime.datetime.fromtimestamp(timestamp).strftime("%Y-%m-%d %H:%M:%S")
+
+    def add_document(tree):
+        file_path = filedialog.askopenfilename(title="Select Document")
+        if file_path:
+            file_name = os.path.basename(file_path)
+            dest_path = os.path.join(DOCUMENT_PATH, file_name)
+            shutil.copy(file_path, dest_path)
+            file_size = os.path.getsize(dest_path)
+            file_date = os.path.getmtime(dest_path)
+            tree.insert("", "end", text=file_name, values=(file_name, format_file_size(file_size), format_date(file_date)))
+
+    def delete_document(tree):
+        selected_item = tree.selection()
+        if selected_item:
+            file_name = tree.item(selected_item, "text")
+            file_path = os.path.join(DOCUMENT_PATH, file_name)
+            answer = messagebox.askyesno("Delete Document", f"Are you sure you want to delete '{file_name}'?")
+            if answer:
+                os.remove(file_path)
+                tree.delete(selected_item)
+
+    def upload_document(tree):
+        file_path = filedialog.askopenfilename(title="Select Document to Upload")
+        if file_path:
+            # Implement your logic to upload the document to a server or cloud storage
+            pass
+
+
+    Document_Managemen_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
+    Document_Managemen_container.place(relheight=1, relwidth=1, rely=0, relx=0)
+
+
+
+    # Create a frame to hold the document list
+    document_frame = tk.Frame(Document_Managemen_container, bg=bg_color)
+    document_frame.place(relheight=0.95, relwidth=1, rely=0, relx=0)
+
+    # Create a style object
+    style = ttk.Style()
+
+    # Configure the Treeview style
+    style.configure("Treeview", background=bg_color, foreground=fg_color, fieldbackground=bg_color, )
+    style.map("Treeview", background=[("selected", "blue")])
+
+    # Create a scrollable treeview to display the documents
+    document_tree = ttk.Treeview(document_frame,  style="Treeview")
+    document_tree["columns"] = ("name", "size", "date")
+    document_tree.column("#0", width=200)
+    document_tree.column("name", width=200, anchor="w")
+    document_tree.column("size", width=100, anchor="w")
+    document_tree.column("date", width=150, anchor="w")
+    document_tree.heading("#0", text="Name", anchor="w")
+    document_tree.heading("name", text="Name", anchor="w")
+    document_tree.heading("size", text="Size", anchor="w")
+    document_tree.heading("date", text="Date Modified", anchor="w")
+    document_tree.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+
+    # Add a vertical scrollbar to the treeview
+    document_scrollbar = ttk.Scrollbar(document_frame, orient=tk.VERTICAL, command=document_tree.yview)
+    document_scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+    document_tree.configure(yscrollcommand=document_scrollbar.set)
+
+    # Load documents from the file system
+    load_documents(document_tree)
+
+    # Create buttons for adding, deleting, and uploading documents
+    button_frame = tk.Frame(Document_Managemen_container, bg=bg_color)
+    button_frame.place(relheight=0.05, relwidth=1, rely=0.95, relx=0)
+
+    add_button = ttk.Button(button_frame, text="Add Document", command=lambda: add_document(document_tree))
+    add_button.place(relheight=1, relwidth=0.2, rely=0, relx=0)
+
+    delete_button = ttk.Button(button_frame, text="Delete Document", command=lambda: delete_document(document_tree))
+    delete_button.place(relheight=1, relwidth=0.2, rely=0, relx=0.2)
+
+    upload_button = ttk.Button(button_frame, text="Upload Document", command=lambda: upload_document(document_tree))
+    upload_button.place(relheight=1, relwidth=0.2, rely=0, relx=0.4)
+
+    return Document_Managemen_container
+
 
 def EHR_integration_page(widget):
     global bg_color, fg_color
@@ -2908,17 +3021,19 @@ def EHR_integration_page(widget):
     status_widg.place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
     threading.Thread(target=visual_connection_status, args=(status_widg, )).start()
 
-    E_nav = tk.Frame(EHR_page_container,  bg="blue")
-    E_nav.place(relheight=0.02, relwidth=0.4, rely=0, relx=0.59)
+    E_nav = tk.Frame(EHR_page_container,  bg=bg_color)
+    E_nav.place(relheight=0.02, relwidth=0.4, rely=0.03, relx=0.59)
 
 
 
     coning_terminal = tk.Text(EHR_page_container, bg="Black", fg=fg_color, highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
     coning_terminal.insert(tk.END, ERH_Systems)
-    tk.Button(E_nav, text="▶", font=("Georgia", font_size), command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
+    tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
+    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size-5, "bold"), anchor='w', bg=bg_color, fg=fg_color).place(relheight=1, relwidth=0.2, relx=0)
 
     return EHR_page_container
+
 
 def User_Home_page(widget):
     global user_id, side_bar_widget_list, side_bar_widget_list2, Home_page_frame
@@ -2971,6 +3086,7 @@ def User_Home_page(widget):
     img_extract = Clinical_Image(container2)
     patient_recods = Recodes_Page(container2)
     integration_page = EHR_integration_page(container2)
+    DManagment_page = Document_Management_page(container2)
 
     # sidebar  widgets ------------------------------------------------------------------------------------------------------------------------------------
 
@@ -3060,11 +3176,17 @@ def User_Home_page(widget):
     side_bar_widget_list.append(st5_bt)
     duplicate_widget(st5_bt, side_bar_full, text="OCR clinical img Notes ")
 
-    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗁', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (patient_recods.tkraise(), active(st6_bt)))
+    st6_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='✎', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (patient_recods.tkraise(), active(st6_bt)))
     st6_bt.place(relheight=0.03, relwidth=1, rely=0.25, relx=0)
     change_bg_OnHover_light(st6_bt)
     side_bar_widget_list.append(st6_bt)
     duplicate_widget(st6_bt, side_bar_full, text="Patient Records")
+
+    st9_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗁', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (DManagment_page.tkraise(), active(st9_bt)))
+    st9_bt.place(relheight=0.03, relwidth=1, rely=0.29, relx=0)
+    change_bg_OnHover_light(st6_bt)
+    side_bar_widget_list.append(st9_bt)
+    duplicate_widget(st9_bt, side_bar_full, text="Document Management")
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≎', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (integration_page.tkraise(), active(st7_bt)))
     st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
