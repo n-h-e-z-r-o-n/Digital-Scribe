@@ -3033,9 +3033,9 @@ def EHR_integration_page(widget):
     coning_terminal = tk.Text(EHR_page_container, bg="Black", fg=fg_color, highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
     coning_terminal.insert(tk.END, ERH_Systems)
-    tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
-    tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
-    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size-5, "bold"), anchor='w', fg='gray', bg=bg_colo).place(relheight=1, relwidth=0.2, relx=0)
+    tk.Button(E_nav, text="❗", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg='gray', activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.86)
+    tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg='green', activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
+    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size-5, "bold"), anchor='w', fg='gray', bg=bg_color).place(relheight=1, relwidth=0.2, relx=0)
 
     return EHR_page_container
 
