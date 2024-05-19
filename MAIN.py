@@ -2999,12 +2999,12 @@ def EHR_integration_page(widget):
     EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    tk.Label(EHR_page_container, text="Data Base Connection Point " , bg=bg_color, fg=fg_color, font=("Georgia", font_size, 'bold')).place(relheight=0.02, relwidth=0.2, rely=0, relx=0.03)
-    tk.Label(EHR_page_container, text="D_Name :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.03)
-    tk.Label(EHR_page_container, text="H_Name :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.03)
-    tk.Label(EHR_page_container, text="P_Key :",  bg=bg_color, fg=fg_color, font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.03)
-    tk.Label(EHR_page_container, text="Port CCN :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.03)
-    tk.Label(EHR_page_container, text="DBMS :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.03)
+    tk.Label(EHR_page_container, text="Data Base Connection Point " , bg=bg_color, fg='gray', font=("Georgia", font_size, 'bold')).place(relheight=0.02, relwidth=0.2, rely=0, relx=0.03)
+    tk.Label(EHR_page_container, text="D_Name :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.03)
+    tk.Label(EHR_page_container, text="H_Name :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.03)
+    tk.Label(EHR_page_container, text="P_Key :",  bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.03)
+    tk.Label(EHR_page_container, text="Port CCN :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.03)
+    tk.Label(EHR_page_container, text="DBMS :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.03)
 
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.13)
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.13)
@@ -3012,9 +3012,13 @@ def EHR_integration_page(widget):
     tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.13)
     tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
 
-    tk.Label(EHR_page_container, text="connect", bg=bg_color, fg='gray', font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.03)
-    tk.Label(EHR_page_container, text="disconnect", bg=bg_color, fg='gray', font=("Georgia", font_size-6)).place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.09)
+    CON_btn = tk.Label(EHR_page_container, text="connect", bg=bg_color, fg='gray', font=("Georgia", font_size-6))
+    CON_btn.place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.03)
+    change_fg_OnHover(CON_btn, 'yellow', "gray")
 
+    DISCON_btn = tk.Label(EHR_page_container, text="disconnect", bg=bg_color, fg='gray', font=("Georgia", font_size-6))
+    DISCON_btn.place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.09)
+    change_fg_OnHover(DISCON_btn, 'yellow', "gray")
 
     tk.Label(EHR_page_container, text="Connection Status :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size-3), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.2, relx=0.03)
     status_widg = tk.Label(EHR_page_container, text="⊙", bg=bg_color, fg=fg_color,  font=("Broadway", font_size), anchor="w")
@@ -3030,7 +3034,8 @@ def EHR_integration_page(widget):
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
     coning_terminal.insert(tk.END, ERH_Systems)
     tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
-    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size-5, "bold"), anchor='w', bg=bg_color, fg=fg_color).place(relheight=1, relwidth=0.2, relx=0)
+    tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg=fg_color, activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
+    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size-5, "bold"), anchor='w', fg='gray', bg=bg_colo).place(relheight=1, relwidth=0.2, relx=0)
 
     return EHR_page_container
 
@@ -3100,7 +3105,7 @@ def User_Home_page(widget):
                     side_bar_widget_list.remove(i)
 
             else:
-                i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg="red")
+                i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg="yellow")
 
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
