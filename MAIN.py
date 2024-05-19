@@ -3100,12 +3100,18 @@ def User_Home_page(widget):
         for i in side_bar_widget_list:
             if i != widget:
                 try:
-                    i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg=fg_color, bg=bg_color)
+                    i.config( relief=tk.FLAT, border=0, fg=fg_color, bg=bg_color)
+                    change_bg_OnHover_light(st2_bt)
                 except:
+                    print("er")
                     side_bar_widget_list.remove(i)
+            elif i == widget:
 
+                i.config(relief=tk.FLAT, border=0, fg="yellow", bg=lighten_hex_color(bg_color))
+                change_bg_OnHover(i, darken_hex_color(bg_color), 'green')
             else:
-                i.config(bg=nav_bg, relief=tk.FLAT, border=0, fg="yellow", bg=lighten_hex_color(bg_color))
+                change_bg_OnHover_light(st2_bt)
+                pass
 
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
