@@ -3101,17 +3101,14 @@ def User_Home_page(widget):
             if i != widget:
                 try:
                     i.config( relief=tk.FLAT, border=0, fg=fg_color, bg=bg_color)
-                    change_bg_OnHover_light(st2_bt)
+                    #change_bg_OnHover_light(st2_bt)
                 except:
-                    print("er")
+
                     side_bar_widget_list.remove(i)
-            elif i == widget:
+            else :
 
                 i.config(relief=tk.FLAT, border=0, fg="yellow", bg=lighten_hex_color(bg_color))
-                change_bg_OnHover(i, darken_hex_color(bg_color), 'green')
-            else:
-                change_bg_OnHover_light(st2_bt)
-                pass
+                #change_bg_OnHover(widget, lighten_hex_color(bg_color), lighten_hex_color(bg_color))
 
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
@@ -3195,7 +3192,7 @@ def User_Home_page(widget):
 
     st9_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='🗁', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (DManagment_page.tkraise(), active(st9_bt)))
     st9_bt.place(relheight=0.03, relwidth=1, rely=0.29, relx=0)
-    change_bg_OnHover_light(st6_bt)
+    change_bg_OnHover_light(st9_bt)
     side_bar_widget_list.append(st9_bt)
     duplicate_widget(st9_bt, side_bar_full, text="Document Management")
 
