@@ -3110,14 +3110,6 @@ def User_Home_page(widget):
                 i.config(relief=tk.FLAT, border=0, fg="yellow", bg=lighten_hex_color(bg_color))
                 #change_bg_OnHover(widget, lighten_hex_color(bg_color), lighten_hex_color(bg_color))
 
-    def duplicate_widget(widget, dest_frame, text=""):
-        def run_func(widget=widget, dest_frame=dest_frame, text=text):
-            global fg_color, bg_color, side_bar_widget_list2
-
-            relx = widget.place_info()["relx"]
-            rely = widget.place_info()["rely"]
-            relwidth = widget.place_info()["relwidth"]
-            relheight = widget.place_info()["relheight"]
 
             widget_type = type(widget)
             widget_geometry = widget.winfo_geometry()
