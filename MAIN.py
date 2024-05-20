@@ -391,13 +391,116 @@ def change_color(widget, button):
         nav_bg = bg_color
 
     elif button_text == 'window(Jacket)':
-        button.config(text='window(light)')
+        button.config(text='window(Air Force blue)')
+        bg_color = '#5D8AA8'
+        fg_color = 'white'
+        current_theme = 'window(Air Force blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Air Force blue)':
+        button.config(text='window(Steel Blue)')
+        bg_color = '#4682B4'
+        fg_color = 'white'
+        current_theme = 'window(Steel Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Steel Blue)':
+        button.config(text='window(Carolina Blue)')
+        bg_color = '#4B9CD3'
+        fg_color = 'white'
+        current_theme = 'window(Carolina Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Carolina Blue)':
+        button.config(text='window(Turkish Blue)')
+        bg_color = '#4F97A3'
+        fg_color = 'white'
+        current_theme = 'window(Turkish Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Turkish Blue)':
+        button.config(text='window(Maya Blue)')
+        bg_color = '#73C2FB'
+        fg_color = 'white'
+        current_theme = 'window(Maya Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Maya Blue)':
+        button.config(text='window(Independence Blue)')
+        bg_color = '#4C516D'
+        fg_color = 'white'
+        current_theme = 'window(Independence Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Independence Blue)':
+        button.config(text='window(Yale Blue)')
+        bg_color = '#00356B'
+        fg_color = 'white'
+        current_theme = 'window(Yale Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Yale Blue)':
+        button.config(text='window(Prussian blue)')
+        bg_color = '#003153'
+        fg_color = 'white'
+        current_theme = 'window(Prussian blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Prussian blue)':
+        button.config(text='window(Aegean Blue)')
+        bg_color = '#4E6E81'
+        fg_color = 'white'
+        current_theme = 'window(Aegean Blue)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Aegean Blue)':
+        button.config(text='window(Braves Navy)')
+        bg_color = '#13274F'
+        fg_color = 'white'
+        current_theme = 'window(Braves Navy)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Braves Navy)':
+        button.config(text='window(Parchment)')
+        bg_color = '#F1E9D2'
+        fg_color = 'black'
+        current_theme = 'window(Parchment)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Parchment)':
+        button.config(text='window(Alabaster)')
+        bg_color = '#EDEAE0'
+        fg_color = 'black'
+        current_theme = 'window(Alabaster)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(Alabaster)':
+        button.config(text='window(White smoke)')
         bg_color = '#F5F5F5'
+        fg_color = 'black'
+        current_theme = 'window(White smoke)'
+        title_bar_color(bg_color)
+        nav_bg = bg_color
+
+    elif button_text == 'window(White smoke)':
+        button.config(text='window(light)')
+        bg_color = '#F8FBF8'
         fg_color = 'black'
         current_theme = 'window(light)'
         title_bar_color(bg_color)
         nav_bg = bg_color
-
     else:
         return
 
@@ -2385,32 +2488,32 @@ def settings(widget):
     gradient_access_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
-    change_bg_OnHover(gradient_access_widget, bg_hovercolor, bg_color)
+    change_bg_OnHover(gradient_access_widget, bg_hovercolor)
 
     tk.Label(g1, text="  GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
-    change_bg_OnHover(gradient_work_widget, bg_hovercolor, bg_color)
+    change_bg_OnHover(gradient_work_widget, bg_hovercolor)
 
     tk.Label(g1, text="  NLP_adapter_id :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
     gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_finetuned_model_id.place(relheight=0.07, relwidth=0.74, rely=0.213, relx=0.25)
     gradient_finetuned_model_id.insert(0, gradient_ai_finetuned_id)
-    change_bg_OnHover(gradient_finetuned_model_id, bg_hovercolor, bg_color)
+    change_bg_OnHover(gradient_finetuned_model_id, bg_hovercolor)
 
     tk.Label(g1, text="  Base_Model :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
     gradient_base_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     gradient_base_model_id.place(relheight=0.07, relwidth=0.74, rely=0.284, relx=0.25)
     gradient_base_model_id.insert(0, gradient_ai_base_model_id)
-    change_bg_OnHover(gradient_base_model_id, bg_hovercolor, bg_color)
+    change_bg_OnHover(gradient_base_model_id, bg_hovercolor)
 
     tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
     tk.Label(g1, text="  assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
     assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
-    change_bg_OnHover(assembly_widget, bg_hovercolor, bg_color)
+    change_bg_OnHover(assembly_widget, bg_hovercolor)
 
     def Want_Save(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
         global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id
@@ -2426,7 +2529,7 @@ def settings(widget):
     save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: Want_Save(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
     save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
     # change_bg_OnHover(save, 'lightgreen', bg_color)
-    change_fg_OnHover(save, fg_hovercolor, fg_color)
+    change_fg_OnHover(save, fg_hovercolor)
 
     # ======================================================= Section 2 ===========================================================================================================================================
 
@@ -2437,7 +2540,7 @@ def settings(widget):
     tk.Label(g2, text="  current theme :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
     themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
     themes_change.place(relheight=0.07, relwidth=0.3, rely=0.071, relx=0.25)
-    change_fg_OnHover(themes_change, fg_hovercolor, fg_color)
+    change_fg_OnHover(themes_change, fg_hovercolor)
 
     # ======================================================= Section 3 ===========================================================================================================================================
     g3 = tk.Frame(setting_widget, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
@@ -2495,6 +2598,7 @@ def Clinical_Image(widget):
 
     Display_text_ = tk.Text(Clinical_widg_page, bg=darken_hex_color(bg_color), fg=fg_color, font=("Georgia", 12))
     Display_text_.place(relheight=0.3, relwidth=1, rely=0.62, relx=0)
+    text_list_widget.append(Display_text_)
 
     clinical_Note_upload_btn = tk.Button(Clinical_widg_page, text="clinical Note+", command=lambda: image_text_extract_Handwriten(display_img, Display_text_))
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
@@ -2908,7 +3012,7 @@ def Document_Management_page(widget):
     button_frame = tk.Frame(Document_Managemen_container, bg=bg_color)
     button_frame.place(relheight=0.05, relwidth=1, rely=0.95, relx=0)
 
-    add_button = ttk.Button(button_frame, text="Add Document", command=lambda: add_document(document_tree))
+    add_button = ttk.Button(button_frame, text="Add Document",  command=lambda: add_document(document_tree))
     add_button.place(relheight=1, relwidth=0.2, rely=0, relx=0)
 
     delete_button = ttk.Button(button_frame, text="Delete Document", command=lambda: delete_document(document_tree))
