@@ -109,7 +109,7 @@ gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
-
+Gem_Key = ''
 
 
 User_Name = ''
@@ -1677,7 +1677,30 @@ def download_configuration():
 
 
 def Set_Configuration():
-    global gradient_ai_workspace_id,  gradient_ai_access_key, assemblyai_access_key, Gem_Key,
+    global gradient_ai_workspace_id,  gradient_ai_access_key, assemblyai_access_key, Gem_Key
+    global gradient_ai_finetuned_id, gradient_ai_base_model_id
+
+    download_configuration()
+
+    try:
+        with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
+            configs = json.load(openfile)
+
+            gradient_ai_access_key = configs['_GA_']
+            gradient_ai_workspace_id = configs['_GW_']
+            gradient_ai_finetuned_id = configs['_G_FT_M_']
+            gradient_ai_base_model_id = configs['_G_B_M_']
+            assemblyai_access_key = configs['_AAI_']
+            Gem_Key = configs['_AAI_']
+
+    except:
+        pass
+
+
+
+
+
+
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
