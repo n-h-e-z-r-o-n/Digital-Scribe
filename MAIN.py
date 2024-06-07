@@ -1652,8 +1652,6 @@ def attach_scroll(widget, color=None):
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def download_configuration():
-    global cipher_suite, Key_Fernet
-
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
@@ -1684,7 +1682,6 @@ def Set_Configuration():
                 os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
                 print(Key_Fernet.encode())
                 cipher_suite = Fernet(Key_Fernet.encode())
-
 
                 break
         except Exception as e:
@@ -2001,7 +1998,7 @@ def login_Request(email, passw, widget = None):
         expiresIn = userInfo['expiresIn']
         email = userInfo['email']
         print(auth.current_user, '\n\n')
-        print(idToken)
+        print()
 
         if widget is not None:
             widget.config(text="")
@@ -2019,7 +2016,7 @@ def login_Request(email, passw, widget = None):
 
         json_object = json.dumps(dic, indent=4)
 
-        with open("./Data_Raw/themes_config.json", "w") as outfile:
+        with open("./Data_Raw/CUR_user.json", "w") as outfile:
             outfile.write(json_object)
 
         User_Home_page(root)
