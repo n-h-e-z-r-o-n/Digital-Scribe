@@ -2033,7 +2033,7 @@ def sign_up_widget(widget):
     def back(widg):
         widg.place_forget()
 
-    sign_up_widget = tk.Frame(widget, bg=nav_bar_color, borderwidth=0, border=0)
+    sign_up_widget = tk.Frame(widget, bg='blue', borderwidth=0, border=0)
     # Forgot_password_widget.place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.34)
 
     tk.Label(sign_up_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Go to Login?', font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0.78, relx=0.1)
@@ -2113,7 +2113,7 @@ def Login_Section_widget(widget, widget2):
     # Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
 
     tk.Label(Login_widget, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.03, relwidth=0.1, rely=0.6, relx=0.05)
-    Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="Sign up", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
+    Sign_up_login_link = tk.Button(Login_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="Sign up", command=lambda: sign_up_widget(Login_widget), font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
     Sign_up_login_link.place(relheight=0.03, relwidth=0.05, rely=0.6, relx=0.15)
     change_fg_OnHover(Sign_up_login_link, '#00AB66', '#A8E4A0')
 
