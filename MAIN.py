@@ -1984,7 +1984,7 @@ def decrypt(encrypted_text):
     return decrypted_text.decode()
 
 
-def login_Request(email, passw, widget):
+def login_Request(email, passw, widget = None):
     global root, User_Email, User_Pass, User_Name, User_Image, User_Phone
     email = email.strip()
     passw = passw.strip()
@@ -1997,7 +1997,9 @@ def login_Request(email, passw, widget):
         email = userInfo['email']
         print(auth.current_user, '\n\n')
         print(idToken)
-        widget.config(text="")
+
+        if widget is not None:
+            widget.config(text="")
 
         User_Email = email
         User_Pass = passw
@@ -2018,8 +2020,8 @@ def login_Request(email, passw, widget):
         User_Home_page(root)
 
     except Exception as e:
-
-        widget.config(text="Login Authentication Error. Check your login cridentials !!")
+        if widget is not None:
+            widget.config(text="Login Authentication Error. Check your login cridentials !!")
         print(e)
 
 
@@ -3531,6 +3533,8 @@ def main():
 
     title_bar_color(bg_color)
 
+
+    login_Request(dyc, passw, widget=None)
     User_Home_page(root)
     # Welcome_Page(root)
 
