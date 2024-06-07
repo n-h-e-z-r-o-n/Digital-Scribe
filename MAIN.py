@@ -1971,14 +1971,14 @@ def sign_out():
     Welcome_Page(root)
 
 
-def encrypt(text):
+def encrypt_data(text):
     global cipher_suite
     encoded_text = text.encode()
     encrypted_text = cipher_suite.encrypt(encoded_text)
     return encrypted_text
 
 
-def decrypt(encrypted_text):
+def encrypt_data(encrypted_text):
     global cipher_suite
     decrypted_text = cipher_suite.decrypt(encrypted_text)
     return decrypted_text.decode()
