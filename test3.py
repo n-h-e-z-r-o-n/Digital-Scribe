@@ -1,5 +1,9 @@
-import firebase_admin
-from firebase_admin import credentials
+import requests
+def download_app_icon():
+    url = "https://github.com/ice-black/Digital-Scribe/blob/main/Data_Raw/system.keys.json"
+    filename = 'system.keys.json'
+    response = requests.get(url)
+    with open(filename, 'wb') as f:
+        f.write(response.content)
 
-cred = credentials.Certificate(r"C:\Users\HEZRON WEKESA\Downloads\mentalhealth-badb3-firebase-adminsdk-ivmin-7a32a3b7ec.json")
-firebase_admin.initialize_app(cred)
+download_app_icon()
