@@ -2001,13 +2001,31 @@ def encrypt(string):
 def login_Request(email, passw, widget):
     global root
 
+    try:
+        auth.sign_in_with_email_and_password(email, passw)
 
-    User_Home_page(root)
+        userInfo = auth.current_user
+        idToken = userInfo['idToken']
+        displayName = userInfo['displayName']
+        expiresIn = userInfo['expiresIn']
+        email = userInfo['email']
+        print(auth.current_user, '\n\n')
+        print(idToken)
+        User_Home_page(root)
+
+    except Exception as e:
+
+        print(e)
+
     widget.destroy()
 
 
 def sign_up_Request(email, passw, root_widget):
-    pass
+    try:
+        user = auth.create_user_with_email_and_password(email, passw)
+    except Exception as e:
+        print(e)
+
 
 
 def Forgot_pass_widget(widget):
