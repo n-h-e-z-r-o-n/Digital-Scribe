@@ -2011,11 +2011,12 @@ def login_Request(email, passw, widget):
         email = userInfo['email']
         print(auth.current_user, '\n\n')
         print(idToken)
+        widget.config(text="")
         User_Home_page(root)
 
     except Exception as e:
 
-
+        widget.config(text="Login Authentication Error. Check your login cridentials !!")
         print(e)
 
 
