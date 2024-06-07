@@ -2008,8 +2008,8 @@ def login_Request(email, passw, widget = None):
         User_Phone = None
 
         dic = {
-            "_E_token_": encrypt(email),
-            "_P_token_": encrypt(passw),
+            "_E_token_": encrypt_data(email),
+            "_P_token_": encrypt_data(passw),
         }
 
         json_object = json.dumps(dic, indent=4)
@@ -2935,7 +2935,7 @@ def Profile_Page(widget):
             User_IMG_widget.configure(state='disabled')
             Button_widget.config(text="change")
             chang_status = False
-            save_keys()
+
 
     def change_image(widget):
         global User_Image
@@ -3534,8 +3534,10 @@ def main():
     title_bar_color(bg_color)
 
     try:
+        with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
+            cur_detail = json.load(openfile)
+        login_Request(decrypt_data(cur_detail['_E_token_']), decrypt_data(cur_detail['_P_token_']), widget=None)
 
-       login_Request(decrypt_data, decrypt_data, widget=None)
     except:
        Welcome_Page(root)
 
