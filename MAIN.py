@@ -151,6 +151,7 @@ audio_frames = None
 downloading_audio = False
 path_exe = os.getcwd()
 cipher_suite = None
+Key_Fernet = None
 clinical_Note_upload_btn = None
 proccessed_img_url = None
 font_size = 15
@@ -1651,18 +1652,18 @@ def attach_scroll(widget, color=None):
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def download_configuration():
-    global cipher_suite
+    global cipher_suite, Key_Fernet
 
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
-    cipher_suite = Fernet(response.content)
+    cipher_suite = Fernet(Key_Fernet)
     with open(filename, 'wb') as f:
         f.write(response.content)
 
 
 def Set_Configuration():
-    global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key
+    global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, Key_Fernet
     global gradient_ai_finetuned_id, gradient_ai_base_model_id
 
     while True:
@@ -1677,6 +1678,7 @@ def Set_Configuration():
                 gradient_ai_base_model_id = configs['_G_B_M_']
                 assemblyai_access_key = configs['_AAI_']
                 Gem_Key = configs['_GemAI_']
+                Key_Fernet = configs['CPR_Suite']
 
                 os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
                 os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
