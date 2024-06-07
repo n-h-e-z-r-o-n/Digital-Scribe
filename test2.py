@@ -12,6 +12,7 @@ config = {
 
 firebase = pyrebase.initialize_app(config)
 auth = firebase.auth() #Authentication
+db = firebase.database()
 
 def login():
         email = 'hezron.w12@gmail.com'
@@ -43,7 +44,6 @@ def signup():
 def forgot_pass():
         email = 'hezron.w12@gmail.com'
         auth.send_password_reset_email(email)
-login()
 
 
 

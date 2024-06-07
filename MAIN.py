@@ -2024,7 +2024,7 @@ def login_Request(email, passw, widget):
 
 def sign_up_Request(email, passw, status_widget):
     try:
-        user = auth.create_user_with_email_and_password(email, passw)
+        auth.create_user_with_email_and_password(email, passw)
         status_widget.config(text='')
     except Exception as e:
         status_widget.config(text='Sign Up Error. Please Try Again')
@@ -2034,9 +2034,9 @@ def sign_up_Request(email, passw, status_widget):
 def forgot_pass_Request(email, status_widget):
         try:
           auth.send_password_reset_email(email)
-          status_widget.config(text='Successful, Check your Email )
+          status_widget.config(text="Successful:  Check your Email", fg='green')
         except:
-            status_widget.config(text='Error: check your technical details')
+            status_widget.config(text='Error: check your technical details', fg='red')
 
 
 
