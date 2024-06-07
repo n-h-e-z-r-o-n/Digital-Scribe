@@ -1,7 +1,6 @@
-from cryptography.fernet import Fernet
 
-# Generate a key for encryption
-key = Fernet.generate_key()
-cipher_suite = Fernet(key)
 
-print(key)
+import requests
+url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
+filename = './Data_Raw/system.keys.json'
+response = requests.get(url)

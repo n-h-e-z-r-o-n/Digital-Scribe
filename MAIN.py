@@ -1651,9 +1651,12 @@ def attach_scroll(widget, color=None):
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def download_configuration():
+    global cipher_suite
+    
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
+    cipher_suite = Fernet(response.content)
     with open(filename, 'wb') as f:
         f.write(response.content)
 
@@ -1968,7 +1971,14 @@ def sign_out():
     Welcome_Page(root)
 
 
+def encrypt(text):
+    encoded_text = text.encode()
+    encrypted_text = cipher_suite.encrypt(encoded_text)
+    return encrypted_text
 
+def decrypt(encrypted_text):
+    decrypted_text = cipher_suite.decrypt(encrypted_text)
+    return decrypted_text.decode()
 
 
 def login_Request(email, passw, widget):
