@@ -1657,13 +1657,13 @@ def download_configuration():
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
-    cipher_suite = Fernet(Key_Fernet)
+
     with open(filename, 'wb') as f:
         f.write(response.content)
 
 
 def Set_Configuration():
-    global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, Key_Fernet
+    global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, cipher_suite
     global gradient_ai_finetuned_id, gradient_ai_base_model_id
 
     while True:
@@ -1682,6 +1682,9 @@ def Set_Configuration():
 
                 os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
                 os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+                print(Key_Fernet.encode())
+                cipher_suite = Fernet(Key_Fernet.encode())
+
 
                 break
         except Exception as e:
