@@ -1974,6 +1974,7 @@ def imagen(image_path, screen_width, screen_height, widget):  # image processing
 def sign_out_request():
     global Home_page_frame, root
     Home_page_frame.destroy()
+    os.remove("./Data_Raw/CUR_user.json")
 
 
 
