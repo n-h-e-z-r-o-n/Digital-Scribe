@@ -15,7 +15,7 @@ import base64
 from PIL import Image
 from PIL import Image, ImageTk
 import io
-import base64
+import requests
 
 
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
@@ -1665,6 +1665,12 @@ def attach_scroll(widget, color=None):
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
+def download_app_icon():
+    url = "https://raw.githubusercontent.com/Hezron26/assets/main/panda.ico"
+    filename = 'panda.ico'
+    response = requests.get(url)
+    with open(filename, 'wb') as f:
+        f.write(response.content)
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
