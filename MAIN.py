@@ -1999,11 +1999,10 @@ def encrypt(string):
 
 
 def login_Request(email, passw, widget):
-    global root
+    global root, User_Email, User_Pass, User_Name, User_Image, User_Phone
 
     try:
         auth.sign_in_with_email_and_password(email, passw)
-
         userInfo = auth.current_user
         idToken = userInfo['idToken']
         displayName = userInfo['displayName']
@@ -2012,6 +2011,12 @@ def login_Request(email, passw, widget):
         print(auth.current_user, '\n\n')
         print(idToken)
         widget.config(text="")
+
+        User_Email = email
+        User_Pass = passw
+        User_Name = None
+        User_Image = None
+        User_Phone = None
         User_Home_page(root)
 
     except Exception as e:
