@@ -1978,7 +1978,7 @@ def encrypt_data(text):
     return encrypted_text
 
 
-def encrypt_data(encrypted_text):
+def decrypt_data(encrypted_text):
     global cipher_suite
     decrypted_text = cipher_suite.decrypt(encrypted_text)
     return decrypted_text.decode()
@@ -3533,10 +3533,11 @@ def main():
 
     title_bar_color(bg_color)
 
+    try:
 
-    login_Request(dyc, passw, widget=None)
-    User_Home_page(root)
-    # Welcome_Page(root)
+       login_Request(decrypt_data, decrypt_data, widget=None)
+    except:
+       Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
