@@ -1,13 +1,17 @@
 {
-    "_GA_": "IuQrYCURHsRzzk1BgSDy3xn3V97walUO",
-    "_GW_": "d87be754-5abb-4085-97f9-556d00e71fbd_workspace",
+    "_GA_": "QPOjU2BBvYN7XD9rYq9jMGe8Lg2uMN9r",
+    "_GW_": "0770c65a-915e-414c-9ae3-bd7e71ede067_workspace",
     "_G_FT_M_": "",
     "_G_B_M_": "nous-hermes2",
     "_AAI_": "1b99bbdd-1360-4321-a152-fc8822334cd0_workspace",
-    "bg_color": "#3A3A38",
+    "bg_color": "#353839",
     "fg_color": "white",
     "fg_hovercolor": "red",
     "bg_hovercolor": "lightgreen",
-    "current_theme": "window(Blackberry)",
-    "nav_bg": "#3A3A38"
+    "current_theme": "window(dark_gray)",
+    "nav_bg": "#353839",
+    "User_Name": "",
+    "User_Email": "",
+    "User_Phone": "",
+    "User_Image": ""
 }

@@ -56,7 +56,7 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-from paddleocr import PaddleOCR, draw_ocr
+from paddleocr import PaddleOCR, draw_ocr # [ pip install paddleocr , pip install protobuf==3.20.0]
 
 ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
 
@@ -765,7 +765,7 @@ def D_Summary(widget1, widget=None, delete_hist=True):
 
 def rag_initialize(data=None):
     print("rag_initializ_start")
-    global rag_pipeline, rag_data
+    global rag_pipeline, rag_data, gradient_ai_workspace_id, gradient_ai_access_key
 
     rag_pipeline = None
 
@@ -779,8 +779,8 @@ def rag_initialize(data=None):
     writer = DocumentWriter(document_store=document_store)
 
     document_embedder = GradientDocumentEmbedder(
-        access_token=os.environ["GRADIENT_ACCESS_TOKEN"],
-        workspace_id=os.environ["GRADIENT_WORKSPACE_ID"],
+        access_token=gradient_ai_access_key,
+        workspace_id=gradient_ai_workspace_id,
     )
 
     docs = [
@@ -872,8 +872,9 @@ def rag_chat(question_widget, widget, widget1):
             print(e)
             widget.config(state=tk.NORMAL)
             widget.insert(tk.END, f'ERROR: PLEASE UPLOAD FILE FIRST \n\n\n', 'error_config')
-            widget1.config(text='▶')
             widget.config(state=tk.DISABLED)
+            widget1.config(text='▶')
+
 
             print(f"UPLOAD ERROR\n {e}")
 
@@ -2458,8 +2459,9 @@ def RAG_page(widget):
     # status_widg = tk.Label(t2, text="𝕤𝕥𝕒𝕥𝕦𝕤", anchor='sw', bg=bg_color, activebackground=bg_color, fg=fg_color, font=("Times New Roman", 20), borderwidth=2, border=3)
     # status_widg.place(relheight=0.03, relwidth=0.07, rely=0.63, relx=0.505)
 
-    input_widget_ = tk.Text(frame_view2, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
+    input_widget_ = tk.Text(frame_view2, bg=darken_hex_color(bg_color), insertbackground="lightblue", fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)
     input_widget_.place(relheight=0.05, relwidth=0.96, rely=0.945, relx=0.01)
+    text_list_widget.append(input_widget_)
 
     bng = tk.Button(frame_view2, text="▶", activebackground=bg_color, bg=bg_color, fg=fg_color, font=("Arial Black", 15), borderwidth=0, border=0, command=lambda: rag_chat(input_widget_, chat_display_widget, bng))
     bng.place(relheight=0.06, relwidth=0.02, rely=0.945, relx=0.973)
@@ -2693,19 +2695,22 @@ def Recodes_Page(widget):
             global downloading_audio
             if llm_chain3 is None:
                 llm_inference_initializ()
-            threading.Thread(target=visual_analyse_recoding_run).start()
+            try:
+                threading.Thread(target=visual_analyse_recoding_run).start()
 
-            audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
-            result = wisper_model_tiny.transcribe(audio_path_full)
-            x2.delete(1.0, tk.END)
-            x2.insert(tk.END, "\n File Name : " + audio_path + "\n\n")
-            x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
-            downloading_audio = False
+                audio_path_full = path_exe + '\\Audio_Records\\' + audio_path
+                result = wisper_model_tiny.transcribe(audio_path_full)
+                x2.delete(1.0, tk.END)
+                x2.insert(tk.END, "\n File Name : " + audio_path + "\n\n")
+                x2.insert(tk.END, "\n Conversation : \n\n" + result["text"])
+                downloading_audio = False
 
-            x3.delete(1.0, tk.END)
-            AI_response = llm_chain3.invoke(input=result["text"])
-            x3.insert(tk.END, AI_response['text'])
-
+                x3.delete(1.0, tk.END)
+                AI_response = llm_chain3.invoke(input=result["text"])
+                x3.insert(tk.END, AI_response['text'])
+            except Exception as e:
+                print(e)
+                downloading_audio = False
         threading.Thread(target=analyse_recoding_run).start()
 
     def refresh_recodings(frame, Audio_recodes_canvas):
