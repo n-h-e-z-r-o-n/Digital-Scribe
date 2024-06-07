@@ -2022,15 +2022,22 @@ def login_Request(email, passw, widget):
 
 
 
-def sign_up_Request(email, passw, root_widget):
+def sign_up_Request(email, passw, status_widget):
     try:
         user = auth.create_user_with_email_and_password(email, passw)
+        status_widget.config(text='')
     except Exception as e:
+        status_widget.config(text='Sign Up Error. Please Try Again')
         print(e)
 
 
-def forgot_pass_Request(email, widget):
-        auth.send_password_reset_email(email)
+def forgot_pass_Request(email, status_widget):
+        try:
+          auth.send_password_reset_email(email)
+          status_widget.config(text='Successful, Check your Email )
+        except:
+            status_widget.config(text='Error: check your technical details')
+
 
 
 
@@ -2083,7 +2090,7 @@ def Login_Section_widget(widget):
     change_fg_OnHover(therapist_login_link, '#00AB66', '#A8E4A0')
 
     login_status = tk.Label(login_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
-    login_section.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
+    login_status.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
     # ---------------------------------------------------------------- Forgot password section --------------------------------------------------
 
