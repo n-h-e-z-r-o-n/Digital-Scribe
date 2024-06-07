@@ -17,7 +17,6 @@ from PIL import Image, ImageTk
 import io
 import requests
 
-
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
 # import docx
@@ -52,19 +51,20 @@ import wave
 from pydub import AudioSegment  # used for converting .wav to .mp3
 # --------------------------------- FireBase config data/labraries ---------------------------------------------------------------------------------------
 import pyrebase
+
 config = {
-        'apiKey': "AIzaSyAL6KeL8SGTc7GvHtWQLhVXQ3A_pfs0fgA",
-        'authDomain': "mentalhealth-badb3.firebaseapp.com",
-        'databaseURL': "https://trialauth-7eeal-7eeal.firebaseio.com",
-        'projectId': "mentalhealth-badb3",
-        'storageBucket': "mentalhealth-badb3.appspot.com",
-        'messagingSenderId': "668556041575",
-        'appId': "1:668556041575:web:8170d74edf2fdbcf8f23c2",
-        'measurementId': "G-168YG4NVDE"
+    'apiKey': "AIzaSyAL6KeL8SGTc7GvHtWQLhVXQ3A_pfs0fgA",
+    'authDomain': "mentalhealth-badb3.firebaseapp.com",
+    'databaseURL': "https://trialauth-7eeal-7eeal.firebaseio.com",
+    'projectId': "mentalhealth-badb3",
+    'storageBucket': "mentalhealth-badb3.appspot.com",
+    'messagingSenderId': "668556041575",
+    'appId': "1:668556041575:web:8170d74edf2fdbcf8f23c2",
+    'measurementId': "G-168YG4NVDE"
 }
 
 firebase = pyrebase.initialize_app(config)
-auth = firebase.auth() #Authentication
+auth = firebase.auth()  # Authentication
 # ------------------------------- img-to-text -------------------------------------------------------------------------------------------------------------
 
 from PIL import Image
@@ -72,7 +72,7 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-from paddleocr import PaddleOCR, draw_ocr # [ pip install paddleocr , pip install protobuf==3.20.0]
+from paddleocr import PaddleOCR, draw_ocr  # [ pip install paddleocr , pip install protobuf==3.20.0]
 
 ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
 
@@ -110,7 +110,6 @@ assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
 Gem_Key = ''
-
 
 User_Name = ''
 User_Email = ''
@@ -894,7 +893,6 @@ def rag_chat(question_widget, widget, widget1):
             widget.config(state=tk.DISABLED)
             widget1.config(text='▶')
 
-
             print(f"UPLOAD ERROR\n {e}")
 
     threading.Thread(target=run_function).start()
@@ -1251,7 +1249,6 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
         running_scribe = False
 
         # integrate_strings(previous_data, widget.get("1.0", "end"), result["text"])
-
 
     if Recording:
         Recording = False
@@ -1677,7 +1674,7 @@ def download_configuration():
 
 
 def Set_Configuration():
-    global gradient_ai_workspace_id,  gradient_ai_access_key, assemblyai_access_key, Gem_Key
+    global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key
     global gradient_ai_finetuned_id, gradient_ai_base_model_id
 
     while True:
@@ -1697,22 +1694,16 @@ def Set_Configuration():
                 os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
                 break
-        except:
-            pass
+        except Exception as e:
+            print(e)
 
 
-
-
-
-
-
-def themes_configurations,():
+def themes_configurations():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
-        with open('./Data_Raw/keys.json', 'r') as openfile:  # Reading from json file
+        with open('./Data_Raw/themes_config.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
-
 
             bg_color = keys['bg_color']
             fg_color = keys['fg_color']
@@ -1721,15 +1712,6 @@ def themes_configurations,():
             current_theme = keys['current_theme']
             nav_bg = keys['nav_bg']
 
-            User_Name = keys['User_Name']
-            User_Email = keys['User_Email']
-            User_Phone = keys['bg_color']
-            User_Pass = keys['User_Phone']
-            User_Image = keys['User_Image']
-
-
-
-            print(bg_color)
             modify_css()
     except Exception as e:
         print("access_keys_info Function:", e)
@@ -1737,8 +1719,7 @@ def themes_configurations,():
         pass
 
 
-
-def save_keys():
+def save_themes():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global llm_chain
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
@@ -1750,20 +1731,13 @@ def save_keys():
         "bg_hovercolor": bg_hovercolor,
         "current_theme": current_theme,
         "nav_bg": nav_bg,
-        "User_Name": User_Name,
-        "User_Email": User_Email,
-        "User_Phone": User_Phone,
-        "User_Image": User_Image
     }
 
     json_object = json.dumps(dic, indent=4)
 
-    with open("./Data_Raw/keys.json", "w") as outfile:
+    with open("./Data_Raw/themes_config.json", "w") as outfile:
         outfile.write(json_object)
-    print("saved")
 
-    llm_chain = None
-    rag_initialize()
 
 
 def text_pdf_save(btn_widget, widgets: list):
@@ -2044,8 +2018,6 @@ def login_Request(email, passw, widget):
         print(e)
 
 
-
-
 def sign_up_Request(email, passw, status_widget):
     try:
         auth.create_user_with_email_and_password(email, passw)
@@ -2056,13 +2028,11 @@ def sign_up_Request(email, passw, status_widget):
 
 
 def forgot_pass_Request(email, status_widget):
-        try:
-          auth.send_password_reset_email(email)
-          status_widget.config(text="Successful:  Check your Email", fg='green')
-        except:
-            status_widget.config(text='Error: check your technical details', fg='red')
-
-
+    try:
+        auth.send_password_reset_email(email)
+        status_widget.config(text="Successful:  Check your Email", fg='green')
+    except:
+        status_widget.config(text='Error: check your technical details', fg='red')
 
 
 def Login_Section_widget(widget):
@@ -2076,7 +2046,7 @@ def Login_Section_widget(widget):
 
     login_section = tk.Frame(Login_widget, bg=nav_bar_color)
     login_section.place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.01)
-    #.place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.03)
+    # .place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.03)
 
     tk.Label(login_section, text='Log in to your account', bg=nav_bar_color, fg=lighten_hex_color(bg_color), font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0).place(relheight=0.1, relwidth=1, rely=0, relx=0)
     tk.Label(login_section, text='Log in to continue your medical scribe journey \ntowards a happier you.', fg=lighten_hex_color(bg_color), bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 12), borderwidth=0, border=0).place(relheight=0.2, relwidth=1, rely=0.1, relx=0)
@@ -2130,7 +2100,7 @@ def Login_Section_widget(widget):
     email_password_entry_widg.place(relheight=0.1, relwidth=0.8, rely=0.43, relx=0.1)
     change_bg_OnHover(email_password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
-    password_reset__btn = tk.Button(Forgot_section, bg='#1C352D', fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0, command=lambda :forgot_pass_Request(email_password_entry_widg.get(), forgot_pass_status))
+    password_reset__btn = tk.Button(Forgot_section, bg='#1C352D', fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0, command=lambda: forgot_pass_Request(email_password_entry_widg.get(), forgot_pass_status))
     password_reset__btn.place(relheight=0.1, relwidth=0.8, rely=0.6, relx=0.1)
     change_bg_OnHover(password_reset__btn, '#004830', '#1C352D')
 
@@ -2165,7 +2135,7 @@ def Login_Section_widget(widget):
     password_entry_widg.place(relheight=0.08, relwidth=0.98, rely=0.48, relx=0.01)
     change_bg_OnHover(password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
-    login_btn = tk.Button(sign_up_section, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='SIGN UP', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: sign_up_Request(Email_entry_widg.get(), password_entry_widg.get(), sign_up_status ))
+    login_btn = tk.Button(sign_up_section, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='SIGN UP', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: sign_up_Request(Email_entry_widg.get(), password_entry_widg.get(), sign_up_status))
     login_btn.place(relheight=0.08, relwidth=0.98, rely=0.72, relx=0.01)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
 
@@ -2175,17 +2145,14 @@ def Login_Section_widget(widget):
     change_fg_OnHover(Sign_up_login_link, '#00AB66', '#A8E4A0')
 
     tk.Label(sign_up_section, bg=nav_bar_color, text="Forgot Password", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.01)
-    sign_up_link = tk.Button(sign_up_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="passw reset",  command=lambda: Forgot_section.tkraise(), font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
+    sign_up_link = tk.Button(sign_up_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="passw reset", command=lambda: Forgot_section.tkraise(), font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
     sign_up_link.place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.41)
     change_fg_OnHover(sign_up_link, '#00AB66', '#A8E4A0')
 
     sign_up_status = tk.Label(sign_up_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
     sign_up_status.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
-
-
     # ------------------------------------
-
 
     img = tk.Label(Login_widget, bg=nav_bar_color, font=("Bahnschrift SemiLight Condensed", 26), borderwidth=0, border=0)
     img.place(relheight=0.9, relwidth=0.65, rely=0.05, relx=0.3)
@@ -2828,6 +2795,7 @@ def Recodes_Page(widget):
             except Exception as e:
                 print(e)
                 downloading_audio = False
+
         threading.Thread(target=analyse_recoding_run).start()
 
     def refresh_recodings(frame, Audio_recodes_canvas):
@@ -3032,15 +3000,16 @@ def Profile_Page(widget):
 
     return profile_page_container
 
+
 import shutil
 from tkinter import ttk, filedialog, messagebox
+
 
 def Document_Management_page(widget):
     global bg_color, fg_color
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global chang_status, ERH_Systems
-
 
     DOCUMENT_PATH = './Document_Managment'  # File system path for storing documents
 
@@ -3092,11 +3061,8 @@ def Document_Management_page(widget):
             # Implement your logic to upload the document to a server or cloud storage
             pass
 
-
     Document_Managemen_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Document_Managemen_container.place(relheight=1, relwidth=1, rely=0, relx=0)
-
-
 
     # Create a frame to hold the document list
     document_frame = tk.Frame(Document_Managemen_container, bg=bg_color)
@@ -3110,7 +3076,7 @@ def Document_Management_page(widget):
     style.map("Treeview", background=[("selected", "blue")])
 
     # Create a scrollable treeview to display the documents
-    document_tree = ttk.Treeview(document_frame,  style="Treeview")
+    document_tree = ttk.Treeview(document_frame, style="Treeview")
     document_tree["columns"] = ("name", "size", "date")
     document_tree.column("#0", width=200)
     document_tree.column("name", width=200, anchor="w")
@@ -3134,7 +3100,7 @@ def Document_Management_page(widget):
     button_frame = tk.Frame(Document_Managemen_container, bg=bg_color)
     button_frame.place(relheight=0.05, relwidth=1, rely=0.95, relx=0)
 
-    add_button = ttk.Button(button_frame, text="Add Document",  command=lambda: add_document(document_tree))
+    add_button = ttk.Button(button_frame, text="Add Document", command=lambda: add_document(document_tree))
     add_button.place(relheight=1, relwidth=0.2, rely=0, relx=0)
 
     delete_button = ttk.Button(button_frame, text="Delete Document", command=lambda: delete_document(document_tree))
@@ -3152,7 +3118,7 @@ def EHR_integration_page(widget):
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global chang_status, ERH_Systems
 
-    ERH_Systems  = """
+    ERH_Systems = """
 # Define a dictionary to store EHR system configurations
 {
     "Epic": {
@@ -3168,8 +3134,9 @@ def EHR_integration_page(widget):
     # Add more EHR systems as needed
 }
     """
+
     def MySQL_CONNECTION(h_name, u_name, p_key, d_name, port):
-        global host_name, user_name,  password_key, database_name
+        global host_name, user_name, password_key, database_name
         host_name = host_name
         user_name = user_namem
         password_key = password_key
@@ -3209,10 +3176,6 @@ def EHR_integration_page(widget):
                     color = 'yellow'
                     time.sleep(1)
 
-
-
-
-
     def ehr_run(widget):
         global ERH_Systems
         string_code = widget.get(1.0, tk.END)
@@ -3221,47 +3184,44 @@ def EHR_integration_page(widget):
         print(dict_obj)
         print(type(dict_obj))
 
-
     EHR_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     EHR_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    tk.Label(EHR_page_container, text="Data Base Connection Point " , bg=bg_color, fg='gray', font=("Georgia", font_size, 'bold')).place(relheight=0.02, relwidth=0.2, rely=0, relx=0.03)
-    tk.Label(EHR_page_container, text="D_Name :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.03)
-    tk.Label(EHR_page_container, text="H_Name :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.03)
-    tk.Label(EHR_page_container, text="P_Key :",  bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.03)
-    tk.Label(EHR_page_container, text="Port CCN :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.03)
-    tk.Label(EHR_page_container, text="DBMS :", bg=bg_color, fg='gray',  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.03)
+    tk.Label(EHR_page_container, text="Data Base Connection Point ", bg=bg_color, fg='gray', font=("Georgia", font_size, 'bold')).place(relheight=0.02, relwidth=0.2, rely=0, relx=0.03)
+    tk.Label(EHR_page_container, text="D_Name :", bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.03)
+    tk.Label(EHR_page_container, text="H_Name :", bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.03)
+    tk.Label(EHR_page_container, text="P_Key :", bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.03)
+    tk.Label(EHR_page_container, text="Port CCN :", bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.03)
+    tk.Label(EHR_page_container, text="DBMS :", bg=bg_color, fg='gray', font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.03)
 
-    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.13)
-    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.13)
-    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.13)
-    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color,   font=("Times New Roman", font_size-2), borderwidth=1,border=1).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.13)
-    tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,  font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color, font=("Times New Roman", font_size - 2), borderwidth=1, border=1).place(relheight=0.02, relwidth=0.1, rely=0.025, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color, font=("Times New Roman", font_size - 2), borderwidth=1, border=1).place(relheight=0.02, relwidth=0.1, rely=0.046, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color, font=("Times New Roman", font_size - 2), borderwidth=1, border=1).place(relheight=0.02, relwidth=0.1, rely=0.067, relx=0.13)
+    tk.Entry(EHR_page_container, bg=bg_color, fg=fg_color, font=("Times New Roman", font_size - 2), borderwidth=1, border=1).place(relheight=0.02, relwidth=0.1, rely=0.088, relx=0.13)
+    tk.Button(EHR_page_container, text="DBMS :", bg=bg_color, activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, font=("Georgia", font_size), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.11, relx=0.13)
 
-    CON_btn = tk.Label(EHR_page_container, text="connect", bg=bg_color, fg='gray', font=("Georgia", font_size-6))
+    CON_btn = tk.Label(EHR_page_container, text="connect", bg=bg_color, fg='gray', font=("Georgia", font_size - 6))
     CON_btn.place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.03)
     change_fg_OnHover(CON_btn, 'yellow', "gray")
 
-    DISCON_btn = tk.Label(EHR_page_container, text="disconnect", bg=bg_color, fg='gray', font=("Georgia", font_size-6))
+    DISCON_btn = tk.Label(EHR_page_container, text="disconnect", bg=bg_color, fg='gray', font=("Georgia", font_size - 6))
     DISCON_btn.place(relheight=0.02, relwidth=0.05, rely=0.14, relx=0.09)
     change_fg_OnHover(DISCON_btn, 'yellow', "gray")
 
-    tk.Label(EHR_page_container, text="Connection Status :", bg=bg_color, fg=fg_color,  font=("Georgia", font_size-3), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.2, relx=0.03)
-    status_widg = tk.Label(EHR_page_container, text="⊙", bg=bg_color, fg=fg_color,  font=("Broadway", font_size), anchor="w")
+    tk.Label(EHR_page_container, text="Connection Status :", bg=bg_color, fg=fg_color, font=("Georgia", font_size - 3), anchor="w").place(relheight=0.02, relwidth=0.1, rely=0.2, relx=0.03)
+    status_widg = tk.Label(EHR_page_container, text="⊙", bg=bg_color, fg=fg_color, font=("Broadway", font_size), anchor="w")
     status_widg.place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
-    threading.Thread(target=visual_connection_status, args=(status_widg, )).start()
+    threading.Thread(target=visual_connection_status, args=(status_widg,)).start()
 
-    E_nav = tk.Frame(EHR_page_container,  bg=bg_color)
+    E_nav = tk.Frame(EHR_page_container, bg=bg_color)
     E_nav.place(relheight=0.02, relwidth=0.4, rely=0.03, relx=0.59)
-
-
 
     coning_terminal = tk.Text(EHR_page_container, bg="Black", fg=fg_color, highlightthickness=1, highlightbackground=lighten_hex_color(bg_color))
     coning_terminal.place(relheight=0.9, relwidth=0.4, relx=0.59, rely=0.05)
     coning_terminal.insert(tk.END, ERH_Systems)
     tk.Button(E_nav, text="❗", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg='gray', activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.86)
     tk.Button(E_nav, text="▶", font=("Georgia", font_size), bg=bg_color, borderwidth=0, border=0, fg='green', activeforeground='green', activebackground=bg_color, command=lambda: ehr_run(coning_terminal)).place(relheight=1, relwidth=0.07, relx=0.93)
-    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size-5, "bold"), anchor='w', fg='gray', bg=bg_color).place(relheight=1, relwidth=0.2, relx=0)
+    tk.Label(E_nav, text="ERH_system Terminal", font=("Courier New ", font_size - 5, "bold"), anchor='w', fg='gray', bg=bg_color).place(relheight=1, relwidth=0.2, relx=0)
 
     return EHR_page_container
 
@@ -3326,15 +3286,15 @@ def User_Home_page(widget):
         for i in side_bar_widget_list:
             if i != widget:
                 try:
-                    i.config( relief=tk.FLAT, border=0, fg=fg_color, bg=bg_color)
-                    #change_bg_OnHover_light(st2_bt)
+                    i.config(relief=tk.FLAT, border=0, fg=fg_color, bg=bg_color)
+                    # change_bg_OnHover_light(st2_bt)
                 except:
 
                     side_bar_widget_list.remove(i)
-            else :
+            else:
 
                 i.config(relief=tk.FLAT, border=0, fg="yellow", bg=lighten_hex_color(bg_color))
-                #change_bg_OnHover(widget, lighten_hex_color(bg_color), lighten_hex_color(bg_color))
+                # change_bg_OnHover(widget, lighten_hex_color(bg_color), lighten_hex_color(bg_color))
 
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
@@ -3559,8 +3519,8 @@ def main():
     print("main started")
 
     threading.Thread(target=Set_Configuration()).start()
+    themes_configurations()
 
-    access_keys_info()
     run_server()
 
     root = tk.Tk()
@@ -3579,7 +3539,7 @@ def main():
     title_bar_color(bg_color)
 
     User_Home_page(root)
-    #Welcome_Page(root)
+    # Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
