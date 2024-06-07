@@ -1693,6 +1693,10 @@ def Set_Configuration():
                 gradient_ai_base_model_id = configs['_G_B_M_']
                 assemblyai_access_key = configs['_AAI_']
                 Gem_Key = configs['_GemAI_']
+
+                os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+                os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+
                 break
         except:
             pass
@@ -1704,14 +1708,13 @@ def Set_Configuration():
 
 
 def access_keys_info():
-    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
         with open('./Data_Raw/keys.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
 
-            
+
             bg_color = keys['bg_color']
             fg_color = keys['fg_color']
             fg_hovercolor = keys['fg_hovercolor']
@@ -1725,12 +1728,7 @@ def access_keys_info():
             User_Pass = keys['User_Phone']
             User_Image = keys['User_Image']
 
-            print('gradient_ai_workspace_id :', gradient_ai_workspace_id)
-            print('gradient_ai_access_key:', gradient_ai_access_key)
-            print('assemblyai_access_key :', assemblyai_access_key)
 
-            os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-            os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
 
             print(bg_color)
             modify_css()
@@ -1742,17 +1740,11 @@ def access_keys_info():
 
 
 def save_keys():
-    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global llm_chain
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
 
     dic = {
-        '_GA_': gradient_ai_access_key,
-        '_GW_': gradient_ai_workspace_id,
-        '_G_FT_M_': gradient_ai_finetuned_id,
-        '_G_B_M_': gradient_ai_base_model_id,
-        '_AAI_': assemblyai_access_key,
         "bg_color": bg_color,
         "fg_color": fg_color,
         "fg_hovercolor": fg_hovercolor,
@@ -3571,7 +3563,7 @@ def main():
     global bg_color
     print("main started")
 
-    threading.Thread(target=download_configuration).start()
+    threading.Thread(target=Set_Configuration()).start()
 
     access_keys_info()
     run_server()
