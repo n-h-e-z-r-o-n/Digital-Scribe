@@ -2080,7 +2080,7 @@ def Login_Section_widget(widget):
     therapist_login_link.place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.41)
     change_fg_OnHover(therapist_login_link, '#00AB66', '#A8E4A0')
 
-    login_status = tk.Label(login_section, bg=bg_color, fg='red', font=("Bahnschrift", 8, 'italic'))
+    login_status = tk.Label(login_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
     login_section.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
     # ---------------------------------------------------------------- Forgot password section --------------------------------------------------
@@ -2110,6 +2110,9 @@ def Login_Section_widget(widget):
     Jump_to_login_link = tk.Button(Forgot_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Login', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0, command=lambda: login_section.tkraise())
     Jump_to_login_link.place(relheight=0.04, relwidth=0.3, rely=0.78, relx=0.31)
     change_fg_OnHover(Jump_to_login_link, '#00AB66', '#A8E4A0')
+
+    forgot_pass_status = tk.Label(login_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
+    forgot_pass_status.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
     # ---------------------------------------------------------------- sign-up section --------------------------------------------------
 
