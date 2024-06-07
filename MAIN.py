@@ -1667,10 +1667,11 @@ def attach_scroll(widget, color=None):
 
 def download_app_icon():
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
-    filename = 'panda.ico'
+    filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
     with open(filename, 'wb') as f:
         f.write(response.content)
+
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
@@ -1713,6 +1714,7 @@ def access_keys_info():
         print("access_keys_info Function:", e)
         modify_css()
         pass
+
 
 
 def save_keys():
