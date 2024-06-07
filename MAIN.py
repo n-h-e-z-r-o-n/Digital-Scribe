@@ -1994,6 +1994,17 @@ def login_Request(email, passw, widget):
         User_Name = None
         User_Image = None
         User_Phone = None
+
+        dic = {
+            "_E_token_": bg_color,
+            "_P_token_": fg_color,
+        }
+
+        json_object = json.dumps(dic, indent=4)
+
+        with open("./Data_Raw/themes_config.json", "w") as outfile:
+            outfile.write(json_object)
+
         User_Home_page(root)
 
     except Exception as e:
