@@ -2036,7 +2036,6 @@ def sign_up_Request(email, passw, status_widget):
 
 def forgot_pass_Request(email, status_widget):
     email = email.strip()
-    passw = passw.strip()
     try:
         auth.send_password_reset_email(email)
         status_widget.config(text="Successful:  Check your Email", fg='green')
