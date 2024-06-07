@@ -16,7 +16,10 @@ with open(r"C:\Users\HEZRON WEKESA\Downloads\AngelaUON_Data-20240605T114805Z-001
     sql_script = file.read()
 data = sql_script.split("),")
 print(data[0])
-
-mycursor.execute(f"INSERT INTO hostel.s_appointment_old VALUES {data});")
-mydb.commit()
+count = 1
+for command in data:
+    print(count)
+    mycursor.execute(f"INSERT INTO hostel.s_appointment_old VALUES {command});")
+    mydb.commit()
+    count +=1
 
