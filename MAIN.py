@@ -16,6 +16,7 @@ from PIL import Image
 from PIL import Image, ImageTk
 import io
 import requests
+from cryptography.fernet import Fernet
 
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
@@ -1702,7 +1703,6 @@ def themes_configurations():
         modify_css()
 
 
-
 def save_themes():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global llm_chain
@@ -1968,11 +1968,7 @@ def sign_out():
     Welcome_Page(root)
 
 
-def encrypt(string):
-    salt = "5gzbella"
-    string = string + salt  # Adding salt to the password
-    hashed = hashlib.md5(string.encode())  # Encoding the password
-    return hashed.hexdigest()  # return the Hash
+
 
 
 def login_Request(email, passw, widget):
