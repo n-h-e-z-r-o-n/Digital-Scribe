@@ -563,25 +563,9 @@ def change_color(widget, button):
                 child.config(bg=nav_bg)
 
         Home_page_frame.config(bg=fg_color)
-        dic = {
-            '_GA_': gradient_ai_access_key,
-            '_GW_': gradient_ai_workspace_id,
-            '_G_FT_M_': gradient_ai_finetuned_id,
-            '_G_B_M_': gradient_ai_base_model_id,
-            '_AAI_': assemblyai_access_key,
-            "bg_color": bg_color,
-            "fg_color": fg_color,
-            "fg_hovercolor": fg_hovercolor,
-            "bg_hovercolor": bg_hovercolor,
-            "current_theme": current_theme,
-            "nav_bg": nav_bg
-        }
 
-        json_object = json.dumps(dic, indent=4)
-
-        with open("./Data_Raw/keys.json", "w") as outfile:
-            outfile.write(json_object)
-
+        save_themes()
+        
     modify_css()
 
     threading.Thread(target=change_all).start()
@@ -1695,7 +1679,7 @@ def Set_Configuration():
 
                 break
         except Exception as e:
-            print(e)
+            print("Set_Configuration Function:", e)
 
 
 def themes_configurations():
@@ -1716,7 +1700,7 @@ def themes_configurations():
     except Exception as e:
         print("themes_configurations Function:", e)
         modify_css()
-        pass
+
 
 
 def save_themes():
@@ -2601,21 +2585,6 @@ def settings(widget):
     assembly_widget.insert(0, assemblyai_access_key)
     change_bg_OnHover(assembly_widget, bg_hovercolor)
 
-    def Want_Save(g_access, g_workkey, g_finetuned_id, g_base_model_id, Assemly_key):
-        global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id
-
-        gradient_ai_access_key = str(g_access).strip()
-        gradient_ai_workspace_id = str(g_workkey).strip()
-        gradient_ai_finetuned_id = str(g_finetuned_id).strip()
-        gradient_ai_base_model_id = str(g_base_model_id).strip()
-        assemblyai_access_key = str(Assemly_key).strip()
-
-        save_keys()
-
-    save = tk.Button(g1, text="save ", bg=bg_color, fg=fg_color, font=("Calibri", 12, 'bold'), activebackground=bg_color, activeforeground=fg_hovercolor, borderwidth=0, border=0, command=lambda: Want_Save(gradient_access_widget.get(), gradient_work_widget.get(), gradient_finetuned_model_id.get(), gradient_base_model_id.get(), assembly_widget.get()))
-    save.place(relheight=0.05, relwidth=0.07, rely=0.94, relx=0.92)
-    # change_bg_OnHover(save, 'lightgreen', bg_color)
-    change_fg_OnHover(save, fg_hovercolor)
 
     # ======================================================= Section 2 ===========================================================================================================================================
 
