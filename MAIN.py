@@ -72,10 +72,11 @@ from PIL import Image
 import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+def paddleocr_import():
+    global draw_ocr
+    from paddleocr import PaddleOCR, draw_ocr  # [ pip install paddleocr , pip install protobuf==3.20.0]
 
-from paddleocr import PaddleOCR, draw_ocr  # [ pip install paddleocr , pip install protobuf==3.20.0]
-
-ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
+    ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
 
 # -------------------------------  ------------------------------------------------------------------------------------------------------------------------
 
@@ -2012,8 +2013,8 @@ def login_Request(email, passw, widget = None):
         User_Phone = None
 
         dic = {
-            "_E_token_": encrypt_data(email),
-            "_P_token_": encrypt_data(passw),
+            "_E_token_": encrypt_data(email).decode(),
+            "_P_token_": encrypt_data(passw).decode(),
         }
 
         json_object = json.dumps(dic, indent=4)
