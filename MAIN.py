@@ -150,7 +150,7 @@ Recording_summary = ''
 audio_frames = None
 downloading_audio = False
 path_exe = os.getcwd()
-
+cipher_suite = None
 clinical_Note_upload_btn = None
 proccessed_img_url = None
 font_size = 15
@@ -1652,7 +1652,7 @@ def attach_scroll(widget, color=None):
 
 def download_configuration():
     global cipher_suite
-    
+
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
@@ -1972,18 +1972,22 @@ def sign_out():
 
 
 def encrypt(text):
+    global cipher_suite
     encoded_text = text.encode()
     encrypted_text = cipher_suite.encrypt(encoded_text)
     return encrypted_text
 
+
 def decrypt(encrypted_text):
+    global cipher_suite
     decrypted_text = cipher_suite.decrypt(encrypted_text)
     return decrypted_text.decode()
 
 
 def login_Request(email, passw, widget):
     global root, User_Email, User_Pass, User_Name, User_Image, User_Phone
-
+    email = email.strip()
+    passw = passw.strip()
     try:
         auth.sign_in_with_email_and_password(email, passw)
         userInfo = auth.current_user
@@ -2002,8 +2006,8 @@ def login_Request(email, passw, widget):
         User_Phone = None
 
         dic = {
-            "_E_token_": bg_color,
-            "_P_token_": fg_color,
+            "_E_token_": encrypt(email),
+            "_P_token_": encrypt(passw),
         }
 
         json_object = json.dumps(dic, indent=4)
@@ -2020,6 +2024,8 @@ def login_Request(email, passw, widget):
 
 
 def sign_up_Request(email, passw, status_widget):
+    email = email.strip()
+    passw = passw.strip()
     try:
         auth.create_user_with_email_and_password(email, passw)
         status_widget.config(text='')
@@ -2029,6 +2035,8 @@ def sign_up_Request(email, passw, status_widget):
 
 
 def forgot_pass_Request(email, status_widget):
+    email = email.strip()
+    passw = passw.strip()
     try:
         auth.send_password_reset_email(email)
         status_widget.config(text="Successful:  Check your Email", fg='green')
