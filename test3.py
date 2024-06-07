@@ -1,16 +1,21 @@
-import pyrebase
-config = {
-        'apiKey': "AIzaSyAL6KeL8SGTc7GvHtWQLhVXQ3A_pfs0fgA",
-        'authDomain': "mentalhealth-badb3.firebaseapp.com",
-        'databaseURL': "https://trialauth-7eeal-7eeal.firebaseio.com",
-        'projectId': "mentalhealth-badb3",
-        'storageBucket': "mentalhealth-badb3.appspot.com",
-        'messagingSenderId': "668556041575",
-        'appId': "1:668556041575:web:8170d74edf2fdbcf8f23c2",
-        'measurementId': "G-168YG4NVDE"
-}
-firebase = pyrebase.initialize_app(config)
+host_name = "localhost"
+user_name = "root"
+password_key = "12hezron12"
+database_name = "hostel"
+import mysql.connector
 
-db = firebase.database()
-data = {"name": "Mortimer 'Morty' Smith"}
-db.child("users").push(data)
+mydb = mysql.connector.connect(
+host=host_name,
+user=user_name,
+password=password_key,
+database=database_name
+)
+mycursor = mydb.cursor()
+
+mycursor.execute(
+f"""
+                            
+                            
+""")
+mydb.commit()
+
