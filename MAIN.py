@@ -1666,7 +1666,7 @@ def attach_scroll(widget, color=None):
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def download_app_icon():
-    url = "https://raw.githubusercontent.com/Hezron26/assets/main/panda.ico"
+    url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = 'panda.ico'
     response = requests.get(url)
     with open(filename, 'wb') as f:
