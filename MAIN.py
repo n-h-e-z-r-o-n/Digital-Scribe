@@ -2037,7 +2037,7 @@ def sign_up_widget(widget):
     # Forgot_password_widget.place(relheight=0.7, relwidth=0.25, rely=0.05, relx=0.34)
 
     tk.Label(sign_up_widget, bg=nav_bar_color, fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Go to Login?', font=('Aptos Narrow', 10), relief="solid", anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.2, rely=0.78, relx=0.1)
-    Jump_to_login_link = tk.Button(sign_up_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Login', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0, command=lambda: back(Forgot_password_widget))
+    Jump_to_login_link = tk.Button(sign_up_widget, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text='Login', font=('Aptos Narrow', 10, 'bold'), relief="solid", anchor='w', borderwidth=0, border=0, command=lambda: back(sign_up_widget))
     Jump_to_login_link.place(relheight=0.04, relwidth=0.3, rely=0.78, relx=0.31)
     change_fg_OnHover(Jump_to_login_link, '#00AB66', '#A8E4A0')
 
