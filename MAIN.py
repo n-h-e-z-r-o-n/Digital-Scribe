@@ -3459,8 +3459,8 @@ def main():
 
     title_bar_color(bg_color)
 
-    User_Home_page(root)
-    # Welcome_Page(root)
+    #User_Home_page(root)
+    Welcome_Page(root)
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
