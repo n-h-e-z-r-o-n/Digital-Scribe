@@ -1965,10 +1965,10 @@ def imagen(image_path, screen_width, screen_height, widget):  # image processing
 
 
 # =============================== Pages Functions definition =======================================================================================
-def sign_out():
+def sign_out_request():
     global Home_page_frame, root
     Home_page_frame.destroy()
-    Welcome_Page(root)
+
 
 
 def encrypt_data(text):
@@ -2506,10 +2506,8 @@ def profile(widget):
     user_Photo = user_Photo.encode('utf-8')  # Convert the content to bytes
     imagen(user_Photo, int(screen_width * 0.9747 * 0.09), int(screen_height * 0.96 * 0.11), user_profile_widget)
 
-    tk.Label(profile_widget, text=f" {First_name} {Second_Name} {Last_Name}", bg=back_ground_color, fg=for_ground_color,
-             anchor="w", font=("Calibri", 12)).place(relheight=0.03, relwidth=0.14, relx=0.111, rely=0.02)
-    tk.Label(profile_widget, text=f" user_id:{user_id}", bg=back_ground_color, fg=for_ground_color, anchor="w",
-             font=("Calibri", 13)).place(relheight=0.03, relwidth=0.14, relx=0.111, rely=0.06)
+    tk.Label(profile_widget, text=f" {First_name} {Second_Name} {Last_Name}", bg=back_ground_color, fg=for_ground_color, anchor="w", font=("Calibri", 12)).place(relheight=0.03, relwidth=0.14, relx=0.111, rely=0.02)
+    tk.Label(profile_widget, text=f" user_id:{user_id}", bg=back_ground_color, fg=for_ground_color, anchor="w", font=("Calibri", 13)).place(relheight=0.03, relwidth=0.14, relx=0.111, rely=0.06)
 
     return profile_widget
 
@@ -2948,7 +2946,7 @@ def Profile_Page(widget):
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out", font=(font_size - 4), borderwidth=0, border=0, command=lambda: sign_out())
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out", font=(font_size - 4), borderwidth=0, border=0, command=lambda: sign_out_request())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
     change_fg_OnHover(sign_out_widget, 'red')
 
@@ -3533,13 +3531,15 @@ def main():
 
     title_bar_color(bg_color)
 
+    Welcome_Page(root)
+
     try:
         with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
             cur_detail = json.load(openfile)
         login_Request(decrypt_data(cur_detail['_E_token_']), decrypt_data(cur_detail['_P_token_']), widget=None)
 
     except:
-       Welcome_Page(root)
+       pass
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
