@@ -1680,21 +1680,22 @@ def Set_Configuration():
     global gradient_ai_workspace_id,  gradient_ai_access_key, assemblyai_access_key, Gem_Key
     global gradient_ai_finetuned_id, gradient_ai_base_model_id
 
-    download_configuration()
+    while True:
+        download_configuration()
 
-    try:
-        with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
-            configs = json.load(openfile)
+        try:
+            with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
+                configs = json.load(openfile)
 
-            gradient_ai_access_key = configs['_GA_']
-            gradient_ai_workspace_id = configs['_GW_']
-            gradient_ai_finetuned_id = configs['_G_FT_M_']
-            gradient_ai_base_model_id = configs['_G_B_M_']
-            assemblyai_access_key = configs['_AAI_']
-            Gem_Key = configs['_AAI_']
-
-    except:
-        pass
+                gradient_ai_access_key = configs['_GA_']
+                gradient_ai_workspace_id = configs['_GW_']
+                gradient_ai_finetuned_id = configs['_G_FT_M_']
+                gradient_ai_base_model_id = configs['_G_B_M_']
+                assemblyai_access_key = configs['_AAI_']
+                Gem_Key = configs['_GemAI_']
+                break
+        except:
+            pass
 
 
 
@@ -1710,13 +1711,7 @@ def access_keys_info():
         with open('./Data_Raw/keys.json', 'r') as openfile:  # Reading from json file
             keys = json.load(openfile)
 
-            gradient_ai_access_key = keys['_GA_']
-            gradient_ai_workspace_id = keys['_GW_']
-            gradient_ai_finetuned_id = keys['_G_FT_M_']
-            gradient_ai_base_model_id = keys['_G_B_M_']
-
-            assemblyai_access_key = keys['_AAI_']
-
+            
             bg_color = keys['bg_color']
             fg_color = keys['fg_color']
             fg_hovercolor = keys['fg_hovercolor']
