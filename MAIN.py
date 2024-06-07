@@ -109,6 +109,9 @@ gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
+
+
+
 User_Name = ''
 User_Email = ''
 User_Phone = ''
@@ -1665,13 +1668,16 @@ def attach_scroll(widget, color=None):
 
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-def download_app_icon():
+def download_configuration():
     url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
     filename = './Data_Raw/system.keys.json'
     response = requests.get(url)
     with open(filename, 'wb') as f:
         f.write(response.content)
 
+
+def Set_Configuration():
+    global gradient_ai_workspace_id,  gradient_ai_access_key, assemblyai_access_key, Gem_Key,
 
 def access_keys_info():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys
@@ -3546,6 +3552,8 @@ def main():
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
     global bg_color
     print("main started")
+
+    threading.Thread(target=download_configuration).start()
 
     access_keys_info()
     run_server()
