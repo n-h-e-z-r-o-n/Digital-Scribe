@@ -1682,7 +1682,6 @@ def Set_Configuration():
 
     while True:
         download_configuration()
-
         try:
             with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
                 configs = json.load(openfile)
@@ -1707,7 +1706,7 @@ def Set_Configuration():
 
 
 
-def access_keys_info():
+def themes_configurations,():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
     try:
