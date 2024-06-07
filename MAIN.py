@@ -1761,10 +1761,6 @@ def save_keys():
 
     with open("./Data_Raw/keys.json", "w") as outfile:
         outfile.write(json_object)
-
-    os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-    os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-
     print("saved")
 
     llm_chain = None
