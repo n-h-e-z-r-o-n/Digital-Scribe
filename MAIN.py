@@ -1714,7 +1714,7 @@ def themes_configurations():
 
             modify_css()
     except Exception as e:
-        print("access_keys_info Function:", e)
+        print("themes_configurations Function:", e)
         modify_css()
         pass
 
