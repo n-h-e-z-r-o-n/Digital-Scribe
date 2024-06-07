@@ -45,7 +45,8 @@ def forgot_pass():
         email = 'hezron.w12@gmail.com'
         auth.send_password_reset_email(email)
 
-
+m = db.get()
+print(m)
 
 
 
