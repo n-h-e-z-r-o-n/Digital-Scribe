@@ -2029,6 +2029,8 @@ def sign_up_Request(email, passw, root_widget):
         print(e)
 
 
+def forgot_pass_Request(email, widget):
+        auth.send_password_reset_email(email)
 
 
 
@@ -2097,7 +2099,7 @@ def Login_Section_widget(widget):
     email_password_entry_widg.place(relheight=0.1, relwidth=0.8, rely=0.43, relx=0.1)
     change_bg_OnHover(email_password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
-    password_reset__btn = tk.Button(Forgot_section, bg='#1C352D', fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0)
+    password_reset__btn = tk.Button(Forgot_section, bg='#1C352D', fg=lighten_hex_color(bg_color), activebackground='#8A9A5B', text='Request Password reset', font=('Aptos Narrow', 11, 'bold'), relief="solid", borderwidth=0, border=0, command=lambda :forgot_pass_Request(email_password_entry_widg.get(), forgot_pass_status))
     password_reset__btn.place(relheight=0.1, relwidth=0.8, rely=0.6, relx=0.1)
     change_bg_OnHover(password_reset__btn, '#004830', '#1C352D')
 
@@ -2111,7 +2113,7 @@ def Login_Section_widget(widget):
     Jump_to_login_link.place(relheight=0.04, relwidth=0.3, rely=0.78, relx=0.31)
     change_fg_OnHover(Jump_to_login_link, '#00AB66', '#A8E4A0')
 
-    forgot_pass_status = tk.Label(login_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
+    forgot_pass_status = tk.Label(Forgot_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
     forgot_pass_status.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
     # ---------------------------------------------------------------- sign-up section --------------------------------------------------
@@ -2132,19 +2134,22 @@ def Login_Section_widget(widget):
     password_entry_widg.place(relheight=0.08, relwidth=0.98, rely=0.48, relx=0.01)
     change_bg_OnHover(password_entry_widg, 'lightblue', lighten_hex_color(bg_color))
 
-    login_btn = tk.Button(sign_up_section, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='SIGN UP', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: sign_up_Request(Email_entry_widg.get(), password_entry_widg.get(), widget2))
-    login_btn.place(relheight=0.08, relwidth=0.98, rely=0.82, relx=0.01)
+    login_btn = tk.Button(sign_up_section, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='SIGN UP', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: sign_up_Request(Email_entry_widg.get(), password_entry_widg.get(), sign_up_status ))
+    login_btn.place(relheight=0.08, relwidth=0.98, rely=0.72, relx=0.01)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
 
-    tk.Label(sign_up_section, bg=nav_bar_color, text="Have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.91, relx=0.01)
+    tk.Label(sign_up_section, bg=nav_bar_color, text="Have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.81, relx=0.01)
     Sign_up_login_link = tk.Button(sign_up_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="login", command=lambda: login_section.tkraise(), font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
-    Sign_up_login_link.place(relheight=0.04, relwidth=0.4, rely=0.91, relx=0.41)
+    Sign_up_login_link.place(relheight=0.04, relwidth=0.4, rely=0.81, relx=0.41)
     change_fg_OnHover(Sign_up_login_link, '#00AB66', '#A8E4A0')
 
-    tk.Label(sign_up_section, bg=nav_bar_color, text="Forgot Password", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.96, relx=0.01)
+    tk.Label(sign_up_section, bg=nav_bar_color, text="Forgot Password", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.01)
     sign_up_link = tk.Button(sign_up_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="passw reset",  command=lambda: Forgot_section.tkraise(), font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
-    sign_up_link.place(relheight=0.04, relwidth=0.4, rely=0.96, relx=0.41)
+    sign_up_link.place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.41)
     change_fg_OnHover(sign_up_link, '#00AB66', '#A8E4A0')
+
+    sign_up_status = tk.Label(sign_up_section, bg=nav_bar_color, fg='red', font=("Bahnschrift", 8, 'italic'))
+    sign_up_status.place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
 
 
