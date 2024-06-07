@@ -72,12 +72,15 @@ from PIL import Image
 import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+
+draw_ocr =  ocr_model = None
+
 def paddleocr_import():
-    global draw_ocr
+    global draw_ocr, ocr_model
     from paddleocr import PaddleOCR, draw_ocr  # [ pip install paddleocr , pip install protobuf==3.20.0]
-
+    draw_ocr = draw_ocr
     ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
-
+threading.Thread(target=paddleocr_import).start()
 # -------------------------------  ------------------------------------------------------------------------------------------------------------------------
 
 from docx2pdf import convert  # pip install docx2pdf
@@ -1993,41 +1996,41 @@ def login_Request(email, passw, widget = None):
     passw = passw.strip()
     print("email: ", email)
     print("pass: ", passw)
-    try:
-        auth.sign_in_with_email_and_password(email, passw)
-        userInfo = auth.current_user
-        idToken = userInfo['idToken']
-        displayName = userInfo['displayName']
-        expiresIn = userInfo['expiresIn']
-        email = userInfo['email']
-        print(auth.current_user, '\n\n')
-        print()
+    #try:
+    auth.sign_in_with_email_and_password(email, passw)
+    userInfo = auth.current_user
+    idToken = userInfo['idToken']
+    displayName = userInfo['displayName']
+    expiresIn = userInfo['expiresIn']
+    email = userInfo['email']
+    print(auth.current_user, '\n\n')
+    print()
 
-        if widget is not None:
-            widget.config(text="")
+    if widget is not None:
+        widget.config(text="")
 
-        User_Email = email
-        User_Pass = passw
-        User_Name = None
-        User_Image = None
-        User_Phone = None
+    User_Email = email
+    User_Pass = passw
+    User_Name = ''
+    User_Image = ''
+    User_Phone = ''
 
-        dic = {
-            "_E_token_": encrypt_data(email).decode(),
-            "_P_token_": encrypt_data(passw).decode(),
-        }
+    dic = {
+        "_E_token_": encrypt_data(email).decode(),
+        "_P_token_": encrypt_data(passw).decode(),
+    }
 
-        json_object = json.dumps(dic, indent=4)
+    json_object = json.dumps(dic, indent=4)
 
-        with open("./Data_Raw/CUR_user.json", "w") as outfile:
-            outfile.write(json_object)
+    with open("./Data_Raw/CUR_user.json", "w") as outfile:
+        outfile.write(json_object)
 
-        User_Home_page(root)
+    User_Home_page(root)
 
-    except Exception as e:
-        print("Loging process error :", e)
-        if widget is not None:
-            widget.config(text="Login Authentication Error. Check your login cridentials !!")
+    #except Exception as e:
+    #print("Loging process error :", e)
+    if widget is not None:
+        widget.config(text="Login Authentication Error. Check your login cridentials !!")
 
 
 
@@ -2500,23 +2503,7 @@ def call(widget):
     return call_widget
 
 
-def profile(widget):
-    global screen_width, screen_height, user_id, First_name, Second_Name, Last_Name, Email, user_Photo
-    back_ground_color = "#F5FEFD"
-    for_ground_color = "black"
-    profile_widget = tk.Frame(widget, bg=back_ground_color, borderwidth=0, border=0)
-    profile_widget.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    user_profile_widget = tk.Label(profile_widget, bg=back_ground_color, fg=for_ground_color)
-    user_profile_widget.place(relheight=0.11, relwidth=0.09, relx=0.02, rely=0.02)
-    user_Photo = user_Photo[2:]
-    user_Photo = user_Photo.encode('utf-8')  # Convert the content to bytes
-    imagen(user_Photo, int(screen_width * 0.9747 * 0.09), int(screen_height * 0.96 * 0.11), user_profile_widget)
-
-    tk.Label(profile_widget, text=f" {First_name} {Second_Name} {Last_Name}", bg=back_ground_color, fg=for_ground_color, anchor="w", font=("Calibri", 12)).place(relheight=0.03, relwidth=0.14, relx=0.111, rely=0.02)
-    tk.Label(profile_widget, text=f" user_id:{user_id}", bg=back_ground_color, fg=for_ground_color, anchor="w", font=("Calibri", 13)).place(relheight=0.03, relwidth=0.14, relx=0.111, rely=0.06)
-
-    return profile_widget
 
 
 def RAG_page(widget):
