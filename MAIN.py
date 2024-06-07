@@ -17,6 +17,7 @@ from PIL import Image, ImageTk
 import io
 import base64
 
+
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
 # import docx
@@ -49,6 +50,21 @@ from vosk import Model, KaldiRecognizer
 import whisper  # pip install -U openai-whisper
 import wave
 from pydub import AudioSegment  # used for converting .wav to .mp3
+# --------------------------------- FireBase config data/labraries ---------------------------------------------------------------------------------------
+import pyrebase
+config = {
+        'apiKey': "AIzaSyAL6KeL8SGTc7GvHtWQLhVXQ3A_pfs0fgA",
+        'authDomain': "mentalhealth-badb3.firebaseapp.com",
+        'databaseURL': "https://trialauth-7eeal-7eeal.firebaseio.com",
+        'projectId': "mentalhealth-badb3",
+        'storageBucket': "mentalhealth-badb3.appspot.com",
+        'messagingSenderId': "668556041575",
+        'appId': "1:668556041575:web:8170d74edf2fdbcf8f23c2",
+        'measurementId': "G-168YG4NVDE"
+}
+
+firebase = pyrebase.initialize_app(config)
+auth = firebase.auth() #Authentication
 # ------------------------------- img-to-text -------------------------------------------------------------------------------------------------------------
 
 from PIL import Image
@@ -1984,6 +2000,8 @@ def encrypt(string):
 
 def login_Request(email, passw, widget):
     global root
+
+
     User_Home_page(root)
     widget.destroy()
 
