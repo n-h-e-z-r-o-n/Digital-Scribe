@@ -1,22 +1,16 @@
-from paddleocr import PaddleOCR,draw_ocr
-# Paddleocr supports Chinese, English, French, German, Korean and Japanese.
-# You can set the parameter `lang` as `ch`, `en`, `french`, `german`, `korean`, `japan`
-# to switch the language model in order.
-ocr = PaddleOCR(use_angle_cls=True, lang='en') # need to run only once to download and load model into memory
-img_path = 'PaddleOCR/doc/imgs_en/img_12.jpg'
-result = ocr.ocr(img_path, cls=True)
-for idx in range(len(result)):
-    res = result[idx]
-    for line in res:
-        print(line)
+import pyrebase
+config = {
+        'apiKey': "AIzaSyAL6KeL8SGTc7GvHtWQLhVXQ3A_pfs0fgA",
+        'authDomain': "mentalhealth-badb3.firebaseapp.com",
+        'databaseURL': "https://trialauth-7eeal-7eeal.firebaseio.com",
+        'projectId': "mentalhealth-badb3",
+        'storageBucket': "mentalhealth-badb3.appspot.com",
+        'messagingSenderId': "668556041575",
+        'appId': "1:668556041575:web:8170d74edf2fdbcf8f23c2",
+        'measurementId': "G-168YG4NVDE"
+}
+firebase = pyrebase.initialize_app(config)
 
-# draw result
-from PIL import Image
-result = result[0]
-image = Image.open(img_path).convert('RGB')
-boxes = [line[0] for line in result]
-txts = [line[1][0] for line in result]
-scores = [line[1][1] for line in result]
-im_show = draw_ocr(image, boxes, txts, scores, font_path='/path/to/PaddleOCR/doc/fonts/simfang.ttf')
-im_show = Image.fromarray(im_show)
-im_show.save('result.jpg')
+db = firebase.database()
+data = {"name": "Mortimer 'Morty' Smith"}
+db.child("users").push(data)
