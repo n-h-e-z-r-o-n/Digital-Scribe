@@ -565,7 +565,7 @@ def change_color(widget, button):
         Home_page_frame.config(bg=fg_color)
 
         save_themes()
-        
+
     modify_css()
 
     threading.Thread(target=change_all).start()
