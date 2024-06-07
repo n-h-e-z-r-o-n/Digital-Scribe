@@ -2001,11 +2001,11 @@ def encrypt(string):
 def login_Request(email, passw, widget):
     global root
     def status(widg, txt):
-        global root
-        status = tk.Label(widg, text=txt, bg="green", fg='red', font=("Bahnschrift"))
-        status. place(relheight=0.07,relwidth=1,relx=0, rely=0.93)
+        global root, bg_color
+        status = tk.Label(widg, text=txt, bg=bg_color, fg='red', font=("Bahnschrift", 8, 'italic'))
+        status. place(relheight=0.07, relwidth=1, relx=0, rely=0.93)
 
-        #root.after(4000, status.destroy())
+        root.after(4000, status.destroy())
 
     try:
         auth.sign_in_with_email_and_password(email, passw)
@@ -2021,7 +2021,7 @@ def login_Request(email, passw, widget):
 
     except Exception as e:
 
-        threading.Thread(target=status, args=(widget, 'Login Authentication Error, Check Your Credential !'))
+        threading.Thread(target=status, args=(widget, 'Login Authentication Error, Check Your Credential !',)).start()
 
         print(e)
 
@@ -2071,19 +2071,19 @@ def Login_Section_widget(widget):
     change_fg_OnHover(Forgot_password_login_link, '#00AB66', '#A8E4A0')
 
     login_btn = tk.Button(login_section, bg='#1C352D', fg='white', activebackground='#8A9A5B', text='LOGIN', foreground=lighten_hex_color(bg_color), font=("Aptos", 15, 'bold'), borderwidth=1, border=0, command=lambda: login_Request(Email_entry_widg.get(), password_entry_widg.get(), login_section))
-    login_btn.place(relheight=0.08, relwidth=0.98, rely=0.82, relx=0.01)
+    login_btn.place(relheight=0.08, relwidth=0.98, rely=0.72, relx=0.01)
     change_bg_OnHover(login_btn, '#004830', '#1C352D')
     # password_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
     # Email_entry_widg.bind('<Return>', lambda e: login_Request(Email_entry_widg.get(), password_entry_widg.get(), root_widget))
 
-    tk.Label(login_section, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.91, relx=0.01)
+    tk.Label(login_section, bg=nav_bar_color, text="Don't have an account?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.81, relx=0.01)
     Sign_up_login_link = tk.Button(login_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="Sign up", command=lambda: sign_up_section.tkraise(), font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
-    Sign_up_login_link.place(relheight=0.04, relwidth=0.4, rely=0.91, relx=0.41)
+    Sign_up_login_link.place(relheight=0.04, relwidth=0.4, rely=0.81, relx=0.41)
     change_fg_OnHover(Sign_up_login_link, '#00AB66', '#A8E4A0')
 
-    tk.Label(login_section, bg=nav_bar_color, text="Provider?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.96, relx=0.01)
+    tk.Label(login_section, bg=nav_bar_color, text="Provider?", font=("Aptos Narrow", 10), fg=lighten_hex_color(bg_color), anchor='w', borderwidth=0, border=0).place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.01)
     therapist_login_link = tk.Button(login_section, bg=nav_bar_color, fg='#A8E4A0', activeforeground='#A8E4A0', activebackground=nav_bar_color, text="Log in", font=("Aptos Narrow", 11, 'bold'), anchor='w', borderwidth=0, border=0)
-    therapist_login_link.place(relheight=0.04, relwidth=0.4, rely=0.96, relx=0.41)
+    therapist_login_link.place(relheight=0.04, relwidth=0.4, rely=0.86, relx=0.41)
     change_fg_OnHover(therapist_login_link, '#00AB66', '#A8E4A0')
 
     # ---------------------------------------------------------------- Forgot password section --------------------------------------------------
