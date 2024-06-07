@@ -3390,7 +3390,6 @@ def User_Home_page(widget):
     CHAT_Widget.tkraise()
     active(st2_bt)
 
-    return container2
 
 
 def Welcome_Page(wiget):
