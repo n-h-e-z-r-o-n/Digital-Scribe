@@ -14,8 +14,9 @@ mycursor = mydb.cursor()
 
 with open(r"C:\Users\HEZRON WEKESA\Downloads\AngelaUON_Data-20240605T114805Z-001 (1)\AngelaUON_Data\sba_makadara_appointment_old.sql", 'r') as file:
     sql_script = file.read()
+data = sql_script.split("),")
+print(data[0])
 
-print(sql_script)
-mycursor.execute(sql_script)
+mycursor.execute(f"INSERT INTO hostel.s_appointment_old VALUES {data});")
 mydb.commit()
 
