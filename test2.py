@@ -16,6 +16,8 @@ formatted_date = now.strftime("%Y,%m,%d")
 formatted_time = now.strftime("%H:%M:%S")
 
 m = formatted_date.split(',')
+
+
 specific_date = date(int(m[0]), int(m[1]),int( m[2])-1)
 
 n = current_date - specific_date
