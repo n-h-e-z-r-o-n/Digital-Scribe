@@ -2245,28 +2245,33 @@ def Main_Page(widget):
         defalt_font_style = 'Times New Roman'
         defalt_font_size = 13
 
-        def check(widget1=widget1, widget2=widget2, widget3=widget3):
-            global defalt_font_style, defalt_font_size, closed
-            while not closed:
-                try:
-                    font_style = widget1.get()
-                    font_size = widget2.get()
-                    if font_size == '':
-                        font_size = '8'
-                    if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
-                        try:
-                            widget3.config(font=(font_style, font_size))
-                            defalt_font_style = font_style.strip()
-                            defalt_font_size = int(font_size)
-                            print('changed')
-                        except Exception as e:
-                            print('font_change error :', e)
 
-                    time.sleep(1)
-                except Exception as e:
-                  print(e)
+        while not closed:
+            try:
+                font_style = widget1.get()
+                font_size = widget2.get()
+                font_size = font_size.strip()
+                font_style = font_style.strip()
+                if font_size == '':
+                    font_size = '8'
 
-        check()
+                if int(font_size) > 50:
+                    font_size = '12'
+
+                if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
+                    try:
+                        widget3.config(font=(font_style, font_size))
+                        defalt_font_style = font_style.strip()
+                        defalt_font_size = int(font_size)
+                        print('changed')
+                    except Exception as e:
+                        print('font_change error :', e)
+
+                time.sleep(1)
+            except Exception as e:
+              print(e)
+
+
 
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
@@ -2311,8 +2316,7 @@ def Main_Page(widget):
     paned_window.add(t3)
 
     threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
-    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t2,)).start()
-    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t3,)).start()
+
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
     entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
