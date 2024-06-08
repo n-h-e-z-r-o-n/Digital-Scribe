@@ -3553,7 +3553,17 @@ def main():
         m =  int(cur_date[1]) - int(cridentials_age[1])
         d = int(cur_date[2]) - int(cridentials_age[2])
 
-        login_Request(decrypt_data(cur_detail['_E_token_']), decrypt_data(cur_detail['_P_token_']), widget=None)
+        if y <= 0:
+            m = m * 30
+            aged = m + d
+            if !(aged < 30):
+
+
+
+
+
+
+
 
     except:
        pass
