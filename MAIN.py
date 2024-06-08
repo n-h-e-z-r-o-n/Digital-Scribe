@@ -2248,7 +2248,7 @@ def Main_Page(widget):
 
         while not closed:
             try:
-                font_style = widget1.get()
+                font_style = widget.cget("text")
                 font_size = widget2.get()
                 font_size = font_size.strip()
                 font_style = font_style.strip()
@@ -2273,8 +2273,33 @@ def Main_Page(widget):
             except Exception as e:
               print(e)
 
-    def font_style():
-        pass
+    def font_style(widget):
+        widg_text = widget.cget("text")
+        if widg_text == "Times New Roman":
+            f_style = "Bahnschrift"
+            widget.config(text=f_style)
+        elif widg_text == "Bahnschrift":
+            f_style = "Courier New"
+            widget.config(text=f_style)
+        elif widg_text == "Courier New":
+            f_style = "Calibri"
+            widget.config(text=f_style)
+        elif widg_text == "Calibri":
+            f_style = "Arial Narrow"
+            widget.config(text=f_style)
+        elif widg_text == "Arial Narrow":
+            f_style = "Blackadder ITC"
+            widget.config(text=f_style)
+        elif widg_text == "Blackadder ITC":
+            f_style = "Candara"
+            widget.config(text=f_style)
+        elif widg_text == "Candara":
+            f_style = "Georgia"
+            widget.config(text=f_style)
+        elif widg_text == "Georgia":
+            f_style = "Times New Roman"
+            widget.config(text=f_style)
+
 
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
@@ -2291,7 +2316,7 @@ def Main_Page(widget):
     font_ = tk.Frame(navbar, bg=nav_bar_bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_entry = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
+    font_style_entry = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1, command=lambda :font_style(font_style_entry))
     font_style_entry.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
 
 
