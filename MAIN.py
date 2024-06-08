@@ -3544,6 +3544,15 @@ def main():
         with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
             cur_detail = json.load(openfile)
         cridentials_age = cur_detail("_CERT_DT_")
+
+        cridentials_age = cridentials_age.split(',')
+        cur_date = now_date.strftime("%Y,%m,%d")
+        cur_date = cur_date.split(',')
+
+        y = int(cur_date[0]) - int(cridentials_age[0])
+        m =  int(cur_date[1]) - int(cridentials_age[1])
+        d = int(cur_date[2]) - int(cridentials_age[2])
+
         login_Request(decrypt_data(cur_detail['_E_token_']), decrypt_data(cur_detail['_P_token_']), widget=None)
 
     except:
