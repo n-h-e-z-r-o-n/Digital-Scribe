@@ -1659,20 +1659,23 @@ def attach_scroll(widget, color=None):
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def download_configuration():
-    global closed
-    while True:
+    def run_download_configuration():
+        global closed
+        while True:
 
-        try:
-            url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
-            filename = './Data_Raw/system.keys.json'
-            response = requests.get(url)
+            try:
+                url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
+                filename = './Data_Raw/system.keys.json'
+                response = requests.get(url)
 
-            with open(filename, 'wb') as f:
-                f.write(response.content)
-            break
-        except:
-            if closed:
+                with open(filename, 'wb') as f:
+                    f.write(response.content)
                 break
+            except:
+                if closed:
+                    break
+
+    threading.Thread(target=run_download_configuration).start()
 
 
 
@@ -1681,8 +1684,8 @@ def Set_Configuration():
         global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, cipher_suite
         global gradient_ai_finetuned_id, gradient_ai_base_model_id
         global closed
+        download_configuration()
         while True:
-            download_configuration()
             try:
                 with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
                     configs = json.load(openfile)
@@ -1706,7 +1709,8 @@ def Set_Configuration():
                 if closed:
                     break
 
-    threading.Thread(target=run_Set_Configuration).start()
+    run_Set_Configuration()
+    #threading.Thread(target=run_Set_Configuration).start()
 
 def themes_configurations():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
@@ -2841,9 +2845,9 @@ def Profile_Page(widget):
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out", font=("Calibri", font_size - 6, 'italic'), borderwidth=0, border=0, command=lambda: sign_out_request())
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg= darken_hex_color(bg_color), text="sign out", font=("Calibri", font_size - 6, 'italic'), borderwidth=0, border=0, command=lambda: sign_out_request())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
-    change_fg_OnHover(sign_out_widget, 'red')
+    change_fg_OnHover(sign_out_widget, fg_color, darken_hex_color(bg_color))
 
     User_imag_widget = tk.Button(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100), borderwidth=0, border=0)
     User_imag_widget.place(relheight=0.17, relwidth=0.12, relx=0.05, rely=0.05)
@@ -2870,25 +2874,25 @@ def Profile_Page(widget):
     # tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
 
     tk.Label(g1, text="ACCESS KEYS ", fg=darken_hex_color(bg_color), bg=bg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
-    tk.Label(g1, text="  GRADIENT_ACCESS_TOKEN :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    tk.Label(g1, text="  G_ACCESS_TOKEN :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
     gradient_access_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
     change_bg_OnHover(gradient_access_widget, bg_hovercolor)
 
-    tk.Label(g1, text="  GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
+    tk.Label(g1, text="  G_WORKSPACE_ID :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
     gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
     change_bg_OnHover(gradient_work_widget, bg_hovercolor)
 
-    tk.Label(g1, text="  NLP_adapter_id :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
+    tk.Label(g1, text="  NLP_adapter_ID :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
     gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_finetuned_model_id.place(relheight=0.07, relwidth=0.74, rely=0.213, relx=0.25)
     gradient_finetuned_model_id.insert(0, gradient_ai_finetuned_id)
     change_bg_OnHover(gradient_finetuned_model_id, bg_hovercolor)
 
-    tk.Label(g1, text="  Base_Model :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
+    tk.Label(g1, text="  B_Model_ID :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
     gradient_base_model_id = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_base_model_id.place(relheight=0.07, relwidth=0.74, rely=0.284, relx=0.25)
     gradient_base_model_id.insert(0, gradient_ai_base_model_id)
