@@ -2906,95 +2906,79 @@ def Profile_Page(widget):
     global bg_color, fg_color
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
-    global chang_status
-
-    chang_status = False
-
-    def Chang_User_Details(Button_widget, User_N_widget, User_E_widget, User_NO_widget, User_PASS_widget, User_IMG_widget):
-        global User_Name, User_Pass, User_Image, User_Email, User_Phone
-        # kChang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget)
-        global chang_status
-        if chang_status == False:
-            User_N_widget.configure(state='normal', bg=lighten_hex_color(bg_color))
-            User_E_widget.configure(state='normal', bg=lighten_hex_color(bg_color))
-            User_NO_widget.configure(state='normal', bg=lighten_hex_color(bg_color))
-            User_PASS_widget.configure(state='normal', bg=lighten_hex_color(bg_color))
-            User_IMG_widget.configure(state='normal', bg=lighten_hex_color(bg_color))
-
-            Button_widget.config(text="Save")
-            chang_status = True
-        else:
-            User_Name = User_N_widget.get()
-            User_Pass = User_PASS_widget.get()
-            User_Email = User_E_widget.get()
-            User_Phone = User_NO_widget.get()
-
-            User_N_widget.configure(state='disabled', disabledbackground=bg_color)
-            User_E_widget.configure(state='disabled', disabledbackground=bg_color)
-            User_NO_widget.configure(state='disabled', disabledbackground=bg_color)
-            User_PASS_widget.configure(state='disabled', disabledbackground=bg_color)
-            User_IMG_widget.configure(state='disabled')
-            Button_widget.config(text="change")
-            chang_status = False
-
-
-    def change_image(widget):
-        global User_Image
-        filetypes = [("pHotos", "*.png;*.jpeg;*.jpg")]
-        file_path = filedialog.askopenfilename(filetypes=filetypes)
-        if file_path:
-            imagen(file_path, int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), widget)
-            User_Image = image_to_byte_string(file_path)
 
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out", font=(font_size - 4), borderwidth=0, border=0, command=lambda: sign_out_request())
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=fg_color, text="sign out", font=("Calibri", font_size - 6, 'italic'), borderwidth=0, border=0, command=lambda: sign_out_request())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
     change_fg_OnHover(sign_out_widget, 'red')
 
     User_imag_widget = tk.Button(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100), command=lambda: change_image(User_imag_widget), borderwidth=0, border=0)
-    User_imag_widget.place(relheight=0.13, relwidth=0.12, relx=0.05, rely=0.05)
-    if User_Image != '':
-        imagen(User_Image, int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), User_imag_widget)
-    User_imag_widget.configure(state='disabled', )
+    User_imag_widget.place(relheight=0.17, relwidth=0.12, relx=0.05, rely=0.05)
+    imagen('./Assets/img.png', int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), User_imag_widget)
 
-    User_Name_widget_lable = tk.Label(profile_page_container, text="EMAIL     : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
-    User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.19)
-    User_Name_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
-    User_Name_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.19)
-    User_Name_widget_entry.insert(0, User_Email)
-    User_Name_widget_entry.configure(state='disabled')
+    User_Name_widget_lable = tk.Label(profile_page_container, text="Email     : ",  anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
+    User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.23)
+    User_Name_widget_entry = tk.Label(profile_page_container, bg=bg_color, text=User_Email, fg='gray', font=('Calibri', font_size - 3), borderwidth=0, border=0)
+    User_Name_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.23)
 
-    User_EMAIL_widget = tk.Label(profile_page_container, text="PassWord    : ", anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_EMAIL_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.221)
-    User_EMAIL_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
-    User_EMAIL_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2215)
-    User_EMAIL_widget_entry.insert(0, "  *  *  *  *  *  *  *  * ")
-    User_EMAIL_widget_entry.configure(state='disabled')
+    User_EMAIL_widget = tk.Label(profile_page_container, text="PassWord    : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
+    User_EMAIL_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.261)
+    User_EMAIL_widget_entry = tk.Label(profile_page_container, bg=bg_color, text="  *  *  *  *  *  *  *  * ", fg='gray', font=('Calibri', font_size - 3), borderwidth=0, border=0)
+    User_EMAIL_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2615)
 
-    """
-    User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : ", anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_PHONE_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.252)
-    User_PHONE_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
-    User_PHONE_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2515)
-    User_PHONE_widget_entry.insert(0, User_Phone)
-    User_PHONE_widget_entry.configure(state='disabled')
+    User_PHONE_widget = tk.Button(profile_page_container, text="Change Password", anchor=tk.W, activebackground=bg_color, activeforeground='green', borderwidth=0, border=0, bg=bg_color, fg=fg_color, font=('Courier New', font_size - 6, 'italic'))
+    User_PHONE_widget.place(relheight=0.03, relwidth=0.1, relx=0.05, rely=0.292)
 
-    User_PASS_widget = tk.Label(profile_page_container, text="PASS     : ", anchor=tk.W, bg=bg_color, fg=fg_color)
-    User_PASS_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.283)
-    User_PASS_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
-    User_PASS_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2835)
-    User_PASS_widget_entry.insert(0, "  *  *  *  *  *  *  *  * ")
-    User_PASS_widget_entry.configure(state='disabled')
-    """
-    
-    change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda: Chang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget))
-    change_profile_detail.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.3145)
-    change_fg_OnHover(change_profile_detail, 'yellow', fg_color)
+    # ======================================================= Section 1 ===========================================================================================================================================
 
-    # Conversation_Name_widget.configure(state='normal')
-    # Conversation_Name_widget.configure(state='disabled', disabledbackground=darken_hex_color(bg_color))
+    g1 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g1.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
+
+    # tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
+
+    tk.Label(g1, text="ACCESS KEYS ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
+
+    tk.Label(g1, text="  GRADIENT_ACCESS_TOKEN :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    gradient_access_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
+    gradient_access_widget.insert(0, gradient_ai_access_key)
+    change_bg_OnHover(gradient_access_widget, bg_hovercolor)
+
+    tk.Label(g1, text="  GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
+    gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
+    gradient_work_widget.insert(0, gradient_ai_workspace_id)
+    change_bg_OnHover(gradient_work_widget, bg_hovercolor)
+
+    tk.Label(g1, text="  NLP_adapter_id :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
+    gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    gradient_finetuned_model_id.place(relheight=0.07, relwidth=0.74, rely=0.213, relx=0.25)
+    gradient_finetuned_model_id.insert(0, gradient_ai_finetuned_id)
+    change_bg_OnHover(gradient_finetuned_model_id, bg_hovercolor)
+
+    tk.Label(g1, text="  Base_Model :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
+    gradient_base_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    gradient_base_model_id.place(relheight=0.07, relwidth=0.74, rely=0.284, relx=0.25)
+    gradient_base_model_id.insert(0, gradient_ai_base_model_id)
+    change_bg_OnHover(gradient_base_model_id, bg_hovercolor)
+
+    #tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
+    tk.Label(g1, text="  assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
+    assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
+    assembly_widget.insert(0, assemblyai_access_key)
+    change_bg_OnHover(assembly_widget, bg_hovercolor)
+
+    # ======================================================= Section 3 ===========================================================================================================================================
+    g3 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g3.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
+
+    # ======================================================= Section 4 ===========================================================================================================================================
+    g4 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g4.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.5)
+    # ======================================================= Section 5 ===========================================================================================================================================
 
     return profile_page_container
 
@@ -3394,7 +3378,6 @@ def User_Home_page(widget):
 
     CHAT_Widget.tkraise()
     active(st2_bt)
-
 
 
 def Welcome_Page(wiget):
