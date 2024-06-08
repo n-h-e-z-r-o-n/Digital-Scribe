@@ -1,23 +1,21 @@
-import requests
+import datetime
 
-headers = {
-  'Content-Type': 'application/json',
-  'Authorization': 'Bearer vtSAX2TA9W8Xpp1uectPSXp2KDld'
-}
+# Get the current date and time
+now = datetime.datetime.now()
 
-payload = {
-    "BusinessShortCode": 174379,
-    "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwNjA4MTM0NDI2",
-    "Timestamp": "20240608134426",
-    "TransactionType": "CustomerPayBillOnline",
-    "Amount": 1,
-    "PartyA": 254714415034,
-    "PartyB": 174379,
-    "PhoneNumber": 254708374149,
-    "CallBackURL": "https://mydomain.com/path",
-    "AccountReference": "CompanyXLTD",
-    "TransactionDesc": "Payment of X"
-  }
+# Print the current date and time
+print("Current date and time:", now)
 
-response = requests.request("POST", 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', headers = headers, data = payload)
-print(response.text.encode('utf8'))
+# If you want the date and time separately, you can do the following
+current_date = now.date()
+current_time = now.time()
+
+print("Current date:", current_date)
+print("Current time:", current_time)
+
+# You can also format the date and time as needed
+formatted_date = now.strftime("%Y,%m,%d")
+formatted_time = now.strftime("%H:%M:%S")
+
+print("Formatted date:", formatted_date)
+print("Formatted time:", formatted_time)

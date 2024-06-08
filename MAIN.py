@@ -17,7 +17,7 @@ from PIL import Image, ImageTk
 import io
 import requests
 from cryptography.fernet import Fernet
-
+import datetime
 from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValueType
 from tkinter import filedialog
 # import docx
@@ -163,6 +163,9 @@ ref_btn = None
 text_list_widget = []
 
 host_name = user_namem = password_key = database_name = None
+
+now_date = datetime.datetime.now()
+
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
 
 # ------------------------------- web-Integration ---------------------------------------------------------------------------------------------------
@@ -2004,6 +2007,7 @@ def decrypt_data(encrypted_text):
 
 def login_Request(email, passw, widget=None):
     global root, User_Email, User_Pass, User_Name, User_Image, User_Phone
+    global now_date
     email = email.strip()
     passw = passw.strip()
     try:
@@ -2027,7 +2031,7 @@ def login_Request(email, passw, widget=None):
             dic = {
                 "_E_token_": encrypt_data(email).decode(),
                 "_P_token_": encrypt_data(passw).decode(),
-                "current_time": 3600
+                "_CERT_DT_": now_date.strftime("%Y,%m,%d")
             }
 
             json_object = json.dumps(dic, indent=4)
@@ -3539,6 +3543,7 @@ def main():
     try:
         with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
             cur_detail = json.load(openfile)
+         = cur_detail("_CERT_DT_")
         login_Request(decrypt_data(cur_detail['_E_token_']), decrypt_data(cur_detail['_P_token_']), widget=None)
 
     except:
