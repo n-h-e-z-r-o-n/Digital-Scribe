@@ -3515,7 +3515,7 @@ def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
-    global bg_color
+    global bg_color, User_Email, User_Pass
     print("main started")
 
     threading.Thread(target=Set_Configuration()).start()
@@ -3556,14 +3556,11 @@ def main():
         if y <= 0:
             m = m * 30
             aged = m + d
-            if !(aged < 30):
-
-
-
-
-
-
-
+            if aged < 30:
+                print("aged: ", aged)
+                User_Email = cur_detail['_E_token_']
+                User_Pass = cur_detail['_P_token_']
+                User_Home_page(root)
 
     except:
        pass
