@@ -2959,20 +2959,21 @@ def Profile_Page(widget):
         imagen(User_Image, int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), User_imag_widget)
     User_imag_widget.configure(state='disabled', )
 
-    User_Name_widget_lable = tk.Label(profile_page_container, text="NAME     : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
+    User_Name_widget_lable = tk.Label(profile_page_container, text="EMAIL     : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
     User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.19)
     User_Name_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
     User_Name_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.19)
-    User_Name_widget_entry.insert(0, User_Name)
+    User_Name_widget_entry.insert(0, User_Email)
     User_Name_widget_entry.configure(state='disabled')
 
-    User_EMAIL_widget = tk.Label(profile_page_container, text="EMAIL    : ", anchor=tk.W, bg=bg_color, fg=fg_color)
+    User_EMAIL_widget = tk.Label(profile_page_container, text="PassWord    : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_EMAIL_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.221)
     User_EMAIL_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
     User_EMAIL_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2215)
-    User_EMAIL_widget_entry.insert(0, User_Email)
+    User_EMAIL_widget_entry.insert(0, "  *  *  *  *  *  *  *  * ")
     User_EMAIL_widget_entry.configure(state='disabled')
 
+    """
     User_PHONE_widget = tk.Label(profile_page_container, text="PHONE NO : ", anchor=tk.W, bg=bg_color, fg=fg_color)
     User_PHONE_widget.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.252)
     User_PHONE_widget_entry = tk.Entry(profile_page_container, bg=bg_color, fg=fg_color, font=('Calibri', font_size - 3), borderwidth=0, border=0, disabledbackground=bg_color)
@@ -2986,7 +2987,8 @@ def Profile_Page(widget):
     User_PASS_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.2835)
     User_PASS_widget_entry.insert(0, "  *  *  *  *  *  *  *  * ")
     User_PASS_widget_entry.configure(state='disabled')
-
+    """
+    
     change_profile_detail = tk.Button(profile_page_container, text="change", activeforeground=fg_color, activebackground=bg_color, borderwidth=0, border=0, bg=bg_color, fg=fg_color, command=lambda: Chang_User_Details(change_profile_detail, User_Name_widget_entry, User_EMAIL_widget_entry, User_PHONE_widget_entry, User_PASS_widget_entry, User_imag_widget))
     change_profile_detail.place(relheight=0.03, relwidth=0.13, relx=0.05, rely=0.3145)
     change_fg_OnHover(change_profile_detail, 'yellow', fg_color)
