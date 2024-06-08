@@ -2248,7 +2248,7 @@ def Main_Page(widget):
 
         while not closed:
             try:
-                font_style = widget.cget("text")
+                font_style = widget1.cget("text")
                 font_size = widget2.get()
                 font_size = font_size.strip()
                 font_style = font_style.strip()
@@ -2300,7 +2300,6 @@ def Main_Page(widget):
             f_style = "Times New Roman"
             widget.config(text=f_style)
 
-
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
     nav_bar_bg_color = bg_color
@@ -2316,16 +2315,15 @@ def Main_Page(widget):
     font_ = tk.Frame(navbar, bg=nav_bar_bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_entry = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1, command=lambda :font_style(font_style_entry))
-    font_style_entry.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
-
+    font_style_btn0 = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 10), borderwidth=0, border=1, command=lambda :font_style(font_style_btn0))
+    font_style_btn0.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
 
     font_style_btn = tk.Button(font_, text='v', bg=nav_bar_bg_color, activebackground=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13, 'bold'), borderwidth=0, border=1)
     font_style_btn.place(relheight=0.8, relwidth=0.09, rely=0.1, relx=0.7)
 
-    font_size_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 11), borderwidth=0, border=1)
+    font_size_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 10), borderwidth=0, border=1)
     font_size_entry.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
-    font_size_entry.insert(0, defalt_font_size)
+
 
     # ======================================================================================================================================================================================================
 
@@ -2343,7 +2341,7 @@ def Main_Page(widget):
     paned_window.add(t2)
     paned_window.add(t3)
 
-    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry,[t1, t2, t3 ])).start()
+    threading.Thread(target=font_change, args=(font_style_btn0, font_size_entry,[t1, t2, t3 ])).start()
 
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
