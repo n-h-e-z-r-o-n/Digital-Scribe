@@ -1656,18 +1656,27 @@ def attach_scroll(widget, color=None):
 # ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def download_configuration():
-    url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
-    filename = './Data_Raw/system.keys.json'
-    response = requests.get(url)
+    global closed
+    while True:
 
-    with open(filename, 'wb') as f:
-        f.write(response.content)
+        try:
+            url = "https://raw.githubusercontent.com/ice-black/Digital-Scribe/main/Data_Raw/system.keys.json"
+            filename = './Data_Raw/system.keys.json'
+            response = requests.get(url)
+
+            with open(filename, 'wb') as f:
+                f.write(response.content)
+            break
+        except:
+            if closed:
+                break
+
 
 
 def Set_Configuration():
     global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, cipher_suite
     global gradient_ai_finetuned_id, gradient_ai_base_model_id
-
+    global closed
     while True:
         download_configuration()
         try:
@@ -1690,6 +1699,8 @@ def Set_Configuration():
                 break
         except Exception as e:
             print("Set_Configuration Function:", e)
+            if closed:
+                break
 
 
 def themes_configurations():
@@ -1991,48 +2002,45 @@ def decrypt_data(encrypted_text):
     return decrypted_text.decode()
 
 
-def login_Request(email, passw, widget = None):
+def login_Request(email, passw, widget=None):
     global root, User_Email, User_Pass, User_Name, User_Image, User_Phone
     email = email.strip()
     passw = passw.strip()
-    print("email: ", email)
-    print("pass: ", passw)
-    #try:
-    auth.sign_in_with_email_and_password(email, passw)
-    userInfo = auth.current_user
-    idToken = userInfo['idToken']
-    displayName = userInfo['displayName']
-    expiresIn = userInfo['expiresIn']
-    email = userInfo['email']
-    print(auth.current_user, '\n\n')
-    print()
+    try:
+            auth.sign_in_with_email_and_password(email, passw)
+            userInfo = auth.current_user
+            idToken = userInfo['idToken']
+            displayName = userInfo['displayName']
+            expiresIn = userInfo['expiresIn']
+            email = userInfo['email']
 
-    if widget is not None:
-        widget.config(text="")
 
-    User_Email = email
-    User_Pass = passw
-    User_Name = ''
-    User_Image = ''
-    User_Phone = ''
+            if widget is not None:
+                widget.config(text="")
 
-    dic = {
-        "_E_token_": encrypt_data(email).decode(),
-        "_P_token_": encrypt_data(passw).decode(),
-    }
+            User_Email = email
+            User_Pass = passw
+            User_Name = ''
+            User_Image = ''
+            User_Phone = ''
 
-    json_object = json.dumps(dic, indent=4)
+            dic = {
+                "_E_token_": encrypt_data(email).decode(),
+                "_P_token_": encrypt_data(passw).decode(),
+                "current_time": 3600
+            }
 
-    with open("./Data_Raw/CUR_user.json", "w") as outfile:
-        outfile.write(json_object)
+            json_object = json.dumps(dic, indent=4)
 
-    User_Home_page(root)
+            with open("./Data_Raw/CUR_user.json", "w") as outfile:
+                outfile.write(json_object)
 
-    #except Exception as e:
-    #print("Loging process error :", e)
-    if widget is not None:
-        widget.config(text="Login Authentication Error. Check your login cridentials !!")
+            User_Home_page(root)
 
+    except Exception as e:
+        print("Loging process error :", e)
+        if widget is not None:
+            widget.config(text="Login Authentication Error. Check your login cridentials !!")
 
 
 def sign_up_Request(email, passw, status_widget):
@@ -3472,6 +3480,7 @@ def Welcome_Page(wiget):
 # =============================== Main Function definition ============================================================
 # =====================================================================================================================
 
+
 def resize(widget, width, heigh):
     global root, screen_width, screen_height
 
@@ -3539,18 +3548,12 @@ def main():
     root.mainloop()
 
 
-def go():
-    try:
-        main()
-    except Exception as e:
-        print(e)
-
-
 if __name__ == "__main__":
-    main()
-    """
-    t = System_Thread(ThreadStart(go))
-    t.ApartmentState = ApartmentState.STA
-    t.Start()
-    t.Join()
-    """
+        main()
+
+        """
+        t = System_Thread(ThreadStart(go))
+        t.ApartmentState = ApartmentState.STA
+        t.Start()
+        t.Join()
+        """

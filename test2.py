@@ -1,52 +1,23 @@
-import pyrebase
-config = {
-        'apiKey': "AIzaSyAL6KeL8SGTc7GvHtWQLhVXQ3A_pfs0fgA",
-        'authDomain': "mentalhealth-badb3.firebaseapp.com",
-        'databaseURL': "https://trialauth-7eeal-7eeal.firebaseio.com",
-        'projectId': "mentalhealth-badb3",
-        'storageBucket': "mentalhealth-badb3.appspot.com",
-        'messagingSenderId': "668556041575",
-        'appId': "1:668556041575:web:8170d74edf2fdbcf8f23c2",
-        'measurementId': "G-168YG4NVDE"
+import requests
+
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer vtSAX2TA9W8Xpp1uectPSXp2KDld'
 }
 
-firebase = pyrebase.initialize_app(config)
-auth = firebase.auth() #Authentication
-db = firebase.database()
+payload = {
+    "BusinessShortCode": 174379,
+    "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjQwNjA4MTM0NDI2",
+    "Timestamp": "20240608134426",
+    "TransactionType": "CustomerPayBillOnline",
+    "Amount": 1,
+    "PartyA": 254714415034,
+    "PartyB": 174379,
+    "PhoneNumber": 254708374149,
+    "CallBackURL": "https://mydomain.com/path",
+    "AccountReference": "CompanyXLTD",
+    "TransactionDesc": "Payment of X"
+  }
 
-def login():
-        email = 'hezron.w12@gmail.com'
-        passw = "12wekesa12"
-        try:
-           auth.sign_in_with_email_and_password(email, passw)
-
-           userInfo = auth.current_user
-           idToken = userInfo['idToken']
-           displayName = userInfo['displayName']
-           expiresIn = userInfo['expiresIn']
-           email = userInfo['email']
-
-           print(auth.current_user, '\n\n')
-           print(idToken)
-
-        except Exception as e:
-
-                print(e)
-def signup():
-        email = 'hezron.w12@gmail.com'
-        passw = "12wekesa12"
-        try:
-           user = auth.create_user_with_email_and_password(email, passw)
-        except Exception as e:
-
-                print(e)
-
-def forgot_pass():
-        email = 'hezron.w12@gmail.com'
-        auth.send_password_reset_email(email)
-
-m = db.get()
-print(m)
-
-
-
+response = requests.request("POST", 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest', headers = headers, data = payload)
+print(response.text.encode('utf8'))
