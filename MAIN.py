@@ -22,6 +22,9 @@ from gradientai import Gradient, SummarizeParamsLength, ExtractParamsSchemaValue
 from tkinter import filedialog
 # import docx
 import ctypes
+import shutil
+from tkinter import ttk, filedialog, messagebox
+
 # ------------------------------ pip install gradient_haystack==0.2.0
 from gradient_haystack.embedders.gradient_document_embedder import GradientDocumentEmbedder
 from gradient_haystack.embedders.gradient_text_embedder import GradientTextEmbedder
@@ -1992,8 +1995,6 @@ def imagen(image_path, screen_width, screen_height, widget):  # image processing
     # load_image()
     threading.Thread(target=load_image).start()
 
-
-# =============================== Pages Functions definition =======================================================================================
 def sign_out_request():
     global Home_page_frame, root
     Home_page_frame.destroy()
@@ -2073,6 +2074,36 @@ def forgot_pass_Request(email, status_widget):
         status_widget.config(text="Successful:  Check your Email", fg='green')
     except:
         status_widget.config(text='Error: check your technical details', fg='red')
+
+
+def resize(widget, width, heigh):
+    global root, screen_width, screen_height
+
+    # Prevent resizing by setting the widget's size to its original size
+    widget.config(width=width, height=heigh)
+    print("resized")
+
+
+def on_closing():
+    global root, closed, httpd
+    print("closing")
+    closed = True
+    httpd.shutdown()
+    httpd.server_close()
+    root.destroy()
+
+    # time.sleep(2)
+    """
+    while True:
+        time.sleep(10)
+        for thread in threading.enumerate():
+            print("- ", thread.name)
+    """
+    print("closed")
+    sys.exit()
+
+# =============================== Pages Functions definition =======================================================================================
+
 
 
 def Login_Section_widget(widget):
@@ -2216,27 +2247,25 @@ def Main_Page(widget):
 
         def check(widget1=widget1, widget2=widget2, widget3=widget3):
             global defalt_font_style, defalt_font_size, closed
-            while True:
-                if closed:
-                    break
+            while not closed:
                 try:
                     font_style = widget1.get()
                     font_size = widget2.get()
                     if font_size == '':
-                        font_size = '1'
+                        font_size = '8'
                     if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
                         try:
                             widget3.config(font=(font_style, font_size))
                             defalt_font_style = font_style.strip()
                             defalt_font_size = int(font_size)
                             print('changed')
-                        except:
-                            pass
-                    time.sleep(1)
-                except:
-                    pass
+                        except Exception as e:
+                            print('font_change error :', e)
 
-        time.sleep(10)
+                    time.sleep(1)
+                except Exception as e:
+                  print(e)
+
         check()
 
     defalt_font_style = 'Times New Roman'
@@ -2941,11 +2970,6 @@ def Profile_Page(widget):
 
     return profile_page_container
 
-
-import shutil
-from tkinter import ttk, filedialog, messagebox
-
-
 def Document_Management_page(widget):
     global bg_color, fg_color
     global screen_width, screen_height, font_size
@@ -3417,36 +3441,6 @@ def Welcome_Page(wiget):
 
 # =============================== Main Function definition ============================================================
 # =====================================================================================================================
-
-
-def resize(widget, width, heigh):
-    global root, screen_width, screen_height
-
-    # Prevent resizing by setting the widget's size to its original size
-    widget.config(width=width, height=heigh)
-    print("resized")
-
-
-def on_closing():
-    global root, closed, httpd
-    print("closing")
-    closed = True
-    httpd.shutdown()
-    httpd.server_close()
-    root.destroy()
-
-    # time.sleep(2)
-    """
-    while True:
-        time.sleep(10)
-        for thread in threading.enumerate():
-            print("- ", thread.name)
-    """
-    print("closed")
-    sys.exit()
-
-
-
 def main():
     global root, screen_width, screen_height, session, client_socket, server_IP4v_address, Server_listening_port
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
