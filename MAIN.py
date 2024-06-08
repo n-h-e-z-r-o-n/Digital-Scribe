@@ -1991,7 +1991,6 @@ def sign_out_request():
     os.remove("./Data_Raw/CUR_user.json")
 
 
-
 def encrypt_data(text):
     global cipher_suite
     encoded_text = text.encode()
@@ -2514,9 +2513,6 @@ def call(widget):
         relheight=0.6, relwidth=0.035, rely=0.2, relx=0.96)
 
     return call_widget
-
-
-
 
 
 def RAG_page(widget):
@@ -3495,7 +3491,7 @@ def resize(widget, width, heigh):
 
 def on_closing():
     global root, closed, httpd
-    print("clossing")
+    print("closing")
     closed = True
     httpd.shutdown()
     httpd.server_close()
@@ -3508,7 +3504,9 @@ def on_closing():
         for thread in threading.enumerate():
             print("- ", thread.name)
     """
+    print("closed")
     sys.exit()
+
 
 
 def main():
