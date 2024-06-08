@@ -3305,14 +3305,12 @@ def User_Home_page(widget):
     side_bar_widget_list.append(st7_bt)
     duplicate_widget(st7_bt, side_bar_full, text="EHR integration")
 
-    st8_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
+    st8_bt = tk.Button(side_bar_full, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color,  text="crafted by ~ Hezron Na", font=("Blackadder ITC", font_size-9), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
     st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
-    change_bg_OnHover_light(st8_bt)
-    side_bar_widget_list.append(st8_bt)
-    duplicate_widget(st8_bt, side_bar_full, text="Settings")
+
 
     CHAT_Widget.tkraise()
-    active(st2_bt)
+
 
 
 def Welcome_Page(wiget):
