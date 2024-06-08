@@ -2254,13 +2254,15 @@ def Main_Page(widget):
                 font_style = font_style.strip()
                 if font_size == '':
                     font_size = '8'
-
-                if int(font_size) > 50:
-                    font_size = '12'
+                if int(font_size) < 0:
+                    font_size = '8'
+                if int(font_size) > 100:
+                    font_size = '100'
 
                 if defalt_font_style != font_style.strip() or defalt_font_size != int(font_size):
                     try:
-                        widget3.config(font=(font_style, font_size))
+                        for i in widget3:
+                            i.config(font=(font_style, font_size))
                         defalt_font_style = font_style.strip()
                         defalt_font_size = int(font_size)
                         print('changed')
@@ -2271,7 +2273,8 @@ def Main_Page(widget):
             except Exception as e:
               print(e)
 
-
+    def font_style():
+        pass
 
     defalt_font_style = 'Times New Roman'
     defalt_font_size = 13
@@ -2288,9 +2291,9 @@ def Main_Page(widget):
     font_ = tk.Frame(navbar, bg=nav_bar_bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
+    font_style_entry = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 13), borderwidth=0, border=1)
     font_style_entry.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
-    font_style_entry.insert(0, defalt_font_style)
+
 
     font_style_btn = tk.Button(font_, text='v', bg=nav_bar_bg_color, activebackground=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13, 'bold'), borderwidth=0, border=1)
     font_style_btn.place(relheight=0.8, relwidth=0.09, rely=0.1, relx=0.7)
@@ -2304,7 +2307,7 @@ def Main_Page(widget):
     paned_window = tk.PanedWindow(chatbot_widget, bg=bg_color, orient=tk.VERTICAL, sashwidth=8, sashrelief=tk.FLAT)
     paned_window.place(relheight=0.96, relwidth=0.75, rely=0.03, relx=0.0253)
 
-    t1 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)  # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
+    t1 = tk.Text(paned_window, bg=bg_color, fg='gray', relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=2, border=1)  # t4.place(relheight=0.70, relwidth=0.75, rely=0.03, relx=0.0253)
     t1.tag_configure("ASR", foreground="gray")
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
@@ -2315,7 +2318,7 @@ def Main_Page(widget):
     paned_window.add(t2)
     paned_window.add(t3)
 
-    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry, t1,)).start()
+    threading.Thread(target=font_change, args=(font_style_entry, font_size_entry,[t1, t2, t3 ])).start()
 
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
