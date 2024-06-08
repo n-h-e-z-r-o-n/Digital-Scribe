@@ -2868,60 +2868,58 @@ def Profile_Page(widget):
     # tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
 
     tk.Label(g1, text="ACCESS KEYS ", fg=darken_hex_color(bg_color), bg=bg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
-
-    tk.Label(g1, text="  GRADIENT_ACCESS_TOKEN :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    gradient_access_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    tk.Label(g1, text="  GRADIENT_ACCESS_TOKEN :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    gradient_access_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_access_widget.place(relheight=0.07, relwidth=0.74, rely=0.071, relx=0.25)
     gradient_access_widget.insert(0, gradient_ai_access_key)
     change_bg_OnHover(gradient_access_widget, bg_hovercolor)
 
-    tk.Label(g1, text="  GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
-    gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    tk.Label(g1, text="  GRADIENT_WORKSPACE_ID :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
+    gradient_work_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_work_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
     gradient_work_widget.insert(0, gradient_ai_workspace_id)
     change_bg_OnHover(gradient_work_widget, bg_hovercolor)
 
-    tk.Label(g1, text="  NLP_adapter_id :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
-    gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    tk.Label(g1, text="  NLP_adapter_id :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
+    gradient_finetuned_model_id = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_finetuned_model_id.place(relheight=0.07, relwidth=0.74, rely=0.213, relx=0.25)
     gradient_finetuned_model_id.insert(0, gradient_ai_finetuned_id)
     change_bg_OnHover(gradient_finetuned_model_id, bg_hovercolor)
 
-    tk.Label(g1, text="  Base_Model :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
-    gradient_base_model_id = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    tk.Label(g1, text="  Base_Model :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.284, relx=0)
+    gradient_base_model_id = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gradient_base_model_id.place(relheight=0.07, relwidth=0.74, rely=0.284, relx=0.25)
     gradient_base_model_id.insert(0, gradient_ai_base_model_id)
     change_bg_OnHover(gradient_base_model_id, bg_hovercolor)
 
     #tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
-    tk.Label(g1, text="  A_AI  key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
-    assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    tk.Label(g1, text="  A_AI  key:", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
+    assembly_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
     change_bg_OnHover(assembly_widget, bg_hovercolor)
 
-    tk.Label(g1, text="  GEM_AI  key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.502, relx=0)
-    gemini_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    tk.Label(g1, text="  GEM_AI  key:", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.502, relx=0)
+    gemini_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     gemini_widget.place(relheight=0.07, relwidth=0.74, rely=0.502, relx=0.25)
     gemini_widget.insert(0, Gem_Key)
     change_bg_OnHover(gemini_widget, bg_hovercolor)
 
-
     # ======================================================= Section 2 ===========================================================================================================================================
 
-    g2 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g2 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
     g2.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
 
-    tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
-    tk.Label(g2, text="  current theme :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
+    tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=darken_hex_color(bg_color), font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
+    tk.Label(g2, text="  current theme :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
     themes_change.place(relheight=0.07, relwidth=0.3, rely=0.071, relx=0.25)
-    change_fg_OnHover(themes_change, fg_hovercolor)
+    change_fg_OnHover(themes_change)
 
-    # ======================================================= Section 4 ===========================================================================================================================================
+    # ======================================================= Section 3 ===========================================================================================================================================
     g4 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
     g4.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.5)
-    # ======================================================= Section 5 ===========================================================================================================================================
+    # ======================================================= ====== ===========================================================================================================================================
 
     return profile_page_container
 
