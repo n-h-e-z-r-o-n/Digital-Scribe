@@ -546,7 +546,10 @@ def change_color(widget, button):
         elif isinstance(wdget, tk.Text):
             wdget.config(bg=bg_color, fg=fg_color)
             for wd in text_list_widget:
-                wd.config(bg=darken_hex_color(bg_color), fg=fg_color)
+                try:
+                    wd.config(bg=darken_hex_color(bg_color), fg=fg_color)
+                except:
+                    text_list_widget.remove(wd)
 
         elif isinstance(wdget, tk.Entry):
             wdget.config(bg=bg_color, fg=fg_color)
