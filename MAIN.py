@@ -1677,34 +1677,36 @@ def download_configuration():
 
 
 def Set_Configuration():
-    global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, cipher_suite
-    global gradient_ai_finetuned_id, gradient_ai_base_model_id
-    global closed
-    while True:
-        download_configuration()
-        try:
-            with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
-                configs = json.load(openfile)
+    def run_Set_Configuration():
+        global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, cipher_suite
+        global gradient_ai_finetuned_id, gradient_ai_base_model_id
+        global closed
+        while True:
+            download_configuration()
+            try:
+                with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
+                    configs = json.load(openfile)
 
-                gradient_ai_access_key = configs['_GA_']
-                gradient_ai_workspace_id = configs['_GW_']
-                gradient_ai_finetuned_id = configs['_G_FT_M_']
-                gradient_ai_base_model_id = configs['_G_B_M_']
-                assemblyai_access_key = configs['_AAI_']
-                Gem_Key = configs['_GemAI_']
-                Key_Fernet = configs['CPR_Suite']
+                    gradient_ai_access_key = configs['_GA_']
+                    gradient_ai_workspace_id = configs['_GW_']
+                    gradient_ai_finetuned_id = configs['_G_FT_M_']
+                    gradient_ai_base_model_id = configs['_G_B_M_']
+                    assemblyai_access_key = configs['_AAI_']
+                    Gem_Key = configs['_GemAI_']
+                    Key_Fernet = configs['CPR_Suite']
 
-                os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
-                os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
-                print(Key_Fernet.encode())
-                cipher_suite = Fernet(Key_Fernet.encode())
+                    os.environ['GRADIENT_ACCESS_TOKEN'] = gradient_ai_access_key
+                    os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
+                    print(Key_Fernet.encode())
+                    cipher_suite = Fernet(Key_Fernet.encode())
 
-                break
-        except Exception as e:
-            print("Set_Configuration Function:", e)
-            if closed:
-                break
+                    break
+            except Exception as e:
+                print("Set_Configuration Function:", e)
+                if closed:
+                    break
 
+    threading.Thread(target=run_Set_Configuration).start()
 
 def themes_configurations():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
@@ -3443,10 +3445,10 @@ def main():
     global user_id, user_Photo, First_name, Second_Name, Last_Name, Email
     global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, keys
     global bg_color, User_Email, User_Pass
-    print("main started")
 
-    threading.Thread(target=Set_Configuration()).start()
+    Set_Configuration()
     run_server()
+    themes_configurations()
 
     root = tk.Tk()
 
