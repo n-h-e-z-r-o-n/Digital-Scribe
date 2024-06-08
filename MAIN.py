@@ -3543,7 +3543,7 @@ def main():
     try:
         with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
             cur_detail = json.load(openfile)
-         = cur_detail("_CERT_DT_")
+        cridentials_age = cur_detail("_CERT_DT_")
         login_Request(decrypt_data(cur_detail['_E_token_']), decrypt_data(cur_detail['_P_token_']), widget=None)
 
     except:
