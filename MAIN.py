@@ -2906,6 +2906,7 @@ def Profile_Page(widget):
     global bg_color, fg_color
     global screen_width, screen_height, font_size
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
+    global gradient_ai_workspace_id, assemblyai_access_key, gradient_ai_access_key, gradient_ai_finetuned_id, gradient_ai_base_model_id, keys, Gem_Key
 
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2914,7 +2915,7 @@ def Profile_Page(widget):
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
     change_fg_OnHover(sign_out_widget, 'red')
 
-    User_imag_widget = tk.Button(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100), command=lambda: change_image(User_imag_widget), borderwidth=0, border=0)
+    User_imag_widget = tk.Button(profile_page_container, bg=bg_color, fg=fg_color, text="👤", font=("Forte", 100), borderwidth=0, border=0)
     User_imag_widget.place(relheight=0.17, relwidth=0.12, relx=0.05, rely=0.05)
     imagen('./Assets/img.png', int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), User_imag_widget)
 
@@ -2933,7 +2934,7 @@ def Profile_Page(widget):
 
     # ======================================================= Section 1 ===========================================================================================================================================
 
-    g1 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g1 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
     g1.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.0253)
 
     # tk.Label(g1, bg='blue', fg=fg_color, borderwidth=7, border=7).place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -2965,18 +2966,24 @@ def Profile_Page(widget):
     change_bg_OnHover(gradient_base_model_id, bg_hovercolor)
 
     #tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
-    tk.Label(g1, text="  assemblyai access key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
+    tk.Label(g1, text="  A_AI  key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
     assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
     assembly_widget.insert(0, assemblyai_access_key)
     change_bg_OnHover(assembly_widget, bg_hovercolor)
 
+    tk.Label(g1, text="  GEM_AI  key:", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
+    assembly_widget = tk.Entry(g1, bg=bg_color, fg=fg_color, borderwidth=0, border=1, font=("Courier New", 10))
+    assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
+    assembly_widget.insert(0, Gem_Key)
+    change_bg_OnHover(assembly_widget, bg_hovercolor)
+
     # ======================================================= Section 3 ===========================================================================================================================================
-    g3 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g3 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
     g3.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
 
     # ======================================================= Section 4 ===========================================================================================================================================
-    g4 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g4 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
     g4.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.5)
     # ======================================================= Section 5 ===========================================================================================================================================
 
