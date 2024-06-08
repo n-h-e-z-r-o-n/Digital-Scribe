@@ -2912,23 +2912,20 @@ def Profile_Page(widget):
 
     tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=darken_hex_color(bg_color), font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
     tk.Label(g2, text="  current theme :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
-    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
+    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, anchor="w", fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
     themes_change.place(relheight=0.07, relwidth=0.3, rely=0.071, relx=0.25)
     change_fg_OnHover(themes_change, darken_hex_color(bg_color))
 
     tk.Label(g2, text="Font_Size:", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
-    Font_Size_set_widget = tk.Entry(g2, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
+    Font_Size_set_widget = tk.Label(g2, bg=bg_color,text='12', anchor="w", fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10))
     Font_Size_set_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
-    Font_Size_set_widget.insert(0, '12')
-    change_bg_OnHover(Font_Size_set_widget, bg_hovercolor)
 
     tk.Label(g2, text="Font_Name :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
-    Font_Name_set_widget = tk.Entry(g2, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
+    Font_Name_set_widget = tk.Label(g2, bg=bg_color, text='Calibri', anchor="w", fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10))
     Font_Name_set_widget.place(relheight=0.07, relwidth=0.74, rely=0.213, relx=0.25)
-    Font_Name_set_widget.insert(0, 'Calibri')
-    change_bg_OnHover(Font_Name_set_widget, bg_hovercolor)
 
     # ======================================================= Section 3 ===========================================================================================================================================
+
     g4 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
     g4.place(relheight=0.4, relwidth=0.41, rely=0.5, relx=0.5)
     # ======================================================= ====== ===========================================================================================================================================
@@ -3449,8 +3446,6 @@ def main():
     print("main started")
 
     threading.Thread(target=Set_Configuration()).start()
-    themes_configurations()
-
     run_server()
 
     root = tk.Tk()
@@ -3469,6 +3464,7 @@ def main():
     title_bar_color(bg_color)
 
     Welcome_Page(root)
+    print("main started 2")
 
     try:
         with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
@@ -3480,11 +3476,8 @@ def main():
         cur_date = cur_date.split(',')
 
         y = int(cur_date[0]) - int(cridentials_age[0])
-        m =  int(cur_date[1]) - int(cridentials_age[1])
+        m = int(cur_date[1]) - int(cridentials_age[1])
         d = int(cur_date[2]) - int(cridentials_age[2])
-        print("y", y)
-        print("y", m)
-        print("y", d)
 
         if y == 0:
             m = m * 30
