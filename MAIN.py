@@ -2564,7 +2564,6 @@ def RAG_page(widget):
     return conversation_widget
 
 
-
 def chat_me(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme
     global num_y, num_height, current, path_exe
@@ -2907,9 +2906,17 @@ def Profile_Page(widget):
     gemini_widget.insert(0, Gem_Key)
     change_bg_OnHover(gemini_widget, bg_hovercolor)
 
-    # ======================================================= Section 3 ===========================================================================================================================================
-    g3 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
-    g3.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
+
+    # ======================================================= Section 2 ===========================================================================================================================================
+
+    g2 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=5)
+    g2.place(relheight=0.4, relwidth=0.41, rely=0.02, relx=0.5)
+
+    tk.Label(g2, text="PERSONALIZATION ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0, relx=0)
+    tk.Label(g2, text="  current theme :", bg=bg_color, fg=fg_color, font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.071, relx=0)
+    themes_change = tk.Button(g2, text=current_theme, bg=bg_color, fg=fg_color, borderwidth=0, border=0, font=("Courier New", 10), command=lambda: change_color(root, themes_change))
+    themes_change.place(relheight=0.07, relwidth=0.3, rely=0.071, relx=0.25)
+    change_fg_OnHover(themes_change, fg_hovercolor)
 
     # ======================================================= Section 4 ===========================================================================================================================================
     g4 = tk.Frame(profile_page_container, bg=bg_color, relief=tk.RAISED, borderwidth=0, border=2)
@@ -3257,7 +3264,7 @@ def User_Home_page(widget):
     change_Widget_Attribute_OnHover(profile_widget, side_bar_full, side_bar)
     duplicate_widget(profile_widget, side_bar_full, text="Digital Scribe")
 
-    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣ 👥', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (Profile_Widget.tkraise(), active(st1_bt)))
+    st1_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≣', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (Profile_Widget.tkraise(), active(st1_bt)))
     st1_bt.place(relheight=0.03, relwidth=1, rely=0.05, relx=0)
     change_bg_OnHover_light(st1_bt)
     side_bar_widget_list.append(st1_bt)
@@ -3300,17 +3307,14 @@ def User_Home_page(widget):
     duplicate_widget(st9_bt, side_bar_full, text="Document Management")
 
     st7_bt = tk.Button(side_bar, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color, text='≎', font=("Calibri", font_size), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (integration_page.tkraise(), active(st7_bt)))
-    st7_bt.place(relheight=0.03, relwidth=1, rely=0.93, relx=0)
+    st7_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
     change_bg_OnHover_light(st7_bt)
     side_bar_widget_list.append(st7_bt)
     duplicate_widget(st7_bt, side_bar_full, text="EHR integration")
 
-    st8_bt = tk.Button(side_bar_full, bg=nav_bg, activebackground=bg_color, activeforeground=fg_color,  text="crafted by ~ Hezron Na", font=("Blackadder ITC", font_size-9), fg=fg_color, anchor='center', borderwidth=0, border=0, command=lambda: (SETTINGS_Widget.tkraise(), active(st8_bt)))
-    st8_bt.place(relheight=0.03, relwidth=1, rely=0.97, relx=0)
-
 
     CHAT_Widget.tkraise()
-
+    active(st2_bt)
 
 
 def Welcome_Page(wiget):
