@@ -2905,7 +2905,9 @@ def Recodes_Page(widget):
                     display_widget.insert(tk.END, data)
                     display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
                     break
-                except Exception a
+                except Exception as e:
+                    time.sleep(3)
+
 
         threading.Thread(target=run_Medical_Information).start()
 
