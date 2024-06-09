@@ -1082,16 +1082,16 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
     threading.Thread(target=run).start()
 
-def GEMINI_LLM():
+def GEMINI_LLMs():
     global gem_Extract_model, Gem_Key, closed
-
     while not closed:
-        if Gem_Key != ''
+        if Gem_Key != '':
             genai.configure(api_key=Gem_Key)
             gem_Extract_model = genai.GenerativeModel(
                 model_name='gemini-1.5-flash',
                 system_instruction="""You are an AI that Extract Medical infomation from the given conversation"""
             )
+            break
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
@@ -1696,14 +1696,13 @@ def download_configuration():
     threading.Thread(target=run_download_configuration).start()
 
 
-
 def Set_Configuration():
     def run_Set_Configuration():
         global gradient_ai_workspace_id, gradient_ai_access_key, assemblyai_access_key, Gem_Key, cipher_suite
         global gradient_ai_finetuned_id, gradient_ai_base_model_id
         global closed
         download_configuration()
-        while True:
+        while not closed:
             try:
                 with open('./Data_Raw/system.keys.json', 'r') as openfile:  # Reading from json file
                     configs = json.load(openfile)
@@ -1720,12 +1719,11 @@ def Set_Configuration():
                     os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
                     print(Key_Fernet.encode())
                     cipher_suite = Fernet(Key_Fernet.encode())
-
+                    GEMINI_LLMs()
                     break
             except Exception as e:
                 print("Set_Configuration Function:", e)
-                if closed:
-                    break
+
 
     run_Set_Configuration()
     #threading.Thread(target=run_Set_Configuration).start()
@@ -1749,7 +1747,6 @@ def themes_configurations():
         print("themes_configurations Function:", e)
         modify_css()
 
-
 def save_themes():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global llm_chain
@@ -1768,8 +1765,6 @@ def save_themes():
 
     with open("./Data_Raw/themes_config.json", "w") as outfile:
         outfile.write(json_object)
-
-
 
 def text_pdf_save(btn_widget, widgets: list):
     def text_pdf_save_visual(bt_widget=btn_widget):
