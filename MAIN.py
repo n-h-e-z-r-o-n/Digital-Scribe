@@ -2736,8 +2736,6 @@ def Recodes_Page(widget):
             global llm_chain3
             text = text_widget.get("6.0", "end")
 
-            print(text)
-
             AI_response = llm_chain3.invoke(input=text)
             display_widget.insert(tk.END, "\n\n------------ AI context-aware suggestions ----------------------------------\n\n", 'ASR')
             display_widget.insert(tk.END, AI_response['text'])
@@ -2892,6 +2890,14 @@ def Recodes_Page(widget):
 
     def Medical_Information(text_widget, display_widget):
         global gem_Extract_model
+        text = text_widget.get("6.0", "end")
+        
+        gem_Extract_model.generate_content(
+            {'role':'user',
+                    'parts':[user_query]})
+
+
+
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color, fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
     refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", command=lambda: refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
     refresh_btn.place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
