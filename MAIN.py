@@ -602,7 +602,7 @@ def entity_highlight_words(widget):
         print("found_entities : - ", found_entities)
         for word in found_entities:
             start = 1.0
-            entites = word.split()
+            entites = word.split(",")
             if len(entites) == 1:
                 while not closed:
                     start = widget.search(word, start, stopindex=tk.END)
