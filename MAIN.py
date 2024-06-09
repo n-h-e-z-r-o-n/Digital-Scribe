@@ -2716,7 +2716,7 @@ def Recodes_Page(widget):
     tk.Button(x, text="Summarize", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: D_Summary(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
-    tk.Button(x, text="Medical Information", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
+    tk.Button(x, text="Medical Info", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: Medical_Information(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
 
     btn_widget = tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: text_pdf_save(btn_widget, [x2, x3]))
     btn_widget.place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
@@ -2889,14 +2889,20 @@ def Recodes_Page(widget):
         return file_list
 
     def Medical_Information(text_widget, display_widget):
-        global gem_Extract_model
-        text = text_widget.get("6.0", "end")
-        
-        gem_Extract_model.generate_content(
-            {'role':'user',
-                    'parts':[user_query]})
+        def run_Medical_Information(text_widget=text_widget, display_widget=display_widget):
+            global gem_Extract_model
+            text = text_widget.get("6.0", "end")
 
+            response = gem_Extract_model.generate_content(
+                {'role':'user',
+                'parts':[text]}
+            )
 
+            display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
+            display_widget.insert(tk.END, response.text)
+            display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
+
+        threading.Thread(target=run_Medical_Information).start()
 
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color, fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
     refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", command=lambda: refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
