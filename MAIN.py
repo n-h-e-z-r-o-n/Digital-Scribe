@@ -613,7 +613,7 @@ def entity_highlight_words(widget):
                     start = end
 
                 start = 1.0
-                while not closed::
+                while not closed:
                     start = widget.search(word.capitalize(), start, stopindex=tk.END)
                     if not start:
                         break
@@ -623,7 +623,7 @@ def entity_highlight_words(widget):
 
                 start = 1.0
                 word = word[0].lower() + word[1:]
-                while True:
+                while not closed:
                     start = widget.search(word, start, stopindex=tk.END)
                     if not start:
                         break
