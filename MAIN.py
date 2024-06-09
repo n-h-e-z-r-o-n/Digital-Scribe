@@ -1083,11 +1083,15 @@ def Chat_bot_inference(widget0, widget1, widget2):
     threading.Thread(target=run).start()
 
 def GEMINI_LLM():
-    global gem_Extract_model, Gem_Key
-    gem_Extract_model = genai.GenerativeModel(
-        model_name='gemini-1.5-flash',
-        system_instruction="""You are an AI that Extract Medical infomation from the given conversation"""
-    )
+    global gem_Extract_model, Gem_Key, closed
+
+    while not closed:
+        if Gem_Key != ''
+            genai.configure(api_key=Gem_Key)
+            gem_Extract_model = genai.GenerativeModel(
+                model_name='gemini-1.5-flash',
+                system_instruction="""You are an AI that Extract Medical infomation from the given conversation"""
+            )
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
