@@ -1995,6 +1995,7 @@ def imagen(image_path, screen_width, screen_height, widget):  # image processing
     # load_image()
     threading.Thread(target=load_image).start()
 
+
 def sign_out_request():
     global Home_page_frame, root
     Home_page_frame.destroy()
@@ -2707,8 +2708,10 @@ def Recodes_Page(widget):
     tk.Button(x, text="Summarize", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: D_Summary(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.1)
     tk.Button(x, text="Entity_Extract", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: Entity_Extraction(x2, x3, False)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.2)
     tk.Button(x, text="follow-up ", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.3)
+    tk.Button(x, text="Medical Information", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: AI_doctor_assistant(x2, x3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
+
     btn_widget = tk.Button(x, text="Save", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3), command=lambda: text_pdf_save(btn_widget, [x2, x3]))
-    btn_widget.place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.4)
+    btn_widget.place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
     # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.5)
     # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.6)
     # tk.Button(x, text="Contextual AI", borderwidth=0, border=0, bg=bg_color, fg='gray', activeforeground=fg_color, activebackground=bg_color, font=("Calibri", font_size - 3)).place(relheight=0.02, relwidth=0.1, rely=0.51, relx=0.7)
@@ -2999,6 +3002,7 @@ def Profile_Page(widget):
     # ======================================================= ====== ===========================================================================================================================================
 
     return profile_page_container
+
 
 def Document_Management_page(widget):
     global bg_color, fg_color
