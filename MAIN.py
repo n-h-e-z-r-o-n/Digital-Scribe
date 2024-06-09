@@ -2891,7 +2891,7 @@ def Recodes_Page(widget):
     def Medical_Information(text_widget, display_widget):
         def run_Medical_Information(text_widget=text_widget, display_widget=display_widget):
             global gem_Extract_model, closed
-            text = text_widget.get("6.0", "end")
+            text = text_widget.get("1.0", "end")
             while not closed:
                 try:
                     response = gem_Extract_model.generate_content(
