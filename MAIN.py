@@ -2897,7 +2897,8 @@ def Recodes_Page(widget):
                 {'role':'user',
                 'parts':[text]}
             )
-
+            data = response.text
+            data = data.replace("")
             display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
             display_widget.insert(tk.END, response.text)
             display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
