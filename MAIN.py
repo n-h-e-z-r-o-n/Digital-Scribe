@@ -2898,9 +2898,9 @@ def Recodes_Page(widget):
                 'parts':[text]}
             )
             data = response.text
-            data = data.replace("")
+            data = data.replace("**", "")
             display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
-            display_widget.insert(tk.END, response.text)
+            display_widget.insert(tk.END, data)
             display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
 
         threading.Thread(target=run_Medical_Information).start()
