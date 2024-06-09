@@ -594,7 +594,7 @@ def change_color(widget, button):
 
 def entity_highlight_words(widget):
     def Run():
-        global found_entities, fg_color
+        global found_entities, fg_color, closed
         if fg_color == 'black':
             widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
         else:
@@ -604,7 +604,7 @@ def entity_highlight_words(widget):
             start = 1.0
             entites = word.split()
             if len(entites) == 1:
-                while True:
+                while not closed:
                     start = widget.search(word, start, stopindex=tk.END)
                     if not start:
                         break
@@ -613,7 +613,7 @@ def entity_highlight_words(widget):
                     start = end
 
                 start = 1.0
-                while True:
+                while not closed::
                     start = widget.search(word.capitalize(), start, stopindex=tk.END)
                     if not start:
                         break
