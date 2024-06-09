@@ -631,7 +631,6 @@ def entity_highlight_words(widget):
                     widget.tag_add("highlight", start, end)
                     start = end
 
-
             else:
                 print("entites :", entites)
                 for g_word in entites:
