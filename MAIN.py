@@ -24,6 +24,7 @@ from tkinter import filedialog
 import ctypes
 import shutil
 from tkinter import ttk, filedialog, messagebox
+import google.generativeai as genai
 
 # ------------------------------ pip install gradient_haystack==0.2.0
 from gradient_haystack.embedders.gradient_document_embedder import GradientDocumentEmbedder
@@ -117,7 +118,9 @@ gradient_ai_workspace_id = ''
 assemblyai_access_key = ''
 gradient_ai_finetuned_id = ''
 gradient_ai_base_model_id = ''
+
 Gem_Key = ''
+gem_Extract_model = None
 
 User_Name = ''
 User_Email = ''
@@ -1079,7 +1082,12 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
     threading.Thread(target=run).start()
 
-
+def GEMINI_LLM():
+    global gem_Extract_model, Gem_Key
+    gem_Extract_model = genai.GenerativeModel(
+        model_name='gemini-1.5-flash',
+        system_instruction="""You are an AI that Extract Medical infomation from the given conversation"""
+    )
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
