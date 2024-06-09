@@ -2890,18 +2890,22 @@ def Recodes_Page(widget):
 
     def Medical_Information(text_widget, display_widget):
         def run_Medical_Information(text_widget=text_widget, display_widget=display_widget):
-            global gem_Extract_model
+            global gem_Extract_model, closed
             text = text_widget.get("6.0", "end")
-
-            response = gem_Extract_model.generate_content(
-                {'role':'user',
-                'parts':[text]}
-            )
-            data = response.text
-            data = data.replace("**", "")
-            display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
-            display_widget.insert(tk.END, data)
-            display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
+            while not closed:
+                try:
+                    response = gem_Extract_model.generate_content(
+                        {'role':'user',
+                        'parts':[text]}
+                    )
+                    data = response.text
+                    data = data.replace("**", "")
+                    data = data.replace("*", "\t* ")
+                    display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
+                    display_widget.insert(tk.END, data)
+                    display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
+                    break
+                except Exception a
 
         threading.Thread(target=run_Medical_Information).start()
 
