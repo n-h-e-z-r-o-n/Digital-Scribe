@@ -599,7 +599,7 @@ def entity_highlight_words(widget):
             widget.tag_configure("highlight", background="gold")  # Configure a tag for highlighting
         else:
             widget.tag_configure("highlight", background="#737000")
-
+        print("found_entities : - ", found_entities)
         for word in found_entities:
             start = 1.0
             entites = word.split()
