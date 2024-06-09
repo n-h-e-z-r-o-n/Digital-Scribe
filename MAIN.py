@@ -1082,6 +1082,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
     threading.Thread(target=run).start()
 
+
 def GEMINI_LLMs():
     global gem_Extract_model, Gem_Key, closed
     while not closed:
@@ -2889,6 +2890,8 @@ def Recodes_Page(widget):
 
         return file_list
 
+    def Medical_Information(text_widget, display_widget):
+        global gem_Extract_model
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color, fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
     refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", command=lambda: refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
     refresh_btn.place(relheight=0.05, relwidth=0.1, rely=0, relx=0.22)
