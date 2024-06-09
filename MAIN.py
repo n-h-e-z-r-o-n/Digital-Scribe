@@ -2900,7 +2900,7 @@ def Recodes_Page(widget):
                     )
                     data = response.text
                     data = data.replace("**", "")
-                    data = data.replace("*", "\t* ")
+                    data = "conversation: " + data.replace("*", "\t* ")
                     display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
                     display_widget.insert(tk.END, data)
                     display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
