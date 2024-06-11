@@ -100,15 +100,15 @@ def create_floating_frame():
     EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
 
-    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
-    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
-    EN_00 = tk.Entry(container3, borderwidth=0, border=1,  bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+    lB_22 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
+    lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
+    EN_22 = tk.Entry(container3, borderwidth=0, border=1,  bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
 
-    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
-    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
-    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
+    lB_33 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_33.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
+    EN_33 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_1.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
 
     lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
     lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
