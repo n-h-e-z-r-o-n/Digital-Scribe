@@ -51,7 +51,7 @@ def create_floating_frame():
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
     title_bar_color(floating_frame, bg_color)
-    floating_frame.config(bg=bg_color)
+    floating_frame.config(bg="blue")
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -86,7 +86,7 @@ def create_floating_frame():
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container0 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
-    container0.place(relheight=1, relwidth=0.8, relx=0.2,rely=0)
+    container0.place(relheight=1, relwidth=0.79, relx=0.21, rely=0)
 
     MHL_00 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="History Type", anchor="sw", font=("Times New Roman", 11))
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
@@ -102,7 +102,7 @@ def create_floating_frame():
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container1 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
-    container1.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+    container1.place(relheight=1, relwidth=0.79, relx=0.21, rely=0)
 
     ALl_00 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Allergy Category", anchor="sw", font=("Times New Roman", 11))
     ALl_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
@@ -127,7 +127,7 @@ def create_floating_frame():
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container2 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
-    container2.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+    container2.place(relheight=1, relwidth=0.79, relx=0.21, rely=0)
 
     EXL_00 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Examination Type", anchor="sw", font=("Times New Roman", 11))
     EXL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
@@ -142,7 +142,7 @@ def create_floating_frame():
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container3 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
-    container3.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+    container3.place(relheight=1, relwidth=0.79, relx=0.21, rely=0)
 
     lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color,fg=fg_color, text="Body Temperature ('C)", anchor="sw", font=("Times New Roman", 11))
     lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
@@ -197,7 +197,7 @@ def create_floating_frame():
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container4 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
-    container4.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+    container4.place(relheight=1, relwidth=0.795, relx=0.205, rely=0)
 
     DlB_00 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Clinical Impression Type", anchor="sw", font=("Times New Roman", 11))
     DlB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
