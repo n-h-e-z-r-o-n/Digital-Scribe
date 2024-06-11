@@ -2093,7 +2093,7 @@ def on_closing():
 
 # =============================== Pages Functions definition =======================================================================================
 
-floating_frame = None,
+floating_frame = None
 transcribed_text_widget = None
 def create_floating_frame():
     global floating_frame, bg_color, fg_color, screen_width, screen_height
