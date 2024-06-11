@@ -22,16 +22,23 @@ def title_bar_color(window, color):
     ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
 
 floating_frame = None
+
 def create_floating_frame():
     global floating_frame
+    bg_color = "#344423"
+    if floating_frame is not None:
+        if floating_frame.winfo_exists():
+            floating_frame.deiconify()
+            return
+        else:
+            floating_frame = None
 
-    if floating_frame.winfo_exists():
-       print("Floating frame is still open.")
     # Create a new Toplevel window (floating frame)
+
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
-    title_bar_color(floating_frame, "#344423")
-    floating_frame.config(bg="#344423")
+    title_bar_color(floating_frame, bg_color)
+    floating_frame.config(bg=bg_color)
 
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
@@ -47,13 +54,8 @@ def create_floating_frame():
     floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
 
-    # Example content for the floating frame
-    label = tk.Label(floating_frame, text="This is a floating frame", font=("Helvetica", 16))
-    label.pack(pady=20)
-
-    close_button = tk.Button(floating_frame, text="Close", command=floating_frame.destroy)
-    close_button.pack(pady=10)
-
+    side_bar = tk.Frame(floating_frame)
+    side_bar.place(relwidth=0.2, relheight=1, rel)
 
 
 
