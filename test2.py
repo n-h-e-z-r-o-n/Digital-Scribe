@@ -127,21 +127,28 @@ def create_floating_frame():
     ALl_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     ALe_00 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     ALe_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+    pop_ALe_00 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container1, ALe_00, "Hel"))
+    pop_ALe_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_11 = tk.Label(container1, borderwidth=0, border=0, text="Allergen", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
     EN_11 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+    pop_EN_11 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container1, EN_11, "Hel"))
+    pop_EN_11.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.05)
 
     lB_22 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Severity", anchor="sw", font=("Times New Roman", 11))
     lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     EN_22 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+    pop_EN_22= tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container1, EN_22, "Hel"))
+    pop_EN_22.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.19)
 
     lB_44 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Note", anchor="sw", font=("Times New Roman", 11))
     lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
     EN_44 = tk.Text(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
+
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -152,6 +159,8 @@ def create_floating_frame():
     EXL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     EXE_00 = tk.Entry(container2, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EXE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
+    pop_EXE_00 = tk.Button(container2, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container2, EXE_00, "Hel"))
+    pop_EXE_00.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.05)
 
     EXL_11 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
     EXL_11.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
