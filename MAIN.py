@@ -2112,8 +2112,11 @@ def on_closing():
 
 
 def floating_frame():
+    global bg_color, fg_color
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
+    floating_frame.config(bg=bg_color)
+    title_bar_color(floating_frame)
     floating_frame.attributes('-toolwindow', True)
     floating_frame.geometry("300x200")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
@@ -2465,6 +2468,11 @@ def Main_Page(widget):
 
     Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
+
+    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda : floating_frame())
+    Analysis.place(relheight=0.03, relwidth=0.05, rely=0.97, relx=0.78)
+
+
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
