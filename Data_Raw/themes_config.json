@@ -1,8 +1,8 @@
 {
-    "bg_color": "#4E6E81",
-    "fg_color": "white",
+    "bg_color": "#F1E9D2",
+    "fg_color": "black",
     "fg_hovercolor": "red",
     "bg_hovercolor": "lightgreen",
-    "current_theme": "window(Aegean Blue)",
-    "nav_bg": "#4E6E81"
+    "current_theme": "window(Parchment)",
+    "nav_bg": "#F1E9D2"
 }
