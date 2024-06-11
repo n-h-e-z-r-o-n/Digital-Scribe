@@ -33,7 +33,7 @@ def create_floating_frame():
         global side_bar_list
         for i in side_bar_list:
             if i == widget:
-                i.config(fg = "blue")
+                i.config(fg="yellow")
             else:
                 i.config(fg=fg_color)
 
@@ -73,7 +73,6 @@ def create_floating_frame():
 
     btn0  = tk.Button(side_bar, borderwidth=0, border=0, text="\tMEDICAL HISTORY", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container0.tkraise(), active_side_bar(btn0)))
     btn0.place(relheight=0.07, relwidth=1, relx=0,rely=0)
-
     btn1 = tk.Button(side_bar, borderwidth=0, border=0, text="\tALLERGIES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container1.tkraise(), active_side_bar(btn1)))
     btn1.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
     btn2 = tk.Button(side_bar, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container2.tkraise(), active_side_bar(btn2)))

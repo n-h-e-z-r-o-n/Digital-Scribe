@@ -2093,23 +2093,195 @@ def on_closing():
 
 # =============================== Pages Functions definition =======================================================================================
 
+floating_frame = None
+def create_floating_frame():
+    global floating_frame, bg_color, fg_color, screen_width, screen_height
+    global side_bar_list
 
-def floating_frame():
-        global bg_color, fg_color
-        # Create a new Toplevel window (floating frame)
-        floating_frame = tk.Toplevel(root)
-        floating_frame.attributes('-toolwindow', True)
-        title_bar_color(floating_frame, lighten_hex_color(bg_color))
-        floating_frame.config(bg=lighten_hex_color(bg_color))
-        floating_frame.geometry("300x200")  # Set the size of the floating frame
-        floating_frame.title("Floating Frame")
+    def active_side_bar(widget):
+        global side_bar_list
+        for i in side_bar_list:
+            if i == widget:
+                i.config(fg="yellow")
+            else:
+                i.config(fg=fg_color)
 
-        # Example content for the floating frame
-        label = tk.Label(floating_frame, text="This is a floating frame", font=("Helvetica", 16))
-        label.pack(pady=20)
+    if floating_frame is not None:
+        if floating_frame.winfo_exists():
+            floating_frame.deiconify()
+            return
+        else:
+            floating_frame = None
+            side_bar_list = None
 
-        close_button = tk.Button(floating_frame, text="Close", command=floating_frame.destroy)
-        close_button.pack(pady=10)
+    # Create a new Toplevel window (floating frame)
+    side_bar_list = []
+    floating_frame = tk.Toplevel(root)
+    floating_frame.attributes('-toolwindow', True)
+    title_bar_color(floating_frame, bg_color)
+    floating_frame.config(bg=lighten_hex_color(bg_color))
+
+
+    frame_width = int(screen_width * 3 / 4)
+    frame_height = int(screen_height * 3 / 4)
+
+    # Calculate the position to center the frame on the screen
+
+    x_position = (screen_width // 2) - (frame_width // 2)
+    y_position = (screen_height // 2) - (frame_height // 2)
+
+    floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+    side_bar = tk.Frame(floating_frame, bg=bg_color)
+    side_bar.place(relwidth=0.2, relheight=1, rely=0, relx=0)
+
+    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="\tMEDICAL HISTORY", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container0.tkraise(), active_side_bar(btn0)))
+    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0)
+    btn1 = tk.Button(side_bar, borderwidth=0, border=0, text="\tALLERGIES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container1.tkraise(), active_side_bar(btn1)))
+    btn1.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
+    btn2 = tk.Button(side_bar, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container2.tkraise(), active_side_bar(btn2)))
+    btn2.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
+    btn3 = tk.Button(side_bar, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container3.tkraise(), active_side_bar(btn3)))
+    btn3.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
+    btn4 = tk.Button(side_bar, borderwidth=0, border=0, text="\tDIAGNOSES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container4.tkraise(), active_side_bar(btn4)))
+    btn4.place(relheight=0.07, relwidth=1, relx=0, rely=0.28)
+    side_bar_list.extend([btn0, btn1, btn2, btn3, btn4])
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container0 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container0.place(relheight=1, relwidth=0.79, relx=0.21, rely=0)
+
+    MHL_00 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="History Type", anchor="sw", font=("Times New Roman", 11))
+    MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color), fg=fg_color, font=("Times New Roman", 11))
+    MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
+
+    MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color), fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    MHL_11.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
+    MHE_11 = tk.Text(container0, borderwidth=0, border=1, bg=bg_color), fg=fg_color, font=("Times New Roman", 11))
+    MHE_11.place(relheight=0.8, relwidth=0.9, relx=0.05, rely=0.16)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container1 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container1.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    ALl_00 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Allergy Category", anchor="sw", font=("Times New Roman", 11))
+    ALl_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    ALe_00 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    ALe_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+
+    lB_11 = tk.Label(container1, borderwidth=0, border=0, text="Allergen", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
+    EN_11 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+
+    lB_22 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Severity", anchor="sw", font=("Times New Roman", 11))
+    lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
+    EN_22 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+
+    lB_44 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Note", anchor="sw", font=("Times New Roman", 11))
+    lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
+    EN_44 = tk.Text(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container2 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container2.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    EXL_00 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Examination Type", anchor="sw", font=("Times New Roman", 11))
+    EXL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    EXE_00 = tk.Entry(container2, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EXE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
+
+    EXL_11 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    EXL_11.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
+    EXE_11 = tk.Text(container2, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EXE_11.place(relheight=0.8, relwidth=0.9, relx=0.05, rely=0.16)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container3 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container3.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Body Temperature ('C)", anchor="sw", font=("Times New Roman", 11))
+    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
+    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+
+    lB_22 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Heart Rate (BPM)", anchor="sw", font=("Times New Roman", 11))
+    lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
+    EN_22 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+
+    lB_33 = tk.Label(container3, borderwidth=0, border=0, text="Oxygen saturation (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_33.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
+    EN_33 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_33.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
+
+    lB_44 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Systolic Blood Pressure", anchor="sw", font=("Times New Roman", 11))
+    lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
+    EN_44 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_44.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.33)
+
+    lB_55 = tk.Label(container3, borderwidth=0, border=0, text="Diastolic Blood Pressure", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_55.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.28)
+    EN_55 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_55.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.33)
+
+    lB_66 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Pulse Rate", anchor="sw", font=("Times New Roman", 11))
+    lB_66.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.42)
+    EN_66 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_66.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.47)
+
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Height (cm)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.42)
+    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.47)
+
+    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Weight (KG)", anchor="sw", font=("Times New Roman", 11))
+    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.56)
+    EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.61)
+
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="BM", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.56)
+    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.61)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container4 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container4.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    DlB_00 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Clinical Impression Type", anchor="sw", font=("Times New Roman", 11))
+    DlB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    DEN_00 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    DEN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+
+    DlB_11 = tk.Label(container4, borderwidth=0, border=0, text="Differential Diagnoses)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    DlB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
+    DEN_11 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    DEN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+
+    DlB_22 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Co-Existing Conditions", anchor="sw", font=("Times New Roman", 11))
+    DlB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
+    DEN_22 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    DEN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+
+    lB_44 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
+    EN_44 = tk.Text(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
 
 def Login_Section_widget(widget):
     global screen_width, screen_height, bg_color, fg_color
@@ -2452,7 +2624,7 @@ def Main_Page(widget):
     Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
 
-    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda : floating_frame())
+    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda : create_floating_frame())
     Analysis.place(relheight=0.03, relwidth=0.05, rely=0.97, relx=0.78)
 
 
