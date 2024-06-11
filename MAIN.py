@@ -2119,7 +2119,7 @@ def create_floating_frame():
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
     title_bar_color(floating_frame, bg_color)
-    floating_frame.config(bg="blue")
+    floating_frame.config(bg=lighten_hex_color(bg_color))
 
 
     frame_width = int(screen_width * 3 / 4)
