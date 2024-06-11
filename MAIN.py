@@ -2111,6 +2111,19 @@ def on_closing():
 # =============================== Pages Functions definition =======================================================================================
 
 
+def floating_frame():
+    # Create a new Toplevel window (floating frame)
+    floating_frame = tk.Toplevel(root)
+    floating_frame.attributes('-toolwindow', True)
+    floating_frame.geometry("300x200")  # Set the size of the floating frame
+    floating_frame.title("Floating Frame")
+
+    # Example content for the floating frame
+    label = tk.Label(floating_frame, text="This is a floating frame", font=("Helvetica", 16))
+    label.pack(pady=20)
+
+    close_button = tk.Button(floating_frame, text="Close", command=floating_frame.destroy)
+    close_button.pack(pady=10)
 
 def Login_Section_widget(widget):
     global screen_width, screen_height, bg_color, fg_color

@@ -3,6 +3,7 @@ import tkinter as tk
 def create_floating_frame():
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
+    floating_frame.attributes('-toolwindow', True)
     floating_frame.geometry("300x200")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
 
@@ -16,6 +17,7 @@ def create_floating_frame():
 # Main application window
 root = tk.Tk()
 root.geometry("400x300")
+
 root.title("Main Application")
 
 # Button to open the floating frame
