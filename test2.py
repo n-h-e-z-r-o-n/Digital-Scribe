@@ -204,6 +204,7 @@ def create_floating_frame():
     DEN_00 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     DEN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
 
+
     DlB_11 = tk.Label(container4, borderwidth=0, border=0, text="Differential Diagnoses)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     DlB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
     DEN_11 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
