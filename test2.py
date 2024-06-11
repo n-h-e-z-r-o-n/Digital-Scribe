@@ -26,6 +26,7 @@ floating_frame = None
 def create_floating_frame():
     global floating_frame
     bg_color = "#344423"
+    fg_color = "white"
     if floating_frame is not None:
         if floating_frame.winfo_exists():
             floating_frame.deiconify()
@@ -55,7 +56,18 @@ def create_floating_frame():
     floating_frame.title("Floating Frame")
 
     side_bar = tk.Frame(floating_frame)
-    side_bar.place(relwidth=0.2, relheight=1, rel)
+    side_bar.place(relwidth=0.2, relheight=1, rely=0, relx=0)
+
+    btn0  = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color, anchor="w", font=("", 12, "bold"))
+    btn0.place(relheight=0.07, relwidth=1, relx=0,rely=0)
+    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
+    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
+    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
+    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
+    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
+    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
+    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
+    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.28)
 
 
 
