@@ -90,16 +90,26 @@ def create_floating_frame():
     container3 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
     container3.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
 
-    btn0 = tk.Label(container3, borderwidth=0, border=0, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
-    btn0.place(relheight=0.05, relwidth=0.4, relx=0, rely=0)
-    btn1 = tk.Entry(container3, borderwidth=0, border=1, fg=fg_color, font=("Georgia", 12, "bold"))
-    btn1.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
+    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
+    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    EN_00 = tk.Entry(container3, borderwidth=0, border=1, fg=fg_color, font=("Times New Roman", 11))
+    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
 
-    btn2 = tk.Button(container3, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color)
-    btn2.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
+    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
 
-    btn3 = tk.Button(container3, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color)
-    btn3.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
+    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
+    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    EN_00 = tk.Entry(container3, borderwidth=0, border=1, fg=fg_color, font=("Times New Roman", 11))
+    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
+    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
+
 
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
