@@ -80,10 +80,10 @@ def create_floating_frame():
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
 
-    MHL_00 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
-    MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
-    MHE_00 = tk.Text(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    MHE_00.place(relheight=0.8, relwidth=0.9, relx=0.05, rely=0.16)
+    MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    MHL_11.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
+    MHE_11 = tk.Text(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    MHE_11.place(relheight=0.8, relwidth=0.9, relx=0.05, rely=0.16)
 
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -115,6 +115,16 @@ def create_floating_frame():
 
     container2 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
     container2.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    EXL_00 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Examination Type", anchor="sw", font=("Times New Roman", 11))
+    EXL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    EXE_00 = tk.Entry(container2, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EXE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
+
+    EXL_11 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    EXL_11.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
+    EXE_11 = tk.Text(container2, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EXE_11.place(relheight=0.8, relwidth=0.9, relx=0.05, rely=0.16)
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
