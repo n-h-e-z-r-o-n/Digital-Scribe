@@ -1626,8 +1626,6 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
 
 
 prevy = 0
-
-
 def on_touch_scroll(widget, event):
     global prevy
 
