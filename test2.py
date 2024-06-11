@@ -34,7 +34,6 @@ def create_floating_frame():
         relx = widget.place_info()["relx"]
         rely = widget.place_info()["rely"]
         relwidth = widget.place_info()["relwidth"]
-
         relheight = widget.place_info()["relheight"]
 
         rely = float( float(rely) + float(relheight))
@@ -106,8 +105,7 @@ def create_floating_frame():
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
-
-    pop1 = tk.Button(container0, text="V", bg=bg_color, fg= font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda : Show_PopUp(container0, MHE_00, "Hel"))
+    pop1 = tk.Button(container0, text="V", bg=bg_color, fg=fg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda : Show_PopUp(container0, MHE_00, "Hel"))
     pop1.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
 
