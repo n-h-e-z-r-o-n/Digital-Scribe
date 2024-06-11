@@ -21,7 +21,12 @@ def title_bar_color(window, color):
 
     ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
 
+floating_frame = None
 def create_floating_frame():
+    global floating_frame
+
+    if floating_frame.winfo_exists():
+       print("Floating frame is still open.")
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
@@ -48,6 +53,17 @@ def create_floating_frame():
 
     close_button = tk.Button(floating_frame, text="Close", command=floating_frame.destroy)
     close_button.pack(pady=10)
+
+
+
+
+
+
+
+
+
+
+
 
 # Main application window
 root = tk.Tk()
