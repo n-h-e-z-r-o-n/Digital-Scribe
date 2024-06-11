@@ -2093,10 +2093,11 @@ def on_closing():
 
 # =============================== Pages Functions definition =======================================================================================
 
-floating_frame = None
+floating_frame = None,
+transcribed_text_widget = None
 def create_floating_frame():
     global floating_frame, bg_color, fg_color, screen_width, screen_height
-    global side_bar_list
+    global side_bar_list, transcribed_text_widget
 
     def Show_PopUp(widget0, widget, qestion):
         pop_ = tk.Frame(widget0, bg="blue")
@@ -2126,7 +2127,7 @@ def create_floating_frame():
         else:
             floating_frame = None
             side_bar_list = None
-
+    print('transcribed_text_widget', transcribed_text_widget)
     # Create a new Toplevel window (floating frame)
     side_bar_list = []
     floating_frame = tk.Toplevel(root)
@@ -2144,9 +2145,8 @@ def create_floating_frame():
 
     x_position = (screen_width // 2) - (frame_width // 2)
     y_position = (screen_height // 2) - (frame_height // 2)
-
     floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
-    floating_frame.title("Floating Frame")
+
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
     side_bar = tk.Frame(floating_frame, bg=bg_color)
@@ -2465,7 +2465,7 @@ def Login_Section_widget(widget):
 
 def Main_Page(widget):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor
-    global Recording_paused, font_size
+    global Recording_paused, font_size, transcribed_text_widget
 
     def font_change(widget1, widget2, widget3):
         global defalt_font_style, defalt_font_size, closed
@@ -2564,6 +2564,7 @@ def Main_Page(widget):
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     text_list_widget.append(t3)
+    transcribed_text_widget = t2
 
     paned_window.add(t1)
     paned_window.add(t2)
