@@ -1,71 +1,60 @@
 import tkinter as tk
+from tkinter import messagebox
 
 
-def create_floating_frame():
-    # Create a new Toplevel window (floating frame)
-    floating_frame = tk.Toplevel(root)
+def show_popup():
+    # Create a new popup window
+    popup = tk.Toplevel()
+    popup.title("Select an Item")
 
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+    # Set the geometry for the popup window (optional)
+    popup.geometry("300x200")
 
-    frame_width = int(screen_width * 3/4)
-    frame_height = int(screen_height * 3/4)
+    # Create a listbox widget
+    listbox = tk.Listbox(popup, selectmode=tk.SINGLE)
+    listbox.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-    # Calculate the position to center the frame on the screen
+    # Add items to the listbox
+    items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
+    for item in items:
+        listbox.insert(tk.END, item)
 
-    x_position = (screen_width // 2) - (frame_width // 2)
-    y_position = (screen_height // 2) - (frame_height // 2)
+    # Create a function to handle item selection
+    def on_select(event):
+        selected_index = listbox.curselection()
+        if selected_index:
+            selected_item = listbox.get(selected_index)
+            messagebox.showinfo("Item Selected", f"You selected: {selected_item}")
+            popup.destroy()
 
-    floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
-    floating_frame.overrideredirect(True)  # Remove title bar and buttons
-    floating_frame.config(highlightthickness=2, highlightbackground="blue")
-    # Create a frame within the floating window to act as a custom title bar
-    title_bar = tk.Frame(floating_frame, bg='gray', relief='raised', bd=2)
-    title_bar.pack(fill='x', padx=5, pady=5)
+    # Bind the listbox selection event to the on_select function
+    listbox.bind("<<ListboxSelect>>", on_select)
 
-    # Add a label to the custom title bar
-    title_label = tk.Label(title_bar, text="Floating Frame", bg='gray')
-    title_label.pack(side='left', padx=10)
-
-    # Add a close button to the custom title bar
-    close_button = tk.Button(title_bar, text="X", bg='red', command=floating_frame.destroy)
-    close_button.pack(side='right')
-
-    # Allow the frame to be moved by dragging the title bar
-    def start_move(event):
-        floating_frame.x = event.x
-        floating_frame.y = event.y
-
-    def stop_move(event):
-        floating_frame.x = None
-        floating_frame.y = None
-
-    def on_motion(event):
-        delta_x = event.x - floating_frame.x
-        delta_y = event.y - floating_frame.y
-        new_x = floating_frame.winfo_x() + delta_x
-        new_y = floating_frame.winfo_y() + delta_y
-        floating_frame.geometry(f"+{new_x}+{new_y}")
-
-    title_bar.bind("<Button-1>", start_move)
-    title_bar.bind("<ButtonRelease-1>", stop_move)
-    title_bar.bind("<B1-Motion>", on_motion)
-
-    # Example content for the floating frame
-    content_frame = tk.Frame(floating_frame)
-    content_frame.pack(fill='both', expand=True, padx=10, pady=10)
-
-    label = tk.Label(content_frame, text="This is a floating frame", font=("Helvetica", 16))
-    label.pack(pady=20)
+    # Create a close button to close the popup window
+    close_button = tk.Button(popup, text="Close", command=popup.destroy)
+    close_button.pack(pady=10)
 
 
-# Main application window
-root = tk.Tk()
-root.geometry("400x300")
-root.title("Main Application")
+def main():
+    # Create the main application window
+    root = tk.Tk()
+    root.title("Main Window")
 
-# Button to open the floating frame
-open_button = tk.Button(root, text="Open Floating Frame", command=create_floating_frame)
-open_button.pack(pady=50)
+    # Center the main window on the screen
+    root.update_idletasks()
+    width = root.winfo_width()
+    height = root.winfo_height()
+    x = (root.winfo_screenwidth() // 2) - (width // 2)
+    y = (root.winfo_screenheight() // 2) - (height // 2)
+    root.geometry(f'{width}x{height}+{x}+{y}')
 
-root.mainloop()
+    # Create a button to show the popup list
+    popup_button = tk.Button(root, text="Show Popup", command=show_popup)
+    popup_button.pack(pady=20)
+
+    # Run the Tkinter event loop
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()
