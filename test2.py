@@ -83,14 +83,33 @@ def create_floating_frame():
     MHL_00 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
     MHE_00 = tk.Text(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    MHE_00.place(relheight=0.9, relwidth=0.9, relx=0.05, rely=0.16)
-
+    MHE_00.place(relheight=0.8, relwidth=0.9, relx=0.05, rely=0.16)
 
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container1 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
     container1.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    ALl_00 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Allergy Category", anchor="sw", font=("Times New Roman", 11))
+    ALl_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    ALe_00 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    ALe_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+
+    lB_11 = tk.Label(container1, borderwidth=0, border=0, text="Allergen", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
+    EN_11 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+
+    lB_22 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Severity", anchor="sw", font=("Times New Roman", 11))
+    lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
+    EN_22 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+
+    lB_44 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Note", anchor="sw", font=("Times New Roman", 11))
+    lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
+    EN_44 = tk.Text(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
