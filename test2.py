@@ -37,7 +37,6 @@ def create_floating_frame():
             else:
                 i.config(fg=fg_color)
 
-
     if floating_frame is not None:
         if floating_frame.winfo_exists():
             floating_frame.deiconify()
@@ -92,6 +91,8 @@ def create_floating_frame():
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
+    tk.Button(container0, text="v").place
+
 
     MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
     MHL_11.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
@@ -214,7 +215,6 @@ def create_floating_frame():
     DlB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     DEN_22 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     DEN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
-
 
     lB_44 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
     lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
