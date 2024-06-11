@@ -4,9 +4,9 @@ import tkinter as tk
 def create_floating_frame():
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
-    floating_frame.geometry("300x200")  # Set the size of the floating frame
+    floating_frame.geometry("300x200x0x0")  # Set the size of the floating frame
     floating_frame.overrideredirect(True)  # Remove title bar and buttons
-
+    floating_frame.config(highlightthickness=2)
     # Create a frame within the floating window to act as a custom title bar
     title_bar = tk.Frame(floating_frame, bg='gray', relief='raised', bd=2)
     title_bar.pack(fill='x', padx=5, pady=5)

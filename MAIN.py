@@ -354,10 +354,9 @@ def run_server():
 # =============================== Functions definition ============================================================================================
 
 # --------------------------------- Themes --------------------------------------------------------------------------------------------------------
-def title_bar_color(color):
+def title_bar_color(window, color):
     # import ctypes as ct
-    global root
-    root.update()
+    window.update()
     if color.startswith('#'):
         blue = color[5:7]
         green = color[3:5]
@@ -368,9 +367,8 @@ def title_bar_color(color):
         green = color[2:4]
         red = color[0:2]
         color = blue + green + red
-    print(color)
     get_parent = ct.windll.user32.GetParent
-    HWND = get_parent(root.winfo_id())
+    HWND = get_parent(window.winfo_id())
 
     color = '0x' + color
     color = int(color, 16)
@@ -2116,7 +2114,7 @@ def floating_frame():
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
     floating_frame.config(bg=bg_color)
-    title_bar_color(floating_frame)
+    title_bar_color(floating_frame, bg_color)
     floating_frame.attributes('-toolwindow', True)
     floating_frame.geometry("300x200")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
@@ -3545,7 +3543,7 @@ def main():
     screen_width = root.winfo_screenwidth()  # Get the screen width dimensions
     screen_height = root.winfo_screenheight()  # Get the screen height dimensions
 
-    title_bar_color(bg_color)
+    title_bar_color(root, bg_color)
 
     Welcome_Page(root)
     print("main started 2")
