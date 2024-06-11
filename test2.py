@@ -42,6 +42,16 @@ def create_floating_frame():
         pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
         pop_.bind("<Leave>",  func=lambda e: pop_.destroy())
 
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.1)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.2)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.3)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.4)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.5)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.6)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.7)
+        tk.Label(pop_).place(relheight=0.1, relwidth=1, relx=0, rely=0.8)
+
 
     def active_side_bar(widget):
         global side_bar_list
