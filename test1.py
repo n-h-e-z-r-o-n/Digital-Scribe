@@ -4,6 +4,7 @@ import tkinter as tk
 def create_floating_frame():
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
+
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
 

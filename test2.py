@@ -27,7 +27,19 @@ def create_floating_frame():
     floating_frame.attributes('-toolwindow', True)
     title_bar_color(floating_frame, "#344423")
     floating_frame.config(bg="#344423")
-    floating_frame.geometry("300x200")  # Set the size of the floating frame
+
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    frame_width = int(screen_width * 3 / 4)
+    frame_height = int(screen_height * 3 / 4)
+
+    # Calculate the position to center the frame on the screen
+
+    x_position = (screen_width // 2) - (frame_width // 2)
+    y_position = (screen_height // 2) - (frame_height // 2)
+
+    floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
 
     # Example content for the floating frame

@@ -2099,8 +2099,8 @@ def floating_frame():
         # Create a new Toplevel window (floating frame)
         floating_frame = tk.Toplevel(root)
         floating_frame.attributes('-toolwindow', True)
-        title_bar_color(floating_frame, "#344423")
-        floating_frame.config(bg="#344423")
+        title_bar_color(floating_frame, lighten_hex_color(bg_color))
+        floating_frame.config(bg=lighten_hex_color(bg_color))
         floating_frame.geometry("300x200")  # Set the size of the floating frame
         floating_frame.title("Floating Frame")
 
