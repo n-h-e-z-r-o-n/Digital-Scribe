@@ -1,60 +1,58 @@
 import tkinter as tk
-from tkinter import messagebox
 
+class PopupList(tk.Toplevel):
+    def __init__(self, parent, items):
+        super().__init__(parent)
+        self.title("Popup List")
+        self.geometry("200x200")
+        self.withdraw()  # Hide the popup initially
 
-def show_popup():
-    # Create a new popup window
-    popup = tk.Toplevel()
-    popup.title("Select an Item")
+        # Remove title bar
+        self.overrideredirect(True)
 
-    # Set the geometry for the popup window (optional)
-    popup.geometry("300x200")
+        # Create a listbox
+        self.listbox = tk.Listbox(self)
+        self.listbox.pack(fill=tk.BOTH, expand=True)
 
-    # Create a listbox widget
-    listbox = tk.Listbox(popup, selectmode=tk.SINGLE)
-    listbox.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+        # Populate the listbox with items
+        for item in items:
+            self.listbox.insert(tk.END, item)
 
-    # Add items to the listbox
-    items = ["Item 1", "Item 2", "Item 3", "Item 4", "Item 5"]
-    for item in items:
-        listbox.insert(tk.END, item)
+        # Bind selection event
+        self.listbox.bind("<<ListboxSelect>>", self.on_select)
 
-    # Create a function to handle item selection
-    def on_select(event):
-        selected_index = listbox.curselection()
-        if selected_index:
-            selected_item = listbox.get(selected_index)
-            messagebox.showinfo("Item Selected", f"You selected: {selected_item}")
-            popup.destroy()
+    def show(self, x, y):
+        self.geometry(f"+{x}+{y}")
+        self.deiconify()
 
-    # Bind the listbox selection event to the on_select function
-    listbox.bind("<<ListboxSelect>>", on_select)
+    def hide(self):
+        self.withdraw()
 
-    # Create a close button to close the popup window
-    close_button = tk.Button(popup, text="Close", command=popup.destroy)
-    close_button.pack(pady=10)
+    def on_select(self, event):
+        selected_indices = self.listbox.curselection()
+        if selected_indices:
+            selected_index = selected_indices[0]
+            selected_item = self.listbox.get(selected_index)
+            print(f"Selected: {selected_item}")
+            self.hide()
 
+class MainApplication(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("Main Application")
+        self.geometry("300x200")
 
-def main():
-    # Create the main application window
-    root = tk.Tk()
-    root.title("Main Window")
+        self.popup = PopupList(self, ["Option 1", "Option 2", "Option 3"])
 
-    # Center the main window on the screen
-    root.update_idletasks()
-    width = root.winfo_width()
-    height = root.winfo_height()
-    x = (root.winfo_screenwidth() // 2) - (width // 2)
-    y = (root.winfo_screenheight() // 2) - (height // 2)
-    root.geometry(f'{width}x{height}+{x}+{y}')
+        # Button to show the popup list
+        self.button = tk.Button(self, text="Show Popup", command=self.show_popup)
+        self.button.pack(pady=20)
 
-    # Create a button to show the popup list
-    popup_button = tk.Button(root, text="Show Popup", command=show_popup)
-    popup_button.pack(pady=20)
-
-    # Run the Tkinter event loop
-    root.mainloop()
-
+    def show_popup(self):
+        x = self.winfo_x() + self.button.winfo_x() + self.button.winfo_width()
+        y = self.winfo_y() + self.button.winfo_y()
+        self.popup.show(x, y)
 
 if __name__ == "__main__":
-    main()
+    app = MainApplication()
+    app.mainloop()
