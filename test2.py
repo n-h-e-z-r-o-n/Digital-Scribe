@@ -28,7 +28,8 @@ def create_floating_frame():
     bg_color = "#344423"
     fg_color = "white"
     global side_bar_list
-
+    def Show_PopUp():
+        pass
     def active_side_bar(widget):
         global side_bar_list
         for i in side_bar_list:
@@ -91,7 +92,7 @@ def create_floating_frame():
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
-    tk.Button(container0, text="v").place
+    tk.Button(container0, text="v").place(relheight=0.05, relwidth=0.01, relx=0.45, rely=0.05)
 
 
     MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
