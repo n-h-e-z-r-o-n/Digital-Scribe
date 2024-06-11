@@ -17,7 +17,7 @@ def create_floating_frame():
 
     floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
     floating_frame.overrideredirect(True)  # Remove title bar and buttons
-    floating_frame.config(highlightthickness=2)
+    floating_frame.config(highlightthickness=2, highlightbackground="blue")
     # Create a frame within the floating window to act as a custom title bar
     title_bar = tk.Frame(floating_frame, bg='gray', relief='raised', bd=2)
     title_bar.pack(fill='x', padx=5, pady=5)

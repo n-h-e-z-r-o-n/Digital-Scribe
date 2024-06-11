@@ -378,7 +378,7 @@ def title_bar_color(window, color):
 
 def change_color(widget, button):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg, nav_widg
-
+    global root
     button_text = button.cget("text")
     print("color_change: ", button_text)
     if button_text == 'window(light)':
@@ -402,7 +402,7 @@ def change_color(widget, button):
         bg_color = '#3A3A38'
         fg_color = 'white'
         current_theme = 'window(Blackberry)'
-        title_bar_color(bg_color)
+        title_bar_color(root, bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Blackberry)':

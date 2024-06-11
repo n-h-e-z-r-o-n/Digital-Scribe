@@ -1,9 +1,31 @@
 import tkinter as tk
 
+def title_bar_color(window, color):
+    import ctypes as ct
+    window.update()
+    if color.startswith('#'):
+        blue = color[5:7]
+        green = color[3:5]
+        red = color[1:3]
+        color = blue + green + red
+    else:
+        blue = color[4:6]
+        green = color[2:4]
+        red = color[0:2]
+        color = blue + green + red
+    get_parent = ct.windll.user32.GetParent
+    HWND = get_parent(window.winfo_id())
+
+    color = '0x' + color
+    color = int(color, 16)
+
+    ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
+
 def create_floating_frame():
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
+    title_bar_color(floating_frame, "#344423")
     floating_frame.geometry("300x200")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
 
@@ -17,7 +39,7 @@ def create_floating_frame():
 # Main application window
 root = tk.Tk()
 root.geometry("400x300")
-
+title_bar_color(root, "#344423")
 root.title("Main Application")
 
 # Button to open the floating frame
