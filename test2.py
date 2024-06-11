@@ -75,6 +75,18 @@ def create_floating_frame():
     container0 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
     container0.place(relheight=1, relwidth=0.8, relx=0.2,rely=0)
 
+    MHL_00 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="History Type", anchor="sw", font=("Times New Roman", 11))
+    MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
+
+    MHL_00 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.11)
+    MHE_00 = tk.Text(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    MHE_00.place(relheight=0.9, relwidth=0.9, relx=0.05, rely=0.16)
+
+
+
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
     container1 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
@@ -90,7 +102,7 @@ def create_floating_frame():
     container3 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
     container3.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
 
-    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE ('C)", anchor="sw", font=("Times New Roman", 11))
+    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color,fg=fg_color, text="Body Temperature ('C)", anchor="sw", font=("Times New Roman", 11))
     lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
@@ -100,42 +112,42 @@ def create_floating_frame():
     EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
 
-    lB_22 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
+    lB_22 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Heart Rate (BPM)", anchor="sw", font=("Times New Roman", 11))
     lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     EN_22 = tk.Entry(container3, borderwidth=0, border=1,  bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
 
-    lB_33 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_33 = tk.Label(container3, borderwidth=0, border=0, text="Oxygen saturation (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_33.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
     EN_33 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    EN_1.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
+    EN_33.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
 
-    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
-    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
-    EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.33)
+    lB_44 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color,fg=fg_color, text="Systolic Blood Pressure", anchor="sw", font=("Times New Roman", 11))
+    lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
+    EN_44 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_44.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.33)
 
-    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
-    lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.28)
-    EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.33)
+    lB_55 = tk.Label(container3, borderwidth=0, border=0, text="Diastolic Blood Pressure", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_55.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.28)
+    EN_55 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_55.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.33)
 
-    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
-    lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.42)
-    EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
-    EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.47)
+    lB_66 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color,fg=fg_color, text="Pulse Rate", anchor="sw", font=("Times New Roman", 11))
+    lB_66.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.42)
+    EN_66 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_66.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.47)
 
-    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Height (cm)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.42)
     EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.47)
 
-    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
+    lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Weight (KG)", anchor="sw", font=("Times New Roman", 11))
     lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.56)
     EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.61)
 
-    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    lB_11 = tk.Label(container3, borderwidth=0, border=0, text="BM", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.56)
     EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.61)
