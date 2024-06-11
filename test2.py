@@ -55,21 +55,57 @@ def create_floating_frame():
     floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
 
-    side_bar = tk.Frame(floating_frame)
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+    side_bar = tk.Frame(floating_frame, bg=bg_color)
     side_bar.place(relwidth=0.2, relheight=1, rely=0, relx=0)
 
-    btn0  = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color, anchor="w", font=("", 12, "bold"))
+    btn0  = tk.Button(side_bar, borderwidth=0, border=0, text="\tMEDICAL HISTORY", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container0.tkraise())
     btn0.place(relheight=0.07, relwidth=1, relx=0,rely=0)
-    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
-    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
-    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
-    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
-    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
-    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
-    btn0 = tk.Button(side_bar, borderwidth=0, border=0, text="sdsdsd", bg="blue", fg=fg_color)
-    btn0.place(relheight=0.07, relwidth=1, relx=0, rely=0.28)
+    btn1 = tk.Button(side_bar, borderwidth=0, border=0, text="\tALLERGIES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container1.tkraise())
+    btn1.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
+    btn2 = tk.Button(side_bar, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container2.tkraise())
+    btn2.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
+    btn3 = tk.Button(side_bar, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container3.tkraise())
+    btn3.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
+    btn4 = tk.Button(side_bar, borderwidth=0, border=0, text="\tFOLLOW UPS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container4.tkraise())
+    btn4.place(relheight=0.07, relwidth=1, relx=0, rely=0.28)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container0 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container0.place(relheight=1, relwidth=0.8, relx=0.2,rely=0)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container1 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container1.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container2 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container2.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container3 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container3.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    btn0 = tk.Label(container3, borderwidth=0, border=0, text="BODY TEMPERATURE", anchor="sw", font=("Times New Roman", 11))
+    btn0.place(relheight=0.05, relwidth=0.4, relx=0, rely=0)
+    btn1 = tk.Entry(container3, borderwidth=0, border=1, fg=fg_color, font=("Georgia", 12, "bold"))
+    btn1.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
+
+    btn2 = tk.Button(container3, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color)
+    btn2.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
+
+    btn3 = tk.Button(container3, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color)
+    btn3.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
 
 
+    # --------------------------------------------------------------------------------------------------------------------------------------------------
+
+    container4 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
+    container4.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
 
 
 
