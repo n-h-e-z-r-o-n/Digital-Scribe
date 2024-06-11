@@ -27,15 +27,27 @@ def create_floating_frame():
     global floating_frame
     bg_color = "#344423"
     fg_color = "white"
+    global side_bar_list
+
+    def active_side_bar(widget):
+        global side_bar_list
+        for i in side_bar_list:
+            if i == widget:
+                i.config(fg = "blue")
+            else:
+                i.config(fg=fg_color)
+
+
     if floating_frame is not None:
         if floating_frame.winfo_exists():
             floating_frame.deiconify()
             return
         else:
             floating_frame = None
+            side_bar_list = None
 
     # Create a new Toplevel window (floating frame)
-
+    side_bar_list = []
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
     title_bar_color(floating_frame, bg_color)
@@ -59,16 +71,18 @@ def create_floating_frame():
     side_bar = tk.Frame(floating_frame, bg=bg_color)
     side_bar.place(relwidth=0.2, relheight=1, rely=0, relx=0)
 
-    btn0  = tk.Button(side_bar, borderwidth=0, border=0, text="\tMEDICAL HISTORY", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container0.tkraise())
+    btn0  = tk.Button(side_bar, borderwidth=0, border=0, text="\tMEDICAL HISTORY", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container0.tkraise(), active_side_bar(btn0)))
     btn0.place(relheight=0.07, relwidth=1, relx=0,rely=0)
-    btn1 = tk.Button(side_bar, borderwidth=0, border=0, text="\tALLERGIES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container1.tkraise())
+
+    btn1 = tk.Button(side_bar, borderwidth=0, border=0, text="\tALLERGIES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container1.tkraise(), active_side_bar(btn1)))
     btn1.place(relheight=0.07, relwidth=1, relx=0, rely=0.07)
-    btn2 = tk.Button(side_bar, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container2.tkraise())
+    btn2 = tk.Button(side_bar, borderwidth=0, border=0, text="\tEXAMINATION", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container2.tkraise(), active_side_bar(btn2)))
     btn2.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
-    btn3 = tk.Button(side_bar, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container3.tkraise())
+    btn3 = tk.Button(side_bar, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container3.tkraise(), active_side_bar(btn3)))
     btn3.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
-    btn4 = tk.Button(side_bar, borderwidth=0, border=0, text="\tDIAGNOSES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container4.tkraise())
+    btn4 = tk.Button(side_bar, borderwidth=0, border=0, text="\tDIAGNOSES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: (container4.tkraise(), active_side_bar(btn4)))
     btn4.place(relheight=0.07, relwidth=1, relx=0, rely=0.28)
+    side_bar_list.extend([btn0, btn1, btn2, btn3, btn4])
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
 
