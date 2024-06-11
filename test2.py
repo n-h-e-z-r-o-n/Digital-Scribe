@@ -26,6 +26,7 @@ def create_floating_frame():
     floating_frame = tk.Toplevel(root)
     floating_frame.attributes('-toolwindow', True)
     title_bar_color(floating_frame, "#344423")
+    floating_frame.config(bg="#344423")
     floating_frame.geometry("300x200")  # Set the size of the floating frame
     floating_frame.title("Floating Frame")
 

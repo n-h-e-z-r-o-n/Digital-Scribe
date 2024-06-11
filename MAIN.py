@@ -386,7 +386,6 @@ def change_color(widget, button):
         bg_color = '#353839'
         fg_color = 'white'
         current_theme = 'window(dark_gray)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(dark_gray)':
@@ -394,7 +393,6 @@ def change_color(widget, button):
         bg_color = '#36454F'
         fg_color = 'white'
         current_theme = 'window(dark_blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(dark_blue)':
@@ -402,7 +400,6 @@ def change_color(widget, button):
         bg_color = '#3A3A38'
         fg_color = 'white'
         current_theme = 'window(Blackberry)'
-        title_bar_color(root, bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Blackberry)':
@@ -418,7 +415,6 @@ def change_color(widget, button):
         bg_color = '#253529'
         fg_color = 'white'
         current_theme = 'window(Jacket)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Jacket)':
@@ -426,7 +422,6 @@ def change_color(widget, button):
         bg_color = '#5D8AA8'
         fg_color = 'white'
         current_theme = 'window(Air Force blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Air Force blue)':
@@ -434,7 +429,6 @@ def change_color(widget, button):
         bg_color = '#4682B4'
         fg_color = 'white'
         current_theme = 'window(Steel Blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Steel Blue)':
@@ -442,7 +436,6 @@ def change_color(widget, button):
         bg_color = '#4B9CD3'
         fg_color = 'white'
         current_theme = 'window(Carolina Blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Carolina Blue)':
@@ -450,7 +443,6 @@ def change_color(widget, button):
         bg_color = '#4F97A3'
         fg_color = 'white'
         current_theme = 'window(Turkish Blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Turkish Blue)':
@@ -458,7 +450,6 @@ def change_color(widget, button):
         bg_color = '#73C2FB'
         fg_color = 'white'
         current_theme = 'window(Maya Blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Maya Blue)':
@@ -466,7 +457,7 @@ def change_color(widget, button):
         bg_color = '#4C516D'
         fg_color = 'white'
         current_theme = 'window(Independence Blue)'
-        title_bar_color(bg_color)
+        title_bar_color(root, bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Independence Blue)':
@@ -474,7 +465,6 @@ def change_color(widget, button):
         bg_color = '#00356B'
         fg_color = 'white'
         current_theme = 'window(Yale Blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Yale Blue)':
@@ -482,7 +472,6 @@ def change_color(widget, button):
         bg_color = '#003153'
         fg_color = 'white'
         current_theme = 'window(Prussian blue)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Prussian blue)':
@@ -490,7 +479,7 @@ def change_color(widget, button):
         bg_color = '#4E6E81'
         fg_color = 'white'
         current_theme = 'window(Aegean Blue)'
-        title_bar_color(bg_color)
+        title_bar_color(root, bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Aegean Blue)':
@@ -498,7 +487,6 @@ def change_color(widget, button):
         bg_color = '#13274F'
         fg_color = 'white'
         current_theme = 'window(Braves Navy)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Braves Navy)':
@@ -506,7 +494,6 @@ def change_color(widget, button):
         bg_color = '#F1E9D2'
         fg_color = 'black'
         current_theme = 'window(Parchment)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Parchment)':
@@ -514,7 +501,6 @@ def change_color(widget, button):
         bg_color = '#EDEAE0'
         fg_color = 'black'
         current_theme = 'window(Alabaster)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(Alabaster)':
@@ -522,7 +508,6 @@ def change_color(widget, button):
         bg_color = '#F5F5F5'
         fg_color = 'black'
         current_theme = 'window(White smoke)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(White smoke)':
@@ -530,7 +515,7 @@ def change_color(widget, button):
         bg_color = '#F8FBF8'
         fg_color = 'black'
         current_theme = 'window(light)'
-        title_bar_color(bg_color)
+
         nav_bg = bg_color
     else:
         return
@@ -583,7 +568,7 @@ def change_color(widget, button):
         save_themes()
 
     modify_css()
-
+    title_bar_color(root, bg_color)
     threading.Thread(target=change_all).start()
 
 
@@ -2110,21 +2095,21 @@ def on_closing():
 
 
 def floating_frame():
-    global bg_color, fg_color
-    # Create a new Toplevel window (floating frame)
-    floating_frame = tk.Toplevel(root)
-    floating_frame.config(bg=bg_color)
-    title_bar_color(floating_frame, bg_color)
-    floating_frame.attributes('-toolwindow', True)
-    floating_frame.geometry("300x200")  # Set the size of the floating frame
-    floating_frame.title("Floating Frame")
+        global bg_color, fg_color
+        # Create a new Toplevel window (floating frame)
+        floating_frame = tk.Toplevel(root)
+        floating_frame.attributes('-toolwindow', True)
+        title_bar_color(floating_frame, "#344423")
+        floating_frame.config(bg="#344423")
+        floating_frame.geometry("300x200")  # Set the size of the floating frame
+        floating_frame.title("Floating Frame")
 
-    # Example content for the floating frame
-    label = tk.Label(floating_frame, text="This is a floating frame", font=("Helvetica", 16))
-    label.pack(pady=20)
+        # Example content for the floating frame
+        label = tk.Label(floating_frame, text="This is a floating frame", font=("Helvetica", 16))
+        label.pack(pady=20)
 
-    close_button = tk.Button(floating_frame, text="Close", command=floating_frame.destroy)
-    close_button.pack(pady=10)
+        close_button = tk.Button(floating_frame, text="Close", command=floating_frame.destroy)
+        close_button.pack(pady=10)
 
 def Login_Section_widget(widget):
     global screen_width, screen_height, bg_color, fg_color
