@@ -28,8 +28,22 @@ def create_floating_frame():
     bg_color = "#344423"
     fg_color = "white"
     global side_bar_list
-    def Show_PopUp():
-        pass
+    def Show_PopUp(widget0, widget, qestion):
+
+        pop_ = tk.Frame(widget0, bg="blue")
+        relx = widget.place_info()["relx"]
+        rely = widget.place_info()["rely"]
+        relwidth = widget.place_info()["relwidth"]
+
+        relheight = widget.place_info()["relheight"]
+
+        rely = float( float(rely) + float(relheight))
+        relheight = float(float(relheight) + float(0.2))
+
+        pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
+        pop_.bind("<Leave>",  func=lambda e: pop_.destroy())
+
+
     def active_side_bar(widget):
         global side_bar_list
         for i in side_bar_list:
@@ -92,7 +106,10 @@ def create_floating_frame():
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
-    tk.Button(container0, text="v").place(relheight=0.05, relwidth=0.01, relx=0.45, rely=0.05)
+
+    pop1 = tk.Button(container0, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda : Show_PopUp(container0, MHE_00, "Hel"))
+    pop1.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
+
 
 
     MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
@@ -150,41 +167,57 @@ def create_floating_frame():
     lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     EN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
     EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_22 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Heart Rate (BPM)", anchor="sw", font=("Times New Roman", 11))
     lB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     EN_22 = tk.Entry(container3, borderwidth=0, border=1,  bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_33 = tk.Label(container3, borderwidth=0, border=0, text="Oxygen saturation (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_33.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
     EN_33 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_33.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_44 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color,fg=fg_color, text="Systolic Blood Pressure", anchor="sw", font=("Times New Roman", 11))
     lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
     EN_44 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_44.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.33)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_55 = tk.Label(container3, borderwidth=0, border=0, text="Diastolic Blood Pressure", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_55.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.28)
     EN_55 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_55.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.33)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_66 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color,fg=fg_color, text="Pulse Rate", anchor="sw", font=("Times New Roman", 11))
     lB_66.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.42)
     EN_66 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_66.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.47)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_11 = tk.Label(container3, borderwidth=0, border=0, text="Height (cm)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     lB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.42)
     EN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.47)
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, EN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     lB_00 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Weight (KG)", anchor="sw", font=("Times New Roman", 11))
     lB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.56)
@@ -205,17 +238,23 @@ def create_floating_frame():
     DlB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     DEN_00 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     DEN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+    pop_DEN_00 = tk.Button(container4, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container4, DEN_00, "Hel"))
+    pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
 
     DlB_11 = tk.Label(container4, borderwidth=0, border=0, text="Differential Diagnoses)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     DlB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
     DEN_11 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     DEN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+    pop_DEN_11 = tk.Button(container4, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color,borderwidth=0, border=0, command=lambda: Show_PopUp(container4, DEN_11, "Hel"))
+    pop_DEN_11.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.05)
 
     DlB_22 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Co-Existing Conditions", anchor="sw", font=("Times New Roman", 11))
     DlB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     DEN_22 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     DEN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+    pop_DEN_22 = tk.Button(container4, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color,fg=fg_color, borderwidth=0, border=0, command=lambda : Show_PopUp(container4, DEN_22, "Hel"))
+    pop_DEN_22.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.19)
 
     lB_44 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
     lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
