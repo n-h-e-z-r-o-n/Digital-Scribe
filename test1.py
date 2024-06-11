@@ -4,7 +4,18 @@ import tkinter as tk
 def create_floating_frame():
     # Create a new Toplevel window (floating frame)
     floating_frame = tk.Toplevel(root)
-    floating_frame.geometry("300x200x0x0")  # Set the size of the floating frame
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    frame_width = int(screen_width * 3/4)
+    frame_height = int(screen_height * 3/4)
+
+    # Calculate the position to center the frame on the screen
+
+    x_position = (screen_width // 2) - (frame_width // 2)
+    y_position = (screen_height // 2) - (frame_height // 2)
+
+    floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
     floating_frame.overrideredirect(True)  # Remove title bar and buttons
     floating_frame.config(highlightthickness=2)
     # Create a frame within the floating window to act as a custom title bar
