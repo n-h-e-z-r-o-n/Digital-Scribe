@@ -67,7 +67,7 @@ def create_floating_frame():
     btn2.place(relheight=0.07, relwidth=1, relx=0, rely=0.14)
     btn3 = tk.Button(side_bar, borderwidth=0, border=0, text="\tVITALS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container3.tkraise())
     btn3.place(relheight=0.07, relwidth=1, relx=0, rely=0.21)
-    btn4 = tk.Button(side_bar, borderwidth=0, border=0, text="\tFOLLOW UPS", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container4.tkraise())
+    btn4 = tk.Button(side_bar, borderwidth=0, border=0, text="\tDIAGNOSES", bg=bg_color, fg=fg_color, anchor="w", font=("Georgia", 12, "bold"), activeforeground="yellow", activebackground=bg_color, command=lambda: container4.tkraise())
     btn4.place(relheight=0.07, relwidth=1, relx=0, rely=0.28)
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
@@ -185,6 +185,27 @@ def create_floating_frame():
 
     container4 = tk.Frame(floating_frame, borderwidth=0, border=0, bg=bg_color)
     container4.place(relheight=1, relwidth=0.8, relx=0.2, rely=0)
+
+    DlB_00 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Clinical Impression Type", anchor="sw", font=("Times New Roman", 11))
+    DlB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
+    DEN_00 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    DEN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
+
+    DlB_11 = tk.Label(container4, borderwidth=0, border=0, text="Differential Diagnoses)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
+    DlB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
+    DEN_11 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    DEN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
+
+    DlB_22 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Co-Existing Conditions", anchor="sw", font=("Times New Roman", 11))
+    DlB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
+    DEN_22 = tk.Entry(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    DEN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
+
+
+    lB_44 = tk.Label(container4, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
+    lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
+    EN_44 = tk.Text(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
+    EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
 
 
 
