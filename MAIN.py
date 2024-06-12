@@ -79,13 +79,16 @@ import pytesseract
 
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
-draw_ocr =  ocr_model = None
+draw_ocr = ocr_model = None
+
 
 def paddleocr_import():
     global draw_ocr, ocr_model
     from paddleocr import PaddleOCR, draw_ocr  # [ pip install paddleocr , pip install protobuf==3.20.0]
     draw_ocr = draw_ocr
     ocr_model = PaddleOCR(lang='en', use_gpu=False)  # You can enable GPU by setting use_gpu=True
+
+
 threading.Thread(target=paddleocr_import).start()
 # -------------------------------  ------------------------------------------------------------------------------------------------------------------------
 
@@ -170,7 +173,7 @@ proccessed_img_url = None
 font_size = 15
 ref_btn = None
 text_list_widget = []
-
+floating_frame = None
 host_name = user_namem = password_key = database_name = None
 
 now_date = datetime.datetime.now()
@@ -1077,11 +1080,13 @@ def GEMINI_LLMs():
                 model_name='gemini-1.5-flash',
                 system_instruction="""You are an AI that Extract Medical infomation from the given conversation"""
             )
+
             gem_Suggestion_model = genai.GenerativeModel(
                 model_name='gemini-1.5-flash',
-                system_instruction="""You are an AI answers Medical question relating to the given medical conversation."""
+                system_instruction="You are an AI answers Medical question relating to the given medical conversation."
             )
 
+            break
 
 
 # =============================== Speech recognition Functions ==============================================================================================================
@@ -1618,6 +1623,8 @@ def on_frame_configure(widget, event):  # Update the canvas scrolling region whe
 
 
 prevy = 0
+
+
 def on_touch_scroll(widget, event):
     global prevy
 
@@ -1709,14 +1716,13 @@ def Set_Configuration():
                     os.environ['GRADIENT_WORKSPACE_ID'] = gradient_ai_workspace_id
                     print(Key_Fernet.encode())
                     cipher_suite = Fernet(Key_Fernet.encode())
-                    GEMINI_LLMs()
+                    threading.Thread(target=GEMINI_LLMs).start()
                     break
             except Exception as e:
                 print("Set_Configuration Function:", e)
 
-
     run_Set_Configuration()
-    #threading.Thread(target=run_Set_Configuration).start()
+    # threading.Thread(target=run_Set_Configuration).start()
 
 
 def themes_configurations():
@@ -2021,35 +2027,34 @@ def login_Request(email, passw, widget=None):
     email = email.strip()
     passw = passw.strip()
     try:
-            auth.sign_in_with_email_and_password(email, passw)
-            userInfo = auth.current_user
-            idToken = userInfo['idToken']
-            displayName = userInfo['displayName']
-            expiresIn = userInfo['expiresIn']
-            email = userInfo['email']
+        auth.sign_in_with_email_and_password(email, passw)
+        userInfo = auth.current_user
+        idToken = userInfo['idToken']
+        displayName = userInfo['displayName']
+        expiresIn = userInfo['expiresIn']
+        email = userInfo['email']
 
+        if widget is not None:
+            widget.config(text="")
 
-            if widget is not None:
-                widget.config(text="")
+        User_Email = email
+        User_Pass = passw
+        User_Name = ''
+        User_Image = ''
+        User_Phone = ''
 
-            User_Email = email
-            User_Pass = passw
-            User_Name = ''
-            User_Image = ''
-            User_Phone = ''
+        dic = {
+            "_E_token_": encrypt_data(email).decode(),
+            "_P_token_": encrypt_data(passw).decode(),
+            "_CERT_DT_": now_date.strftime("%Y,%m,%d")
+        }
 
-            dic = {
-                "_E_token_": encrypt_data(email).decode(),
-                "_P_token_": encrypt_data(passw).decode(),
-                "_CERT_DT_": now_date.strftime("%Y,%m,%d")
-            }
+        json_object = json.dumps(dic, indent=4)
 
-            json_object = json.dumps(dic, indent=4)
+        with open("./Data_Raw/CUR_user.json", "w") as outfile:
+            outfile.write(json_object)
 
-            with open("./Data_Raw/CUR_user.json", "w") as outfile:
-                outfile.write(json_object)
-
-            User_Home_page(root)
+        User_Home_page(root)
 
     except Exception as e:
         print("Loging process error :", e)
@@ -2103,19 +2108,18 @@ def on_closing():
     print("closed")
     sys.exit()
 
+
 # =============================== Pages Functions definition =======================================================================================
 
-floating_frame = None
 def create_floating_frame(transcribed_text_widget):
-    return
     global floating_frame, bg_color, fg_color, screen_width, screen_height
     global side_bar_list, gem_Suggestion_model, messages
 
     conversation = transcribed_text_widget.get(1.0, "end")
     conversation = "Medical Conversation: " + conversation
 
-    #messages = []
-    #messages.append({'role': 'user','parts': ["REPORT: \n\n" + conversation]})
+    messages = []
+    messages.append({'role': 'user', 'parts': ["REPORT: \n\n" + conversation]})
 
     def AI_Suggetions(qusstion):
         global gem_Suggestion_model, messages
@@ -2127,20 +2131,25 @@ def create_floating_frame(transcribed_text_widget):
         messages.append({'role': 'model',
                          'parts': [response.text]})
 
-        response = response.replace("\n", "")
+        response = response.text.replace("\n", "")
         pattern = r'\[.*?\]'
+        print("response : \n", response)
+        print("\n\nmessages : \n", messages)
         matches = re.findall(pattern, response)
         match = ''
         for match in matches:
             print(match)
 
-            list_from_string = ast.literal_eval(match)
-        print(list_from_string)
+        list_from_string = ast.literal_eval(match)
+        print("LG_I", list_from_string)
 
         return list_from_string
 
+    def choosen_option(widget, text):
+        widget.insert(0, text)
+
     def Show_PopUp(widget0, widget, qestion):
-        pop_ = tk.Frame(widget0,  bg=darken_hex_color(bg_color))
+        pop_ = tk.Frame(widget0, bg=darken_hex_color(bg_color))
         relx = widget.place_info()["relx"]
         rely = widget.place_info()["rely"]
         relwidth = widget.place_info()["relwidth"]
@@ -2151,11 +2160,10 @@ def create_floating_frame(transcribed_text_widget):
 
         pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
         pop_.bind("<Leave>", func=lambda e: pop_.destroy())
-        #k = AI_Suggetions(qestion)
-        k= []
+        k = AI_Suggetions(qestion)
         ry = 0
         for i in k:
-            tk.Label(pop_, text=i, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
+            tk.Button(pop_, text=i, bg=darken_hex_color(bg_color), fg=fg_color, font=("Times New Roman", 11, "italic"), anchor="w", command=lambda k = i: choosen_option(widget, k)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
             ry += 0.1
             """
             tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.1)
@@ -2202,7 +2210,6 @@ def create_floating_frame(transcribed_text_widget):
     x_position = (screen_width // 2) - (frame_width // 2)
     y_position = (screen_height // 2) - (frame_height // 2)
     floating_frame.geometry(f"{frame_width}x{frame_height}+{x_position}+{y_position}")  # Set the size of the floating frame
-
 
     # --------------------------------------------------------------------------------------------------------------------------------------------------
     side_bar = tk.Frame(floating_frame, bg=bg_color)
@@ -2391,14 +2398,14 @@ def create_floating_frame(transcribed_text_widget):
     lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
     EN_44 = tk.Text(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
+
+
 def Login_Section_widget(widget):
     global screen_width, screen_height, bg_color, fg_color
     nav_bar_color = darken_hex_color(bg_color)
     Login_widget = tk.Frame(widget, bg=nav_bar_color)
 
     # Login_widget.place(relheight=0.3, relwidth=1, rely=0.02, relx=0)
-
-
 
     # ---------------------------------------------------------------- Forgot password section --------------------------------------------------
 
@@ -2530,7 +2537,6 @@ def Main_Page(widget):
         defalt_font_style = 'Times New Roman'
         defalt_font_size = 13
 
-
         while not closed:
             try:
                 font_style = widget1.cget("text")
@@ -2556,7 +2562,7 @@ def Main_Page(widget):
 
                 time.sleep(1)
             except Exception as e:
-              print(e)
+                print(e)
 
     def font_style(widget):
         widg_text = widget.cget("text")
@@ -2600,7 +2606,7 @@ def Main_Page(widget):
     font_ = tk.Frame(navbar, bg=nav_bar_bg_color, borderwidth=2, border=0)
     font_.place(relheight=0.70, relwidth=0.2, rely=0.15, relx=0.02)
 
-    font_style_btn0 = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 10), borderwidth=0, border=1, command=lambda :font_style(font_style_btn0))
+    font_style_btn0 = tk.Button(font_, bg=nav_bar_bg_color, fg=fg_color, activebackground=bg_color, activeforeground=fg_color, text="Times New Roman", relief=tk.GROOVE, font=("Times New Roman", 10), borderwidth=0, border=1, command=lambda: font_style(font_style_btn0))
     font_style_btn0.place(relheight=0.8, relwidth=0.7, rely=0.1, relx=0)
 
     font_style_btn = tk.Button(font_, text='v', bg=nav_bar_bg_color, activebackground=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 13, 'bold'), borderwidth=0, border=1)
@@ -2608,7 +2614,6 @@ def Main_Page(widget):
 
     font_size_entry = tk.Entry(font_, bg=nav_bar_bg_color, fg=fg_color, relief=tk.GROOVE, font=("Times New Roman", 10), borderwidth=0, border=1)
     font_size_entry.place(relheight=0.8, relwidth=0.19, rely=0.1, relx=0.8)
-
 
     # ======================================================================================================================================================================================================
 
@@ -2622,13 +2627,11 @@ def Main_Page(widget):
     t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     text_list_widget.append(t3)
 
-
     paned_window.add(t1)
     paned_window.add(t2)
     paned_window.add(t3)
 
-    threading.Thread(target=font_change, args=(font_style_btn0, font_size_entry,[t1, t2, t3 ])).start()
-
+    threading.Thread(target=font_change, args=(font_style_btn0, font_size_entry, [t1, t2, t3])).start()
 
     entity_section = tk.Frame(chatbot_widget, bg='brown', borderwidth=0, border=0)
     entity_section.place(relheight=0.72, relwidth=0.21, rely=0.03, relx=0.78)
@@ -2733,10 +2736,8 @@ def Main_Page(widget):
     Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
 
-    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda : create_floating_frame(t2))
+    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda: create_floating_frame(t2))
     Analysis.place(relheight=0.03, relwidth=0.05, rely=0.97, relx=0.78)
-
-
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
@@ -3177,8 +3178,8 @@ def Recodes_Page(widget):
             while not closed:
                 try:
                     response = gem_Extract_model.generate_content(
-                        {'role':'user',
-                        'parts':[text]}
+                        {'role': 'user',
+                         'parts': [text]}
                     )
                     data = response.text
                     data = data.replace("**", "")
@@ -3189,7 +3190,6 @@ def Recodes_Page(widget):
                     break
                 except Exception as e:
                     time.sleep(3)
-
 
         threading.Thread(target=run_Medical_Information).start()
 
@@ -3221,7 +3221,7 @@ def Profile_Page(widget):
     profile_page_container = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     profile_page_container.place(relheight=1, relwidth=1, rely=0, relx=0)
 
-    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg= darken_hex_color(bg_color), text="sign out", font=("Calibri", font_size - 6, 'italic'), borderwidth=0, border=0, command=lambda: sign_out_request())
+    sign_out_widget = tk.Button(profile_page_container, bg=bg_color, activeforeground=fg_color, activebackground=bg_color, fg=darken_hex_color(bg_color), text="sign out", font=("Calibri", font_size - 6, 'italic'), borderwidth=0, border=0, command=lambda: sign_out_request())
     sign_out_widget.place(relheight=0.03, relwidth=0.05, relx=0.95, rely=0)
     change_fg_OnHover(sign_out_widget, fg_color, darken_hex_color(bg_color))
 
@@ -3229,7 +3229,7 @@ def Profile_Page(widget):
     User_imag_widget.place(relheight=0.17, relwidth=0.12, relx=0.05, rely=0.05)
     imagen('./Assets/img.png', int(screen_width * 0.9747 * 0.12), int((screen_height - 20) * 0.13), User_imag_widget)
 
-    User_Name_widget_lable = tk.Label(profile_page_container, text="Email     : ",  anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
+    User_Name_widget_lable = tk.Label(profile_page_container, text="Email     : ", anchor=tk.W, bg=bg_color, fg=fg_color, font=('Georgia', font_size - 5, 'bold'))
     User_Name_widget_lable.place(relheight=0.03, relwidth=0.05, relx=0.05, rely=0.23)
     User_Name_widget_entry = tk.Label(profile_page_container, bg=bg_color, text=User_Email, fg='gray', font=('Calibri', font_size - 3), borderwidth=0, border=0)
     User_Name_widget_entry.place(relheight=0.029, relwidth=0.13, relx=0.1, rely=0.23)
@@ -3274,7 +3274,7 @@ def Profile_Page(widget):
     gradient_base_model_id.insert(0, gradient_ai_base_model_id)
     change_bg_OnHover(gradient_base_model_id, bg_hovercolor)
 
-    #tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
+    # tk.Label(g1, text="ASSEMBLY-AI  ", bg=bg_color, fg=fg_color, font=("Georgia", 12, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.6, rely=0.363, relx=0)
     tk.Label(g1, text="  A_AI  key:", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.432, relx=0)
     assembly_widget = tk.Entry(g1, bg=bg_color, fg=darken_hex_color(bg_color), borderwidth=0, border=1, font=("Courier New", 10))
     assembly_widget.place(relheight=0.07, relwidth=0.74, rely=0.432, relx=0.25)
@@ -3299,7 +3299,7 @@ def Profile_Page(widget):
     change_fg_OnHover(themes_change, darken_hex_color(bg_color))
 
     tk.Label(g2, text="Font_Size:", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.142, relx=0)
-    Font_Size_set_widget = tk.Label(g2, bg=bg_color,text='12', anchor="w", fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10))
+    Font_Size_set_widget = tk.Label(g2, bg=bg_color, text='12', anchor="w", fg=darken_hex_color(bg_color), borderwidth=0, border=0, font=("Courier New", 10))
     Font_Size_set_widget.place(relheight=0.07, relwidth=0.74, rely=0.142, relx=0.25)
 
     tk.Label(g2, text="Font_Name :", bg=bg_color, fg=darken_hex_color(bg_color), font=("Calibri", 10, 'bold'), anchor='w', borderwidth=0, border=0).place(relheight=0.07, relwidth=0.24, rely=0.213, relx=0)
@@ -3608,7 +3608,6 @@ def User_Home_page(widget):
     def duplicate_widget(widget, dest_frame, text=""):
         def run_func(widget=widget, dest_frame=dest_frame, text=text):
             global fg_color, bg_color, side_bar_widget_list2
-
             relx = widget.place_info()["relx"]
             rely = widget.place_info()["rely"]
             relwidth = widget.place_info()["relwidth"]
@@ -3696,7 +3695,6 @@ def User_Home_page(widget):
     change_bg_OnHover_light(st7_bt)
     side_bar_widget_list.append(st7_bt)
     duplicate_widget(st7_bt, side_bar_full, text="EHR integration")
-
 
     CHAT_Widget.tkraise()
     active(st2_bt)
@@ -3839,15 +3837,14 @@ def main():
     except Exception as e:
         print(e)
 
-
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
 
 if __name__ == "__main__":
-        main()
+    main()
 
-        """
+    """
         t = System_Thread(ThreadStart(go))
         t.ApartmentState = ApartmentState.STA
         t.Start()
