@@ -2123,6 +2123,8 @@ def create_floating_frame(transcribed_text_widget):
     pop_sugestion_generated = []
 
     def contains_any_element(lst, elements):
+        for i in lst:
+            if 
         return any(elem in lst for elem in elements)
 
     def AI_Suggetions(qusstion):
@@ -2168,14 +2170,13 @@ def create_floating_frame(transcribed_text_widget):
 
             pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
             pop_.bind("<Leave>", func=lambda e: pop_.place_forget())
-            pop_.bind("<Leave>", func=lambda e: pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx))
+            btn.bind("<Enter>", func=lambda e: pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx))
 
             k = AI_Suggetions(qestion)
             ry = 0
             for i in k:
                 tk.Button(pop_, text=i, bg=darken_hex_color(bg_color), fg=fg_color, font=("Times New Roman", 11, "italic"), anchor="w", command=lambda k = i: choosen_option(widget, k)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
                 ry += 0.1
-
             pop_sugestion_generated.append(widget)
 
     def active_side_bar(widget):
