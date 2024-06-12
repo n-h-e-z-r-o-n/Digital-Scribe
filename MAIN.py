@@ -2158,9 +2158,25 @@ def create_floating_frame(transcribed_text_widget):
 
     def Show_PopUp(widget0, widget, qestion, btn=None):
         global pop_sugestion_generated
+        global v_status
+
+        v_status = True
+
+        def visual():
+            global v_status
+            color = "yellow"
+            while  v_status:
+                if color != "yellow":
+                     color = "white"
+                     btn.config(color)
+                else:
+                    color = "white"
+                    btn.config(color)
+
         if contains_any_element(pop_sugestion_generated, widget ):
             return
         else:
+            threading.Thread(target= visual).start()
             pop_ = tk.Frame(widget0, bg=darken_hex_color(bg_color))
             relx = widget.place_info()["relx"]
             rely = widget.place_info()["rely"]
@@ -2180,6 +2196,7 @@ def create_floating_frame(transcribed_text_widget):
                 tk.Button(pop_, text=i, bg=darken_hex_color(bg_color), fg=fg_color, font=("Times New Roman", 11, "italic"), anchor="w", command=lambda k = i: choosen_option(widget, k)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
                 ry += 0.1
             pop_sugestion_generated.append(widget)
+            v_status = False
 
     def active_side_bar(widget):
         global side_bar_list
@@ -2419,6 +2436,9 @@ def create_floating_frame(transcribed_text_widget):
     lB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
     EN_44 = tk.Text(container4, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EN_44.place(relheight=0.6, relwidth=0.9, relx=0.05, rely=0.33)
+
+    container0.tkraise()
+    active_side_bar(btn0)
 
 
 def Login_Section_widget(widget):
