@@ -2106,17 +2106,16 @@ def on_closing():
 # =============================== Pages Functions definition =======================================================================================
 
 floating_frame = None
-
 def create_floating_frame(transcribed_text_widget):
+    return
     global floating_frame, bg_color, fg_color, screen_width, screen_height
     global side_bar_list, gem_Suggestion_model, messages
 
     conversation = transcribed_text_widget.get(1.0, "end")
     conversation = "Medical Conversation: " + conversation
 
-    messages = []
-    messages.append({'role': 'user',
-                     'parts': ["REPORT: \n\n" + conversation]})
+    #messages = []
+    #messages.append({'role': 'user','parts': ["REPORT: \n\n" + conversation]})
 
     def AI_Suggetions(qusstion):
         global gem_Suggestion_model, messages
@@ -2135,7 +2134,7 @@ def create_floating_frame(transcribed_text_widget):
         for match in matches:
             print(match)
 
-        list_from_string = ast.literal_eval(match)
+            list_from_string = ast.literal_eval(match)
         print(list_from_string)
 
         return list_from_string
@@ -2152,11 +2151,12 @@ def create_floating_frame(transcribed_text_widget):
 
         pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
         pop_.bind("<Leave>", func=lambda e: pop_.destroy())
-        k = AI_Suggetions(qestion)
+        #k = AI_Suggetions(qestion)
+        k= []
         ry = 0
         for i in k:
             tk.Label(pop_, text=i, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
-            ry+=0.1
+            ry += 0.1
             """
             tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.1)
             tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.2)
