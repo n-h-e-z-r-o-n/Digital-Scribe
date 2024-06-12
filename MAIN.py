@@ -2109,17 +2109,34 @@ floating_frame = None
 
 def create_floating_frame(transcribed_text_widget):
     global floating_frame, bg_color, fg_color, screen_width, screen_height
-    global side_bar_list
+    global side_bar_list, gem_Suggestion_model
 
     def AI_Suggetions(transcribed_text_widget=transcribed_text_widget):
         global gem_Suggestion_model
         conversation = transcribed_text_widget.get(1.0, "end")
-        massages = []
+        messages = []
         conversation  = "Medical Conversation: " + conversation
         messages.append({'role': 'user',
                          'parts': ["REPORT: \n\n" + conversation]})
-        gem_Suggestion_model.
-        print(conversation)
+        questions  = ["in python list format extract Medical History types from the conversations. start with [ and end with ]"]
+        for q_no in questions:
+
+            messages.append({'role': 'user',
+                             'parts': [q_no]})
+            response = gem_Suggestion_model.generate_content(messages)
+
+            print(response.text)
+
+            messages.append({'role': 'model',
+                             'parts': [response.text]})
+
+            response = response.replace("\n", "")
+            pattern = r'\[.*?\]'
+            matches = re.findall(pattern, response)
+            match = ''
+            for match in matches:
+                print(match)
+            
 
 
 
