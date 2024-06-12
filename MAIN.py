@@ -2259,21 +2259,24 @@ def create_floating_frame(transcribed_text_widget):
     ALl_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     ALe_00 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     ALe_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
-    pop_ALe_00 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container1, ALe_00, "Hel"))
+    pop_ALe_00 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container1, ALe_00, "in python list format extract Allergy Category from the conversations. start with [ and end with ]", pop_ALe_00))
     pop_ALe_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     ALLlB_11 = tk.Label(container1, borderwidth=0, border=0, text="Allergen", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     ALLlB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
     ALLEN_11 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     ALLEN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
-    pop_EN_11 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container1, ALLEN_11, "Hel"))
+    pop_EN_11 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                          command=lambda: Show_PopUp(container1, ALLEN_11, "in python list format extract Allergen from the conversations. start with [ and end with ]", pop_EN_11))
     pop_EN_11.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.05)
 
     SElB_22 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Severity", anchor="sw", font=("Times New Roman", 11))
     SElB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     SEEN_22 = tk.Entry(container1, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     SEEN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
-    pop_EN_22 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container1, SEEN_22, "Hel"))
+    pop_EN_22 = tk.Button(container1, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                          command=lambda: Show_PopUp(container1, SEEN_22, "in python list format extract Allergen Severity from the conversations. start with [ and end with ]", pop_EN_22))
     pop_EN_22.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.19)
 
     lB_44 = tk.Label(container1, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Note", anchor="sw", font=("Times New Roman", 11))
@@ -2290,7 +2293,8 @@ def create_floating_frame(transcribed_text_widget):
     EXL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     EXE_00 = tk.Entry(container2, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     EXE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
-    pop_EXE_00 = tk.Button(container2, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container2, EXE_00, "Hel"))
+    pop_EXE_00 = tk.Button(container2, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container2, EXE_00, "in python list format extract Examination Type performed by the doctor from the conversations. start with [ and end with ]", pop_EXE_00))
     pop_EXE_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     EXL_11 = tk.Label(container2, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
@@ -2307,49 +2311,56 @@ def create_floating_frame(transcribed_text_widget):
     BTlB_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     BTBEN_00 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     BTBEN_00.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.05)
-    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, BTBEN_00, "Hel"))
+    pop_DEN_00 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, BTBEN_00, "in python list format extract Body Temperature's from the conversations. start with [ and end with ]", pop_DEN_00))
     pop_DEN_00.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     RRlB_11 = tk.Label(container3, borderwidth=0, border=0, text="Respiration Rate (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     RRlB_11.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0)
     RRREN_11 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     RRREN_11.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.05)
-    pop_DEN_11 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, RRREN_11, "Hel"))
+    pop_DEN_11 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, RRREN_11, "in python list format extract Respiration Rate's from the conversations. start with [ and end with ]", pop_DEN_11))
     pop_DEN_11.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.05)
 
     HRlB_22 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Heart Rate (BPM)", anchor="sw", font=("Times New Roman", 11))
     HRlB_22.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.14)
     HREN_22 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     HREN_22.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.19)
-    pop_DEN_22 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, HREN_22, "Hel"))
+    pop_DEN_22 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, HREN_22, "in python list format extract Heart Rate (BPM) from the conversations. start with [ and end with ]", pop_DEN_22))
     pop_DEN_22.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.19)
 
     OSlB_33 = tk.Label(container3, borderwidth=0, border=0, text="Oxygen saturation (BPM)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     OSlB_33.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.14)
     OSEN_33 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     OSEN_33.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.19)
-    pop_DEN_33 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, OSEN_33, "Hel"))
+    pop_DEN_33 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, OSEN_33, "in python list format extract Oxygen saturation (BPM) from the conversations. start with [ and end with ]", pop_DEN_33))
     pop_DEN_33.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.19)
 
     SBlB_44 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Systolic Blood Pressure", anchor="sw", font=("Times New Roman", 11))
     SBlB_44.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.28)
     SBEN_44 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     SBEN_44.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.33)
-    pop_DEN_55 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, SBEN_44, "Hel"))
+    pop_DEN_55 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, SBEN_44, "in python list format extract Systolic Blood Pressure from the conversations. start with [ and end with ]", pop_DEN_55))
     pop_DEN_55.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.33)
 
     DBlB_55 = tk.Label(container3, borderwidth=0, border=0, text="Diastolic Blood Pressure", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
     DBlB_55.place(relheight=0.05, relwidth=0.4, relx=0.55, rely=0.28)
     DBEN_55 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     DBEN_55.place(relheight=0.07, relwidth=0.4, relx=0.55, rely=0.33)
-    pop_DEN_66 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, DBEN_55, "Hel"))
+    pop_DEN_66 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, DBEN_55, "in python list format extract Diastolic Blood Pressure from the conversations. start with [ and end with ]", pop_DEN_66))
     pop_DEN_66.place(relheight=0.05, relwidth=0.015, relx=0.95, rely=0.33)
 
     PlB_66 = tk.Label(container3, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Pulse Rate", anchor="sw", font=("Times New Roman", 11))
     PlB_66.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.42)
     PEN_66 = tk.Entry(container3, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     PEN_66.place(relheight=0.07, relwidth=0.4, relx=0.05, rely=0.47)
-    pop_DEN_66 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container3, PEN_66, "Hel"))
+    pop_DEN_66 = tk.Button(container3, text="V", bg=bg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, fg=fg_color, borderwidth=0, border=0,
+                           command=lambda: Show_PopUp(container3, PEN_66, "in python list format extract Pulse Rate from the conversations. start with [ and end with ]"))
     pop_DEN_66.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.47)
 
     HlB_77 = tk.Label(container3, borderwidth=0, border=0, text="Height (cm)", bg=bg_color, fg=fg_color, anchor="sw", font=("Times New Roman", 11))
