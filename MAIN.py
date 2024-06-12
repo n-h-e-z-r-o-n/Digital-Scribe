@@ -2164,15 +2164,18 @@ def create_floating_frame(transcribed_text_widget):
             v_status = True
 
             def visual(wd):
-                global v_status
+                global v_status, fg_color
                 color = "yellow"
                 while  v_status:
-                    if color != "yellow":
-                         color = "white"
-                         wd.config(color)
+                    if color != "green":
+                         color = "yellow"
+                         wd.config(fg=color)
                     else:
                         color = "white"
-                        wd.config(color)
+                        wd.config(fg=color)
+                    time.sleep(1)
+
+                wd.config(fg=fg_color)
 
             if contains_any_element(pop_sugestion_generated, widget ):
                 return
@@ -2199,7 +2202,7 @@ def create_floating_frame(transcribed_text_widget):
                 pop_sugestion_generated.append(widget)
                 v_status = False
 
-        Run_Show_PopUp()
+        threading.Thread(target=Run_Show_PopUp).start()
 
     def active_side_bar(widget):
         global side_bar_list
