@@ -2157,46 +2157,49 @@ def create_floating_frame(transcribed_text_widget):
         widget.insert(0, text)
 
     def Show_PopUp(widget0, widget, qestion, btn=None):
-        global pop_sugestion_generated
-        global v_status
-
-        v_status = True
-
-        def visual():
+        def Run_Show_PopUp(widget0=widget0, widget=widget, qestion=qestion, btn=btn):
+            global pop_sugestion_generated
             global v_status
-            color = "yellow"
-            while  v_status:
-                if color != "yellow":
-                     color = "white"
-                     btn.config(color)
-                else:
-                    color = "white"
-                    btn.config(color)
 
-        if contains_any_element(pop_sugestion_generated, widget ):
-            return
-        else:
-            threading.Thread(target= visual).start()
-            pop_ = tk.Frame(widget0, bg=darken_hex_color(bg_color))
-            relx = widget.place_info()["relx"]
-            rely = widget.place_info()["rely"]
-            relwidth = widget.place_info()["relwidth"]
-            relheight = widget.place_info()["relheight"]
+            v_status = True
 
-            rely = float(float(rely) + float(relheight))
-            relheight = float(float(relheight) + float(0.2))
+            def visual(wd):
+                global v_status
+                color = "yellow"
+                while  v_status:
+                    if color != "yellow":
+                         color = "white"
+                         wd.config(color)
+                    else:
+                        color = "white"
+                        wd.config(color)
 
-            pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
-            pop_.bind("<Leave>", func=lambda e: pop_.place_forget())
-            btn.bind("<Enter>", func=lambda e: pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx))
+            if contains_any_element(pop_sugestion_generated, widget ):
+                return
+            else:
+                threading.Thread(target= visual, args=(btn,)).start()
+                pop_ = tk.Frame(widget0, bg=darken_hex_color(bg_color))
+                relx = widget.place_info()["relx"]
+                rely = widget.place_info()["rely"]
+                relwidth = widget.place_info()["relwidth"]
+                relheight = widget.place_info()["relheight"]
 
-            k = AI_Suggetions(qestion)
-            ry = 0
-            for i in k:
-                tk.Button(pop_, text=i, bg=darken_hex_color(bg_color), fg=fg_color, font=("Times New Roman", 11, "italic"), anchor="w", command=lambda k = i: choosen_option(widget, k)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
-                ry += 0.1
-            pop_sugestion_generated.append(widget)
-            v_status = False
+                rely = float(float(rely) + float(relheight))
+                relheight = float(float(relheight) + float(0.2))
+
+                pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
+                pop_.bind("<Leave>", func=lambda e: pop_.place_forget())
+                btn.bind("<Enter>", func=lambda e: pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx))
+
+                k = AI_Suggetions(qestion)
+                ry = 0
+                for i in k:
+                    tk.Button(pop_, text=i, bg=darken_hex_color(bg_color), fg=fg_color, font=("Times New Roman", 11, "italic"), anchor="w", command=lambda k = i: choosen_option(widget, k)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
+                    ry += 0.1
+                pop_sugestion_generated.append(widget)
+                v_status = False
+
+        Run_Show_PopUp()
 
     def active_side_bar(widget):
         global side_bar_list
