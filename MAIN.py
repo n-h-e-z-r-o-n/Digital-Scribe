@@ -1709,6 +1709,7 @@ def Set_Configuration():
     run_Set_Configuration()
     #threading.Thread(target=run_Set_Configuration).start()
 
+
 def themes_configurations():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg
@@ -1728,6 +1729,7 @@ def themes_configurations():
         print("themes_configurations Function:", e)
         modify_css()
 
+
 def save_themes():
     global User_Name, User_Pass, User_Image, User_Email, User_Phone
     global llm_chain
@@ -1746,6 +1748,7 @@ def save_themes():
 
     with open("./Data_Raw/themes_config.json", "w") as outfile:
         outfile.write(json_object)
+
 
 def text_pdf_save(btn_widget, widgets: list):
     def text_pdf_save_visual(bt_widget=btn_widget):
