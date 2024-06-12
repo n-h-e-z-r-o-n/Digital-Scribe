@@ -2124,8 +2124,10 @@ def create_floating_frame(transcribed_text_widget):
 
     def contains_any_element(lst, elements):
         for i in lst:
-            if 
-        return any(elem in lst for elem in elements)
+            if i == elements:
+                return True
+        return False
+
 
     def AI_Suggetions(qusstion):
         global gem_Suggestion_model, messages
