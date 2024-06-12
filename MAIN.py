@@ -25,6 +25,8 @@ import ctypes
 import shutil
 from tkinter import ttk, filedialog, messagebox
 import google.generativeai as genai
+import re
+import ast
 
 # ------------------------------ pip install gradient_haystack==0.2.0
 from gradient_haystack.embedders.gradient_document_embedder import GradientDocumentEmbedder
