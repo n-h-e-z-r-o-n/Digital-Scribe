@@ -2099,10 +2099,16 @@ def on_closing():
 # =============================== Pages Functions definition =======================================================================================
 
 floating_frame = None
-transcribed_text_widget = None
-def create_floating_frame():
+
+def create_floating_frame(transcribed_text_widget):
     global floating_frame, bg_color, fg_color, screen_width, screen_height
-    global side_bar_list, transcribed_text_widget
+    global side_bar_list
+
+    def AI_Suggetions(transcribed_text_widget=transcribed_text_widget):
+
+        pass
+
+    threading.Thread(target=AI_Suggetions).start()
 
     def Show_PopUp(widget0, widget, qestion):
         pop_ = tk.Frame(widget0,  bg=darken_hex_color(bg_color))
@@ -2579,7 +2585,7 @@ def Main_Page(widget):
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     text_list_widget.append(t3)
-    transcribed_text_widget = t2
+
 
     paned_window.add(t1)
     paned_window.add(t2)
@@ -2691,7 +2697,7 @@ def Main_Page(widget):
     Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
 
-    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda : create_floating_frame())
+    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda : create_floating_frame(t2))
     Analysis.place(relheight=0.03, relwidth=0.05, rely=0.97, relx=0.78)
 
 
