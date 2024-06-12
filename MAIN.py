@@ -2149,7 +2149,7 @@ def create_floating_frame(transcribed_text_widget):
     def choosen_option(widget, text):
         widget.insert(0, text)
 
-    def Show_PopUp(widget0, widget, qestion):
+    def Show_PopUp(widget0, widget, qestion, btn=None):
         global pop_sugestion_generated
 
         pop_ = tk.Frame(widget0, bg=darken_hex_color(bg_color))
@@ -2170,16 +2170,7 @@ def create_floating_frame(transcribed_text_widget):
         for i in k:
             tk.Button(pop_, text=i, bg=darken_hex_color(bg_color), fg=fg_color, font=("Times New Roman", 11, "italic"), anchor="w", command=lambda k = i: choosen_option(widget, k)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
             ry += 0.1
-            """
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.1)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.2)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.3)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.4)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.5)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.6)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.7)
-            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.8)
-            """
+            
         pop_sugestion_generated.append(widget)
 
     def active_side_bar(widget):
@@ -2243,7 +2234,7 @@ def create_floating_frame(transcribed_text_widget):
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
     pop1 = tk.Button(container0, text="V", bg=bg_color, fg=fg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0,
-                     command=lambda: Show_PopUp(container0, MHE_00, "in python list format extract Medical History types from the conversations. start with [ and end with ]"))
+                     command=lambda: Show_PopUp(container0, MHE_00, "in python list format extract Medical History types from the conversations. start with [ and end with ]", pop1))
     pop1.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
