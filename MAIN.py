@@ -2159,7 +2159,7 @@ def create_floating_frame(transcribed_text_widget):
     def Show_PopUp(widget0, widget, qestion, btn=None):
         def Run_Show_PopUp(widget0=widget0, widget=widget, qestion=qestion, btn=btn):
             global pop_sugestion_generated
-            global v_status
+            global v_status, fg_color, bg_color
 
             v_status = True
 
@@ -2167,13 +2167,15 @@ def create_floating_frame(transcribed_text_widget):
                 global v_status, fg_color
                 color = "yellow"
                 while  v_status:
-                    if color != "green":
+                    if color != "yellow":
                          color = "yellow"
                          wd.config(fg=color)
                     else:
                         color = "white"
                         wd.config(fg=color)
-                    time.sleep(1)
+
+                    time.sleep(0.4)
+
 
                 wd.config(fg=fg_color)
 
@@ -2783,8 +2785,8 @@ def Main_Page(widget):
     Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
     Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
 
-    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5, 'bold'), activebackground="blue", bg=bg_color, borderwidth=0, border=0, command=lambda: create_floating_frame(t2))
-    Analysis.place(relheight=0.03, relwidth=0.05, rely=0.97, relx=0.78)
+    Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Georgia", font_size - 5, 'bold'), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: create_floating_frame(t2))
+    Analysis.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.78)
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
