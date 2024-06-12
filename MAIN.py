@@ -2779,16 +2779,20 @@ def Main_Page(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    #Conversation_Name = tk.Label(chatbot_widget, text='Patient_Name:', fg=fg_color, activeforeground=fg_color, font=("Calibri Light", font_size - 5), activebackground="blue", bg=bg_color, borderwidth=0, border=0)
-    #Conversation_Name.place(relheight=0.03, relwidth=0.05, rely=0.81, relx=0.78)
 
-    #Conversation_Name_entry = tk.Entry(chatbot_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
-    #Conversation_Name_entry.place(relheight=0.03, relwidth=0.16, rely=0.81, relx=0.831)
 
     Patient_Info_widget = tk.Frame(chatbot_widget, bg=bg_color, borderwidth=1, relief=tk.RAISED, border=1)
     Patient_Info_widget.place(relheight=0.13, relwidth=0.21, rely=0.81, relx=0.78)
 
-    tk.Label(Patient_Info_widget, text="Patient Info", anchor="w", font=("Bauhaus 93") ).place(relwidth=1, relheight=0.11, relx=0, rely=0)
+    tk.Label(Patient_Info_widget, text="Patient Info", anchor="w", font=("Georgia", font_size - 5), fg=darken_hex_color(bg_color), bg=bg_color).place(relwidth=1, relheight=0.11, relx=0, rely=0)
+
+    Conversation_Name = tk.Label(Patient_Info_widget, text='Patient_Name:', fg=fg_color, activeforeground=fg_color, bg=bg_color, anchor="w", font=("Calibri Light", font_size-5), activebackground="blue", borderwidth=0, border=0)
+    Conversation_Name.place(relheight=0.15, relwidth=0.3, rely=0.11, relx=0)
+
+    Conversation_Name_entry = tk.Entry(Patient_Info_widget, fg=fg_color, font=("Times New Roman", font_size - 2), bg=bg_color, borderwidth=0, border=1)
+    Conversation_Name_entry.place(relheight=0.15, relwidth=0.69, rely=0.11, relx=0.3)
+
+
 
     Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: create_floating_frame(t2))
     Analysis.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.78)
