@@ -123,6 +123,7 @@ gradient_ai_base_model_id = ''
 
 Gem_Key = ''
 gem_Extract_model = None
+gem_Suggestion_model = None
 
 User_Name = ''
 User_Email = ''
@@ -1068,7 +1069,7 @@ def Chat_bot_inference(widget0, widget1, widget2):
 
 
 def GEMINI_LLMs():
-    global gem_Extract_model, Gem_Key, closed
+    global gem_Extract_model, gem_Suggestion_model, Gem_Key, closed
     while not closed:
         if Gem_Key != '':
             genai.configure(api_key=Gem_Key)
@@ -1076,7 +1077,13 @@ def GEMINI_LLMs():
                 model_name='gemini-1.5-flash',
                 system_instruction="""You are an AI that Extract Medical infomation from the given conversation"""
             )
-            break
+            gem_Suggestion_model = genai.GenerativeModel(
+                model_name='gemini-1.5-flash',
+                system_instruction="""You are an AI answers Medical question relating to the given medical conversation."""
+            )
+
+
+
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
@@ -2105,8 +2112,16 @@ def create_floating_frame(transcribed_text_widget):
     global side_bar_list
 
     def AI_Suggetions(transcribed_text_widget=transcribed_text_widget):
+        global gem_Suggestion_model
+        conversation = transcribed_text_widget.get(1.0, "end")
+        massages = []
+        conversation  = "Medical Conversation: " + conversation
+        messages.append({'role': 'user',
+                         'parts': ["REPORT: \n\n" + conversation]})
+        gem_Suggestion_model.
+        print(conversation)
 
-        pass
+
 
     threading.Thread(target=AI_Suggetions).start()
 
