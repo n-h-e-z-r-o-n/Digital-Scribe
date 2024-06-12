@@ -2113,13 +2113,14 @@ def on_closing():
 
 def create_floating_frame(transcribed_text_widget):
     global floating_frame, bg_color, fg_color, screen_width, screen_height
-    global side_bar_list, gem_Suggestion_model, messages
+    global side_bar_list, gem_Suggestion_model, messages, pop_sugestion_generated
 
     conversation = transcribed_text_widget.get(1.0, "end")
     conversation = "Medical Conversation: " + conversation
 
     messages = []
     messages.append({'role': 'user', 'parts': ["REPORT: \n\n" + conversation]})
+    pop_sugestion_generated = []
 
     def AI_Suggetions(qusstion):
         global gem_Suggestion_model, messages
@@ -2149,6 +2150,8 @@ def create_floating_frame(transcribed_text_widget):
         widget.insert(0, text)
 
     def Show_PopUp(widget0, widget, qestion):
+        global pop_sugestion_generated
+
         pop_ = tk.Frame(widget0, bg=darken_hex_color(bg_color))
         relx = widget.place_info()["relx"]
         rely = widget.place_info()["rely"]
@@ -2159,7 +2162,9 @@ def create_floating_frame(transcribed_text_widget):
         relheight = float(float(relheight) + float(0.2))
 
         pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
-        pop_.bind("<Leave>", func=lambda e: pop_.destroy())
+        pop_.bind("<Leave>", func=lambda e: pop_.place_forget())
+        pop_.bind("<Leave>", func=lambda e: pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx))
+
         k = AI_Suggetions(qestion)
         ry = 0
         for i in k:
@@ -2175,6 +2180,7 @@ def create_floating_frame(transcribed_text_widget):
             tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.7)
             tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.8)
             """
+        pop_sugestion_generated.append(widget)
 
     def active_side_bar(widget):
         global side_bar_list
