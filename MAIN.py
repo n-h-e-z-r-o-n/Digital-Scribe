@@ -2118,33 +2118,27 @@ def create_floating_frame(transcribed_text_widget):
     messages.append({'role': 'user',
                      'parts': ["REPORT: \n\n" + conversation]})
 
-    def AI_Suggetions(transcribed_text_widget=transcribed_text_widget):
+    def AI_Suggetions(qusstion):
         global gem_Suggestion_model, messages
 
+        messages.append({'role': 'user',
+                         'parts': [qusstion]})
 
+        response = gem_Suggestion_model.generate_content(messages)
+        messages.append({'role': 'model',
+                         'parts': [response.text]})
 
+        response = response.replace("\n", "")
+        pattern = r'\[.*?\]'
+        matches = re.findall(pattern, response)
+        match = ''
+        for match in matches:
+            print(match)
 
-        questions  = ["in python list format extract Medical History types from the conversations. start with [ and end with ]"]
-        for q_no in questions:
+        list_from_string = ast.literal_eval(match)
+        print(list_from_string)
 
-            messages.append({'role': 'user',
-                             'parts': [q_no]})
-
-            response = gem_Suggestion_model.generate_content(messages)
-            messages.append({'role': 'model',
-                             'parts': [response.text]})
-
-            response = response.replace("\n", "")
-            pattern = r'\[.*?\]'
-            matches = re.findall(pattern, response)
-            match = ''
-            for match in matches:
-                print(match)
-
-            list_from_string = ast.literal_eval(match)
-            print(list_from_string)
-
-    threading.Thread(target=AI_Suggetions).start()
+        return list_from_string
 
     def Show_PopUp(widget0, widget, qestion):
         pop_ = tk.Frame(widget0,  bg=darken_hex_color(bg_color))
@@ -2158,16 +2152,21 @@ def create_floating_frame(transcribed_text_widget):
 
         pop_.place(relheight=relheight, relwidth=relwidth, rely=rely, relx=relx)
         pop_.bind("<Leave>", func=lambda e: pop_.destroy())
-
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.1)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.2)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.3)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.4)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.5)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.6)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.7)
-        tk.Label(pop_, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.8)
+        k = AI_Suggetions(qestion)
+        ry = 0
+        for i in k:
+            tk.Label(pop_, text=i, bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=ry)
+            ry+=0.1
+            """
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.1)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.2)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.3)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.4)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.5)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.6)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.7)
+            tk.Label(pop_, text=k[0],  bg=darken_hex_color(bg_color)).place(relheight=0.1, relwidth=1, relx=0, rely=0.8)
+            """
 
     def active_side_bar(widget):
         global side_bar_list
@@ -2230,7 +2229,8 @@ def create_floating_frame(transcribed_text_widget):
     MHL_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0)
     MHE_00 = tk.Entry(container0, borderwidth=0, border=1, bg=bg_color, fg=fg_color, font=("Times New Roman", 11))
     MHE_00.place(relheight=0.05, relwidth=0.4, relx=0.05, rely=0.05)
-    pop1 = tk.Button(container0, text="V", bg=bg_color, fg=fg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0, command=lambda: Show_PopUp(container0, MHE_00, "Hel"))
+    pop1 = tk.Button(container0, text="V", bg=bg_color, fg=fg_color, font=("Bauhaus 93", 11), activebackground=bg_color, activeforeground=fg_color, borderwidth=0, border=0,
+                     command=lambda: Show_PopUp(container0, MHE_00, "in python list format extract Medical History types from the conversations. start with [ and end with ]"))
     pop1.place(relheight=0.05, relwidth=0.015, relx=0.45, rely=0.05)
 
     MHL_11 = tk.Label(container0, borderwidth=0, border=0, bg=bg_color, fg=fg_color, text="Notes", anchor="sw", font=("Times New Roman", 11))
