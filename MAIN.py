@@ -2783,6 +2783,18 @@ def Main_Page(widget):
             e_type.config(text=i[1])
             chk_var.set(False)
 
+    def undo(widg):
+        try:
+            widg.edit_undo()
+        except tk.TclError:
+            pass
+
+    def redo(widg):
+        try:
+            widg.edit_redo()
+        except tk.TclError:
+            pass
+
     custom_add(fr2)
 
     Add_new_entity = tk.Button(entity_section, text='+ Add new entity', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: add(fr2))
@@ -2839,6 +2851,12 @@ def Main_Page(widget):
 
     CLEAR_t3 = tk.Button(chatbot_widget, text='Clear OUT', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda:  t3.delete(1.0, tk.END))
     CLEAR_t3.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.88)
+
+    UNDO_t2 = tk.Button(chatbot_widget, text='Undo', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: undo(t2))
+    UNDO_t2.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.93)
+
+    REDO_t2 = tk.Button(chatbot_widget, text='Redo', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: redo(t2))
+    REDO_t2.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.98)
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
