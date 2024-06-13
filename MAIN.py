@@ -2787,8 +2787,8 @@ def Main_Page(widget):
 
     def pause(wid):
         global pause_output_live
-        widg_text = widget.cget("text")
-        if widg_text == "Continue":
+
+        if pause_output_live:
             wid.config(text="Pause")
             pause_output_live = False
 
@@ -2834,7 +2834,6 @@ def Main_Page(widget):
     Medical_Info.place(relheight=0.02, relwidth=0.05, rely=0.79, relx=0.863)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
-    #Medical_Information(text_widget, display_widget)
 
     Patient_Info_widget = tk.Frame(chatbot_widget, bg=bg_color, borderwidth=1, relief=tk.RAISED, border=1)
     Patient_Info_widget.place(relheight=0.13, relwidth=0.21, rely=0.81, relx=0.78)
