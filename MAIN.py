@@ -2784,10 +2784,12 @@ def Main_Page(widget):
             chk_var.set(False)
 
     def undo(widg):
+        widg.edit_undo()
+
         try:
             widg.edit_undo()
         except tk.TclError:
-            pass
+            messagebox.showinfo("Info", "Nothing to undo")
 
     def redo(widg):
         try:
