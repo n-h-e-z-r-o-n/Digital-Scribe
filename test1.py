@@ -1,36 +1,32 @@
-import re
-import ast
-# Example string
-text = """
-```python
-[
-    "Current Condition",
-    "Past Medical History",
-    "Surgical History",
-    "Hospitalizations",
-    "Medications",
-    "Allergies",
-    "Social History",
-    "Family History",
-    "Additional Information"
-]
-``` . """
-text = text.replace("\n", "")
-pattern = r'\[.*?\]'
+import tkinter as tk
+from tkinter import scrolledtext
 
-# Find all matches
-matches = re.findall(pattern, text)
+class TextEditor(tk.Tk):
+    def __init__(self):
+        super().__init__()
 
-print("matches: ", matches)
-# Print matches
-match = ''
-for match in matches:
-    print(match)
+        self.title("Text Editor with Undo/Redo")
+        self.geometry("600x400")
 
+        self.text_widget = scrolledtext.ScrolledText(self, undo=True, wrap=tk.WORD)
+        self.text_widget.pack(expand=True, fill=tk.BOTH)
 
+        # Bind the keyboard shortcuts for undo and redo
+        self.bind("<Control-z>", self.undo)
+        self.bind("<Control-y>", self.redo)
 
-# Convert string to list
-list_from_string = ast.literal_eval(match)
+    def undo(self, event=None):
+        try:
+            self.text_widget.edit_undo()
+        except tk.TclError:
+            pass
 
-# Print the resulting list
-print(list_from_string)
+    def redo(self, event=None):
+        try:
+            self.text_widget.edit_redo()
+        except tk.TclError:
+            pass
+
+if __name__ == "__main__":
+    editor = TextEditor()
+    editor.mainloop()

@@ -685,7 +685,7 @@ def Entity_Extraction(document_widget, widget=None, delete_hist=True):
             )
             # widget.config(state=tk.NORMAL)
 
-            Recording_entity = '\n------------------------ EXTRACTED ENTITIES ------------------------ \n\n'
+            Recording_entity = ''
             found_entities = []
             print('result["entity"].items() :', len(result["entity"].items()))
             for key, value in result["entity"].items():
@@ -697,7 +697,9 @@ def Entity_Extraction(document_widget, widget=None, delete_hist=True):
             if widget is not None:
                 if delete_hist:
                     widget.delete(1.0, tk.END)
+                widget.insert(tk.END, "\n------------------------ EXTRACTED ENTITIES ------------------------------------------- \n\n ", "ASR")
                 widget.insert(tk.END, Recording_entity + "\n\n")
+                widget.insert(tk.END, "\n--------------------------------------------------------------------------------------- \n\n ", "ASR")
                 widget.see(tk.END)  # Scroll to the end of the text widget
             else:
                 Recording_entity = Recording_entity
@@ -746,7 +748,7 @@ def D_Summary(widget1, widget=None, delete_hist=True):
         if len(document) < 5:
             return
         try:
-            Recording_summary = '\n\n------------------------ CONVERSATION SUMMARY ------------------------\n\n'
+            Recording_summary = ''
             summary_length = SummarizeParamsLength.LONG
             result = gradient.summarize(
                 document=document,
@@ -757,11 +759,12 @@ def D_Summary(widget1, widget=None, delete_hist=True):
                 widget.config(state=tk.NORMAL)
                 if delete_hist:
                     widget.delete(1.0, tk.END)
-                widget.insert(tk.END, '\n\n------------------------ CONVERSATION SUMMARY ------------------------\n', 'ASR')
+                widget.insert(tk.END, '\n\n------------------------ CONVERSATION SUMMARY -----------------------------------------------------\n\n', 'ASR')
                 widget.insert(tk.END, result['summary'] + '\n\n')
+                widget.insert(tk.END, '\n\n------------------------   --------------- ---------------------------------------------------------\n\n', 'ASR')
                 widget.see(tk.END)  # Scroll to the end of the text widget
             else:
-                Recording_summary += result['summary']
+                Recording_summary = result['summary']
 
 
         except Exception as e:
@@ -1089,6 +1092,27 @@ def GEMINI_LLMs():
             break
 
 
+def Medical_Information(text_widget, display_widget):
+    def run_Medical_Information(text_widget=text_widget, display_widget=display_widget):
+        global gem_Extract_model, closed
+        text = text_widget.get("1.0", "end")
+        while not closed:
+            try:
+                response = gem_Extract_model.generate_content(
+                    {'role': 'user',
+                     'parts': [text]}
+                )
+                data = response.text
+                data = data.replace("**", "")
+                data = "conversation: " + data.replace("*", "\t* ")
+                display_widget.insert(tk.END, "\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
+                display_widget.insert(tk.END, data)
+                display_widget.insert(tk.END, "\n-----------------------------------------------------------------------------\n", 'ASR')
+                break
+            except Exception as e:
+                time.sleep(3)
+
+    threading.Thread(target=run_Medical_Information).start()
 # =============================== Speech recognition Functions ==============================================================================================================
 
 def Initialize_VOSK():
@@ -1186,7 +1210,15 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         transcribe_audio(audio_frames[start_idx: end_idx], widget1)
                         # transcribe_audio(audio_frames, widget1)
                         widget2.delete(1.0, tk.END)
-                        widget2.insert(tk.END, Recording_entity + Recording_summary)
+
+                        if Recording_entity != "":
+                            widget2.insert(tk.END, "------------------------ EXTRACTED ENTITIES ------------------------------------------- \n", "ASR")
+                            widget2.insert(tk.END, Recording_entity)
+                        if Recording_summary != "":
+                            widget2.insert(tk.END, "------------------------ CONVERSATION SUMMARY ------------------------------------------- \n", "ASR")
+                            widget2.insert(tk.END, Recording_summary)
+
+                        Medical_Information(widget1, widget2)
                         pos = 0
 
                     pos += 1
@@ -2674,6 +2706,7 @@ def Main_Page(widget):
     t2 = tk.Text(paned_window, bg=bg_color, fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
     t2.tag_configure("error_config", foreground="#CD5C5C", justify=tk.LEFT)  # t2.place(relheight=0.25, relwidth=0.75, rely=0.74, relx=0.0253)
     t3 = tk.Text(paned_window, bg=darken_hex_color(bg_color), fg=fg_color, relief=tk.SUNKEN, wrap="word", font=("Times New Roman", 13), borderwidth=4, border=1)
+    t3.tag_configure("ASR", foreground="gray", font=("Broadway"))
     text_list_widget.append(t3)
 
     paned_window.add(t1)
@@ -2779,7 +2812,11 @@ def Main_Page(widget):
     Summary_wid.place(relheight=0.02, relwidth=0.041, rely=0.79, relx=0.821)
     change_fg_OnHover(Summary_wid, 'red', fg_color)
 
+    Medical_Info = tk.Button(chatbot_widget, text='≅Medical_Info', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Medical_Information(t2, t3))
+    Medical_Info.place(relheight=0.02, relwidth=0.05, rely=0.79, relx=0.863)
+    change_fg_OnHover(Summary_wid, 'red', fg_color)
 
+    #Medical_Information(text_widget, display_widget)
 
     Patient_Info_widget = tk.Frame(chatbot_widget, bg=bg_color, borderwidth=1, relief=tk.RAISED, border=1)
     Patient_Info_widget.place(relheight=0.13, relwidth=0.21, rely=0.81, relx=0.78)
@@ -2796,6 +2833,12 @@ def Main_Page(widget):
 
     Analysis = tk.Button(chatbot_widget, text='Analysis', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: create_floating_frame(t2))
     Analysis.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.78)
+
+    CLEAR_t_1_2 = tk.Button(chatbot_widget, text='Clear IN', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: (t1.delete(1.0, tk.END), t2.delete(1.0, tk.END)))
+    CLEAR_t_1_2.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.83)
+
+    CLEAR_t3 = tk.Button(chatbot_widget, text='Clear OUT', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda:  t3.delete(1.0, tk.END))
+    CLEAR_t3.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.88)
 
     # change_fg_OnHover(upload_audio_wid, 'red', fg_color)
 
@@ -3229,27 +3272,7 @@ def Recodes_Page(widget):
 
         return file_list
 
-    def Medical_Information(text_widget, display_widget):
-        def run_Medical_Information(text_widget=text_widget, display_widget=display_widget):
-            global gem_Extract_model, closed
-            text = text_widget.get("1.0", "end")
-            while not closed:
-                try:
-                    response = gem_Extract_model.generate_content(
-                        {'role': 'user',
-                         'parts': [text]}
-                    )
-                    data = response.text
-                    data = data.replace("**", "")
-                    data = "conversation: " + data.replace("*", "\t* ")
-                    display_widget.insert(tk.END, "\n\n------------ Extracted Medical Information ----------------------------------\n\n", 'ASR')
-                    display_widget.insert(tk.END, data)
-                    display_widget.insert(tk.END, "\n\n-----------------------------------------------------------------------------\n", 'ASR')
-                    break
-                except Exception as e:
-                    time.sleep(3)
 
-        threading.Thread(target=run_Medical_Information).start()
 
     tk.Label(Recodes_Page, text="Conversations Recordings", bg=bg_color, fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.SW, borderwidth=0, border=0).place(relheight=0.05, relwidth=0.3, rely=0, relx=0.02)
     refresh_btn = tk.Button(Recodes_Page, text="↺", bg=bg_color, activebackground=bg_color, activeforeground="green", command=lambda: refresh_recodings(frame, Audio_recodes_canvas), fg=fg_color, font=("Book Antiqua", font_size, 'bold'), anchor=tk.S, borderwidth=0, border=0)
