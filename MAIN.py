@@ -175,7 +175,7 @@ ref_btn = None
 text_list_widget = []
 floating_frame = None
 host_name = user_namem = password_key = database_name = None
-pause_output_live = None
+pause_output_live = False
 now_date = datetime.datetime.now()
 
 # ========================== CLASSES DEFINITIONS  ====================================================================================================
@@ -1133,6 +1133,7 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
     global closed, Recording, Recording_paused, Recording_data, vosk_model
     global fg_color, bg_color, miniute, second, hour
     global audio_frames, index
+    global pause_output_live
 
     def start_recording():
         global Recording
@@ -1211,14 +1212,15 @@ def RUN_OFFLINE_speech_recognition(widget, widget1=None, widget2=None, Record_bt
                         # transcribe_audio(audio_frames, widget1)
                         widget2.delete(1.0, tk.END)
 
-                        if Recording_entity != "":
-                            widget2.insert(tk.END, "------------------------ EXTRACTED ENTITIES ------------------------------------------- \n", "ASR")
-                            widget2.insert(tk.END, Recording_entity)
-                        if Recording_summary != "":
-                            widget2.insert(tk.END, "------------------------ CONVERSATION SUMMARY ------------------------------------------- \n", "ASR")
-                            widget2.insert(tk.END, Recording_summary)
+                        if not pause_output_live:
+                            if Recording_entity != "":
+                                widget2.insert(tk.END, "------------------------ EXTRACTED ENTITIES ------------------------------------------- \n", "ASR")
+                                widget2.insert(tk.END, Recording_entity)
+                            if Recording_summary != "":
+                                widget2.insert(tk.END, "------------------------ CONVERSATION SUMMARY ------------------------------------------- \n", "ASR")
+                                widget2.insert(tk.END, Recording_summary)
 
-                        Medical_Information(widget1, widget2)
+                            Medical_Information(widget1, widget2)
                         pos = 0
 
                     pos += 1
@@ -2785,10 +2787,14 @@ def Main_Page(widget):
 
     def pause(wid):
         global pause_output_live
-        if pause_output_live:
-            wid.config(text="Continue")
-        else:
+        widg_text = widget.cget("text")
+        if widg_text == "Continue":
             wid.config(text="Pause")
+            pause_output_live = False
+
+        else:
+            wid.config(text="Continue")
+            pause_output_live = True
 
 
 
@@ -2852,8 +2858,8 @@ def Main_Page(widget):
     CLEAR_t3 = tk.Button(chatbot_widget, text='Clear OUT', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda:  t3.delete(1.0, tk.END))
     CLEAR_t3.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.88)
 
-    UNDO_t2 = tk.Button(chatbot_widget, text='pause', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: pause(UNDO_t2))
-    UNDO_t2.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.93)
+    Pause_t3 = tk.Button(chatbot_widget, text='Pause', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: pause(Pause_t3))
+    Pause_t3.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.93)
 
     #REDO_t2 = tk.Button(chatbot_widget, text='Redo', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: redo(t2))
     #REDO_t2.place(relheight=0.03, relwidth=0.05, rely=0.95, relx=0.98)
