@@ -1841,7 +1841,7 @@ def text_pdf_save(btn_widget, widgets: list):
     threading.Thread(target=text_pdf_save_run).start()
 
 
-def Save_CN_NOTE(wid, file_Name):
+def Export_to_TXT_file(wid, file_Name):
     def run_Save_CN_NOTE(wid=wid, file_Name= file_Name):
         folder_selected = filedialog.askdirectory()
         if folder_selected:
@@ -2836,6 +2836,11 @@ def Main_Page(widget):
     upload_audio_wid_btn = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
     upload_audio_wid_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
+    Export_Conv = tk.Button(chatbot_widget, text='EXPORT', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
+    Export_Conv.place(relheight=0.03, relwidth=0.04, rely=0.751, relx=0.9221)
+
+    Export_to_TXT_file
+
     extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
     change_fg_OnHover(extract_wid, 'red', fg_color)
@@ -3114,7 +3119,7 @@ def Clinical_Image(widget):
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="Change View", command=lambda: Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
     tk.Button(Clinical_widg_page, text="Clear", command=lambda: clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
-    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Save_CN_NOTE(Display_text_, "clinical_Note_export.txt")).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
+    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Export_to_TXT_file(Display_text_, "clinical_Note_export.txt")).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
 
     return Clinical_widg_page
 

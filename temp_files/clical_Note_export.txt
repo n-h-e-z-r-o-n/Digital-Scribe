@@ -1,0 +1,8 @@
+| Field | Value |
+|-------|-------|
+| Product | 50MCG TABLETS |
+| Instructions | TAKE ONE TABLET BY EVERY DAY |
+| Quantity | QTY90 |
+| Date | Fied12-01-2019 |
+
+ Based on the data extracted from the image, the instruction is for a human to take one tablet of 50MCG every day for a total of 90 tablets. The instruction was issued on 12-01-2019.
