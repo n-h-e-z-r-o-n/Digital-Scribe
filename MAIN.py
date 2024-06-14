@@ -1841,7 +1841,7 @@ def text_pdf_save(btn_widget, widgets: list):
     threading.Thread(target=text_pdf_save_run).start()
 
 
-def Export_to TXTSave_CN_NOTE(wid, file_Name):
+def Save_CN_NOTE(wid, file_Name):
     def run_Save_CN_NOTE(wid=wid, file_Name= file_Name):
         folder_selected = filedialog.askdirectory()
         if folder_selected:
@@ -3114,7 +3114,7 @@ def Clinical_Image(widget):
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="Change View", command=lambda: Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
     tk.Button(Clinical_widg_page, text="Clear", command=lambda: clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
-    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Save_CN_NOTE(Display_text_, clinical_Note_export.txt)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
+    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Save_CN_NOTE(Display_text_, "clinical_Note_export.txt")).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
 
     return Clinical_widg_page
 
