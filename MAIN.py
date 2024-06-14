@@ -2836,10 +2836,8 @@ def Main_Page(widget):
     upload_audio_wid_btn = tk.Button(chatbot_widget, text='⤒', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
     upload_audio_wid_btn.place(relheight=0.03, relwidth=0.02, rely=0.751, relx=0.902)
 
-    Export_Conv = tk.Button(chatbot_widget, text='EXPORT', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 22), bg=bg_color, borderwidth=0, border=0, command=lambda: upload_audio_file(t1, upload_audio_wid_btn))
+    Export_Conv = tk.Button(chatbot_widget, text='EXPORT', fg=fg_color, activeforeground=fg_color, activebackground=bg_color, font=("Georgia", 12), bg=bg_color, borderwidth=0, border=0, command=lambda: Export_to_TXT_file(t2, "Conversation.txt"))
     Export_Conv.place(relheight=0.03, relwidth=0.04, rely=0.751, relx=0.9221)
-
-    Export_to_TXT_file
 
     extract_wid = tk.Button(chatbot_widget, text='⎋ Extract', fg=fg_color, activeforeground=fg_color, font=("Bauhaus 93", font_size - 5), activebackground=bg_color, bg=bg_color, borderwidth=0, border=0, command=lambda: Entity_Extraction(t2, t3))
     extract_wid.place(relheight=0.02, relwidth=0.04, rely=0.79, relx=0.78)
