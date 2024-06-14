@@ -1841,6 +1841,13 @@ def text_pdf_save(btn_widget, widgets: list):
     threading.Thread(target=text_pdf_save_run).start()
 
 
+def Export_to TXTSave_CN_NOTE(wid, file_Name):
+    def run_Save_CN_NOTE(wid=wid, file_Name= file_Name):
+        folder_selected = filedialog.askdirectory()
+        if folder_selected:
+            with open(f'{folder_selected}/{file_Name}', 'w') as file:
+                file.write(wid.get("1.0", "end"))
+    threading.Thread(target=run_Save_CN_NOTE ).start()
 # -------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 def lighten_hex_color(hex_color, factor=0.2):
@@ -3090,13 +3097,7 @@ def Clinical_Image(widget):
         web_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
         text_tk_widg.delete(1.0, tk.END)
 
-    def Save_CN_NOTE(wid):
-        def run_Save_CN_NOTE(wid=wid):
-            folder_selected = filedialog.askdirectory()
-            if folder_selected:
-                with open(f'{folder_selected}/clinical_Note_export.txt', 'w') as file:
-                    file.write(wid.get("1.0", "end"))
-        threading.Thread(target=run_Save_CN_NOTE ).start()
+
 
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
@@ -3113,7 +3114,7 @@ def Clinical_Image(widget):
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="Change View", command=lambda: Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
     tk.Button(Clinical_widg_page, text="Clear", command=lambda: clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
-    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Save_CN_NOTE(Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
+    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Save_CN_NOTE(Display_text_, clinical_Note_export.txt)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
 
     return Clinical_widg_page
 
