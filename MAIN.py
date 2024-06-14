@@ -281,7 +281,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             data = json.loads(post_data.decode('utf-8'))
 
             received_data = data.get('data')  # Extract the data received from the HTML form
-            print("Data received from HTML:", received_data)
+            #print("Data received from HTML:", received_data)
 
             if received_data.startswith("image_Bit"):
                 received_data = received_data.replace("image_Bit", '')
@@ -384,7 +384,7 @@ def title_bar_color(window, color):
 
 def change_color(widget, button):
     global bg_color, fg_color, fg_hovercolor, bg_hovercolor, current_theme, nav_bg, nav_widg
-    global root
+    global root, floating_frame
     button_text = button.cget("text")
     print("color_change: ", button_text)
     if button_text == 'window(light)':
@@ -413,7 +413,6 @@ def change_color(widget, button):
         bg_color = '#555D50'
         fg_color = 'white'
         current_theme = 'window(dark_green)'
-        title_bar_color(bg_color)
         nav_bg = bg_color
 
     elif button_text == 'window(dark_green)':
@@ -575,6 +574,7 @@ def change_color(widget, button):
 
     modify_css()
     title_bar_color(root, bg_color)
+    title_bar_color(floating_frame, bg_color)
     threading.Thread(target=change_all).start()
 
 
@@ -1574,71 +1574,78 @@ def image_text_extract_Handwriten(view_wid, displ_widg):
         if llm_chain2 == None:
             llm_inference_initializ()
 
-    threading.Thread(target=run1).start()
+    def run_image_text_extract_Handwriten(view_wid=view_wid, displ_widg=displ_widg):
+        global ocr_model, extraced_img_data, llm_chain2, proccessed_img_url
 
-    global ocr_model, extraced_img_data, llm_chain2, proccessed_img_url
+        threading.Thread(target=run1).start()
+        view_wid.load_url('file:///' + path_exe + "./html/load_anmation2.html")
+        print("error loading Html")
+        file_url = "file:///" + os.getcwd()
 
-    view_wid.load_url('file:///' + path_exe + "/html/load_anmation2.html")
-    file_url = "file:///" + os.getcwd()
 
-    if proccessed_img_url != None:
+        if proccessed_img_url != None:
 
-        file_path = proccessed_img_url
-        proccessed_img_url = None
-    else:
-        filetypes = [("Images", "*.png;*.jpg")]
-        file_path = filedialog.askopenfilename(filetypes=filetypes)
+            file_path = proccessed_img_url
+            proccessed_img_url = None
+        else:
+            filetypes = [("Images", "*.png;*.jpg")]
+            file_path = filedialog.askopenfilename(filetypes=filetypes)
 
-    if file_path:
-        image_path = rf"{file_path}"
-        result = ocr_model.ocr(image_path)
+        if file_path:
+            image_path = rf"{file_path}"
+            result = ocr_model.ocr(image_path)
 
-        boxes = [res[0] for res in result[0]]  #
-        texts = [res[1][0] for res in result[0]]
-        scores = [res[1][1] for res in result[0]]
+            boxes = [res[0] for res in result[0]]  #
+            texts = [res[1][0] for res in result[0]]
+            scores = [res[1][1] for res in result[0]]
 
-        text = ''
-        for idx in range(len(result)):
-            res = result[idx]
-            for line in res:
-                text += line[1][0] + "\n"
-        extraced_img_data = text
-        print(text)
+            text = ''
+            for idx in range(len(result)):
+                res = result[idx]
+                for line in res:
+                    text += line[1][0] + "\n"
+            extraced_img_data = text
+            #print(text)
 
-        displ_widg.delete(1.0, tk.END)
+            displ_widg.delete(1.0, tk.END)
 
-        try:
-            Question1 = f"""extracted data from an image: "{text}"
-                    Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
-                """
-            Answer = llm_chain2.invoke(input=f"{str(Question1)}")
-            Answer2 = llm_chain2.invoke(input=f"{str(text)}")
-            llm_analysis = Answer['text']
-            extraced_img_data = llm_analysis
-            llm_analysis = llm_analysis + '\n\n' + Answer2['text']
-            view_data_update()
-        except Exception as e:
-            llm_analysis = extraced_img_data
-            view_data_update()
+            try:
+                Question1 = f"""extracted data from an image: "{text}"
+                        Dont explain the data, just analyze the extracted data and present it in a formatted way eg a table or a list. 
+                    """
+                Answer = llm_chain2.invoke(input=f"{str(Question1)}")
+                Answer2 = llm_chain2.invoke(input=f"{str(text)}")
+                llm_analysis = Answer['text']
+                extraced_img_data = llm_analysis
+                llm_analysis = llm_analysis + '\n\n' + Answer2['text']
+                view_data_update()
+            except Exception as e:
+                llm_analysis = extraced_img_data
+                view_data_update()
 
-        displ_widg.insert(tk.END, llm_analysis)
+            displ_widg.insert(tk.END, llm_analysis)
 
-        font_path = "./Assets/latin.ttf"
 
-        image = Image.open(image_path).convert('RGB')
-        annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
 
-        # show the image using matplotlib
+            font_path = "./Assets/latin.ttf"
 
-        im_show = Image.fromarray(annotated)
-        im_show.save('./temp_files/extraced_img.jpg')
-        file_url += "\\temp_files\\extraced_img.jpg"
+            image = Image.open(image_path).convert('RGB')
+            annotated = draw_ocr(image, boxes, texts, scores, font_path=font_path)
 
-        print(file_url)
-        view_wid.load_url(file_url)
-    else:
-        displ_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
+            # show the image using matplotlib
 
+            im_show = Image.fromarray(annotated)
+            im_show.save('./temp_files/extraced_img.jpg')
+            file_url += "\\temp_files\\extraced_img.jpg"
+
+            print(file_url)
+            view_wid.load_url(file_url)
+        else:
+            displ_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
+
+    view_wid.load_url('file:///' + path_exe + "./html/load_anmation2.html")
+    run_image_text_extract_Handwriten()
+    #threading.Thread(target=run_image_text_extract_Handwriten).start()
 
 # =============================== scroll Functions definition ===============================================================================================================
 
@@ -3083,6 +3090,14 @@ def Clinical_Image(widget):
         web_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
         text_tk_widg.delete(1.0, tk.END)
 
+    def Save_CN_NOTE(wid):
+        def run_Save_CN_NOTE(wid=wid):
+            folder_selected = filedialog.askdirectory()
+            if folder_selected:
+                with open(f'{folder_selected}/clinical_Note_export.txt', 'w') as file:
+                    file.write(wid.get("1.0", "end"))
+        threading.Thread(target=run_Save_CN_NOTE ).start()
+
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -3098,6 +3113,7 @@ def Clinical_Image(widget):
     clinical_Note_upload_btn.place(relheight=0.02, relwidth=0.05, rely=0, relx=0.)
     tk.Button(Clinical_widg_page, text="Change View", command=lambda: Analyzed_Output_(display_img)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.05)
     tk.Button(Clinical_widg_page, text="Clear", command=lambda: clear_dd(display_img, Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.1)
+    tk.Button(Clinical_widg_page, text="Export txt", command=lambda: Save_CN_NOTE(Display_text_)).place(relheight=0.02, relwidth=0.05, rely=0, relx=0.15)
 
     return Clinical_widg_page
 
@@ -3486,11 +3502,11 @@ def Document_Management_page(widget):
     style = ttk.Style()
 
     # Configure the Treeview style
-    style.configure("Treeview", background=bg_color, foreground=fg_color, fieldbackground=bg_color, )
-    style.map("Treeview", background=[("selected", "blue")])
+    #style.configure("Treeview", background=bg_color, foreground=fg_color, fieldbackground=bg_color, )
+    #style.map("Treeview", background=[("selected", "blue")])
 
     # Create a scrollable treeview to display the documents
-    document_tree = ttk.Treeview(document_frame, style="Treeview")
+    document_tree = ttk.Treeview(document_frame)
     document_tree["columns"] = ("name", "size", "date")
     document_tree.column("#0", width=200)
     document_tree.column("name", width=200, anchor="w")
@@ -3914,7 +3930,7 @@ def main():
     title_bar_color(root, bg_color)
 
     Welcome_Page(root)
-    print("main started 2")
+
 
     try:
         with open('./Data_Raw/CUR_user.json', 'r') as openfile:  # Reading from json file
@@ -3944,13 +3960,18 @@ def main():
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
+def go():
+    try:
+        main()
+    except Exception as e:
+        print(e)
 
 if __name__ == "__main__":
-    main()
+    #main()
 
-    """
+    #"""
         t = System_Thread(ThreadStart(go))
         t.ApartmentState = ApartmentState.STA
         t.Start()
         t.Join()
-        """
+    # """
