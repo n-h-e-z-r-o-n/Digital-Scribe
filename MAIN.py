@@ -362,24 +362,29 @@ def run_server():
 # --------------------------------- Themes --------------------------------------------------------------------------------------------------------
 def title_bar_color(window, color):
     # import ctypes as ct
-    window.update()
-    if color.startswith('#'):
-        blue = color[5:7]
-        green = color[3:5]
-        red = color[1:3]
-        color = blue + green + red
-    else:
-        blue = color[4:6]
-        green = color[2:4]
-        red = color[0:2]
-        color = blue + green + red
-    get_parent = ct.windll.user32.GetParent
-    HWND = get_parent(window.winfo_id())
+    try:
+        window.update()
+        if color.startswith('#'):
+            blue = color[5:7]
+            green = color[3:5]
+            red = color[1:3]
+            color = blue + green + red
+        else:
+            blue = color[4:6]
+            green = color[2:4]
+            red = color[0:2]
+            color = blue + green + red
+        get_parent = ct.windll.user32.GetParent
+        HWND = get_parent(window.winfo_id())
 
-    color = '0x' + color
-    color = int(color, 16)
+        color = '0x' + color
+        color = int(color, 16)
 
-    ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
+        ct.windll.dwmapi.DwmSetWindowAttribute(HWND, 35, ct.byref(ct.c_int(color)), ct.sizeof(ct.c_int))
+
+    except Exception as e:
+        print("title_bar_color fun error : ", e)
+
 
 
 def change_color(widget, button):
@@ -3100,8 +3105,6 @@ def Clinical_Image(widget):
         web_widg.load_url('file:///' + path_exe + "/html/Load_img_request.html")
         text_tk_widg.delete(1.0, tk.END)
 
-
-
     Clinical_widg_page = tk.Frame(widget, bg=bg_color, borderwidth=0, border=0)
     Clinical_widg_page.place(relheight=1, relwidth=1, rely=0, relx=0)
 
@@ -3647,6 +3650,35 @@ def EHR_integration_page(widget):
     status_widg.place(relheight=0.02, relwidth=0.05, rely=0.2, relx=0.13)
     threading.Thread(target=visual_connection_status, args=(status_widg,)).start()
 
+    info_ehr = """
+Welcome! Follow these steps to connect our system to your Electronic Health Record (EHR) system.
+Configure Connection Settings:
+        - Go to the Settings section of our system.
+        - Navigate to EHR Integration.
+        - Enter the access credentials provided by your EHR system administrator.
+    
+Test the Connection:
+        - After entering the credentials, click on the Run Connection button.
+        - Ensure that the connection is successful. If you encounter any errors, double-check the entered credentials and try again.
+    
+Enable Data Sync:
+        - Once the connection is successful, enable data synchronization by toggling the Data Sync option.
+        - Select the data types you wish to sync (e.g., patient records, appointments, medical histories).
+        
+Schedule Automatic Sync:
+        
+        - Set up a schedule for automatic data synchronization.
+        - Choose the frequency (e.g., hourly, daily) and the time when the sync should occur.
+Review and Confirm:
+        - Review the connection settings and synchronization options.
+        - Click Save to confirm and activate the connection.
+    """
+
+    info_ehr_wid = tk.Text(EHR_page_container, relief=tk.RAISED, bg=bg_color, fg=darken_hex_color(bg_color),  borderwidth=0, border=1, font=("Courier New", 11))
+    info_ehr_wid.place(relheight=0.6, relwidth=0.5, rely=0.3, relx=0.03)
+    info_ehr_wid.insert(tk.END, info_ehr)
+    info_ehr_wid.config(state=tk.DISABLED)
+
     E_nav = tk.Frame(EHR_page_container, bg=bg_color)
     E_nav.place(relheight=0.02, relwidth=0.4, rely=0.03, relx=0.59)
 
@@ -3964,11 +3996,13 @@ def main():
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
 
+
 def go():
     try:
         main()
     except Exception as e:
         print(e)
+
 
 if __name__ == "__main__":
     #main()
